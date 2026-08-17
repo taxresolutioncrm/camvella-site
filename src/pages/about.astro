@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+<BaseLayout
+  title="About Camvella — HOA Management Software"
+  description="Camvella is HOA management software built for professional community association management companies. Purpose-built, not adapted."
+>
+  <div style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-16); background: var(--clr-navy); color: white;">
+    <div class="container">
+      <h1 style="font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; max-width: 22ch; margin-bottom: var(--space-5); line-height: 1.1;">Built for HOA professionals. Not adapted for them.</h1>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 56ch; line-height: 1.65;">Camvella was built from the ground up for professional community association management companies — the firms that manage HOAs as their primary business, not as an add-on to a residential portfolio.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <h2 class="section__headline">Why Camvella exists</h2>
+      <div style="font-size: var(--text-base); color: var(--clr-text-mid); line-height: 1.75; display: flex; flex-direction: column; gap: var(--space-5); margin-top: var(--space-6);">
+        <p>The HOA management software market has two extremes. On one end: platforms like Vantaca, built for large CAM companies managing hundreds of communities, with 30-day implementations and enterprise pricing that puts them out of reach for most operators. On the other end: tools like PayHOA, built for volunteer boards self-managing a single association.</p>
+        <p>The professional management company managing 5 to 50 communities — the firm that runs HOA management as a real business — has been underserved. The platforms available were either too heavy, too expensive, too shallow, or adapted from rental property software that never quite fit the HOA workflow.</p>
+        <p>Camvella is built specifically for that company. Full financial accounting that reflects how HOA fund accounting actually works. Violations, ARC, work orders, board operations, and a resident portal that doesn't require IT to configure. Onboarding measured in days, not months. Transparent pricing without transaction fees.</p>
+        <p>Every feature in Camvella was designed for the team that's managing real communities for real boards and real residents — and needs software that keeps up with the actual work.</p>
+      </div>
+
+      <div style="margin-top: var(--space-12); padding: var(--space-8); background: var(--clr-surface); border-radius: var(--radius-xl); border-left: 4px solid var(--clr-amber);">
+        <p style="font-size: var(--text-lg); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-2);">The product we won't build</p>
+        <p style="font-size: var(--text-sm); color: var(--clr-text-mid); line-height: 1.65;">Camvella does not advertise features that aren't built. No native iOS or Android app exists — Camvella is a responsive web application. Payment processing integrations, amenity reservations, and a vendor portal are on the roadmap. If a feature isn't in the product, it's not on the website.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: white; margin-bottom: var(--space-4);">See it for your company.</h2>
+      <p style="color: rgba(255 255 255 / 0.7); margin-bottom: var(--space-8); max-width: 48ch; margin-left: auto; margin-right: auto;">Book a personalized demo and we'll walk through your communities, your team structure, and how Camvella handles your day-to-day.</p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
+    </div>
+  </section>
+</BaseLayout>

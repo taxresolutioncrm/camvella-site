@@ -2,20 +2,40 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 ---
 <BaseLayout
-  title="Board Portal | Camvella HOA Software"
-  description="Camvella HOA management — board portal feature details. Book a demo to see it in action."
+  title="HOA Board Portal Software | Camvella"
+  description="HOA board management software. Meetings, agendas, resolutions, minutes, financial reports — in a board portal your board members will actually use."
 >
   <div style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-8); background: var(--clr-navy); color: white;">
     <div class="container">
-      <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; max-width: 22ch; margin-bottom: var(--space-5); line-height: 1.1; color: white;">Board Portal</h1>
-      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 52ch; margin-bottom: var(--space-8); line-height: 1.65;">Full details on this feature are available in a personalized demo. Book a walkthrough to see exactly how it works for your management company.</p>
+      <p style="font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clr-amber-light); margin-bottom: var(--space-3);">Board Portal</p>
+      <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; max-width: 22ch; margin-bottom: var(--space-5); line-height: 1.1;">No more spreadsheets emailed before board meetings.</h1>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 52ch; margin-bottom: var(--space-8); line-height: 1.65;">Board meeting management, resolutions, minutes, and live financial reports — in one portal your board members can access from any device.</p>
       <a href="/demo" class="btn btn--primary btn--lg" data-event="feature_page_cta_click">Book a Demo</a>
     </div>
   </div>
   <section class="section">
-    <div class="container container--narrow" style="text-align: center;">
-      <p style="font-size: var(--text-lg); color: var(--clr-text-soft); line-height: 1.65; margin-bottom: var(--space-8);">This page is being built. For detailed feature information, book a demo and we'll walk you through everything live.</p>
-      <a href="/product" class="btn btn--dark">See Product Overview</a>
+    <div class="container">
+      <div class="feature-grid">
+        {[
+          { title: "Meeting Management", body: "Schedule meetings, build agendas, track attendance, and archive past meetings. Full meeting lifecycle from scheduled through minutes approved." },
+          { title: "Agendas & Documents", body: "Attach documents to meeting agendas. Board members access everything before the meeting — no email attachments." },
+          { title: "Resolutions & Voting", body: "Record board resolutions with formal vote tracking. Who voted yes, no, or abstained — archived permanently." },
+          { title: "Minutes Drafting", body: "AI-assisted minutes drafting from meeting notes. Your manager reviews and finalizes before board approval." },
+          { title: "Financial Reports", body: "Boards get read-only access to balance sheet, income statement, budget vs. actual, and AR aging — current as of today, not last month's email." },
+          { title: "Board Activity Report", body: "Open resolutions, upcoming meetings, recent decisions — everything your manager needs to brief a board member in 30 seconds." },
+        ].map(f => (
+          <div class="feature-card">
+            <h3 class="feature-card__title">{f.title}</h3>
+            <p class="feature-card__body">{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section section--dark">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: white; margin-bottom: var(--space-4);">See the board portal in your demo.</h2>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
     </div>
   </section>
 </BaseLayout>

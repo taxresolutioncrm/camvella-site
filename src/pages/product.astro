@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const modules = [
+  {
+    href: "/features/hoa-accounting",
+    label: "Financial Accounting",
+    desc: "Full HOA fund accounting: AR, AP, GL, balance sheet, budgeting. Purpose-built for assessment billing and HOA-specific financial reporting.",
+    built: true,
+  },
+  {
+    href: "/features/violations",
+    label: "Violations & Compliance",
+    desc: "Full violation lifecycle from creation through resolution. Notice generation, fine assessment, photo documentation, AI-assisted letters.",
+    built: true,
+  },
+  {
+    href: "/features/arc",
+    label: "ARC / Architectural Review",
+    desc: "Resident submission, management review, board voting panel, decision workflow, and document attachments.",
+    built: true,
+  },
+  {
+    href: "/features/work-orders",
+    label: "Work Orders & Maintenance",
+    desc: "Maintenance tracking from submission to completion. Vendor assignment, attachments, AI categorization.",
+    built: true,
+  },
+  {
+    href: "/features/communications",
+    label: "Communications",
+    desc: "Email and SMS to residents, owners, and boards. Templates, audience targeting, delivery tracking.",
+    built: true,
+  },
+  {
+    href: "/features/board-portal",
+    label: "Board Operations",
+    desc: "Meeting management, agendas, resolutions with vote tracking, minutes drafting, document storage. Board financial read-only views.",
+    built: true,
+  },
+  {
+    href: "/features/resident-portal",
+    label: "Resident Portal",
+    desc: "Mobile-first portal: violation status, ARC submissions, service requests, account statement, resident profile.",
+    built: true,
+  },
+  {
+    href: null,
+    label: "Vendors",
+    desc: "Vendor database, insurance and compliance tracking with expiry alerts, document management, work order assignment.",
+    built: true,
+  },
+  {
+    href: null,
+    label: "Reporting",
+    desc: "Violation activity, ARC history, work order status, vendor compliance, board activity, and communication delivery reports.",
+    built: true,
+  },
+  {
+    href: null,
+    label: "Automation",
+    desc: "Four pre-built automation templates: violation notice, reinspection reminder, ARC decision, work order completion.",
+    built: true,
+  },
+]
+---
+
+<BaseLayout
+  title="Camvella Product — HOA Management Software Overview"
+  description="Full overview of the Camvella HOA management platform. Violations, ARC, work orders, financials, board portal, resident portal, communications, and automation."
+>
+  <div style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-16); background: var(--clr-navy); color: white;">
+    <div class="container">
+      <h1 style="font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; max-width: 22ch; margin-bottom: var(--space-5); line-height: 1.1;">Everything your management company needs. In one system.</h1>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 52ch; line-height: 1.65;">Camvella covers the full operational and financial stack for professional community association management — not as a collection of disconnected tools, but as a single integrated platform where everything shares the same data.</p>
+    </div>
+  </div>
+
+  <section class="section" aria-labelledby="product-modules">
+    <div class="container">
+      <h2 class="visually-hidden" id="product-modules">Product modules</h2>
+      <div class="feature-grid">
+        {modules.map(mod => (
+          <div class="feature-card">
+            <h3 class="feature-card__title" style="display: flex; align-items: center; gap: var(--space-2);">
+              {mod.label}
+              {mod.built && (
+                <span style="font-size: var(--text-xs); font-weight: 600; color: var(--clr-success); background: rgba(16 185 129 / 0.1); padding: 2px 6px; border-radius: 4px;">Live</span>
+              )}
+            </h3>
+            <p class="feature-card__body" style="margin-bottom: var(--space-3);">{mod.desc}</p>
+            {mod.href && (
+              <a href={mod.href} style="font-size: var(--text-sm); font-weight: 600; color: var(--clr-navy);">Feature details →</a>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="product-arch">
+    <div class="container container--narrow" style="text-align: center;">
+      <p class="section__label">Architecture</p>
+      <h2 class="section__headline" id="product-arch">One database. Full isolation.</h2>
+      <p class="section__subhead" style="margin: var(--space-4) auto 0; text-align: center;">Every association's financials, residents, violations, and work orders are fully isolated from every other association — but your management team sees the whole portfolio in a single login. No switching between accounts. No duplicated work.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: white; margin-bottom: var(--space-4);">See it all in one demo.</h2>
+      <p style="color: rgba(255 255 255 / 0.7); margin-bottom: var(--space-8); max-width: 48ch; margin-left: auto; margin-right: auto;">A 30-minute walkthrough covers violations, financials, board operations, and the resident portal — against a real community.</p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
+    </div>
+  </section>
+</BaseLayout>

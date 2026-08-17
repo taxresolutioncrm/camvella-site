@@ -2,20 +2,44 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 ---
 <BaseLayout
-  title="Resident Portal | Camvella HOA Software"
-  description="Camvella HOA management — resident portal feature details. Book a demo to see it in action."
+  title="HOA Resident Portal | Camvella"
+  description="Mobile-first HOA resident portal. Violations, ARC requests, service requests, and account statements — self-service that reduces inbound calls to your office."
 >
   <div style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-8); background: var(--clr-navy); color: white;">
     <div class="container">
-      <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; max-width: 22ch; margin-bottom: var(--space-5); line-height: 1.1; color: white;">Resident Portal</h1>
-      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 52ch; margin-bottom: var(--space-8); line-height: 1.65;">Full details on this feature are available in a personalized demo. Book a walkthrough to see exactly how it works for your management company.</p>
+      <p style="font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clr-amber-light); margin-bottom: var(--space-3);">Resident Portal</p>
+      <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; max-width: 22ch; margin-bottom: var(--space-5); line-height: 1.1;">Residents who can answer their own questions stop calling yours.</h1>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 52ch; margin-bottom: var(--space-8); line-height: 1.65;">A mobile-first resident portal covering violations, ARC requests, service requests, and account statements. Built for the phone, not a desktop browser they might not have.</p>
       <a href="/demo" class="btn btn--primary btn--lg" data-event="feature_page_cta_click">Book a Demo</a>
     </div>
   </div>
   <section class="section">
-    <div class="container container--narrow" style="text-align: center;">
-      <p style="font-size: var(--text-lg); color: var(--clr-text-soft); line-height: 1.65; margin-bottom: var(--space-8);">This page is being built. For detailed feature information, book a demo and we'll walk you through everything live.</p>
-      <a href="/product" class="btn btn--dark">See Product Overview</a>
+    <div class="container">
+      <div class="feature-grid">
+        {[
+          { title: "Mobile-First Design", body: "The resident portal is designed for the phone first. 44px touch targets, native inputs, safe-area padding for modern iPhone notches. Not a shrunken desktop UI." },
+          { title: "Violation Status", body: "Residents see their open violations, their status, and what they need to do to resolve them. Fewer 'why am I getting fined?' calls." },
+          { title: "ARC Submission", body: "Residents submit architectural review requests with photos, description, and supporting files directly from the portal." },
+          { title: "Service Requests", body: "Residents report maintenance issues and track the status of their service requests from submission through completion." },
+          { title: "Account Statement", body: "Residents can view their account balance and statement history — assessments, payments, late fees, credits — without calling for a statement." },
+          { title: "Resident Profile", body: "Residents update their contact preferences, phone numbers, and communication preferences directly." },
+        ].map(f => (
+          <div class="feature-card">
+            <h3 class="feature-card__title">{f.title}</h3>
+            <p class="feature-card__body">{f.body}</p>
+          </div>
+        ))}
+      </div>
+      <div style="margin-top: var(--space-8); padding: var(--space-6); background: var(--clr-surface); border-radius: var(--radius-lg); border-left: 4px solid var(--clr-amber);">
+        <p style="font-size: var(--text-sm); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-2);">What we won't advertise</p>
+        <p style="font-size: var(--text-sm); color: var(--clr-text-mid); line-height: 1.65;">Camvella is a responsive web application. There is no separate native iOS or Android app available for download. The resident portal works on iOS Safari and Android Chrome — but it's a web app, not an App Store download.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section section--dark">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: white; margin-bottom: var(--space-4);">See the resident portal in your demo.</h2>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
     </div>
   </section>
 </BaseLayout>

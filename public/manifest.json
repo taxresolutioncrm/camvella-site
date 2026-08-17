@@ -1,0 +1,12 @@
+{
+  "name": "Camvella",
+  "short_name": "Camvella",
+  "description": "HOA management software for professional CAM companies",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0F1B2D",
+  "theme_color": "#0F1B2D",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

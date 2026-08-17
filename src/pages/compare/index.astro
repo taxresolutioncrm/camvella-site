@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const comparisons = [
+  { href: "/compare/cinc-alternatives", label: "CINC Alternatives", desc: "Looking for a more modern alternative to CINC? Here's how the options compare." },
+  { href: "/compare/vantaca-alternatives", label: "Vantaca Alternatives", desc: "Vantaca is built for large CAM companies. Here are the alternatives for smaller operators." },
+  { href: "/compare/camvella-vs-cinc", label: "Camvella vs CINC", desc: "Side-by-side comparison of Camvella and CINC across interface, ARC, pricing, and financial depth." },
+  { href: "/compare/camvella-vs-vantaca", label: "Camvella vs Vantaca", desc: "When to choose Vantaca and when Camvella is the better fit for your company." },
+  { href: "/compare/camvella-vs-buildium", label: "Camvella vs Buildium", desc: "Buildium is primarily residential. Here's how the HOA-specific depth compares." },
+  { href: "/compare/camvella-vs-appfolio", label: "Camvella vs AppFolio", desc: "AppFolio serves mixed portfolios. Here's what pure-play HOA managers gain with Camvella." },
+]
+---
+
+<BaseLayout
+  title="HOA Software Comparisons | Camvella"
+  description="Honest comparisons of Camvella against CINC, Vantaca, Buildium, and AppFolio. Every claim is factual and sourced."
+>
+  <div style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-8); background: var(--clr-navy); color: white;">
+    <div class="container">
+      <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; max-width: 22ch; margin-bottom: var(--space-4); line-height: 1.1;">Honest comparisons.</h1>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 54ch; line-height: 1.65;">Every claim in these comparisons is factual, sourced from vendor documentation or verified user reviews. We acknowledge where competitors are genuinely better — and show where Camvella fits.</p>
+    </div>
+  </div>
+
+  <section class="section" aria-labelledby="compare-headline">
+    <div class="container">
+      <h2 class="visually-hidden" id="compare-headline">Comparison pages</h2>
+      <div class="feature-grid">
+        {comparisons.map(c => (
+          <a href={c.href} class="feature-card" style="text-decoration: none; display: block;">
+            <h3 class="feature-card__title">{c.label}</h3>
+            <p class="feature-card__body">{c.desc}</p>
+            <p style="font-size: var(--text-sm); font-weight: 600; color: var(--clr-navy); margin-top: var(--space-3);">Read comparison →</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

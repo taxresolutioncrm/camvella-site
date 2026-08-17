@@ -1,17 +1,12 @@
 import { defineConfig } from 'astro/config'
 import react from '@astrojs/react'
-import sitemap from '@astrojs/sitemap'
+
+// Sitemap generated manually at /public/sitemap.xml for Phase 1
+// Will integrate @astrojs/sitemap once version compatibility is resolved
 
 export default defineConfig({
   site: 'https://camvella.com',
-  integrations: [
-    react(),
-    sitemap({
-      filter: (page) =>
-        !page.includes('/demo/thank-you') &&
-        !page.includes('/404'),
-    }),
-  ],
+  integrations: [react()],
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto',

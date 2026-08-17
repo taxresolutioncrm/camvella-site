@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout
+  title="Contact Camvella"
+  description="Get in touch with the Camvella team. Sales questions, support, or general inquiries."
+>
+  <div style="padding-top: 64px; min-height: 80vh; background: var(--clr-surface);">
+    <div class="container" style="padding-top: var(--space-16); padding-bottom: var(--space-16); max-width: 600px;">
+      <h1 style="font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; color: var(--clr-navy); margin-bottom: var(--space-4);">Get in touch.</h1>
+      <p style="font-size: var(--text-lg); color: var(--clr-text-soft); margin-bottom: var(--space-10); line-height: 1.65;">Sales questions, support, partnerships, or anything else — we respond within one business day.</p>
+
+      <form
+        id="contact-form"
+        action="https://formspree.io/f/placeholder"
+        method="POST"
+        novalidate
+        aria-label="Contact form"
+        style="background: white; padding: var(--space-8); border-radius: var(--radius-xl); border: 1px solid var(--clr-border); box-shadow: var(--shadow-sm);"
+      >
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="c_first">First name <span aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="c_first" name="first_name" required autocomplete="given-name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="c_last">Last name <span aria-hidden="true">*</span></label>
+            <input class="form-input" type="text" id="c_last" name="last_name" required autocomplete="family-name" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="c_email">Email <span aria-hidden="true">*</span></label>
+          <input class="form-input" type="email" id="c_email" name="email" required inputmode="email" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="c_subject">Subject <span aria-hidden="true">*</span></label>
+          <select class="form-select" id="c_subject" name="subject" required>
+            <option value="">Select one</option>
+            <option value="sales">Sales / Demo request</option>
+            <option value="support">Product support</option>
+            <option value="partnership">Partnership inquiry</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="c_message">Message <span aria-hidden="true">*</span></label>
+          <textarea class="form-textarea" id="c_message" name="message" required rows="5"></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary" style="width: 100%;" data-event="contact_form_submit">
+          Send Message
+        </button>
+      </form>
+
+      <div style="margin-top: var(--space-8); text-align: center;">
+        <p style="font-size: var(--text-sm); color: var(--clr-text-soft);">Looking to request a demo? <a href="/demo" style="color: var(--clr-navy); font-weight: 600;">Use the demo form →</a></p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

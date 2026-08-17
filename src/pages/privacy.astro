@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+const updated = "August 17, 2026"
+---
+
+<BaseLayout
+  title="Privacy Policy — Camvella"
+  description="Camvella privacy policy — how we collect, use, and protect your information."
+>
+  <div style="padding-top: 64px;">
+    <div class="container container--narrow" style="padding-top: var(--space-16); padding-bottom: var(--space-16);">
+      <h1 style="font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; color: var(--clr-navy); margin-bottom: var(--space-2);">Privacy Policy</h1>
+      <p style="font-size: var(--text-sm); color: var(--clr-text-soft); margin-bottom: var(--space-10);">Last updated: {updated}</p>
+
+      <div style="display: flex; flex-direction: column; gap: var(--space-8); font-size: var(--text-base); color: var(--clr-text-mid); line-height: 1.75;">
+        <section aria-labelledby="priv-1">
+          <h2 id="priv-1" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">Information we collect</h2>
+          <p>When you request a demo or contact us, we collect your name, email address, company name, and the information you provide in forms. When you use Camvella as a customer, we store the data you input into the platform — association records, unit information, owner and resident contact details, financial records, and operational data — on your behalf.</p>
+        </section>
+
+        <section aria-labelledby="priv-2">
+          <h2 id="priv-2" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">How we use it</h2>
+          <p>We use contact information to respond to demo requests and sales inquiries. We use customer data solely to provide the Camvella service. We do not sell personal information. We do not share customer data with third parties for advertising purposes.</p>
+        </section>
+
+        <section aria-labelledby="priv-3">
+          <h2 id="priv-3" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">Data storage and security</h2>
+          <p>Camvella is hosted on Supabase with row-level security enforced on all data. Data is encrypted in transit (TLS 1.3) and at rest. Customer data is isolated by organization — no management company can access another company's data.</p>
+        </section>
+
+        <section aria-labelledby="priv-4">
+          <h2 id="priv-4" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">Your data rights</h2>
+          <p>You may request access to, correction of, or deletion of your personal information by contacting us at <a href="mailto:privacy@camvella.com" style="color: var(--clr-navy);">privacy@camvella.com</a>. Customers who cancel their Camvella subscription may request a data export before account closure.</p>
+        </section>
+
+        <section aria-labelledby="priv-5">
+          <h2 id="priv-5" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">Analytics</h2>
+          <p>This website uses Google Analytics 4 and Microsoft Clarity to understand how visitors use the site. These tools collect anonymized usage data. You may opt out via your browser settings or the Google Analytics opt-out extension.</p>
+        </section>
+
+        <section aria-labelledby="priv-6">
+          <h2 id="priv-6" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">Contact</h2>
+          <p>Questions about this policy: <a href="mailto:privacy@camvella.com" style="color: var(--clr-navy);">privacy@camvella.com</a></p>
+        </section>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

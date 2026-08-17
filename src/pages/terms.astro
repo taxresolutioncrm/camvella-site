@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+const updated = "August 17, 2026"
+---
+
+<BaseLayout
+  title="Terms of Service — Camvella"
+  description="Camvella terms of service — the agreement governing use of the Camvella HOA management platform."
+>
+  <div style="padding-top: 64px;">
+    <div class="container container--narrow" style="padding-top: var(--space-16); padding-bottom: var(--space-16);">
+      <h1 style="font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; color: var(--clr-navy); margin-bottom: var(--space-2);">Terms of Service</h1>
+      <p style="font-size: var(--text-sm); color: var(--clr-text-soft); margin-bottom: var(--space-10);">Last updated: {updated}</p>
+
+      <div style="display: flex; flex-direction: column; gap: var(--space-8); font-size: var(--text-base); color: var(--clr-text-mid); line-height: 1.75;">
+        <section aria-labelledby="tos-1">
+          <h2 id="tos-1" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">Acceptance of terms</h2>
+          <p>By accessing or using Camvella ("Service"), you agree to these Terms of Service. If you are entering into this agreement on behalf of a company, you represent that you have authority to bind that company. If you do not agree, do not use the Service.</p>
+        </section>
+
+        <section aria-labelledby="tos-2">
+          <h2 id="tos-2" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">Service description</h2>
+          <p>Camvella is a software-as-a-service platform for professional community association management companies. We provide tools for property management, financial accounting, communications, and related functions. The Service is provided "as is" and we reserve the right to modify features.</p>
+        </section>
+
+        <section aria-labelledby="tos-3">
+          <h2 id="tos-3" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">Your data</h2>
+          <p>You retain ownership of all data you input into Camvella. We process your data solely to provide the Service. You are responsible for ensuring that your use of Camvella complies with applicable privacy laws, including with respect to the personal information of your clients and their residents.</p>
+        </section>
+
+        <section aria-labelledby="tos-4">
+          <h2 id="tos-4" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">Payment and cancellation</h2>
+          <p>Subscriptions are billed monthly or annually as agreed. You may cancel at any time from your account settings. Cancellation takes effect at the end of your current billing period. We do not provide refunds for partial billing periods.</p>
+        </section>
+
+        <section aria-labelledby="tos-5">
+          <h2 id="tos-5" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">Limitation of liability</h2>
+          <p>To the maximum extent permitted by law, Camvella's liability for any claim arising out of or related to the Service is limited to the fees you paid in the three months prior to the claim. We are not liable for indirect, incidental, consequential, or punitive damages.</p>
+        </section>
+
+        <section aria-labelledby="tos-6">
+          <h2 id="tos-6" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">Governing law</h2>
+          <p>These Terms are governed by the laws of the State of Florida, without regard to conflict of law principles. Disputes shall be resolved in the courts of Palm Beach County, Florida.</p>
+        </section>
+
+        <section aria-labelledby="tos-7">
+          <h2 id="tos-7" style="font-size: var(--text-xl); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-3);">Contact</h2>
+          <p>Questions about these Terms: <a href="mailto:legal@camvella.com" style="color: var(--clr-navy);">legal@camvella.com</a></p>
+        </section>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

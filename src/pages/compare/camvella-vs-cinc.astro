@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Camvella vs CINC: What's different, and which is right for your team",
+  "description": "An honest, factual comparison of Camvella and CINC Systems for professional HOA management companies.",
+  "url": "https://camvella.com/compare/camvella-vs-cinc",
+  "dateModified": "2026-08-17"
+}
+---
+
+<BaseLayout
+  title="Camvella vs CINC Systems: Honest Comparison (2026) | Camvella"
+  description="Camvella vs CINC Systems — an honest, factual comparison across interface, ARC workflow, pricing transparency, financial depth, and board portal. Every claim is sourced."
+  schema={schema}
+>
+  <div style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-8); background: var(--clr-navy); color: white;">
+    <div class="container">
+      <p style="font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clr-amber-light); margin-bottom: var(--space-3);">HOA Software Comparison</p>
+      <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; max-width: 26ch; margin-bottom: var(--space-5); line-height: 1.1;">Camvella vs. CINC Systems: What's different, and which is right for your team.</h1>
+      <p style="font-size: var(--text-base); color: rgba(255 255 255 / 0.65); max-width: 56ch; line-height: 1.65;">
+        We make Camvella. You should read this knowing that. We've tried to be accurate and fair. Every negative claim about CINC is sourced from their own documentation or verified user reviews on Capterra and G2. Where CINC is genuinely better, we say so.
+      </p>
+    </div>
+  </div>
+
+  <section class="section" aria-labelledby="cinc-what-cinc">
+    <div class="container container--narrow">
+      <h2 class="section__headline" id="cinc-what-cinc">What CINC is</h2>
+      <p style="font-size: var(--text-base); color: var(--clr-text-mid); line-height: 1.75; margin-top: var(--space-4);">CINC Systems is one of the longest-standing platforms in the HOA management software market, now part of AppFolio's portfolio. It was purpose-built for association management from the start — not adapted from residential property software. It serves more than 1,000 management companies and processes over $11 billion in annual payments. Its accounting and banking integration capabilities are well-regarded, and its customer support team is frequently cited as responsive.</p>
+      <p style="font-size: var(--text-base); color: var(--clr-text-mid); line-height: 1.75; margin-top: var(--space-4);">If your management company has been on CINC for years and it works, this comparison probably isn't for you. CINC has deep roots in the industry and an established user base for good reason.</p>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="cinc-where-friction">
+    <div class="container container--narrow">
+      <h2 class="section__headline" id="cinc-where-friction">Where CINC users report friction</h2>
+      <p style="font-size: var(--text-sm); color: var(--clr-text-soft); margin-bottom: var(--space-6);">Based on verified reviews on Capterra and G2 as of 2025–2026. Direct quotes are paraphrased to comply with copyright.</p>
+      <div style="display: flex; flex-direction: column; gap: var(--space-5);">
+        {[
+          {
+            issue: "ARC workflow gaps",
+            detail: "One verified Capterra reviewer wrote that CINC doesn't cover basic HOA management needs including an ARC approval process. Setting up approvers for invoices was described as difficult. ARC is one of the most commonly cited gaps in CINC user reviews.",
+            source: "Capterra, verified reviews, 2025"
+          },
+          {
+            issue: "Interface described as dated",
+            detail: "Multiple review sources describe the interface as one that 'looks like it was built in 2005' or requires patience during onboarding and daily use. CINC is aware of this and has been working on UI improvements, but the legacy architecture shows.",
+            source: "Capterra, G2, and third-party review roundups, 2025–2026"
+          },
+          {
+            issue: "No images or emoji in broadcast emails",
+            detail: "A verified Capterra reviewer (August 2025) specifically noted that broadcast emails cannot include images or emoji. For management companies that communicate with boards and residents frequently, this is a real limitation.",
+            source: "Capterra, verified review, August 2025"
+          },
+          {
+            issue: "Pricing not published",
+            detail: "CINC does not publish pricing. Third-party review aggregators report starting prices around $250/month, but quotes vary significantly and require a sales conversation. This makes budget planning difficult.",
+            source: "Capterra pricing page, third-party aggregators, 2026"
+          },
+          {
+            issue: "Support ticket handling",
+            detail: "Some users report tickets being closed before issues are fully resolved, requiring follow-up. This is not universal — many users praise CINC's support — but it appears in enough reviews to note.",
+            source: "G2 and SoftwareAdvice reviews, 2025"
+          },
+        ].map(item => (
+          <div style="padding: var(--space-5); border-left: 3px solid var(--clr-border); padding-left: var(--space-6);">
+            <p style="font-size: var(--text-base); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-2);">{item.issue}</p>
+            <p style="font-size: var(--text-sm); color: var(--clr-text-mid); line-height: 1.65; margin-bottom: var(--space-2);">{item.detail}</p>
+            <p style="font-size: var(--text-xs); color: var(--clr-text-soft);">Source: {item.source}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="cinc-side-by-side">
+    <div class="container">
+      <h2 class="section__headline" id="cinc-side-by-side">Side by side</h2>
+      <div style="overflow-x: auto; margin-top: var(--space-8);">
+        <table class="comp-table" aria-label="Camvella vs CINC comparison table">
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>CINC Systems</th>
+              <th class="is-camvella">Camvella</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ["Purpose-built for HOA", "✓ HOA-specific from the start", "✓ HOA-specific from the start"],
+              ["Pricing transparency", "No public pricing; ~$250+/month est.", "Published tier pricing; no transaction fees"],
+              ["ARC workflow", "Documented gaps in user reviews", "Full ARC: resident submission, board voting, document attachments"],
+              ["Email communications", "No images or emoji (per verified review)", "Rich email with attachments, templates, delivery tracking"],
+              ["Board portal", "Available", "Board meetings, resolutions, minutes, financial read-only access"],
+              ["Financial accounting", "Strong accounting and banking integration", "Full HOA fund accounting: AR, AP, GL, budgeting, balance sheet"],
+              ["Interface", "Described as dated in multiple reviews", "Modern, responsive web application"],
+              ["Resident portal", "Available", "Mobile-first portal: violations, ARC, service requests, statement"],
+              ["Implementation", "30+ days standard", "Operational in days"],
+              ["Ownership", "Part of AppFolio portfolio (2023+)", "Independent"],
+            ].map(([dim, cinc, cam]) => (
+              <tr>
+                <td style="font-weight: 600; color: var(--clr-text);">{dim}</td>
+                <td>{cinc}</td>
+                <td class="is-camvella">{cam}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size: var(--text-xs); color: var(--clr-text-soft); margin-top: var(--space-4);">Based on publicly available information and verified user reviews as of August 2026. Verify current features with each vendor before making a decision.</p>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="cinc-bottom-line">
+    <div class="container container--narrow">
+      <h2 class="section__headline" id="cinc-bottom-line">The bottom line</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); margin-top: var(--space-8);">
+        <div style="padding: var(--space-6); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); background: white;">
+          <p style="font-size: var(--text-base); font-weight: 800; color: var(--clr-navy); margin-bottom: var(--space-3);">Choose CINC if...</p>
+          <ul style="display: flex; flex-direction: column; gap: var(--space-2); font-size: var(--text-sm); color: var(--clr-text-mid);">
+            <li>Your company is already established on CINC with trained staff</li>
+            <li>Banking integration is your top priority</li>
+            <li>You manage large communities where CINC's scale has proven itself</li>
+            <li>ARC is not a significant part of your workflow</li>
+          </ul>
+        </div>
+        <div style="padding: var(--space-6); border: 2px solid var(--clr-navy); border-radius: var(--radius-lg); background: white;">
+          <p style="font-size: var(--text-base); font-weight: 800; color: var(--clr-navy); margin-bottom: var(--space-3);">Choose Camvella if...</p>
+          <ul style="display: flex; flex-direction: column; gap: var(--space-2); font-size: var(--text-sm); color: var(--clr-text-mid);">
+            <li>You're evaluating options and want modern UI with transparent pricing</li>
+            <li>ARC workflow is important and you need board voting and document tracking</li>
+            <li>You want rich email communications with images and full formatting</li>
+            <li>You're starting a company or switching platforms and want faster onboarding</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: white; margin-bottom: var(--space-4);">See Camvella against your actual portfolio.</h2>
+      <p style="color: rgba(255 255 255 / 0.7); margin-bottom: var(--space-8); max-width: 50ch; margin-left: auto; margin-right: auto;">The only comparison that matters is how each platform handles your communities, your team, and your workflows. Book a demo and see.</p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="comparison_page_view">Book a Demo</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  @media (max-width: 640px) {
+    div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
