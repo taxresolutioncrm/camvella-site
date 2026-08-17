@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Request a Camvella Demo",
+  "url": "https://camvella.com/demo",
+  "description": "Schedule a demo of Camvella HOA management software for your professional management company."
+}
+---
+
+<BaseLayout
+  title="Request a Demo — Camvella HOA Management Software"
+  description="Schedule a personalized walkthrough of Camvella for your management company. We'll show you violations, financials, board operations, and the resident portal against a real portfolio."
+  schema={schema}
+>
+  <div style="padding-top: 64px; min-height: 100vh; background: var(--clr-surface);">
+    <div class="container" style="padding-top: var(--space-16); padding-bottom: var(--space-24);">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: start; max-width: 960px; margin: 0 auto;">
+
+        <!-- Left: context -->
+        <div>
+          <h1 style="font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; letter-spacing: -0.03em; color: var(--clr-navy); margin-bottom: var(--space-4); line-height: 1.15;">
+            See how it handles your portfolio.
+          </h1>
+          <p style="font-size: var(--text-base); color: var(--clr-text-soft); line-height: 1.65; margin-bottom: var(--space-8);">
+            A 30-minute walkthrough tailored to your communities, team structure, and the features that matter most to you.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: var(--space-5);">
+            {[
+              { icon: "📋", title: "Violations & ARC", body: "Live walkthrough of the violation lifecycle and ARC board voting." },
+              { icon: "💰", title: "Financial Accounting", body: "Assessment billing, AR aging, AP management, balance sheet — all in one system." },
+              { icon: "🏛️", title: "Board Operations", body: "Meeting management, resolutions, minutes, and the board financial portal." },
+              { icon: "📱", title: "Resident Portal", body: "Mobile-first self-service for violation status, ARC submissions, and statements." },
+            ].map(item => (
+              <div style="display: flex; align-items: flex-start; gap: var(--space-4);">
+                <span style="font-size: 1.25rem;" aria-hidden="true">{item.icon}</span>
+                <div>
+                  <p style="font-size: var(--text-sm); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-1);">{item.title}</p>
+                  <p style="font-size: var(--text-sm); color: var(--clr-text-soft); line-height: 1.5;">{item.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Right: form -->
+        <div style="background: white; padding: var(--space-8); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); border: 1px solid var(--clr-border);">
+          <h2 style="font-size: var(--text-xl); font-weight: 800; color: var(--clr-navy); margin-bottom: var(--space-6);">
+            Request your demo
+          </h2>
+
+          <form
+            id="demo-form"
+            action="/demo/thank-you"
+            method="POST"
+            novalidate
+            aria-label="Demo request form"
+          >
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="first_name">First name <span aria-hidden="true">*</span></label>
+                <input class="form-input" type="text" id="first_name" name="first_name" required autocomplete="given-name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="last_name">Last name <span aria-hidden="true">*</span></label>
+                <input class="form-input" type="text" id="last_name" name="last_name" required autocomplete="family-name" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email">Work email <span aria-hidden="true">*</span></label>
+              <input class="form-input" type="email" id="email" name="email" required autocomplete="work email" inputmode="email" placeholder="you@yourcompany.com" />
+              <p id="email-error" style="font-size: var(--text-xs); color: var(--clr-danger); margin-top: var(--space-1); display: none;" role="alert">Please use a work email address.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="company">Management company name <span aria-hidden="true">*</span></label>
+              <input class="form-input" type="text" id="company" name="company" required autocomplete="organization" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="communities">Communities managed <span aria-hidden="true">*</span></label>
+              <select class="form-select" id="communities" name="communities" required>
+                <option value="">Select range</option>
+                <option value="1-5">1 – 5</option>
+                <option value="6-15">6 – 15</option>
+                <option value="16-50">16 – 50</option>
+                <option value="50+">50+</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="phone">Phone (optional)</label>
+              <input class="form-input" type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="how_heard">How did you hear about us?</label>
+              <select class="form-select" id="how_heard" name="how_heard">
+                <option value="">Select one</option>
+                <option value="google">Google search</option>
+                <option value="referral">Referral from a colleague</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="cai">CAI / industry event</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn--primary"
+              style="width: 100%; margin-top: var(--space-2);"
+              data-event="demo_form_submit"
+            >
+              Request Demo
+            </button>
+
+            <p style="font-size: var(--text-xs); color: var(--clr-text-soft); margin-top: var(--space-4); text-align: center; line-height: 1.5;">
+              We'll reach out within one business day to schedule. No obligation, no sales pressure.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('demo-form') as HTMLFormElement
+  const emailInput = document.getElementById('email') as HTMLInputElement
+  const emailError = document.getElementById('email-error') as HTMLElement
+  const PERSONAL_DOMAINS = ['gmail','yahoo','hotmail','outlook','icloud','aol','protonmail']
+
+  if (form && emailInput && emailError) {
+    // Track form start
+    let started = false
+    form.addEventListener('focusin', () => {
+      if (!started) {
+        started = true
+        if (typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', 'demo_form_start')
+        }
+      }
+    }, { once: false })
+
+    form.addEventListener('submit', (e) => {
+      const email = emailInput.value.toLowerCase()
+      const domain = email.split('@')[1]?.split('.')[0] ?? ''
+      if (PERSONAL_DOMAINS.includes(domain)) {
+        e.preventDefault()
+        emailError.style.display = 'block'
+        emailInput.focus()
+        return
+      }
+      emailError.style.display = 'none'
+    })
+
+    emailInput.addEventListener('input', () => {
+      emailError.style.display = 'none'
+    })
+  }
+</script>
+
+<style>
+  @media (max-width: 768px) {
+    div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

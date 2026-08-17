@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+---
+
+<BaseLayout
+  title="HOA Software for Professional Management Companies | Camvella"
+  description="Camvella is built for professional community association management companies — not adapted from rental software, not built for volunteer boards. Manage 5 to 50 communities in one system."
+>
+  <section style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-16); background: var(--clr-navy); color: white;" aria-labelledby="sol-headline">
+    <div class="container">
+      <p style="font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clr-amber-light); margin-bottom: var(--space-3);">For Professional Management Companies</p>
+      <h1 id="sol-headline" style="font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; max-width: 22ch; margin-bottom: var(--space-5); line-height: 1.1;">
+        Software that understands how your company actually operates.
+      </h1>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 56ch; margin-bottom: var(--space-8); line-height: 1.65;">
+        You manage multiple communities under one company. You have managers, inspectors, and an accounting team. You handle violations, ARC, work orders, board meetings, resident communications, and the full financial picture — simultaneously, for every community. Camvella is built for exactly that.
+      </p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sol-why-headline">
+    <div class="container">
+      <p class="section__label">Why management companies choose Camvella</p>
+      <h2 class="section__headline" id="sol-why-headline">Built for professional management from day one</h2>
+      <p class="section__subhead">The fundamental architecture is different. Every community in Camvella is fully isolated — financials, residents, violations, work orders — but your management team sees everything across the portfolio in one login.</p>
+
+      <div class="feature-grid mt-8">
+        {[
+          {
+            title: "Multi-community architecture",
+            body: "One login for your whole portfolio. Switch between communities without switching systems or logins. Each community's data is fully isolated from others."
+          },
+          {
+            title: "Role-based access",
+            body: "Managers see everything. Inspectors see assigned communities. Board members see their community's financials and meeting materials. Residents see their own records."
+          },
+          {
+            title: "Real financial accounting",
+            body: "The financial depth your clients' boards expect — fund accounting, AR/AP, GL, budgeting, balance sheet. Not a payment collection tool with reporting bolted on."
+          },
+          {
+            title: "Automation for repetitive work",
+            body: "Violation notices, reinspection reminders, ARC decision notifications, work order completion follow-ups — running automatically so your team focuses on what matters."
+          },
+          {
+            title: "Communications that scale",
+            body: "Email and SMS to association-wide, building-specific, or individual recipients. Templates, merge fields, delivery tracking. Works for 5 communities or 50."
+          },
+          {
+            title: "Board relationships that stick",
+            body: "Board portals with meeting management, resolutions, minutes, and real-time financial reports. Boards that feel informed don't look for a new management company."
+          },
+        ].map(f => (
+          <div class="feature-card">
+            <h3 class="feature-card__title">{f.title}</h3>
+            <p class="feature-card__body">{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="sol-vs-headline">
+    <div class="container">
+      <h2 class="section__headline" id="sol-vs-headline">How Camvella fits the market</h2>
+      <div style="overflow-x: auto; margin-top: var(--space-8);">
+        <table class="comp-table" aria-label="Comparison of HOA software options">
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Built for</th>
+              <th>Accounting</th>
+              <th>Typical cost</th>
+              <th class="is-camvella">Camvella</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Vantaca</td>
+              <td>Large CAM companies (50+ communities)</td>
+              <td class="comp-check">✓</td>
+              <td>Quote only · 5-month onboarding</td>
+              <td class="is-camvella">5–50 communities · Days to operational</td>
+            </tr>
+            <tr>
+              <td>CINC (AppFolio)</td>
+              <td>Professional CAM · dated interface</td>
+              <td class="comp-check">✓</td>
+              <td>~$250+/month · no public pricing</td>
+              <td class="is-camvella">Modern UI · transparent pricing</td>
+            </tr>
+            <tr>
+              <td>Buildium</td>
+              <td>Residential + HOA side-use</td>
+              <td style="color: var(--clr-text-soft);">Weak (per reviews)</td>
+              <td>$62+/month + 30–50% in transaction fees</td>
+              <td class="is-camvella">Purpose-built HOA accounting · no tx fees</td>
+            </tr>
+            <tr>
+              <td>AppFolio</td>
+              <td>Residential primary · HOA secondary</td>
+              <td style="color: var(--clr-text-soft);">General, not HOA-specific</td>
+              <td>Quote only · 50+ unit minimum</td>
+              <td class="is-camvella">HOA-specific from the ground up</td>
+            </tr>
+            <tr>
+              <td>PayHOA</td>
+              <td>Self-managed HOAs</td>
+              <td class="comp-check">✓</td>
+              <td>$49–$275/month</td>
+              <td class="is-camvella">Professional management · not self-managed</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size: var(--text-xs); color: var(--clr-text-soft); margin-top: var(--space-4);">Based on publicly available information as of 2026. Competitor features may vary by plan.</p>
+    </div>
+  </section>
+
+  <section class="section section--dark" aria-labelledby="sol-cta">
+    <div class="container" style="text-align: center;">
+      <h2 class="section__headline" id="sol-cta" style="color: white;">See it against your actual portfolio.</h2>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.7); margin: var(--space-4) auto var(--space-8); max-width: 52ch;">We'll walk through your communities, your team structure, and exactly how Camvella handles the work your team does every day.</p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,235 @@
+---
+export interface Props {
+  title: string
+  description: string
+  canonical?: string
+  ogImage?: string
+  schema?: object
+  noIndex?: boolean
+}
+
+const {
+  title,
+  description,
+  canonical = Astro.url.href,
+  ogImage = '/og/default.png',
+  schema,
+  noIndex = false,
+} = Astro.props
+
+const pageTitle = title.includes('Camvella')
+  ? title
+  : `${title} | Camvella`
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <title>{pageTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Camvella" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0F1B2D" />
+
+  <!-- Organization Schema -->
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Camvella",
+      "url": "https://camvella.com",
+      "description": "HOA management software for professional community association management companies",
+      "logo": "https://camvella.com/brand/logo.svg",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "url": "https://camvella.com/demo"
+      }
+    })}
+  </script>
+
+  <!-- Page-specific schema -->
+  {schema && (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  )}
+
+  <!-- Analytics placeholder — add GA4 measurement ID here -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
+
+  <style is:global>
+    @import '/src/styles/global.css';
+  </style>
+</head>
+<body>
+  <!-- Skip to content -->
+  <a href="#main-content" class="visually-hidden" style="position:fixed;z-index:999;padding:0.5rem 1rem;background:var(--clr-amber);color:var(--clr-navy);font-weight:700;top:0;left:0;border-radius:0 0 4px 0;">
+    Skip to content
+  </a>
+
+  <!-- Navigation -->
+  <header role="banner">
+    <nav class="nav" id="main-nav" aria-label="Main navigation">
+      <div class="container">
+        <div class="nav__inner">
+          <a href="/" class="nav__logo" aria-label="Camvella home">
+            <div class="nav__logo-mark" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 5h14M3 10h14M3 15h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            Camvella
+          </a>
+
+          <div class="nav__links" role="list">
+            <a href="/product" class="nav__link" role="listitem">Product</a>
+            <a href="/features/hoa-accounting" class="nav__link" role="listitem">Accounting</a>
+            <a href="/pricing" class="nav__link" role="listitem">Pricing</a>
+            <a href="/compare" class="nav__link" role="listitem">Compare</a>
+            <a href="/blog" class="nav__link" role="listitem">Resources</a>
+          </div>
+
+          <div class="nav__actions">
+            <a href="https://app.camvella.com" class="btn btn--ghost btn--sm" rel="noopener">Sign In</a>
+            <a href="/demo" class="btn btn--primary btn--sm">Book a Demo</a>
+          </div>
+
+          <button class="nav__mobile-toggle" aria-label="Open menu" aria-expanded="false" id="mobile-toggle">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand">
+            <svg width="24" height="24" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M3 5h14M3 10h14M3 15h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color: #F59E0B;"/>
+            </svg>
+            Camvella
+          </div>
+          <p class="footer__tagline">
+            HOA management software built for professional community association management companies. Not adapted from rental software. Not built for volunteer boards.
+          </p>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Product</p>
+          <ul class="footer__links">
+            <li><a href="/product" class="footer__link">Overview</a></li>
+            <li><a href="/features/hoa-accounting" class="footer__link">Accounting</a></li>
+            <li><a href="/features/violations" class="footer__link">Violations</a></li>
+            <li><a href="/features/arc" class="footer__link">ARC Requests</a></li>
+            <li><a href="/features/board-portal" class="footer__link">Board Portal</a></li>
+            <li><a href="/features/resident-portal" class="footer__link">Resident Portal</a></li>
+            <li><a href="/pricing" class="footer__link">Pricing</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Compare</p>
+          <ul class="footer__links">
+            <li><a href="/compare/cinc-alternatives" class="footer__link">CINC Alternatives</a></li>
+            <li><a href="/compare/vantaca-alternatives" class="footer__link">Vantaca Alternatives</a></li>
+            <li><a href="/compare/camvella-vs-cinc" class="footer__link">vs CINC</a></li>
+            <li><a href="/compare/camvella-vs-buildium" class="footer__link">vs Buildium</a></li>
+            <li><a href="/compare/camvella-vs-appfolio" class="footer__link">vs AppFolio</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Company</p>
+          <ul class="footer__links">
+            <li><a href="/about" class="footer__link">About</a></li>
+            <li><a href="/blog" class="footer__link">Blog</a></li>
+            <li><a href="/demo" class="footer__link">Request Demo</a></li>
+            <li><a href="/contact" class="footer__link">Contact</a></li>
+            <li><a href="/privacy" class="footer__link">Privacy Policy</a></li>
+            <li><a href="/terms" class="footer__link">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>&copy; {new Date().getFullYear()} Camvella. All rights reserved.</span>
+        <span>HOA management software for professionals.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Nav scroll behavior + mobile menu -->
+  <script>
+    const nav = document.getElementById('main-nav')
+    const toggle = document.getElementById('mobile-toggle')
+
+    if (nav) {
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('is-scrolled', window.scrollY > 20)
+      }, { passive: true })
+    }
+
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true'
+        toggle.setAttribute('aria-expanded', String(!expanded))
+      })
+    }
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true'
+        const answer = btn.nextElementSibling as HTMLElement
+        btn.setAttribute('aria-expanded', String(!expanded))
+        if (answer) answer.classList.toggle('is-open', !expanded)
+      })
+    })
+
+    // Analytics conversion events (placeholder — wire to GA4)
+    document.querySelectorAll('[data-event]').forEach(el => {
+      el.addEventListener('click', () => {
+        const event = (el as HTMLElement).dataset.event
+        if (event && typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', event)
+        }
+      })
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const features = [
+  {
+    title: "Assessment Schedules & Billing",
+    body: "Configure monthly, quarterly, or annual assessment schedules per community. Billing runs automatically — no manual invoicing, no missed cycles.",
+    detail: ["Flat and percentage-based assessments", "Special assessment support", "Configurable billing frequencies", "Automatic late fee calculation"]
+  },
+  {
+    title: "Accounts Receivable & Aging",
+    body: "Track every owner's balance in real time. AR aging reports show who owes what and for how long — in the format your collections attorney expects.",
+    detail: ["Unit-level account statements", "AR aging by 30/60/90/120+ days", "Write-off workflow with audit trail", "Prepayment and credit handling"]
+  },
+  {
+    title: "Accounts Payable",
+    body: "Full bill lifecycle from vendor invoice receipt through payment. Board approval workflow for expenses over threshold. Never miss a vendor payment.",
+    detail: ["Draft → approved → paid workflow", "Vendor invoice tracking", "AP aging reports", "Board approval gates"]
+  },
+  {
+    title: "General Ledger & Fund Accounting",
+    body: "Double-entry GL with fund accounting built specifically for HOAs. Operating and reserve funds tracked separately. No spreadsheet workarounds.",
+    detail: ["27-account HOA chart of accounts", "Operating and reserve fund separation", "Journal entry history with reversal support", "Immutable posted transaction audit trail"]
+  },
+  {
+    title: "Financial Reporting",
+    body: "Balance sheet, income statement, GL detail, and budget vs. actual — in the format boards and auditors expect. Generated in seconds, not hours.",
+    detail: ["Balance sheet by fund", "Income statement by period", "GL detail report with drill-down", "Budget vs. actual comparison"]
+  },
+  {
+    title: "Budget Management",
+    body: "Draft budgets, get board approval, lock for the fiscal year. Board members can view budget vs. actual directly in the board portal.",
+    detail: ["Annual budget creation", "Board approval workflow", "Budget lock after approval", "Board financial read-only access"]
+  },
+]
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Camvella HOA Accounting Software",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "Full HOA accounting software for professional management companies. AR, AP, GL, balance sheet, budgeting — purpose-built for fund accounting, not adapted from residential software.",
+  "url": "https://camvella.com/features/hoa-accounting"
+}
+---
+
+<BaseLayout
+  title="HOA Accounting Software | Camvella"
+  description="Full HOA accounting software purpose-built for community association management. AR, AP, GL, balance sheet, income statement, budgeting — included in every Camvella plan."
+  schema={schema}
+>
+  <!-- Hero -->
+  <section style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-16); background: var(--clr-navy); color: white;" aria-labelledby="acct-hero-headline">
+    <div class="container">
+      <p style="font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clr-amber-light); margin-bottom: var(--space-3);">HOA Accounting Software</p>
+      <h1 id="acct-hero-headline" style="font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; max-width: 18ch; margin-bottom: var(--space-5); line-height: 1.1;">
+        Financial management built for HOA accounting — not adapted from it.
+      </h1>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 52ch; margin-bottom: var(--space-8); line-height: 1.65;">
+        Most HOA software treats accounting as a feature. Camvella treats it as a foundation. Full double-entry GL, fund accounting, AR/AP, and the reporting your boards and auditors expect — included on every plan.
+      </p>
+      <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+        <a href="/demo" class="btn btn--primary btn--lg" data-event="feature_page_cta_click">Book a Demo</a>
+        <a href="/pricing" class="btn btn--lg" style="background: rgba(255 255 255 / 0.08); color: white; border: 1px solid rgba(255 255 255 / 0.15);">See Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who this is for -->
+  <section class="section section--alt" aria-labelledby="acct-audience">
+    <div class="container container--narrow" style="text-align: center;">
+      <h2 class="section__headline" id="acct-audience">For professional management companies</h2>
+      <p class="section__subhead" style="margin: var(--space-4) auto 0; text-align: center;">
+        Camvella's financial accounting is designed for companies that manage HOAs professionally — not volunteer boards self-managing a single community, and not rental property managers who handle associations as a side line. If your team manages multiple communities and needs real fund accounting, AR collections, and financial reports that your CPA will recognize, this is what Camvella delivers.
+      </p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section" aria-labelledby="acct-features-headline">
+    <div class="container">
+      <p class="section__label">What's included</p>
+      <h2 class="section__headline" id="acct-features-headline">The full HOA accounting stack</h2>
+
+      <div style="display: flex; flex-direction: column; gap: var(--space-10); margin-top: var(--space-12);">
+        {features.map((feat, i) => (
+          <div style={`display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: start; ${i % 2 === 1 ? '' : ''}`}>
+            <div style={i % 2 === 1 ? 'order: 2;' : ''}>
+              <h3 style="font-size: var(--text-xl); font-weight: 800; color: var(--clr-navy); margin-bottom: var(--space-3);">{feat.title}</h3>
+              <p style="font-size: var(--text-base); color: var(--clr-text-soft); line-height: 1.65; margin-bottom: var(--space-5);">{feat.body}</p>
+              <ul style="display: flex; flex-direction: column; gap: var(--space-2);">
+                {feat.detail.map(d => (
+                  <li style="display: flex; align-items: flex-start; gap: var(--space-3); font-size: var(--text-sm); color: var(--clr-text-mid);">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color: var(--clr-amber-dark); flex-shrink: 0; margin-top: 3px;" aria-hidden="true"><path d="M2 7l3 3 7-6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div style={`background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; color: var(--clr-text-soft); font-size: var(--text-sm); letter-spacing: 0.05em; text-transform: uppercase;${i % 2 === 1 ? ' order: 1;' : ''}`} aria-hidden="true">
+              {feat.title} Screenshot
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why HOA-specific -->
+  <section class="section section--alt" aria-labelledby="acct-why">
+    <div class="container">
+      <div class="callout">
+        <div>
+          <h2 class="callout__headline" id="acct-why">
+            HOA accounting is <em>not</em> general accounting.
+          </h2>
+          <p class="callout__body">
+            HOAs operate under fund accounting rules: operating and reserve funds are tracked separately, income comes from assessments rather than sales, and financial reports need to show the board exactly what's available in each fund. Camvella's accounting was designed for this from the start — not bolted onto a general ledger built for landlords.
+          </p>
+          <a href="/demo" class="btn btn--primary" data-event="feature_page_cta_click">Book a Demo</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+          {[
+            { label: "Accounting model", val: "Fund accounting" },
+            { label: "Chart of accounts", val: "HOA-specific COA" },
+            { label: "Implementation fee", val: "$0" },
+            { label: "Accounting add-on cost", val: "Included" },
+          ].map(item => (
+            <div style="padding: var(--space-4); background: rgba(255 255 255 / 0.06); border-radius: var(--radius-md); border: 1px solid rgba(255 255 255 / 0.1);">
+              <p style="font-size: var(--text-xs); color: rgba(255 255 255 / 0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--space-1);">{item.label}</p>
+              <p style="font-size: var(--text-xl); font-weight: 800; color: var(--clr-amber);">{item.val}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related features -->
+  <section class="section" aria-labelledby="acct-related">
+    <div class="container">
+      <h2 class="section__headline" id="acct-related">Connected to operations</h2>
+      <p class="section__subhead">The accounting layer connects directly to every operational module — no separate system, no data re-entry.</p>
+      <div class="feature-grid mt-8">
+        {[
+          { href: "/features/violations", title: "Violations & Fines", body: "Fines assessed in violations flow directly into AR — no manual entry." },
+          { href: "/features/work-orders", title: "Work Orders & Costs", body: "Work order costs connect to AP — track spend against budget by community." },
+          { href: "/features/board-portal", title: "Board Financial Reports", body: "Boards get read-only access to financial reports directly in their portal." },
+          { href: "/features/resident-portal", title: "Resident Statements", body: "Residents can view their account statement in the mobile-first portal." },
+        ].map(r => (
+          <a href={r.href} class="feature-card" style="text-decoration: none;">
+            <h3 class="feature-card__title">{r.title}</h3>
+            <p class="feature-card__body">{r.body}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--dark" aria-labelledby="acct-cta">
+    <div class="container" style="text-align: center;">
+      <h2 class="section__headline" id="acct-cta" style="color: white;">See the accounting in action.</h2>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.7); margin: var(--space-4) auto var(--space-8); max-width: 50ch;">
+        We'll walk through assessment billing, AR aging, AP management, and financial reporting against a real community during your demo.
+      </p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  @media (max-width: 768px) {
+    div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+    div[style*="order: 1"], div[style*="order: 2"] {
+      order: unset !important;
+    }
+  }
+</style>

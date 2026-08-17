@@ -1,0 +1,349 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Camvella",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "HOA management software for professional community association management companies. Violations, financials, board operations, resident portal — one system.",
+  "url": "https://camvella.com",
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "USD",
+    "offerCount": "3"
+  }
+}
+
+const capabilities = [
+  {
+    num: "01",
+    title: "Property & Compliance",
+    body: "Associations, units, owners, residents. Violations with full notice lifecycle. ARC requests with board voting. Everything your team touches, in one place."
+  },
+  {
+    num: "02",
+    title: "Financial Accounting",
+    body: "Purpose-built HOA accounting: AR, AP, assessment schedules, late fees, GL, balance sheet, budgeting. Not repurposed from rental software."
+  },
+  {
+    num: "03",
+    title: "Board & Resident Portals",
+    body: "Board meetings, resolutions, minutes, and financial reports. Residents get a mobile-first portal for violations, ARC, service requests, and statements."
+  },
+  {
+    num: "04",
+    title: "Work Orders & Vendors",
+    body: "Maintenance from submission to completion. Vendor database with insurance compliance tracking and expiry alerts."
+  },
+  {
+    num: "05",
+    title: "Communications",
+    body: "Email and SMS to residents, owners, and boards. Templates, audience targeting, delivery tracking. Powered by Brevo and Telnyx."
+  },
+  {
+    num: "06",
+    title: "Automation",
+    body: "Violation notices, reinspection reminders, ARC decision notifications, work order completion follow-ups — running without anyone remembering to trigger them."
+  },
+]
+
+const finFeatures = [
+  "Assessment schedules with automatic billing runs",
+  "Late fee automation with configurable grace periods",
+  "AR aging reports and unit statements",
+  "Write-off workflow with audit trail",
+  "Full AP bill lifecycle: draft → approved → paid",
+  "GL detail, balance sheet, income statement",
+  "Budget management with board approval workflow",
+  "Board-accessible read-only financial views",
+]
+
+const faqs = [
+  {
+    q: "What does Camvella cost?",
+    a: "Camvella offers transparent per-community pricing. Book a demo and we'll walk you through exact pricing for your portfolio size — no hidden fees, no transaction charges on top of your subscription."
+  },
+  {
+    q: "Can it handle multiple associations?",
+    a: "Yes. Camvella is built for professional management companies running multiple communities. Every association's financials, residents, and operations are fully isolated from each other within a single login."
+  },
+  {
+    q: "Does it have a resident-facing portal?",
+    a: "Yes. Residents get a mobile-first portal where they can view violation status, submit ARC requests, track service requests, access their account statement, and update their profile."
+  },
+  {
+    q: "How does the financial accounting work?",
+    a: "Camvella has a full HOA accounting layer built specifically for fund accounting: AR with assessment schedules, AP with bill management, GL with journal entries, balance sheet, income statement, and budget vs. actual reporting."
+  },
+  {
+    q: "Is there a mobile app?",
+    a: "Camvella is a responsive web application that works on iOS Safari and Android Chrome. The resident portal is built mobile-first. There is no separate native app to download."
+  },
+  {
+    q: "How long does setup take?",
+    a: "Most management companies are operational within a few days of signing up. We walk you through adding your first association, units, and users. No 30-day implementation program required."
+  },
+  {
+    q: "What happens to my data if I cancel?",
+    a: "Your data belongs to you. You can export your associations, units, owner records, and financial history at any time. We do not hold data hostage."
+  },
+]
+---
+
+<BaseLayout
+  title="Camvella — HOA Management Software for Professional CAM Companies"
+  description="HOA management software built for professional community association management companies. Violations, financials, board operations, resident portal — one system that actually reflects how your team works."
+  schema={schema}
+>
+  <!-- ─── Hero ──────────────────────────────────────────────────────────── -->
+  <section class="hero" aria-label="Hero">
+    <div class="container">
+      <div class="hero__eyebrow" aria-hidden="true">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
+          <circle cx="5" cy="5" r="4"/>
+        </svg>
+        Purpose-built for professional CAM companies
+      </div>
+
+      <h1 class="hero__headline">
+        HOA software that works like your team actually <em>works.</em>
+      </h1>
+
+      <p class="hero__body">
+        CINC is dated. Vantaca is built for companies managing hundreds of communities. PayHOA is for volunteer boards. Camvella is for the professional management company in the middle — managing 5 to 50 communities and needing real financial depth without the enterprise overhead.
+      </p>
+
+      <div class="hero__actions">
+        <a
+          href="/demo"
+          class="btn btn--primary btn--lg"
+          data-event="demo_cta_click"
+        >
+          Book a Demo
+        </a>
+        <a
+          href="/product"
+          class="btn btn--lg"
+          style="background: rgba(255 255 255 / 0.08); color: white; border: 1px solid rgba(255 255 255 / 0.15);"
+        >
+          See the Product
+        </a>
+      </div>
+
+      <!-- Product screenshot placeholder -->
+      <div style="margin-top: var(--space-16);">
+        <div class="screen-frame" aria-label="Camvella application screenshot">
+          <div class="screen-frame__bar" aria-hidden="true">
+            <div class="screen-frame__dot"></div>
+            <div class="screen-frame__dot"></div>
+            <div class="screen-frame__dot"></div>
+          </div>
+          <div class="screen-frame__content" style="display: flex; align-items: center; justify-content: center; color: rgba(255 255 255 / 0.2); font-size: 0.875rem; letter-spacing: 0.05em; text-transform: uppercase;">
+            <!-- Replace with actual product screenshot -->
+            Product Screenshot
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__trust">
+        <span class="hero__trust-item">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 10.7 4.2 12.8l.7-4.3L1.8 5.5l4.3-.6L8 1z"/></svg>
+          HOA-specific from day one
+        </span>
+        <span class="hero__trust-item">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h12M2 4h12M2 12h7" stroke-linecap="round"/></svg>
+          Full financial accounting included
+        </span>
+        <span class="hero__trust-item">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8l2.5 2.5L11 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Operational in days, not months
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Capabilities ─────────────────────────────────────────────────── -->
+  <section class="section" aria-labelledby="cap-headline">
+    <div class="container">
+      <p class="section__label">What Camvella covers</p>
+      <h2 class="section__headline" id="cap-headline">The full operating stack for professional management</h2>
+      <p class="section__subhead">
+        Every module your team uses, built specifically for HOA and community association management — not adapted from a rental property platform.
+      </p>
+
+      <div class="cap-strip" role="list">
+        {capabilities.map(cap => (
+          <div class="cap-item" role="listitem">
+            <p class="cap-item__num">{cap.num}</p>
+            <p class="cap-item__title">{cap.title}</p>
+            <p class="cap-item__body">{cap.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Financial Accounting ──────────────────────────────────────────── -->
+  <section class="section section--alt" aria-labelledby="fin-headline">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: center;">
+        <div>
+          <p class="section__label">Financial management</p>
+          <h2 class="section__headline" id="fin-headline">
+            Built for HOA accounting — not adapted from it.
+          </h2>
+          <p class="section__subhead" style="margin-bottom: var(--space-8);">
+            Most HOA software treats accounting as a feature. Camvella treats it as a foundation. Full double-entry GL, fund accounting, AR/AP, budgeting, and the reporting your boards and auditors expect.
+          </p>
+
+          <ul style="display: flex; flex-direction: column; gap: var(--space-3);">
+            {finFeatures.map(f => (
+              <li style="display: flex; align-items: flex-start; gap: var(--space-3); font-size: var(--text-sm); color: var(--clr-text-mid);">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="color: var(--clr-success); flex-shrink: 0; margin-top: 2px;" aria-hidden="true">
+                  <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {f}
+              </li>
+            ))}
+          </ul>
+
+          <a href="/features/hoa-accounting" class="btn btn--dark mt-8" data-event="feature_page_cta_click">
+            HOA Accounting Details →
+          </a>
+        </div>
+
+        <div>
+          <!-- Financial screen placeholder -->
+          <div class="screen-frame" style="aspect-ratio: 4/3;" aria-label="Financial reporting screenshot">
+            <div class="screen-frame__bar" aria-hidden="true">
+              <div class="screen-frame__dot"></div>
+              <div class="screen-frame__dot"></div>
+              <div class="screen-frame__dot"></div>
+            </div>
+            <div class="screen-frame__content" style="display: flex; align-items: center; justify-content: center; color: rgba(255 255 255 / 0.2); font-size: 0.875rem; letter-spacing: 0.05em; text-transform: uppercase;">
+              Financial Reports Screenshot
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Three Audiences ───────────────────────────────────────────────── -->
+  <section class="section" aria-labelledby="audience-headline">
+    <div class="container">
+      <p class="section__label">Who it's for</p>
+      <h2 class="section__headline" id="audience-headline">One system, three perspectives</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-top: var(--space-12);">
+        <div style="padding: var(--space-6); border: 1px solid var(--clr-border); border-radius: var(--radius-lg);">
+          <div style="width: 40px; height: 40px; background: var(--clr-navy); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4);" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 16V6l8-4 8 4v10" stroke="white" stroke-width="1.5" stroke-linecap="round"/><rect x="7" y="10" width="6" height="6" stroke="white" stroke-width="1.5"/></svg>
+          </div>
+          <h3 style="font-size: var(--text-base); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-2);">For your management team</h3>
+          <p style="font-size: var(--text-sm); color: var(--clr-text-soft); line-height: 1.6;">One login. Full portfolio visibility. Violations, work orders, financials, communications — without switching systems or looking up which spreadsheet has what.</p>
+        </div>
+
+        <div style="padding: var(--space-6); border: 1px solid var(--clr-border); border-radius: var(--radius-lg);">
+          <div style="width: 40px; height: 40px; background: var(--clr-navy); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4);" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="4" stroke="white" stroke-width="1.5"/><path d="M2 18c0-4 3.6-7 8-7s8 3 8 7" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3 style="font-size: var(--text-base); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-2);">For your boards</h3>
+          <p style="font-size: var(--text-sm); color: var(--clr-text-soft); line-height: 1.6;">Meeting management, resolutions, minutes, and financial reports in a dedicated board portal. No spreadsheets emailed before meetings.</p>
+        </div>
+
+        <div style="padding: var(--space-6); border: 1px solid var(--clr-border); border-radius: var(--radius-lg);">
+          <div style="width: 40px; height: 40px; background: var(--clr-navy); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4);" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="4" y="2" width="12" height="16" rx="2" stroke="white" stroke-width="1.5"/><path d="M7 7h6M7 10h6M7 13h4" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3 style="font-size: var(--text-base); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-2);">For your residents</h3>
+          <p style="font-size: var(--text-sm); color: var(--clr-text-soft); line-height: 1.6;">A mobile-first portal where residents can check violation status, submit ARC requests, track service requests, and view their account statement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Positioning Statement ─────────────────────────────────────────── -->
+  <section class="section section--alt" aria-labelledby="pos-headline">
+    <div class="container">
+      <div class="callout">
+        <div>
+          <h2 class="callout__headline" id="pos-headline">
+            CINC and Vantaca are built for the <em>largest</em> companies. We're built for the rest.
+          </h2>
+          <p class="callout__body">
+            Professional management companies managing 5 to 50 communities need real financial depth, modern software, and onboarding measured in days — not a 30-day implementation program and five months of optimization.
+          </p>
+          <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">
+            See how it fits your team
+          </a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+          {[
+            { label: "Communities managed", val: "5 – 50" },
+            { label: "Time to operational", val: "Days" },
+            { label: "Implementation fee", val: "$0" },
+            { label: "Financial accounting", val: "Included" },
+          ].map(item => (
+            <div style="padding: var(--space-4); background: rgba(255 255 255 / 0.06); border-radius: var(--radius-md); border: 1px solid rgba(255 255 255 / 0.1);">
+              <p style="font-size: var(--text-xs); color: rgba(255 255 255 / 0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--space-1);">{item.label}</p>
+              <p style="font-size: var(--text-xl); font-weight: 800; color: var(--clr-amber);">{item.val}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ──────────────────────────────────────────────────────────── -->
+  <section class="section" aria-labelledby="faq-headline">
+    <div class="container container--narrow">
+      <h2 class="section__headline text-center" id="faq-headline">Common questions</h2>
+
+      <div class="faq-list" role="list">
+        {faqs.map((faq, i) => (
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" aria-expanded="false" aria-controls={`faq-a-${i}`} id={`faq-q-${i}`}>
+              {faq.q}
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="faq-a" id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`}>
+              {faq.a}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Bottom CTA ────────────────────────────────────────────────────── -->
+  <section class="section section--dark" aria-labelledby="cta-headline">
+    <div class="container" style="text-align: center;">
+      <h2 class="section__headline" id="cta-headline" style="color: white;">
+        See how it handles a real portfolio.
+      </h2>
+      <p class="section__subhead" style="margin: var(--space-4) auto var(--space-8); text-align: center;">
+        We'll walk through your specific communities, team structure, and the features that matter most to you.
+      </p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">
+        Book a Demo
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  @media (max-width: 768px) {
+    .hero__actions { flex-direction: column; }
+    .hero__actions .btn { width: 100%; }
+    div[style*="grid-template-columns: 1fr 1fr"],
+    div[style*="grid-template-columns: repeat(3, 1fr)"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+---
+
+<BaseLayout
+  title="Demo Requested — Camvella"
+  description="Thank you for requesting a Camvella demo. We'll be in touch within one business day."
+  noIndex={true}
+>
+  <div style="padding-top: 64px; min-height: 100vh; background: var(--clr-surface); display: flex; align-items: center; justify-content: center;">
+    <div class="container container--narrow" style="text-align: center; padding-top: var(--space-16); padding-bottom: var(--space-16);">
+      <div style="width: 64px; height: 64px; background: var(--clr-success); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-6);" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path d="M8 16l6 6 10-12" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1 style="font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; color: var(--clr-navy); margin-bottom: var(--space-4);">
+        Demo request received.
+      </h1>
+      <p style="font-size: var(--text-lg); color: var(--clr-text-soft); margin-bottom: var(--space-8); line-height: 1.65; max-width: 48ch; margin-left: auto; margin-right: auto;">
+        We'll reach out within one business day to schedule your walkthrough. Check your inbox for a confirmation.
+      </p>
+      <a href="/" class="btn btn--dark">Back to Home</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  if (typeof (window as any).gtag === 'function') {
+    (window as any).gtag('event', 'demo_thank_you_view')
+  }
+</script>

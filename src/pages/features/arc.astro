@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+---
+<BaseLayout
+  title="HOA ARC Software — Architectural Review | Camvella"
+  description="HOA architectural review committee software. ARC request submission, board voting panel, status workflow, document attachments — filling the gaps other platforms leave."
+>
+  <div style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-8); background: var(--clr-navy); color: white;">
+    <div class="container">
+      <p style="font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clr-amber-light); margin-bottom: var(--space-3);">ARC / Architectural Review</p>
+      <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; max-width: 20ch; margin-bottom: var(--space-5); line-height: 1.1;">ARC that boards actually use.</h1>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 52ch; margin-bottom: var(--space-8); line-height: 1.65;">Resident submission, management review, board voting, and decision notification — without the spreadsheets and email chains. CINC users frequently cite ARC as the biggest gap in that platform. Camvella covers it fully.</p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="feature_page_cta_click">Book a Demo</a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="feature-grid">
+        {[
+          { title: "Resident Submission", body: "Residents submit ARC requests from the mobile portal — photos, description, and supporting documents included." },
+          { title: "Management Review Queue", body: "All incoming ARC requests in one list. Assign reviewers, add internal notes, and track through the workflow." },
+          { title: "Board Voting Panel", body: "Board members vote approve/deny/conditional directly in the board portal. Vote tracking with majority calculation." },
+          { title: "Document Attachments", body: "Plans, photos, HOA documents — attach files at any stage. Full document history per request." },
+          { title: "Status Notifications", body: "Residents are notified when their request is under review, approved, conditionally approved, or denied." },
+          { title: "ARC Activity Report", body: "Open requests, pending votes, recent decisions — the ARC report your manager needs before every board meeting." },
+        ].map(f => (
+          <div class="feature-card">
+            <h3 class="feature-card__title">{f.title}</h3>
+            <p class="feature-card__body">{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

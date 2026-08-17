@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const tiers = [
+  {
+    name: "Starter",
+    price: "149",
+    period: "per month",
+    communities: "Up to 5 communities",
+    badge: null,
+    featured: false,
+    features: [
+      "Unlimited units per community",
+      "Violations & ARC management",
+      "Work orders & vendor tracking",
+      "Board portal",
+      "Resident portal",
+      "Email & SMS communications",
+      "Standard reporting",
+      "Full HOA accounting",
+      "Email support",
+    ],
+    cta: "Get Started",
+    ctaLink: "/demo",
+  },
+  {
+    name: "Professional",
+    price: "349",
+    period: "per month",
+    communities: "Up to 20 communities",
+    badge: "Most Popular",
+    featured: true,
+    features: [
+      "Everything in Starter",
+      "Advanced financial reporting",
+      "Budget approval workflows",
+      "Automation templates",
+      "AI-assisted letter drafting",
+      "Board meeting minutes AI assist",
+      "Priority support",
+      "Onboarding assistance",
+    ],
+    cta: "Book a Demo",
+    ctaLink: "/demo",
+  },
+  {
+    name: "Portfolio",
+    price: null,
+    period: null,
+    communities: "20+ communities",
+    badge: null,
+    featured: false,
+    features: [
+      "Everything in Professional",
+      "Custom community count",
+      "Volume pricing",
+      "Dedicated account manager",
+      "Custom onboarding",
+      "API access",
+      "SLA agreement",
+    ],
+    cta: "Contact Sales",
+    ctaLink: "/contact",
+  },
+]
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does Camvella charge transaction fees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Camvella charges a flat monthly subscription. There are no transaction fees on top of your subscription."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is financial accounting included in all plans?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Full HOA accounting — AR, AP, GL, balance sheet, income statement, budgeting — is included in every Camvella plan."
+      }
+    }
+  ]
+}
+---
+
+<BaseLayout
+  title="Pricing — Camvella HOA Management Software"
+  description="Transparent pricing for professional HOA management companies. No transaction fees, no hidden costs. Includes full financial accounting on every plan."
+  schema={schema}
+>
+  <div style="padding-top: 64px; background: var(--clr-navy);">
+    <div class="container" style="padding-top: var(--space-16); padding-bottom: var(--space-16); color: white; text-align: center;">
+      <h1 style="font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: var(--space-4);">
+        Transparent pricing. No surprises.
+      </h1>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.7); max-width: 52ch; margin: 0 auto;">
+        Full HOA accounting is included in every plan. No transaction fees. No implementation fee. Cancel any time.
+      </p>
+    </div>
+  </div>
+
+  <section class="section" aria-labelledby="pricing-headline" style="padding-top: var(--space-12);">
+    <div class="container">
+      <h2 class="visually-hidden" id="pricing-headline">Pricing plans</h2>
+      <div class="pricing-grid">
+        {tiers.map(tier => (
+          <div class={`pricing-card ${tier.featured ? 'is-featured' : ''}`}>
+            {tier.badge && <span class="pricing-card__badge">{tier.badge}</span>}
+            {!tier.badge && <div style="height: 26px;"></div>}
+
+            <p class="pricing-card__name">{tier.name}</p>
+
+            {tier.price ? (
+              <p class="pricing-card__price">
+                <sup>$</sup>{tier.price}
+              </p>
+            ) : (
+              <p class="pricing-card__price" style="font-size: var(--text-2xl);">Custom</p>
+            )}
+
+            {tier.period ? (
+              <p class="pricing-card__period">{tier.period} · {tier.communities}</p>
+            ) : (
+              <p class="pricing-card__period">{tier.communities}</p>
+            )}
+
+            <ul class="pricing-card__features">
+              {tier.features.map(f => (
+                <li class="pricing-feature">
+                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={tier.ctaLink}
+              class={`btn ${tier.featured ? 'btn--primary' : 'btn--dark'}`}
+              style="width: 100%;"
+              data-event="demo_cta_click"
+            >
+              {tier.cta}
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <div style="margin-top: var(--space-10); padding: var(--space-6); background: var(--clr-surface); border-radius: var(--radius-lg); display: flex; align-items: flex-start; gap: var(--space-4);">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0; color: var(--clr-amber-dark);" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M10 7v4M10 13v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <p style="font-size: var(--text-sm); color: var(--clr-text-mid); line-height: 1.6;">
+          <strong style="color: var(--clr-navy);">All plans include:</strong> Unlimited users, unlimited storage, full HOA financial accounting, board portal, resident portal, violations, ARC, work orders, vendor management, communications, reporting, and AI features. No per-user fees. No transaction fees.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--alt" aria-labelledby="pricing-faq-headline">
+    <div class="container container--narrow">
+      <h2 class="section__headline text-center" id="pricing-faq-headline">Pricing questions</h2>
+      <div class="faq-list mt-8" role="list">
+        {[
+          {
+            q: "Does Camvella charge transaction fees?",
+            a: "No. Camvella is a flat monthly subscription. We don't charge transaction fees, ACH fees, or card processing fees on top of your subscription. Your subscription price is your total cost."
+          },
+          {
+            q: "Is financial accounting included?",
+            a: "Yes. Full HOA accounting — assessment AR, AP bill management, GL, balance sheet, income statement, and budget management — is included on every plan. There's no separate accounting module or add-on to purchase."
+          },
+          {
+            q: "What counts as a 'community'?",
+            a: "Each HOA, condominium association, or community association you manage counts as one community. Buildings, phases, and sections within a single legal association are not counted separately."
+          },
+          {
+            q: "Can I change plans as I grow?",
+            a: "Yes. You can upgrade as you add communities. We'll prorate the difference and apply it immediately."
+          },
+          {
+            q: "Is there an annual discount?",
+            a: "Yes. Annual billing receives two months free. Ask about annual pricing when you book a demo."
+          },
+          {
+            q: "Is there an implementation fee?",
+            a: "No. There's no implementation fee, onboarding fee, or setup fee. We walk you through getting started as part of your subscription."
+          },
+        ].map((faq, i) => (
+          <div class="faq-item" role="listitem">
+            <button class="faq-q" aria-expanded="false" id={`pfaq-q-${i}`} aria-controls={`pfaq-a-${i}`}>
+              {faq.q}
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq-a" id={`pfaq-a-${i}`} role="region" aria-labelledby={`pfaq-q-${i}`}>{faq.a}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--dark" aria-labelledby="pricing-cta">
+    <div class="container" style="text-align: center;">
+      <h2 class="section__headline" id="pricing-cta" style="color: white;">Ready to see it live?</h2>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.7); margin: var(--space-4) auto var(--space-8); max-width: 50ch;">
+        Book a demo and we'll walk through your portfolio, answer pricing questions, and show you exactly how Camvella handles your day-to-day.
+      </p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
+    </div>
+  </section>
+</BaseLayout>

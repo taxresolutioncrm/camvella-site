@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+---
+<BaseLayout
+  title="HOA Violation Management Software | Camvella"
+  description="HOA violation tracking from creation through resolution. Notice generation, fine assessment, photo documentation, and status workflow — built for professional managers."
+>
+  <div style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-8); background: var(--clr-navy); color: white;">
+    <div class="container">
+      <p style="font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clr-amber-light); margin-bottom: var(--space-3);">Violation Management</p>
+      <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; max-width: 20ch; margin-bottom: var(--space-5); line-height: 1.1;">The violation lifecycle, handled.</h1>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 52ch; margin-bottom: var(--space-8); line-height: 1.65;">From first notice to resolution — violations, notices, fines, and the paper trail that protects your management company.</p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="feature_page_cta_click">Book a Demo</a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="feature-grid">
+        {[
+          { title: "Full Status Lifecycle", body: "Open → Noticed → Pending Cure → Cured/Resolved/Closed. Every transition logged with timestamp and user." },
+          { title: "Notice Generation", body: "Generate violation notices from templates. Log delivery method. Track notice history per violation." },
+          { title: "Fine Assessment & Waiver", body: "Assess fines that flow into AR automatically. Waiver workflow with audit trail. No manual journal entries." },
+          { title: "Photo Documentation", body: "Attach inspection photos to violations. Before and after documentation for cure verification." },
+          { title: "AI Draft Letters", body: "AI-assisted violation letter drafting. Generates a draft from violation details — your manager reviews and sends." },
+          { title: "Resident View", body: "Residents see their open violations and status in the mobile portal. Fewer inbound calls about violation status." },
+        ].map(f => (
+          <div class="feature-card">
+            <h3 class="feature-card__title">{f.title}</h3>
+            <p class="feature-card__body">{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: white; margin-bottom: var(--space-4);">See violations in your demo.</h2>
+      <p style="color: rgba(255 255 255 / 0.7); margin-bottom: var(--space-8); max-width: 48ch; margin-left: auto; margin-right: auto;">We'll walk through the full violation lifecycle — creation, notices, fines, and the board-facing compliance report.</p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
+    </div>
+  </section>
+</BaseLayout>
