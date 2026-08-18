@@ -85,21 +85,35 @@ const pageTitle = title.includes('Camvella')
   <style is:global>
 /* ─── Camvella Design System ─────────────────────────────────────────────────
    Brand: Professional HOA management for serious operators.
-   Tone: Confident, direct, no generic SaaS. Navy + amber accent.
+   Tone: Confident, direct, premium SaaS. Navy + Camvella green/teal.
    Typography: Inter variable (self-hosted), system fallback.
    ─────────────────────────────────────────────────────────────────────────── */
 
 /* ─── Tokens ─────────────────────────────────────────────────────────────── */
 :root {
-  /* Palette */
-  --clr-navy:        #0F1B2D;
-  --clr-navy-mid:    #1A2E47;
-  --clr-navy-soft:   #243650;
-  --clr-amber:       #F59E0B;
-  --clr-amber-light: #FCD34D;
-  --clr-amber-dark:  #D97706;
-  --clr-success:     #10B981;
-  --clr-danger:      #EF4444;
+  /* ─── Camvella Brand Palette (derived from logo SVG) ───────────────────── */
+  /* Logo green  #55B96A  — left loop                                         */
+  /* Logo teal   #0B8F9C  — crossover                                         */
+  /* Logo navy   #0B2748  — right loop + wordmark                             */
+
+  /* Core brand */
+  --clr-navy:        #0B2748;   /* logo navy — primary dark surface           */
+  --clr-navy-mid:    #133256;   /* slightly lighter navy for cards/sections   */
+  --clr-navy-soft:   #1B3D66;   /* hover/active navy states                  */
+
+  /* Brand green — replaces amber as primary CTA / accent */
+  --clr-amber:       #55B96A;   /* logo green — primary CTA, highlights      */
+  --clr-amber-light: #7ECF90;   /* lighter green for dark-bg labels           */
+  --clr-amber-dark:  #3D9B52;   /* darker green for hover states             */
+
+  /* Brand teal — secondary accent */
+  --clr-teal:        #0B8F9C;   /* logo teal — secondary accents, links      */
+  --clr-teal-light:  #0FAFBF;   /* lighter teal                              */
+
+  /* Semantic (unchanged) */
+  --clr-success:     #22C55E;   /* success states — distinct from brand green */
+  --clr-danger:      #EF4444;   /* errors / destructive                       */
+  --clr-warning:     #F59E0B;   /* amber retained ONLY for warning states     */
   --clr-surface:     #FAFAFA;
   --clr-white:       #FFFFFF;
   --clr-text:        #111827;
@@ -311,7 +325,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 700; }
 .btn--primary:hover {
   background: var(--clr-amber-dark);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgb(245 158 11 / 0.35);
+  box-shadow: 0 4px 12px rgb(85 185 106 / 0.35);
 }
 .btn--primary:active { transform: translateY(0); }
 
@@ -450,7 +464,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 700; }
   border-radius: 50%;
 }
 .screen-frame__dot:nth-child(1) { background: #FF5F57; }
-.screen-frame__dot:nth-child(2) { background: #FEBC2E; }
+.screen-frame__dot:nth-child(2) { background: #0B8F9C; }
 .screen-frame__dot:nth-child(3) { background: #28C840; }
 .screen-frame__content {
   flex: 1;
@@ -895,11 +909,83 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 700; }
   background: rgba(255 255 255 / 0.99);
 }
 
+/* ─── Brand teal — secondary accent ─────────────────────────────────────── */
+a:not(.btn):hover { color: var(--clr-teal); }
+.text-teal { color: var(--clr-teal); }
+
+/* ─── Hero Module Grid (replaces empty screenshot frame) ───────────────── */
+.hero-modules {
+  border-top: 1px solid rgba(255 255 255 / 0.1);
+  padding-top: var(--space-8);
+}
+.hero-module-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+@media (max-width: 640px) {
+  .hero-module-grid { grid-template-columns: 1fr 1fr; }
+}
+.hero-module-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: rgba(255 255 255 / 0.05);
+  border: 1px solid rgba(255 255 255 / 0.08);
+  border-radius: var(--radius-lg);
+  transition: background var(--dur-fast);
+}
+.hero-module-card:hover {
+  background: rgba(85 185 106 / 0.08);
+  border-color: rgba(85 185 106 / 0.2);
+}
+.hero-module-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.hero-module-label {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: rgba(255 255 255 / 0.9);
+  margin-bottom: 2px;
+}
+.hero-module-sub {
+  font-size: var(--text-xs);
+  color: rgba(255 255 255 / 0.45);
+  line-height: 1.4;
+}
+
+/* ─── Nav on dark hero — use light logo variant ─────────────────────────── */
+/* The nav is transparent on dark hero, opaque on scroll */
+.nav {
+  background: rgba(11 39 72 / 0.85) !important;
+  border-bottom: 1px solid rgba(255 255 255 / 0.08) !important;
+  backdrop-filter: blur(12px);
+}
+.nav.is-scrolled {
+  background: rgba(11 39 72 / 0.97) !important;
+  border-bottom-color: rgba(255 255 255 / 0.1) !important;
+}
+.nav__link { color: rgba(255 255 255 / 0.75) !important; }
+.nav__link:hover { color: var(--clr-amber) !important; } /* brand green on hover */
+.nav__logo-img { filter: brightness(0) invert(1); } /* white logo on dark nav */
+
+/* Sign In button on dark nav */
+.nav__actions .btn--ghost {
+  color: rgba(255 255 255 / 0.85) !important;
+  border-color: rgba(255 255 255 / 0.2) !important;
+}
+.nav__actions .btn--ghost:hover {
+  background: rgba(255 255 255 / 0.08) !important;
+}
+
   </style>
 </head>
 <body>
   <!-- Skip to content -->
-  <a href="#main-content" class="visually-hidden" style="position:fixed;z-index:999;padding:0.5rem 1rem;background:var(--clr-amber);color:var(--clr-navy);font-weight:700;top:0;left:0;border-radius:0 0 4px 0;">
+  <a href="#main-content" class="visually-hidden" style="position:fixed;z-index:999;padding:0.5rem 1rem;background:var(--clr-amber);color:white;font-weight:700;top:0;left:0;border-radius:0 0 4px 0;">
     Skip to content
   </a>
 

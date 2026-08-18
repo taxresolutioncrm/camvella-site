@@ -112,7 +112,7 @@ const faqs = [
       </h1>
 
       <p class="hero__body">
-        CINC is dated. Vantaca is built for companies managing hundreds of communities. PayHOA is for volunteer boards. Camvella is for the professional management company in the middle — managing 5 to 50 communities and needing real financial depth without the enterprise overhead.
+        Built for professional community management companies that have outgrown basic HOA software but don't need enterprise complexity. Camvella brings operations, financials, boards, and residents together in one modern platform.
       </p>
 
       <div class="hero__actions">
@@ -132,17 +132,26 @@ const faqs = [
         </a>
       </div>
 
-      <!-- Product screenshot placeholder -->
+      <!-- Product feature preview — replace with real screenshots once verified -->
       <div style="margin-top: var(--space-16);">
-        <div class="screen-frame" aria-label="Camvella application screenshot">
-          <div class="screen-frame__bar" aria-hidden="true">
-            <div class="screen-frame__dot"></div>
-            <div class="screen-frame__dot"></div>
-            <div class="screen-frame__dot"></div>
-          </div>
-          <div class="screen-frame__content" style="display: flex; align-items: center; justify-content: center; color: rgba(255 255 255 / 0.2); font-size: 0.875rem; letter-spacing: 0.05em; text-transform: uppercase;">
-            <!-- Replace with actual product screenshot -->
-            Product Screenshot
+        <div class="hero-modules" aria-label="Camvella module overview">
+          <div class="hero-module-grid">
+            {[
+              { icon: "📋", label: "Violations", sub: "Full lifecycle · notices · fines" },
+              { icon: "🏛️", label: "ARC Requests", sub: "Board voting · document tracking" },
+              { icon: "💰", label: "HOA Accounting", sub: "AR · AP · GL · budgets" },
+              { icon: "🔧", label: "Work Orders", sub: "Assignment · tracking · vendors" },
+              { icon: "👤", label: "Board Portal", sub: "Meetings · resolutions · financials" },
+              { icon: "📱", label: "Resident Portal", sub: "Mobile-first · violations · ARC" },
+            ].map(m => (
+              <div class="hero-module-card">
+                <span class="hero-module-icon" aria-hidden="true">{m.icon}</span>
+                <div>
+                  <p class="hero-module-label">{m.label}</p>
+                  <p class="hero-module-sub">{m.sub}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
