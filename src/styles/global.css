@@ -790,3 +790,22 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 700; }
   white-space: nowrap !important;
   border: 0 !important;
 }
+
+/* ─── Logo image ─────────────────────────────────────────────────────────── */
+.nav__logo { padding: 0; }
+.nav__logo-img {
+  height: 34px;
+  width: auto;
+  display: block;
+  /* On dark hero pages the horizontal logo is navy — use the light version in footer */
+}
+/* Ensure nav has white bg always (not just on scroll) for readability */
+.nav {
+  background: rgba(255 255 255 / 0.97);
+  border-bottom: 1px solid var(--clr-border);
+  backdrop-filter: blur(8px);
+}
+/* Override the transparent default — nav should always be white */
+.nav.is-scrolled {
+  background: rgba(255 255 255 / 0.99);
+}
