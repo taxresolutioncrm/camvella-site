@@ -51,7 +51,7 @@ const pageTitle = title.includes('Camvella')
   <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="/brand/camvella-favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/manifest.json" />
@@ -98,12 +98,13 @@ const pageTitle = title.includes('Camvella')
       <div class="container">
         <div class="nav__inner">
           <a href="/" class="nav__logo" aria-label="Camvella home">
-            <div class="nav__logo-mark" aria-hidden="true">
-              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 5h14M3 10h14M3 15h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            Camvella
+            <img
+              src="/brand/camvella-logo-horizontal.svg"
+              alt="Camvella"
+              class="nav__logo-img"
+              width="140"
+              height="36"
+            />
           </a>
 
           <div class="nav__links" role="list">
@@ -139,10 +140,12 @@ const pageTitle = title.includes('Camvella')
       <div class="footer__grid">
         <div>
           <div class="footer__brand">
-            <svg width="24" height="24" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M3 5h14M3 10h14M3 15h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color: #F59E0B;"/>
-            </svg>
-            Camvella
+            <img
+              src="/brand/camvella-logo-horizontal-light.svg"
+              alt="Camvella"
+              width="130"
+              height="32"
+            />
           </div>
           <p class="footer__tagline">
             HOA management software built for professional community association management companies. Not adapted from rental software. Not built for volunteer boards.
