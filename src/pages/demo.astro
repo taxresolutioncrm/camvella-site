@@ -54,8 +54,6 @@ const schema = {
 
           <form
             id="demo-form"
-            action="/demo/thank-you"
-            method="POST"
             novalidate
             aria-label="Demo request form"
           >
@@ -126,6 +124,62 @@ const schema = {
       </div>
     </div>
   </div>
+
+<script>
+  const EDGE = 'https://fjqywulzsyfyzitneazb.supabase.co/functions/v1/submit-demo-lead';
+
+  document.getElementById('demo-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('[type="submit"]');
+    const errEl = document.getElementById('form-error');
+    const fields = Object.fromEntries(new FormData(form).entries());
+
+    // Capture UTM params from URL
+    const sp = new URLSearchParams(window.location.search);
+    fields.utm_source   = sp.get('utm_source')   || '';
+    fields.utm_medium   = sp.get('utm_medium')   || '';
+    fields.utm_campaign = sp.get('utm_campaign') || '';
+    fields.source_page  = window.location.pathname;
+
+    // Client-side required check
+    const required = ['first_name','last_name','email','company','communities'];
+    const missing = required.filter(f => !fields[f]?.trim());
+    if (missing.length) {
+      if (errEl) { errEl.textContent = 'Please fill in all required fields.'; errEl.hidden = false; }
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+    if (errEl) errEl.hidden = true;
+
+    // Fire GA4 event
+    if (typeof gtag === 'function') gtag('event', 'demo_form_submit', { event_category: 'conversion' });
+
+    try {
+      const res = await fetch(EDGE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(fields),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        window.location.href = '/demo/thank-you';
+      } else {
+        const msg = data.error || 'Something went wrong. Please try again.';
+        if (errEl) { errEl.textContent = msg; errEl.hidden = false; }
+        btn.disabled = false;
+        btn.textContent = 'Request a Demo';
+      }
+    } catch (err) {
+      if (errEl) { errEl.textContent = 'Network error. Please try again.'; errEl.hidden = false; }
+      btn.disabled = false;
+      btn.textContent = 'Request a Demo';
+    }
+  });
+</script>
+
 </BaseLayout>
 
 <script>
