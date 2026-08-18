@@ -973,7 +973,7 @@ a:not(.btn):hover { color: var(--clr-teal); }
 }
 .nav__link { color: rgba(255 255 255 / 0.75) !important; }
 .nav__link:hover { color: var(--clr-amber) !important; } /* brand green on hover */
-.nav__logo-img { filter: brightness(0) invert(1); } /* white logo on dark nav */
+.nav__logo-img { filter: none; } /* dark-nav variant has correct colors built in */
 
 /* Sign In button on dark nav */
 .nav__actions .btn--ghost {
@@ -1137,11 +1137,11 @@ body > *:first-child[style*="background"][style*="position: fixed"][style*="top:
         <div class="nav__inner">
           <a href="/" class="nav__logo" aria-label="Camvella home">
             <img
-              src="/brand/camvella-logo-horizontal.svg"
+              src="/brand/camvella-logo-nav-dark.svg"
               alt="Camvella"
               class="nav__logo-img"
-              width="140"
-              height="36"
+              width="160"
+              height="28"
             />
           </a>
 
@@ -1179,10 +1179,10 @@ body > *:first-child[style*="background"][style*="position: fixed"][style*="top:
         <div>
           <div class="footer__brand">
             <img
-              src="/brand/camvella-logo-horizontal-light.svg"
+              src="/brand/camvella-logo-nav-dark.svg"
               alt="Camvella"
-              width="130"
-              height="32"
+              width="150"
+              height="26"
             />
           </div>
           <p class="footer__tagline">
