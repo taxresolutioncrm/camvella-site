@@ -1023,3 +1023,13 @@ a:not(.btn):hover { color: var(--clr-teal); }
 .comp-table th.is-camvella {
   border-bottom-color: var(--clr-amber); /* green — our column */
 }
+
+/* ─── Kill any injected top-bar (Cloudflare workers.dev preview badge) ──── */
+/* This only appears on the workers.dev preview URL, not on production.        */
+/* Belt-and-suspenders: if anything injects a colored top border, override it. */
+html::before {
+  display: none !important;
+}
+body > *:first-child[style*="background"][style*="position: fixed"][style*="top: 0"] {
+  display: none !important;
+}
