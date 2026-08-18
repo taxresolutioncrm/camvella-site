@@ -30,13 +30,13 @@ const schema = {
 
           <div style="display: flex; flex-direction: column; gap: var(--space-5);">
             {[
-              { icon: "📋", title: "Violations & ARC", body: "Live walkthrough of the violation lifecycle and ARC board voting." },
-              { icon: "💰", title: "Financial Accounting", body: "Assessment billing, AR aging, AP management, balance sheet — all in one system." },
-              { icon: "🏛️", title: "Board Operations", body: "Meeting management, resolutions, minutes, and the board financial portal." },
-              { icon: "📱", title: "Resident Portal", body: "Mobile-first self-service for violation status, ARC submissions, and statements." },
+              { icon: null, svgIcon: `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3L17.5 16.5H2.5L10 3Z" stroke="#0B2748" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 8v3.5M10 13.5v.5" stroke="#55B96A" stroke-width="1.5" stroke-linecap="round"/></svg>`, title: "Violations & ARC", body: "Live walkthrough of the violation lifecycle and ARC board voting." },
+              { icon: null, svgIcon: `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2" y="4" width="16" height="12" rx="1.5" stroke="#0B2748" stroke-width="1.5"/><path d="M2 8h16" stroke="#0B8F9C" stroke-width="1.5"/><path d="M5 12h3M5 14.5h2" stroke="#55B96A" stroke-width="1.5" stroke-linecap="round"/></svg>`, title: "Financial Accounting", body: "Assessment billing, AR aging, AP management, balance sheet — all in one system." },
+              { icon: null, svgIcon: `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke="#0B2748" stroke-width="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke="#0B8F9C" stroke-width="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke="#0B8F9C" stroke-width="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke="#0B2748" stroke-width="1.5"/></svg>`, title: "Board Operations", body: "Meeting management, resolutions, minutes, and the board financial portal." },
+              { icon: null, svgIcon: `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="5" y="2" width="10" height="16" rx="2" stroke="#0B2748" stroke-width="1.5"/><circle cx="10" cy="7.5" r="2" stroke="#55B96A" stroke-width="1.5"/><path d="M7 13c0-1.7 1.3-3 3-3s3 1.3 3 3" stroke="#55B96A" stroke-width="1.5" stroke-linecap="round"/></svg>`, title: "Resident Portal", body: "Mobile-first self-service for violation status, ARC submissions, and statements." },
             ].map(item => (
               <div style="display: flex; align-items: flex-start; gap: var(--space-4);">
-                <span style="font-size: 1.25rem;" aria-hidden="true">{item.icon}</span>
+                <span style="width:20px;height:20px;flex-shrink:0;" set:html={item.svgIcon}></span>
                 <div>
                   <p style="font-size: var(--text-sm); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-1);">{item.title}</p>
                   <p style="font-size: var(--text-sm); color: var(--clr-text-soft); line-height: 1.5;">{item.body}</p>

@@ -100,6 +100,7 @@ const faqs = [
   <!-- ─── Hero ──────────────────────────────────────────────────────────── -->
   <section class="hero" aria-label="Hero">
     <div class="container">
+      <div class="hero__two-col"><div class="hero__left">
       <div class="hero__eyebrow" aria-hidden="true">
         <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
           <circle cx="5" cy="5" r="4"/>
@@ -136,25 +137,52 @@ const faqs = [
       <div style="margin-top: var(--space-16);">
         <div class="hero-modules" aria-label="Camvella module overview">
           <div class="hero-module-grid">
-            {[
-              { icon: "📋", label: "Violations", sub: "Full lifecycle · notices · fines" },
-              { icon: "🏛️", label: "ARC Requests", sub: "Board voting · document tracking" },
-              { icon: "💰", label: "HOA Accounting", sub: "AR · AP · GL · budgets" },
-              { icon: "🔧", label: "Work Orders", sub: "Assignment · tracking · vendors" },
-              { icon: "👤", label: "Board Portal", sub: "Meetings · resolutions · financials" },
-              { icon: "📱", label: "Resident Portal", sub: "Mobile-first · violations · ARC" },
-            ].map(m => (
-              <div class="hero-module-card">
-                <span class="hero-module-icon" aria-hidden="true">{m.icon}</span>
-                <div>
-                  <p class="hero-module-label">{m.label}</p>
-                  <p class="hero-module-sub">{m.sub}</p>
-                </div>
-              </div>
-            ))}
+            <div class="hero-module-card">
+              <div class="hero-module-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3L17.5 16.5H2.5L10 3Z" stroke="#0B2748" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 8v3.5M10 13.5v.5" stroke="#55B96A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <div><p class="hero-module-label">Violations</p><p class="hero-module-sub">Full lifecycle · notices · fines</p></div>
+            </div>
+            <div class="hero-module-card">
+              <div class="hero-module-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="2" stroke="#0B2748" stroke-width="1.5"/><path d="M7 10l2.5 2.5L13 7" stroke="#55B96A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div><p class="hero-module-label">ARC Requests</p><p class="hero-module-sub">Board voting · document tracking</p></div>
+            </div>
+            <div class="hero-module-card">
+              <div class="hero-module-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2" y="4" width="16" height="12" rx="1.5" stroke="#0B2748" stroke-width="1.5"/><path d="M2 8h16" stroke="#0B8F9C" stroke-width="1.5"/><path d="M5 12h3M5 14.5h2" stroke="#55B96A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <div><p class="hero-module-label">HOA Accounting</p><p class="hero-module-sub">AR · AP · GL · budgets</p></div>
+            </div>
+            <div class="hero-module-card">
+              <div class="hero-module-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M13 4l3 3-8 8-3.5.5.5-3.5L13 4z" stroke="#0B2748" stroke-width="1.5" stroke-linejoin="round"/><path d="M11.5 5.5l3 3" stroke="#55B96A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <div><p class="hero-module-label">Work Orders</p><p class="hero-module-sub">Assignment · tracking · vendors</p></div>
+            </div>
+            <div class="hero-module-card">
+              <div class="hero-module-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke="#0B2748" stroke-width="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke="#0B8F9C" stroke-width="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke="#0B8F9C" stroke-width="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke="#0B2748" stroke-width="1.5"/></svg></div>
+              <div><p class="hero-module-label">Board Portal</p><p class="hero-module-sub">Meetings · resolutions · financials</p></div>
+            </div>
+            <div class="hero-module-card">
+              <div class="hero-module-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="5" y="2" width="10" height="16" rx="2" stroke="#0B2748" stroke-width="1.5"/><circle cx="10" cy="7.5" r="2" stroke="#55B96A" stroke-width="1.5"/><path d="M7 13c0-1.7 1.3-3 3-3s3 1.3 3 3" stroke="#55B96A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+              <div><p class="hero-module-label">Resident Portal</p><p class="hero-module-sub">Mobile-first · violations · ARC</p></div>
+            </div>
           </div>
         </div>
       </div>
+
+        </div><!-- /hero__left -->
+
+        <!-- Right: product visual area — replace with real screenshot when available -->
+        <div class="hero__right" aria-label="Camvella product overview">
+          <div class="hero__visual-frame">
+            <div class="hero__visual-bar" aria-hidden="true">
+              <span class="hero__visual-dot"></span>
+              <span class="hero__visual-dot"></span>
+              <span class="hero__visual-dot"></span>
+              <span class="hero__visual-url">app.camvella.com</span>
+            </div>
+            <div class="hero__visual-content">
+              <p class="hero__visual-label">Product screenshots coming soon</p>
+              <p class="hero__visual-sub">Real Camvella screens replace this placeholder</p>
+            </div>
+          </div>
+        </div><!-- /hero__right -->
+      </div><!-- /hero__two-col -->
 
       <div class="hero__trust">
         <span class="hero__trust-item">
