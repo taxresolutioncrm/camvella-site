@@ -13,7 +13,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
       <form
         id="contact-form"
-        action="https://formspree.io/f/placeholder"
+        id="contact-form" novalidate
         method="POST"
         novalidate
         aria-label="Contact form"
@@ -57,4 +57,43 @@ import BaseLayout from '../layouts/BaseLayout.astro'
       </div>
     </div>
   </div>
+
+</BaseLayout>
+
+<script>
+  (function() {
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = form.querySelector('[type="submit"]');
+      var data = {};
+      var fd = new FormData(form);
+      fd.forEach(function(v, k) { data[k] = v; });
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      fetch('https://fjqywulzsyfyzitneazb.supabase.co/functions/v1/submit-demo-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: (data.name || '').split(' ')[0] || 'Visitor',
+          last_name: (data.name || '').split(' ').slice(1).join(' ') || '',
+          email: data.email || '',
+          company: data.company || 'Not provided',
+          communities: '0',
+          how_heard: data.message || '',
+          source_page: '/contact'
+        })
+      }).then(function(r) { return r.json().then(function(j) { return { ok: r.ok, json: j }; }); })
+      .then(function(result) {
+        if (result.ok) {
+          form.innerHTML = '<p style="text-align:center;padding:2rem 0;font-weight:600">Thanks! We will be in touch shortly.</p>';
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Send Message';
+        }
+      }).catch(function() { btn.disabled = false; btn.textContent = 'Send Message'; });
+    });
+  })();
+</script>
 </BaseLayout>
