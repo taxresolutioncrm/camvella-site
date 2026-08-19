@@ -1,5 +1,10 @@
 name = "camvella-site"
 compatibility_date = "2024-01-01"
 
+routes = [
+  { pattern = "camvella.com", custom_domain = true },
+  { pattern = "www.camvella.com", custom_domain = true }
+]
+
 [assets]
 directory = "./dist"
