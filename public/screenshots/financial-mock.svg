@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <rect width="720" height="480" fill="#F8FAFB" rx="6"/>
+  <rect width="720" height="44" fill="white"/>
+  <rect y="43" width="720" height="1" fill="#E2E8ED"/>
+  <text x="20" y="28" fill="#0B2748" font-size="13" font-weight="700">Financials</text>
+  <rect x="580" y="12" width="124" height="22" rx="4" fill="#0B8F9C"/>
+  <text x="592" y="27" fill="white" font-size="11" font-weight="600">+ Post assessment</text>
+  <text x="20" y="72" fill="#0B8F9C" font-size="12" font-weight="600">Overview</text>
+  <rect x="20" y="76" width="50" height="2" rx="1" fill="#0B8F9C"/>
+  <text x="80" y="72" fill="#4A6280" font-size="12">Receivables</text>
+  <text x="160" y="72" fill="#4A6280" font-size="12">Payables</text>
+  <text x="224" y="72" fill="#4A6280" font-size="12">Reports</text>
+  <text x="272" y="72" fill="#4A6280" font-size="12">Bank</text>
+  <rect x="0" y="80" width="720" height="1" fill="#E2E8ED"/>
+  <rect x="16" y="96" width="156" height="80" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="28" y="116" fill="#4A6280" font-size="10" font-weight="500">Total AR balance</text>
+  <text x="28" y="148" fill="#0B2748" font-size="22" font-weight="800">$142,850</text>
+  <text x="28" y="164" fill="#DC2626" font-size="10">$8,200 overdue</text>
+  <rect x="180" y="96" width="156" height="80" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="192" y="116" fill="#4A6280" font-size="10" font-weight="500">Collected this month</text>
+  <text x="192" y="148" fill="#55B96A" font-size="22" font-weight="800">$68,400</text>
+  <text x="192" y="164" fill="#4A6280" font-size="10">84% collection rate</text>
+  <rect x="344" y="96" width="156" height="80" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="356" y="116" fill="#4A6280" font-size="10" font-weight="500">Open bills (AP)</text>
+  <text x="356" y="148" fill="#D97706" font-size="22" font-weight="800">$24,100</text>
+  <text x="356" y="164" fill="#4A6280" font-size="10">7 bills pending</text>
+  <rect x="508" y="96" width="196" height="80" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="520" y="116" fill="#4A6280" font-size="10" font-weight="500">Operating fund</text>
+  <text x="520" y="148" fill="#0B8F9C" font-size="22" font-weight="800">$218,340</text>
+  <text x="520" y="164" fill="#4A6280" font-size="10">Reserve: $94,200</text>
+  <text x="16" y="200" fill="#0B2748" font-size="12" font-weight="700">AR aging report</text>
+  <rect x="16" y="210" width="688" height="250" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <rect x="16" y="210" width="688" height="36" rx="8 8 0 0" fill="#F8FAFB"/>
+  <rect x="16" y="245" width="688" height="1" fill="#E2E8ED"/>
+  <text x="28" y="233" fill="#4A6280" font-size="10" font-weight="600">UNIT</text>
+  <text x="120" y="233" fill="#4A6280" font-size="10" font-weight="600">OWNER</text>
+  <text x="280" y="233" fill="#4A6280" font-size="10" font-weight="600">BALANCE</text>
+  <text x="370" y="233" fill="#4A6280" font-size="10" font-weight="600">CURRENT</text>
+  <text x="450" y="233" fill="#4A6280" font-size="10" font-weight="600">30 DAYS</text>
+  <text x="530" y="233" fill="#4A6280" font-size="10" font-weight="600">60 DAYS</text>
+  <text x="610" y="233" fill="#4A6280" font-size="10" font-weight="600">90+ DAYS</text>
+  <text x="28" y="270" fill="#0B2748" font-size="11">Unit 104</text>
+  <text x="120" y="270" fill="#0B2748" font-size="11">Martinez, C.</text>
+  <text x="280" y="270" fill="#0B2748" font-size="11" font-weight="600">$1,850</text>
+  <text x="370" y="270" fill="#4A6280" font-size="11">$450</text>
+  <text x="450" y="270" fill="#D97706" font-size="11">$900</text>
+  <text x="530" y="270" fill="#DC2626" font-size="11">$500</text>
+  <text x="610" y="270" fill="#4A6280" font-size="11">—</text>
+  <rect x="16" y="279" width="688" height="1" fill="#F1F5F9"/>
+  <text x="28" y="300" fill="#0B2748" font-size="11">Unit 218</text>
+  <text x="120" y="300" fill="#0B2748" font-size="11">Johnson, P.</text>
+  <text x="280" y="300" fill="#0B2748" font-size="11" font-weight="600">$900</text>
+  <text x="370" y="300" fill="#55B96A" font-size="11">$900</text>
+  <text x="450" y="300" fill="#4A6280" font-size="11">—</text>
+  <text x="530" y="300" fill="#4A6280" font-size="11">—</text>
+  <text x="610" y="300" fill="#4A6280" font-size="11">—</text>
+  <rect x="16" y="309" width="688" height="1" fill="#F1F5F9"/>
+  <text x="28" y="330" fill="#0B2748" font-size="11">Unit 301</text>
+  <text x="120" y="330" fill="#0B2748" font-size="11">Chen, W.</text>
+  <text x="280" y="330" fill="#0B2748" font-size="11" font-weight="600">$2,700</text>
+  <text x="370" y="330" fill="#4A6280" font-size="11">—</text>
+  <text x="450" y="330" fill="#4A6280" font-size="11">—</text>
+  <text x="530" y="330" fill="#D97706" font-size="11">$900</text>
+  <text x="610" y="330" fill="#DC2626" font-size="11" font-weight="600">$1,800</text>
+  <rect x="16" y="339" width="688" height="1" fill="#F1F5F9"/>
+  <text x="28" y="360" fill="#0B2748" font-size="11">Unit 415</text>
+  <text x="120" y="360" fill="#0B2748" font-size="11">Williams, S.</text>
+  <text x="280" y="360" fill="#0B2748" font-size="11" font-weight="600">$450</text>
+  <text x="370" y="360" fill="#55B96A" font-size="11">$450</text>
+  <text x="450" y="360" fill="#4A6280" font-size="11">—</text>
+  <text x="530" y="360" fill="#4A6280" font-size="11">—</text>
+  <text x="610" y="360" fill="#4A6280" font-size="11">—</text>
+  <rect x="16" y="369" width="688" height="1" fill="#F1F5F9"/>
+  <text x="28" y="445" fill="#0B8F9C" font-size="11" font-weight="600">View all 284 units →</text>
+</svg>
