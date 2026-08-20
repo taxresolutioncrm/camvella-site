@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <rect width="1280" height="800" fill="#F0F2F5"/>
+  <rect width="200" height="800" fill="#0B2748"/>
+  <text x="36" y="42" fill="white" font-size="15" font-weight="700" letter-spacing="-0.3">CAMVELLA</text>
+  <text x="36" y="95" fill="rgba(255,255,255,0.6)" font-size="13">Dashboard</text>
+  <rect x="8" y="444" width="184" height="36" rx="6" fill="#55B96A" opacity="0.2"/>
+  <text x="36" y="467" fill="#55B96A" font-size="13" font-weight="600">Financials</text>
+  <text x="36" y="762" fill="rgba(255,255,255,0.4)" font-size="12">Settings</text>
+  <!-- Top bar -->
+  <rect x="200" y="0" width="1080" height="56" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="220" y="36" fill="#0B2748" font-size="20" font-weight="700">Financial Dashboard</text>
+  <text x="220" y="52" fill="#64748B" font-size="12">Palmetto Reserve HOA · FY 2026</text>
+  <!-- Fin Nav tabs -->
+  <rect x="200" y="56" width="1080" height="44" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="220" y="68" width="96" height="28" rx="6" fill="#0B2748"/>
+  <text x="268" y="86" fill="white" font-size="12" font-weight="600" text-anchor="middle">Overview</text>
+  <text x="338" y="86" fill="#64748B" font-size="12">Assessments</text>
+  <text x="440" y="86" fill="#64748B" font-size="12">Receivables</text>
+  <text x="540" y="86" fill="#64748B" font-size="12">Payables</text>
+  <text x="620" y="86" fill="#64748B" font-size="12">Reports</text>
+  <text x="688" y="86" fill="#64748B" font-size="12">GL Detail</text>
+  <text x="752" y="86" fill="#64748B" font-size="12">Budgets</text>
+  <!-- KPI row -->
+  <rect x="220" y="116" width="196" height="88" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="236" y="140" fill="#64748B" font-size="11">YTD Revenue Billed</text>
+  <text x="236" y="170" fill="#0B2748" font-size="28" font-weight="700">$14,700</text>
+  <text x="236" y="192" fill="#94A3B8" font-size="11">7 months · Jan–Jul 2026</text>
+  <rect x="430" y="116" width="196" height="88" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="446" y="140" fill="#64748B" font-size="11">Collected YTD</text>
+  <text x="446" y="170" fill="#55B96A" font-size="28" font-weight="700">$11,025</text>
+  <text x="446" y="192" fill="#94A3B8" font-size="11">75% collection rate</text>
+  <rect x="640" y="116" width="196" height="88" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="656" y="140" fill="#64748B" font-size="11">AR Outstanding</text>
+  <text x="656" y="170" fill="#EF4444" font-size="28" font-weight="700">$3,675</text>
+  <text x="656" y="192" fill="#94A3B8" font-size="11">Unit 104 · delinquent 7 mo</text>
+  <rect x="850" y="116" width="196" height="88" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="866" y="140" fill="#64748B" font-size="11">AP Open</text>
+  <text x="866" y="170" fill="#F59E0B" font-size="28" font-weight="700">$7,050</text>
+  <text x="866" y="192" fill="#94A3B8" font-size="11">2 bills pending</text>
+  <rect x="1060" y="116" width="196" height="88" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="1076" y="140" fill="#64748B" font-size="11">GL Entries</text>
+  <text x="1076" y="170" fill="#0B2748" font-size="28" font-weight="700">26</text>
+  <text x="1076" y="192" fill="#55B96A" font-size="11">✓ Balanced · Variance $0</text>
+  <!-- AR Aging section -->
+  <rect x="220" y="220" width="620" height="260" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="236" y="248" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.05em">AR AGING SUMMARY</text>
+  <!-- Aging table header -->
+  <rect x="236" y="256" width="588" height="28" rx="4" fill="#F8FAFC"/>
+  <text x="252" y="274" fill="#64748B" font-size="11" font-weight="600">UNIT / OWNER</text>
+  <text x="440" y="274" fill="#64748B" font-size="11" font-weight="600">CURRENT</text>
+  <text x="520" y="274" fill="#64748B" font-size="11" font-weight="600">31–60</text>
+  <text x="576" y="274" fill="#64748B" font-size="11" font-weight="600">61–90</text>
+  <text x="636" y="274" fill="#64748B" font-size="11" font-weight="600">90+ DAYS</text>
+  <text x="752" y="274" fill="#64748B" font-size="11" font-weight="600">TOTAL</text>
+  <!-- Rows -->
+  <rect x="236" y="284" width="588" height="40" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="252" y="300" fill="#0B2748" font-size="12" font-weight="500">Unit 101 — Castellano</text>
+  <text x="252" y="316" fill="#94A3B8" font-size="11">Palmetto Reserve HOA</text>
+  <text x="462" y="306" fill="#55B96A" font-size="12" text-anchor="middle">—</text>
+  <text x="536" y="306" fill="#55B96A" font-size="12" text-anchor="middle">—</text>
+  <text x="592" y="306" fill="#55B96A" font-size="12" text-anchor="middle">—</text>
+  <text x="660" y="306" fill="#55B96A" font-size="12" text-anchor="middle">—</text>
+  <text x="768" y="306" fill="#55B96A" font-size="12" text-anchor="middle">$0</text>
+  <rect x="236" y="324" width="588" height="40" fill="#FFF8F8" stroke="#FEE2E2" stroke-width="1"/>
+  <text x="252" y="340" fill="#0B2748" font-size="12" font-weight="600">Unit 104 — Nguyen ⚠</text>
+  <text x="252" y="356" fill="#EF4444" font-size="11">Delinquent since January 2026</text>
+  <text x="462" y="346" fill="#EF4444" font-size="12" font-weight="600" text-anchor="middle">$525</text>
+  <text x="536" y="346" fill="#EF4444" font-size="12" font-weight="600" text-anchor="middle">$1,050</text>
+  <text x="592" y="346" fill="#EF4444" font-size="12" font-weight="600" text-anchor="middle">$1,050</text>
+  <text x="660" y="346" fill="#EF4444" font-size="12" font-weight="600" text-anchor="middle">$1,050</text>
+  <text x="768" y="346" fill="#EF4444" font-size="12" font-weight="700" text-anchor="middle">$3,675</text>
+  <!-- GL Trial Balance -->
+  <rect x="236" y="380" width="588" height="80" rx="6" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1"/>
+  <text x="252" y="404" fill="#15803D" font-size="12" font-weight="700">✓ Trial Balance — RECONCILED</text>
+  <text x="252" y="424" fill="#15803D" font-size="12">Total Debits: $404,750 · Total Credits: $404,750 · Variance: $0</text>
+  <text x="252" y="444" fill="#166534" font-size="11">26 journal entries · All posted · No orphan lines</text>
+  <!-- Bills section -->
+  <rect x="856" y="220" width="400" height="260" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="872" y="248" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.05em">OPEN BILLS / AP</text>
+  <rect x="872" y="256" width="368" height="28" rx="4" fill="#F8FAFC"/>
+  <text x="888" y="274" fill="#64748B" font-size="11" font-weight="600">VENDOR</text>
+  <text x="1076" y="274" fill="#64748B" font-size="11" font-weight="600">AMOUNT</text>
+  <text x="1160" y="274" fill="#64748B" font-size="11" font-weight="600">STATUS</text>
+  <rect x="872" y="284" width="368" height="48" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="888" y="302" fill="#0B2748" font-size="12" font-weight="500">SunState Roofing</text>
+  <text x="888" y="320" fill="#64748B" font-size="11">SR-2026-0805 · Emergency repair Unit 103</text>
+  <text x="1092" y="310" fill="#0B2748" font-size="13" font-weight="700" text-anchor="middle">$4,200</text>
+  <rect x="1156" y="295" width="72" height="22" rx="11" fill="#FFFBEB"/>
+  <text x="1192" y="310" fill="#F59E0B" font-size="11" font-weight="600" text-anchor="middle">Approved</text>
+  <rect x="872" y="332" width="368" height="48" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="888" y="350" fill="#0B2748" font-size="12" font-weight="500">Coastal Gate and Access</text>
+  <text x="888" y="368" fill="#64748B" font-size="11">CG-2026-0817 · Gate motor replacement</text>
+  <text x="1092" y="358" fill="#0B2748" font-size="13" font-weight="700" text-anchor="middle">$2,850</text>
+  <rect x="1156" y="343" width="52" height="22" rx="11" fill="#F1F5F9"/>
+  <text x="1182" y="358" fill="#64748B" font-size="11" font-weight="600" text-anchor="middle">Draft</text>
+  <rect x="872" y="396" width="368" height="36" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="888" y="418" fill="#64748B" font-size="11">Total AP Outstanding</text>
+  <text x="1156" y="418" fill="#F59E0B" font-size="14" font-weight="700">$7,050</text>
+  <!-- Income Statement preview -->
+  <rect x="220" y="496" width="1036" height="280" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="236" y="524" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.05em">INCOME STATEMENT — YTD JAN–AUG 2026</text>
+  <!-- IS table -->
+  <rect x="236" y="532" width="1004" height="28" rx="4" fill="#F8FAFC"/>
+  <text x="252" y="550" fill="#64748B" font-size="11" font-weight="600">ACCOUNT</text>
+  <text x="752" y="550" fill="#64748B" font-size="11" font-weight="600" text-anchor="end">PERIOD</text>
+  <text x="904" y="550" fill="#64748B" font-size="11" font-weight="600" text-anchor="end">YTD</text>
+  <text x="1220" y="550" fill="#64748B" font-size="11" font-weight="600" text-anchor="end">BUDGET</text>
+  <text x="252" y="580" fill="#0B2748" font-size="12" font-weight="700">REVENUE</text>
+  <text x="252" y="600" fill="#0B2748" font-size="12">4100 · Assessment Income</text>
+  <text x="752" y="600" fill="#55B96A" font-size="12" text-anchor="end">$2,100</text>
+  <text x="904" y="600" fill="#55B96A" font-size="12" text-anchor="end">$14,700</text>
+  <text x="1220" y="600" fill="#64748B" font-size="12" text-anchor="end">$18,900</text>
+  <line x1="236" y1="612" x2="1224" y2="612" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="252" y="632" fill="#0B2748" font-size="12" font-weight="700">EXPENSES</text>
+  <text x="252" y="652" fill="#0B2748" font-size="12">5100 · Management Fees</text>
+  <text x="752" y="652" fill="#0B2748" font-size="12" text-anchor="end">$450</text>
+  <text x="904" y="652" fill="#0B2748" font-size="12" text-anchor="end">$3,150</text>
+  <text x="1220" y="652" fill="#64748B" font-size="12" text-anchor="end">$5,400</text>
+  <text x="252" y="672" fill="#0B2748" font-size="12">5300 · Landscaping and Grounds</text>
+  <text x="752" y="672" fill="#0B2748" font-size="12" text-anchor="end">$1,850</text>
+  <text x="904" y="672" fill="#0B2748" font-size="12" text-anchor="end">$3,700</text>
+  <text x="1220" y="672" fill="#64748B" font-size="12" text-anchor="end">$9,000</text>
+  <text x="252" y="692" fill="#0B2748" font-size="12">5400 · Repairs and Maintenance</text>
+  <text x="752" y="692" fill="#0B2748" font-size="12" text-anchor="end">$4,200</text>
+  <text x="904" y="692" fill="#0B2748" font-size="12" text-anchor="end">$4,200</text>
+  <text x="1220" y="692" fill="#64748B" font-size="12" text-anchor="end">$12,000</text>
+  <line x1="236" y1="704" x2="1224" y2="704" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="252" y="724" fill="#0B2748" font-size="13" font-weight="700">Net Income</text>
+  <text x="752" y="724" fill="#EF4444" font-size="13" font-weight="700" text-anchor="end">($4,400)</text>
+  <text x="904" y="724" fill="#55B96A" font-size="13" font-weight="700" text-anchor="end">$3,650</text>
+  <text x="1220" y="724" fill="#64748B" font-size="13" font-weight="700" text-anchor="end">($7,500)</text>
+  <text x="252" y="752" fill="#94A3B8" font-size="11">August repair bill drives current period negative — within projected annual operating surplus</text>
+</svg>

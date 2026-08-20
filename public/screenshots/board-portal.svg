@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <rect width="1280" height="800" fill="#F0F2F5"/>
+  <rect width="200" height="800" fill="#0B2748"/>
+  <text x="36" y="42" fill="white" font-size="15" font-weight="700" letter-spacing="-0.3">CAMVELLA</text>
+  <rect x="8" y="388" width="184" height="36" rx="6" fill="#55B96A" opacity="0.2"/>
+  <text x="36" y="411" fill="#55B96A" font-size="13" font-weight="600">Board Portal</text>
+  <text x="36" y="95" fill="rgba(255,255,255,0.6)" font-size="13">Dashboard</text>
+  <text x="36" y="131" fill="rgba(255,255,255,0.6)" font-size="13">Violations</text>
+  <text x="36" y="163" fill="rgba(255,255,255,0.6)" font-size="13">ARC Requests</text>
+  <text x="36" y="195" fill="rgba(255,255,255,0.6)" font-size="13">Work Orders</text>
+  <text x="36" y="762" fill="rgba(255,255,255,0.4)" font-size="12">Settings</text>
+  <rect x="200" y="0" width="1080" height="56" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="220" y="36" fill="#0B2748" font-size="20" font-weight="700">Board Portal</text>
+  <text x="220" y="52" fill="#64748B" font-size="12">Palmetto Reserve HOA · Board Member Access</text>
+  <rect x="1124" y="14" width="136" height="32" rx="6" fill="#0B2748"/>
+  <text x="1192" y="34" fill="white" font-size="13" font-weight="600" text-anchor="middle">+ New Meeting</text>
+  <!-- Board tabs -->
+  <rect x="200" y="56" width="1080" height="44" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="220" y="68" width="108" height="28" rx="6" fill="#0B2748"/>
+  <text x="274" y="86" fill="white" font-size="12" font-weight="600" text-anchor="middle">Overview</text>
+  <text x="352" y="86" fill="#64748B" font-size="12">Meetings</text>
+  <text x="436" y="86" fill="#64748B" font-size="12">Financials</text>
+  <text x="524" y="86" fill="#64748B" font-size="12">Documents</text>
+  <text x="620" y="86" fill="#64748B" font-size="12">Resolutions</text>
+  <!-- Financial summary strip -->
+  <rect x="220" y="116" width="1036" height="80" rx="8" fill="#0B2748"/>
+  <text x="252" y="142" fill="rgba(255,255,255,0.6)" font-size="11">YTD Revenue Billed</text>
+  <text x="252" y="170" fill="white" font-size="22" font-weight="700">$14,700</text>
+  <text x="460" y="142" fill="rgba(255,255,255,0.6)" font-size="11">Collected</text>
+  <text x="460" y="170" fill="#55B96A" font-size="22" font-weight="700">$11,025</text>
+  <text x="660" y="142" fill="rgba(255,255,255,0.6)" font-size="11">AR Outstanding</text>
+  <text x="660" y="170" fill="#EF4444" font-size="22" font-weight="700">$3,675</text>
+  <text x="860" y="142" fill="rgba(255,255,255,0.6)" font-size="11">Operating Reserve</text>
+  <text x="860" y="170" fill="white" font-size="22" font-weight="700">$185,000</text>
+  <text x="1100" y="142" fill="rgba(255,255,255,0.6)" font-size="11">AP Open</text>
+  <text x="1100" y="170" fill="#F59E0B" font-size="22" font-weight="700">$7,050</text>
+  <!-- Two column layout -->
+  <!-- Upcoming Meetings -->
+  <rect x="220" y="212" width="500" height="360" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="236" y="240" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.05em">BOARD MEETINGS</text>
+  <rect x="700" y="228" width="4" height="1"/>
+  <!-- Meeting 1 - upcoming -->
+  <rect x="236" y="252" width="468" height="88" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="236" y="252" width="4" height="88" rx="2" fill="#0B8F9C"/>
+  <text x="252" y="274" fill="#94A3B8" font-size="10" font-weight="600" letter-spacing="0.05em">UPCOMING</text>
+  <text x="252" y="294" fill="#0B2748" font-size="13" font-weight="700">Annual Homeowners Meeting 2026</text>
+  <text x="252" y="312" fill="#64748B" font-size="12">September 15, 2026 · 7:00 PM · Palmetto Reserve Clubhouse</text>
+  <text x="252" y="330" fill="#64748B" font-size="12">Quorum: 13 required · Virtual link available</text>
+  <rect x="632" y="264" width="60" height="26" rx="6" fill="#0B8F9C"/>
+  <text x="662" y="281" fill="white" font-size="11" font-weight="600" text-anchor="middle">Agenda</text>
+  <!-- Meeting 2 - completed -->
+  <rect x="236" y="348" width="468" height="88" rx="6" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="236" y="348" width="4" height="88" rx="2" fill="#55B96A"/>
+  <text x="252" y="370" fill="#94A3B8" font-size="10" font-weight="600" letter-spacing="0.05em">COMPLETED</text>
+  <text x="252" y="390" fill="#0B2748" font-size="13" font-weight="700">Regular Board Meeting — August 2026</text>
+  <text x="252" y="408" fill="#64748B" font-size="12">August 10, 2026 · 6:30 PM · Quorum met (5 of 5 present)</text>
+  <text x="252" y="426" fill="#55B96A" font-size="12">✓ Minutes approved · 3 resolutions passed</text>
+  <rect x="588" y="360" width="108" height="26" rx="6" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1"/>
+  <text x="642" y="377" fill="#15803D" font-size="11" font-weight="600" text-anchor="middle">View Minutes</text>
+  <!-- Meeting 3 - scheduled -->
+  <rect x="236" y="444" width="468" height="88" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="236" y="444" width="4" height="88" rx="2" fill="#F59E0B"/>
+  <text x="252" y="466" fill="#94A3B8" font-size="10" font-weight="600" letter-spacing="0.05em">SCHEDULED</text>
+  <text x="252" y="486" fill="#0B2748" font-size="13" font-weight="700">Budget Planning Meeting — FY 2027</text>
+  <text x="252" y="504" fill="#64748B" font-size="12">October 8, 2026 · 6:00 PM</text>
+  <text x="252" y="522" fill="#64748B" font-size="12">Draft FY 2027 budget · Reserve study review</text>
+  <!-- Violations & ARC summary -->
+  <rect x="736" y="212" width="520" height="360" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="752" y="240" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.05em">COMPLIANCE SUMMARY</text>
+  <!-- Violations breakdown -->
+  <rect x="752" y="252" width="488" height="120" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="768" y="276" fill="#0B2748" font-size="13" font-weight="700">Violations</text>
+  <rect x="768" y="288" width="140" height="68" rx="6" fill="#FEF2F2"/>
+  <text x="838" y="316" fill="#EF4444" font-size="28" font-weight="700" text-anchor="middle">2</text>
+  <text x="838" y="336" fill="#EF4444" font-size="11" text-anchor="middle">High Severity</text>
+  <rect x="920" y="288" width="140" height="68" rx="6" fill="#FFFBEB"/>
+  <text x="990" y="316" fill="#F59E0B" font-size="28" font-weight="700" text-anchor="middle">3</text>
+  <text x="990" y="336" fill="#F59E0B" font-size="11" text-anchor="middle">Med / Low</text>
+  <rect x="1072" y="288" width="140" height="68" rx="6" fill="#F0FDF4"/>
+  <text x="1142" y="316" fill="#55B96A" font-size="28" font-weight="700" text-anchor="middle">1</text>
+  <text x="1142" y="336" fill="#55B96A" font-size="11" text-anchor="middle">Resolved</text>
+  <!-- ARC breakdown -->
+  <rect x="752" y="384" width="488" height="120" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="768" y="408" fill="#0B2748" font-size="13" font-weight="700">ARC Requests</text>
+  <rect x="768" y="420" width="140" height="68" rx="6" fill="#FFFBEB"/>
+  <text x="838" y="448" fill="#F59E0B" font-size="28" font-weight="700" text-anchor="middle">2</text>
+  <text x="838" y="468" fill="#F59E0B" font-size="11" text-anchor="middle">Under Review</text>
+  <rect x="920" y="420" width="140" height="68" rx="6" fill="#EFF6FF"/>
+  <text x="990" y="448" fill="#3B82F6" font-size="28" font-weight="700" text-anchor="middle">2</text>
+  <text x="990" y="468" fill="#3B82F6" font-size="11" text-anchor="middle">Submitted</text>
+  <rect x="1072" y="420" width="140" height="68" rx="6" fill="#F0FDF4"/>
+  <text x="1142" y="448" fill="#55B96A" font-size="28" font-weight="700" text-anchor="middle">1</text>
+  <text x="1142" y="468" fill="#55B96A" font-size="11" text-anchor="middle">Approved</text>
+  <!-- Document vault -->
+  <rect x="220" y="588" width="1036" height="180" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="236" y="616" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.05em">DOCUMENT VAULT</text>
+  <rect x="1168" y="600" width="76" height="28" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="1206" y="618" fill="#64748B" font-size="12" text-anchor="middle">Upload</text>
+  <!-- Doc list -->
+  <rect x="236" y="628" width="240" height="120" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="252" y="650" fill="#64748B" font-size="11" font-weight="600">FINANCIAL REPORTS</text>
+  <text x="252" y="672" fill="#0B2748" font-size="12">FY 2026 Budget · Jan 1, 2026</text>
+  <text x="252" y="692" fill="#0B2748" font-size="12">July 2026 Financial Package</text>
+  <text x="252" y="712" fill="#0B2748" font-size="12">Reserve Study 2025</text>
+  <rect x="492" y="628" width="240" height="120" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="508" y="650" fill="#64748B" font-size="11" font-weight="600">MEETING MINUTES</text>
+  <text x="508" y="672" fill="#0B2748" font-size="12">August 2026 Minutes (Final)</text>
+  <text x="508" y="692" fill="#0B2748" font-size="12">July 2026 Minutes (Final)</text>
+  <text x="508" y="712" fill="#94A3B8" font-size="12">September 2026 (Pending)</text>
+  <rect x="748" y="628" width="240" height="120" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="764" y="650" fill="#64748B" font-size="11" font-weight="600">GOVERNING DOCS</text>
+  <text x="764" y="672" fill="#0B2748" font-size="12">CC&amp;Rs — Amended 2022</text>
+  <text x="764" y="692" fill="#0B2748" font-size="12">Bylaws — Palmetto Reserve HOA</text>
+  <text x="764" y="712" fill="#0B2748" font-size="12">Rules and Regulations 2024</text>
+  <rect x="1004" y="628" width="240" height="120" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="1020" y="650" fill="#64748B" font-size="11" font-weight="600">INSURANCE</text>
+  <text x="1020" y="672" fill="#0B2748" font-size="12">General Liability 2026</text>
+  <text x="1020" y="692" fill="#0B2748" font-size="12">D&amp;O Policy 2026</text>
+  <text x="1020" y="712" fill="#0B2748" font-size="12">Umbrella Policy 2026</text>
+</svg>

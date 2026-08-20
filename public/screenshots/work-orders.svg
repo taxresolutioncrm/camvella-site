@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <rect width="1280" height="800" fill="#F0F2F5"/>
+  <rect width="200" height="800" fill="#0B2748"/>
+  <text x="36" y="42" fill="white" font-size="15" font-weight="700" letter-spacing="-0.3">CAMVELLA</text>
+  <rect x="8" y="292" width="184" height="36" rx="6" fill="#55B96A" opacity="0.2"/>
+  <text x="36" y="315" fill="#55B96A" font-size="13" font-weight="600">Work Orders</text>
+  <text x="36" y="95" fill="rgba(255,255,255,0.6)" font-size="13">Dashboard</text>
+  <text x="36" y="131" fill="rgba(255,255,255,0.6)" font-size="13">Violations</text>
+  <text x="36" y="163" fill="rgba(255,255,255,0.6)" font-size="13">ARC Requests</text>
+  <text x="36" y="762" fill="rgba(255,255,255,0.4)" font-size="12">Settings</text>
+  <rect x="200" y="0" width="1080" height="56" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="220" y="36" fill="#0B2748" font-size="20" font-weight="700">Work Orders</text>
+  <rect x="1064" y="14" width="196" height="32" rx="6" fill="#0B8F9C"/>
+  <text x="1162" y="34" fill="white" font-size="13" font-weight="600" text-anchor="middle">+ New Work Order</text>
+  <rect x="200" y="56" width="1080" height="48" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="220" y="68" width="180" height="28" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="232" y="86" fill="#94A3B8" font-size="12">Search work orders...</text>
+  <rect x="416" y="68" width="64" height="28" rx="14" fill="#0B2748"/>
+  <text x="448" y="86" fill="white" font-size="12" font-weight="600" text-anchor="middle">All (6)</text>
+  <rect x="492" y="68" width="68" height="28" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="526" y="86" fill="#64748B" font-size="12" text-anchor="middle">Open (3)</text>
+  <rect x="572" y="68" width="100" height="28" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="622" y="86" fill="#64748B" font-size="12" text-anchor="middle">In Progress (2)</text>
+  <rect x="684" y="68" width="92" height="28" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="730" y="86" fill="#64748B" font-size="12" text-anchor="middle">Completed (1)</text>
+  <!-- Table -->
+  <rect x="200" y="104" width="1080" height="36" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="224" y="126" fill="#64748B" font-size="11" font-weight="600">WORK ORDER</text>
+  <text x="540" y="126" fill="#64748B" font-size="11" font-weight="600">ASSOCIATION</text>
+  <text x="720" y="126" fill="#64748B" font-size="11" font-weight="600">VENDOR</text>
+  <text x="860" y="126" fill="#64748B" font-size="11" font-weight="600">STATUS</text>
+  <text x="960" y="126" fill="#64748B" font-size="11" font-weight="600">PRIORITY</text>
+  <text x="1060" y="126" fill="#64748B" font-size="11" font-weight="600">DUE DATE</text>
+  <text x="1160" y="126" fill="#64748B" font-size="11" font-weight="600">ESTIMATE</text>
+  <!-- WO 1 - HIGH open -->
+  <rect x="200" y="140" width="1080" height="60" fill="white" stroke="#FEE2E2" stroke-width="1"/>
+  <rect x="200" y="140" width="4" height="60" fill="#EF4444"/>
+  <text x="224" y="162" fill="#0B2748" font-size="13" font-weight="600">Gate Motor Failure — Main Entry</text>
+  <text x="224" y="180" fill="#64748B" font-size="12">Main entry gate motor not responding · Manual override engaged</text>
+  <text x="224" y="196" fill="#94A3B8" font-size="11">WO-2026-001</text>
+  <text x="548" y="168" fill="#0B2748" font-size="12">Palmetto Reserve HOA</text>
+  <text x="728" y="168" fill="#64748B" font-size="12">Coastal Gate and Access</text>
+  <rect x="860" y="150" width="52" height="24" rx="12" fill="#EFF6FF"/>
+  <text x="886" y="166" fill="#3B82F6" font-size="11" font-weight="600" text-anchor="middle">Open</text>
+  <rect x="960" y="150" width="52" height="24" rx="12" fill="#FEF2F2"/>
+  <text x="986" y="166" fill="#EF4444" font-size="11" font-weight="600" text-anchor="middle">High</text>
+  <text x="1068" y="168" fill="#EF4444" font-size="12" font-weight="600">Aug 23, 2026</text>
+  <text x="1168" y="168" fill="#0B2748" font-size="12">$2,850</text>
+  <!-- WO 2 - HIGH in progress -->
+  <rect x="200" y="200" width="1080" height="60" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="200" y="200" width="4" height="60" fill="#EF4444"/>
+  <text x="224" y="222" fill="#0B2748" font-size="13" font-weight="600">Roof Leak — Unit B2</text>
+  <text x="224" y="240" fill="#64748B" font-size="12">Active leak in master bedroom · Temporary patch in place</text>
+  <text x="224" y="256" fill="#94A3B8" font-size="11">WO-2026-004</text>
+  <text x="548" y="228" fill="#0B2748" font-size="12">Magnolia Trace Community</text>
+  <text x="728" y="228" fill="#64748B" font-size="12">SunState Roofing</text>
+  <rect x="860" y="210" width="80" height="24" rx="12" fill="#EDE9FE"/>
+  <text x="900" y="226" fill="#7C3AED" font-size="11" font-weight="600" text-anchor="middle">In Progress</text>
+  <rect x="960" y="210" width="52" height="24" rx="12" fill="#FEF2F2"/>
+  <text x="986" y="226" fill="#EF4444" font-size="11" font-weight="600" text-anchor="middle">High</text>
+  <text x="1068" y="228" fill="#EF4444" font-size="12" font-weight="600">Aug 22, 2026</text>
+  <text x="1168" y="228" fill="#0B2748" font-size="12">$4,200</text>
+  <!-- WO 3 - MEDIUM in progress -->
+  <rect x="200" y="260" width="1080" height="60" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="200" y="260" width="4" height="60" fill="#F59E0B"/>
+  <text x="224" y="282" fill="#0B2748" font-size="13" font-weight="600">HVAC Common Area — 3rd Floor Hallway</text>
+  <text x="224" y="300" fill="#64748B" font-size="12">Grinding noise from hallway unit · Vendor dispatched</text>
+  <text x="224" y="316" fill="#94A3B8" font-size="11">WO-2026-002</text>
+  <text x="548" y="288" fill="#0B2748" font-size="12">Bayside Condo Association</text>
+  <text x="728" y="288" fill="#64748B" font-size="12">Palm Beach HVAC Services</text>
+  <rect x="860" y="270" width="80" height="24" rx="12" fill="#EDE9FE"/>
+  <text x="900" y="286" fill="#7C3AED" font-size="11" font-weight="600" text-anchor="middle">In Progress</text>
+  <rect x="960" y="270" width="68" height="24" rx="12" fill="#FFFBEB"/>
+  <text x="994" y="286" fill="#F59E0B" font-size="11" font-weight="600" text-anchor="middle">Medium</text>
+  <text x="1068" y="288" fill="#0B2748" font-size="12">Aug 27, 2026</text>
+  <text x="1168" y="288" fill="#0B2748" font-size="12">$1,400</text>
+  <!-- WO 4 - LOW open -->
+  <rect x="200" y="320" width="1080" height="60" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="200" y="320" width="4" height="60" fill="#94A3B8"/>
+  <text x="224" y="342" fill="#0B2748" font-size="13" font-weight="600">Pool Deck Lighting Replacement</text>
+  <text x="224" y="360" fill="#64748B" font-size="12">Replace 12 expired deck light fixtures with LED equivalents</text>
+  <text x="224" y="376" fill="#94A3B8" font-size="11">WO-2026-003</text>
+  <text x="548" y="348" fill="#0B2748" font-size="12">Bayside Condo Association</text>
+  <text x="728" y="348" fill="#64748B" font-size="12">BrightLine Electric</text>
+  <rect x="860" y="330" width="52" height="24" rx="12" fill="#EFF6FF"/>
+  <text x="886" y="346" fill="#3B82F6" font-size="11" font-weight="600" text-anchor="middle">Open</text>
+  <rect x="960" y="330" width="44" height="24" rx="12" fill="#F1F5F9"/>
+  <text x="982" y="346" fill="#64748B" font-size="11" font-weight="600" text-anchor="middle">Low</text>
+  <text x="1068" y="348" fill="#0B2748" font-size="12">Sep 3, 2026</text>
+  <text x="1168" y="348" fill="#0B2748" font-size="12">$950</text>
+  <!-- WO 5 - MEDIUM open -->
+  <rect x="200" y="380" width="1080" height="60" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="200" y="380" width="4" height="60" fill="#F59E0B"/>
+  <text x="224" y="402" fill="#0B2748" font-size="13" font-weight="600">Irrigation System — Zone 4 Pressure Issue</text>
+  <text x="224" y="420" fill="#64748B" font-size="12">Zone 4 heads not firing · Possible pressure regulator failure</text>
+  <text x="224" y="436" fill="#94A3B8" font-size="11">WO-2026-005</text>
+  <text x="548" y="408" fill="#0B2748" font-size="12">Palmetto Reserve HOA</text>
+  <text x="728" y="408" fill="#64748B" font-size="12">Greenscapes Irrigation</text>
+  <rect x="860" y="390" width="52" height="24" rx="12" fill="#EFF6FF"/>
+  <text x="886" y="406" fill="#3B82F6" font-size="11" font-weight="600" text-anchor="middle">Open</text>
+  <rect x="960" y="390" width="68" height="24" rx="12" fill="#FFFBEB"/>
+  <text x="994" y="406" fill="#F59E0B" font-size="11" font-weight="600" text-anchor="middle">Medium</text>
+  <text x="1068" y="408" fill="#0B2748" font-size="12">Aug 30, 2026</text>
+  <text x="1168" y="408" fill="#0B2748" font-size="12">$750</text>
+  <!-- WO 6 - Completed -->
+  <rect x="200" y="440" width="1080" height="60" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="200" y="440" width="4" height="60" fill="#55B96A"/>
+  <text x="224" y="462" fill="#64748B" font-size="13" font-weight="500">Parking Lot Line Restriping</text>
+  <text x="224" y="480" fill="#94A3B8" font-size="12">Annual restriping completed per schedule · Signed off Aug 6</text>
+  <text x="224" y="496" fill="#94A3B8" font-size="11">WO-2026-006</text>
+  <text x="548" y="468" fill="#64748B" font-size="12">Palmetto Reserve HOA</text>
+  <rect x="860" y="450" width="76" height="24" rx="12" fill="#D1FAE5"/>
+  <text x="898" y="466" fill="#15803D" font-size="11" font-weight="600" text-anchor="middle">Completed</text>
+  <rect x="960" y="450" width="68" height="24" rx="12" fill="#F1F5F9"/>
+  <text x="994" y="466" fill="#64748B" font-size="11" font-weight="600" text-anchor="middle">Medium</text>
+  <text x="1068" y="468" fill="#55B96A" font-size="12">Completed Aug 6</text>
+  <text x="1168" y="468" fill="#0B2748" font-size="12">$1,850</text>
+  <!-- Summary bar -->
+  <rect x="220" y="520" width="1036" height="60" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="252" y="546" fill="#64748B" font-size="11">Total Open</text>
+  <text x="252" y="566" fill="#0B2748" font-size="18" font-weight="700">5</text>
+  <text x="400" y="546" fill="#64748B" font-size="11">Est. Cost Outstanding</text>
+  <text x="400" y="566" fill="#0B2748" font-size="18" font-weight="700">$10,150</text>
+  <text x="600" y="546" fill="#64748B" font-size="11">High Priority</text>
+  <text x="600" y="566" fill="#EF4444" font-size="18" font-weight="700">2</text>
+  <text x="720" y="546" fill="#64748B" font-size="11">Vendors Assigned</text>
+  <text x="720" y="566" fill="#0B2748" font-size="18" font-weight="700">4 of 5</text>
+  <text x="880" y="546" fill="#64748B" font-size="11">Completed This Month</text>
+  <text x="880" y="566" fill="#55B96A" font-size="18" font-weight="700">1</text>
+</svg>
