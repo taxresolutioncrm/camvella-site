@@ -23,6 +23,10 @@ const {
 const pageTitle = title.includes('Camvella')
   ? title
   : `${title} | Camvella`
+
+// Analytics — supply real IDs when Romy creates the properties
+const CAMVELLA_GA4_ID = ''     // TODO: Romy → analytics.google.com → new property for camvella.com
+const CAMVELLA_CLARITY_ID = '' // TODO: Romy → clarity.microsoft.com → new project for camvella.com
 ---
 
 <!DOCTYPE html>
@@ -82,8 +86,11 @@ const pageTitle = title.includes('Camvella')
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   )}
 
-  <!-- Analytics placeholder — add GA4 measurement ID here -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
+  <!-- ── GA4 + Clarity Analytics — wire IDs via frontmatter constants above ─────
+       GA4_ID and CLARITY_ID are defined as empty strings until Romy supplies values.
+       When empty, the scripts are not injected. No placeholder tags ship to production.
+       To activate: supply real IDs in the two const lines below the frontmatter block.
+  ─────────────────────────────────────────────────────────────────────────────────── -->
 
   <style is:global>
 /* ─── Camvella Design System ─────────────────────────────────────────────────
