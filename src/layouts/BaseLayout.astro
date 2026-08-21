@@ -25,7 +25,7 @@ const pageTitle = title.includes('Camvella')
   : `${title} | Camvella`
 
 // Analytics — supply real IDs when Romy creates the properties
-const CAMVELLA_GA4_ID = ''     // TODO: Romy → analytics.google.com → new property for camvella.com
+const CAMVELLA_GA4_ID = 'G-H1ZPCP2EE9'
 const CAMVELLA_CLARITY_ID = '' // TODO: Romy → clarity.microsoft.com → new project for camvella.com
 ---
 
@@ -1129,6 +1129,24 @@ body > *:first-child[style*="background"][style*="position: fixed"][style*="top:
 }
 
   </style>
+  {CAMVELLA_GA4_ID && (
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${CAMVELLA_GA4_ID}`}></script>
+    <script define:vars={{ CAMVELLA_GA4_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', CAMVELLA_GA4_ID, { anonymize_ip: true });
+    </script>
+  )}
+  {CAMVELLA_CLARITY_ID && (
+    <script define:vars={{ CAMVELLA_CLARITY_ID }}>
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window,document,'clarity','script',CAMVELLA_CLARITY_ID);
+    </script>
+  )}
 </head>
 <body>
   <!-- Skip to content -->
