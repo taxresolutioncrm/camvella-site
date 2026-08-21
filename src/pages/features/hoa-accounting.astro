@@ -100,7 +100,14 @@ const schema = {
             </div>
             <div style={`background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); overflow: hidden;${i % 2 === 1 ? ' order: 1;' : ''}`}>
               <img
-                src="/screenshots/financials.svg"
+                src={[
+                  '/screenshots/fin-assessments.svg',
+                  '/screenshots/fin-ar.svg',
+                  '/screenshots/fin-ap.svg',
+                  '/screenshots/fin-gl.svg',
+                  '/screenshots/financials.svg',
+                  '/screenshots/fin-budgets.svg',
+                ][i]}
                 alt={`Camvella ${feat.title} screen`}
                 width="720" height="450"
                 loading="lazy"

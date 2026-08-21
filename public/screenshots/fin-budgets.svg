@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <rect width="1280" height="800" fill="#F0F2F5"/>
+  <rect width="200" height="800" fill="#0B2748"/>
+  <text x="36" y="42" fill="white" font-size="15" font-weight="700">CAMVELLA</text>
+  <rect x="8" y="420" width="184" height="36" rx="6" fill="#55B96A" opacity="0.2"/>
+  <text x="36" y="443" fill="#55B96A" font-size="13" font-weight="600">Financials</text>
+  <text x="36" y="762" fill="rgba(255,255,255,0.4)" font-size="12">Settings</text>
+  <rect x="200" y="0" width="1080" height="56" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="220" y="36" fill="#0B2748" font-size="20" font-weight="700">Budget Management</text>
+  <rect x="1060" y="14" width="200" height="32" rx="6" fill="#0B8F9C"/>
+  <text x="1160" y="34" fill="white" font-size="13" font-weight="600" text-anchor="middle">+ Draft Budget</text>
+  <!-- Budget status cards -->
+  <rect x="220" y="72" width="220" height="80" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="236" y="96" fill="#64748B" font-size="11">FY 2026 Budget</text>
+  <text x="236" y="124" fill="#55B96A" font-size="20" font-weight="800">Approved ✓</text>
+  <text x="236" y="142" fill="#94A3B8" font-size="11">Board approved Jan 5, 2026</text>
+  <rect x="456" y="72" width="220" height="80" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="472" y="96" fill="#64748B" font-size="11">Total Budgeted</text>
+  <text x="472" y="124" fill="#0B2748" font-size="22" font-weight="800">$90,000</text>
+  <text x="472" y="142" fill="#94A3B8" font-size="11">All communities · FY 2026</text>
+  <rect x="692" y="72" width="220" height="80" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="708" y="96" fill="#64748B" font-size="11">YTD Actual</text>
+  <text x="708" y="124" fill="#0B2748" font-size="22" font-weight="800">$11,050</text>
+  <text x="708" y="142" fill="#94A3B8" font-size="11">8 months · 12% of budget</text>
+  <rect x="928" y="72" width="328" height="80" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="944" y="96" fill="#64748B" font-size="11">Budget Variance</text>
+  <text x="944" y="124" fill="#55B96A" font-size="22" font-weight="800">$78,950 under</text>
+  <text x="944" y="142" fill="#94A3B8" font-size="11">YTD under budget — on track</text>
+  <!-- Budget vs Actual table -->
+  <rect x="220" y="172" width="1036" height="400" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="236" y="200" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.08em">BUDGET VS. ACTUAL — PALMETTO RESERVE HOA · FY 2026</text>
+  <rect x="236" y="212" width="1004" height="32" rx="4" fill="#F8FAFC"/>
+  <text x="252" y="232" fill="#64748B" font-size="11" font-weight="600">ACCOUNT</text>
+  <text x="640" y="232" fill="#64748B" font-size="11" font-weight="600">ANNUAL BUDGET</text>
+  <text x="800" y="232" fill="#64748B" font-size="11" font-weight="600">YTD ACTUAL</text>
+  <text x="960" y="232" fill="#64748B" font-size="11" font-weight="600">REMAINING</text>
+  <text x="1120" y="232" fill="#64748B" font-size="11" font-weight="600">% USED</text>
+  <!-- Revenue section -->
+  <rect x="236" y="244" width="1004" height="28" fill="#EBF8F9"/>
+  <text x="252" y="262" fill="#0B8F9C" font-size="12" font-weight="700">REVENUE</text>
+  <rect x="236" y="272" width="1004" height="36" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="252" y="294" fill="#0B2748" font-size="12">4100 · Assessment Income</text>
+  <text x="648" y="294" fill="#0B2748" font-size="12">$25,200</text>
+  <text x="808" y="294" fill="#55B96A" font-size="12" font-weight="600">$14,700</text>
+  <text x="968" y="294" fill="#0B2748" font-size="12">$10,500</text>
+  <text x="1128" y="294" fill="#55B96A" font-size="12" font-weight="600">58%</text>
+  <!-- Expense section -->
+  <rect x="236" y="308" width="1004" height="28" fill="#F8FAFC"/>
+  <text x="252" y="326" fill="#0B2748" font-size="12" font-weight="700">EXPENSES</text>
+  <rect x="236" y="336" width="1004" height="36" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="252" y="354" fill="#0B2748" font-size="12">5100 · Management Fees</text>
+  <text x="648" y="354" fill="#0B2748" font-size="12">$5,400</text>
+  <text x="808" y="354" fill="#0B2748" font-size="12">$3,150</text>
+  <text x="968" y="354" fill="#55B96A" font-size="12">$2,250</text>
+  <text x="1128" y="354" fill="#0B2748" font-size="12">58%</text>
+  <rect x="236" y="372" width="1004" height="36" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="252" y="390" fill="#0B2748" font-size="12">5300 · Landscaping and Grounds</text>
+  <text x="648" y="390" fill="#0B2748" font-size="12">$9,000</text>
+  <text x="808" y="390" fill="#0B2748" font-size="12">$3,700</text>
+  <text x="968" y="390" fill="#55B96A" font-size="12">$5,300</text>
+  <text x="1128" y="390" fill="#0B2748" font-size="12">41%</text>
+  <rect x="236" y="408" width="1004" height="36" fill="white" stroke="#FEE2E2" stroke-width="1"/>
+  <text x="252" y="426" fill="#0B2748" font-size="12">5400 · Repairs and Maintenance</text>
+  <text x="648" y="426" fill="#0B2748" font-size="12">$12,000</text>
+  <text x="808" y="426" fill="#EF4444" font-size="12" font-weight="600">$4,200</text>
+  <text x="968" y="426" fill="#55B96A" font-size="12">$7,800</text>
+  <text x="1128" y="426" fill="#EF4444" font-size="12" font-weight="600">35%</text>
+  <rect x="236" y="444" width="1004" height="36" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="252" y="462" fill="#0B2748" font-size="12">5500 · Utilities</text>
+  <text x="648" y="462" fill="#0B2748" font-size="12">$2,400</text>
+  <text x="808" y="462" fill="#55B96A" font-size="12">$0</text>
+  <text x="968" y="462" fill="#55B96A" font-size="12">$2,400</text>
+  <text x="1128" y="462" fill="#0B2748" font-size="12">0%</text>
+  <!-- Net -->
+  <rect x="236" y="480" width="1004" height="36" fill="#F8FAFC" stroke="#E2E8ED" stroke-width="2"/>
+  <text x="252" y="502" fill="#0B2748" font-size="13" font-weight="800">Net Operating Surplus</text>
+  <text x="648" y="502" fill="#0B2748" font-size="13" font-weight="800">($3,600)</text>
+  <text x="808" y="502" fill="#55B96A" font-size="13" font-weight="800">$3,650</text>
+  <text x="968" y="502" fill="#55B96A" font-size="13" font-weight="800">$7,250 ahead</text>
+  <!-- Board approval status -->
+  <rect x="220" y="592" width="1036" height="80" rx="8" fill="#F0FDF4" stroke="#55B96A" stroke-width="1"/>
+  <text x="236" y="620" fill="#15803D" font-size="13" font-weight="700">✓ FY 2026 Budget Approved — Board locked Jan 5, 2026</text>
+  <text x="236" y="642" fill="#166534" font-size="12">Approved by board vote at Annual Homeowners Meeting · Budget locked and immutable for FY 2026 · FY 2027 budget draft available Oct 2026</text>
+  <rect x="1060" y="604" width="184" height="32" rx="6" fill="#0B8F9C"/>
+  <text x="1152" y="624" fill="white" font-size="12" font-weight="600" text-anchor="middle">Draft FY 2027 Budget</text>
+</svg>

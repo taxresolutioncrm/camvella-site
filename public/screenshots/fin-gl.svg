@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <rect width="1280" height="800" fill="#F0F2F5"/>
+  <rect width="200" height="800" fill="#0B2748"/>
+  <text x="36" y="42" fill="white" font-size="15" font-weight="700">CAMVELLA</text>
+  <rect x="8" y="420" width="184" height="36" rx="6" fill="#55B96A" opacity="0.2"/>
+  <text x="36" y="443" fill="#55B96A" font-size="13" font-weight="600">Financials</text>
+  <text x="36" y="762" fill="rgba(255,255,255,0.4)" font-size="12">Settings</text>
+  <rect x="200" y="0" width="1080" height="56" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="220" y="36" fill="#0B2748" font-size="20" font-weight="700">General Ledger</text>
+  <!-- Filter bar -->
+  <rect x="200" y="56" width="1080" height="48" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <rect x="220" y="68" width="160" height="28" rx="6" fill="#F8FAFC" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="232" y="86" fill="#0B2748" font-size="12">Jan 2026 – Aug 2026</text>
+  <rect x="396" y="68" width="160" height="28" rx="6" fill="#F8FAFC" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="408" y="86" fill="#94A3B8" font-size="12">All funds</text>
+  <rect x="572" y="68" width="200" height="28" rx="6" fill="#F8FAFC" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="584" y="86" fill="#94A3B8" font-size="12">Palmetto Reserve HOA</text>
+  <!-- Reconciliation banner -->
+  <rect x="220" y="116" width="1036" height="44" rx="6" fill="#F0FDF4" stroke="#55B96A" stroke-width="1"/>
+  <text x="240" y="132" fill="#15803D" font-size="12" font-weight="700">✓ Trial Balance — RECONCILED</text>
+  <text x="240" y="150" fill="#166534" font-size="11">Total Debits: $404,750 · Total Credits: $404,750 · Variance: $0 · 26 posted journal entries</text>
+  <!-- GL table -->
+  <rect x="220" y="176" width="1036" height="36" rx="4" fill="#F8FAFC" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="236" y="198" fill="#64748B" font-size="11" font-weight="600">ENTRY #</text>
+  <text x="340" y="198" fill="#64748B" font-size="11" font-weight="600">DATE</text>
+  <text x="440" y="198" fill="#64748B" font-size="11" font-weight="600">DESCRIPTION</text>
+  <text x="760" y="198" fill="#64748B" font-size="11" font-weight="600">DEBIT</text>
+  <text x="880" y="198" fill="#64748B" font-size="11" font-weight="600">CREDIT</text>
+  <text x="1000" y="198" fill="#64748B" font-size="11" font-weight="600">FUND</text>
+  <text x="1120" y="198" fill="#64748B" font-size="11" font-weight="600">STATUS</text>
+  <!-- JE rows -->
+  <rect x="220" y="212" width="1036" height="40" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="236" y="228" fill="#0B2748" font-size="12" font-weight="500">JE-2026-0200</text>
+  <text x="236" y="244" fill="#94A3B8" font-size="11">Aug Assessment</text>
+  <text x="348" y="236" fill="#0B2748" font-size="12">Aug 1, 2026</text>
+  <text x="448" y="228" fill="#0B2748" font-size="12">Aug 2026 Assessment · 4 units</text>
+  <text x="448" y="244" fill="#94A3B8" font-size="11">1200 Accounts Receivable / 4100 Assessment Income</text>
+  <text x="768" y="236" fill="#0B2748" font-size="12" font-weight="600">$2,100</text>
+  <text x="888" y="236" fill="#0B2748" font-size="12" font-weight="600">$2,100</text>
+  <text x="1008" y="236" fill="#0B2748" font-size="12">Operating</text>
+  <rect x="1120" y="222" width="60" height="20" rx="10" fill="#D1FAE5"/>
+  <text x="1150" y="236" fill="#15803D" font-size="10" font-weight="600" text-anchor="middle">Posted</text>
+  <rect x="220" y="252" width="1036" height="40" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="236" y="268" fill="#0B2748" font-size="12" font-weight="500">JE-2026-0234</text>
+  <text x="236" y="284" fill="#94A3B8" font-size="11">Landscaping Expense</text>
+  <text x="348" y="276" fill="#0B2748" font-size="12">Aug 7, 2026</text>
+  <text x="448" y="268" fill="#0B2748" font-size="12">Grounds maintenance July 2026</text>
+  <text x="448" y="284" fill="#94A3B8" font-size="11">5300 Landscaping / 2000 Accounts Payable</text>
+  <text x="768" y="276" fill="#0B2748" font-size="12" font-weight="600">$1,850</text>
+  <text x="888" y="276" fill="#0B2748" font-size="12" font-weight="600">$1,850</text>
+  <text x="1008" y="276" fill="#0B2748" font-size="12">Operating</text>
+  <rect x="1120" y="262" width="60" height="20" rx="10" fill="#D1FAE5"/>
+  <text x="1150" y="276" fill="#15803D" font-size="10" font-weight="600" text-anchor="middle">Posted</text>
+  <rect x="220" y="292" width="1036" height="40" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="236" y="308" fill="#0B2748" font-size="12" font-weight="500">JE-2026-0233</text>
+  <text x="236" y="324" fill="#94A3B8" font-size="11">Roofing Accrual</text>
+  <text x="348" y="316" fill="#0B2748" font-size="12">Aug 5, 2026</text>
+  <text x="448" y="308" fill="#0B2748" font-size="12">Roof repair accrual — SR-2026-0805</text>
+  <text x="448" y="324" fill="#94A3B8" font-size="11">5400 Repairs and Maintenance / 2000 Accounts Payable</text>
+  <text x="768" y="316" fill="#0B2748" font-size="12" font-weight="600">$4,200</text>
+  <text x="888" y="316" fill="#0B2748" font-size="12" font-weight="600">$4,200</text>
+  <text x="1008" y="316" fill="#0B2748" font-size="12">Operating</text>
+  <rect x="1120" y="302" width="60" height="20" rx="10" fill="#D1FAE5"/>
+  <text x="1150" y="316" fill="#15803D" font-size="10" font-weight="600" text-anchor="middle">Posted</text>
+  <rect x="220" y="332" width="1036" height="40" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="236" y="348" fill="#0B2748" font-size="12" font-weight="500">JE-2026-0220</text>
+  <text x="236" y="364" fill="#94A3B8" font-size="11">Management Fee</text>
+  <text x="348" y="356" fill="#0B2748" font-size="12">Aug 1, 2026</text>
+  <text x="448" y="348" fill="#0B2748" font-size="12">Monthly management fee — $450</text>
+  <text x="448" y="364" fill="#94A3B8" font-size="11">5100 Management Fees / 2000 Accounts Payable</text>
+  <text x="768" y="356" fill="#0B2748" font-size="12" font-weight="600">$450</text>
+  <text x="888" y="356" fill="#0B2748" font-size="12" font-weight="600">$450</text>
+  <text x="1008" y="356" fill="#0B2748" font-size="12">Operating</text>
+  <rect x="1120" y="342" width="60" height="20" rx="10" fill="#D1FAE5"/>
+  <text x="1150" y="356" fill="#15803D" font-size="10" font-weight="600" text-anchor="middle">Posted</text>
+  <!-- Chart of accounts panel -->
+  <rect x="220" y="392" width="1036" height="180" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="236" y="420" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.08em">CHART OF ACCOUNTS — OPERATING FUND</text>
+  <rect x="236" y="432" width="488" height="28" rx="4" fill="#F8FAFC"/>
+  <text x="252" y="450" fill="#64748B" font-size="11" font-weight="600">ACCOUNT</text>
+  <text x="520" y="450" fill="#64748B" font-size="11" font-weight="600">YTD BALANCE</text>
+  <text x="236" y="480" fill="#0B2748" font-size="12">1000 · Operating Checking</text>
+  <text x="520" y="480" fill="#55B96A" font-size="12" font-weight="600">$185,000</text>
+  <text x="236" y="500" fill="#0B2748" font-size="12">1200 · Accounts Receivable</text>
+  <text x="520" y="500" fill="#EF4444" font-size="12" font-weight="600">$3,675</text>
+  <text x="236" y="520" fill="#0B2748" font-size="12">2000 · Accounts Payable</text>
+  <text x="520" y="520" fill="#F59E0B" font-size="12" font-weight="600">$7,050</text>
+  <text x="236" y="540" fill="#0B2748" font-size="12">4100 · Assessment Income</text>
+  <text x="520" y="540" fill="#0B2748" font-size="12" font-weight="600">$14,700</text>
+  <text x="236" y="560" fill="#0B2748" font-size="12">5100 · Management Fees</text>
+  <text x="520" y="560" fill="#0B2748" font-size="12" font-weight="600">$3,150</text>
+  <text x="752" y="432" width="488" height="28" fill="#F8FAFC"/>
+  <text x="768" y="450" fill="#64748B" font-size="11" font-weight="600">ACCOUNT</text>
+  <text x="1020" y="450" fill="#64748B" font-size="11" font-weight="600">YTD BALANCE</text>
+  <text x="768" y="480" fill="#0B2748" font-size="12">5200 · Insurance</text>
+  <text x="1020" y="480" fill="#0B2748" font-size="12">$0</text>
+  <text x="768" y="500" fill="#0B2748" font-size="12">5300 · Landscaping</text>
+  <text x="1020" y="500" fill="#0B2748" font-size="12" font-weight="600">$3,700</text>
+  <text x="768" y="520" fill="#0B2748" font-size="12">5400 · Repairs &amp; Maintenance</text>
+  <text x="1020" y="520" fill="#0B2748" font-size="12" font-weight="600">$4,200</text>
+  <text x="768" y="540" fill="#0B2748" font-size="12">5500 · Utilities</text>
+  <text x="1020" y="540" fill="#0B2748" font-size="12">$0</text>
+</svg>

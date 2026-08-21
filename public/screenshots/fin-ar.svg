@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <rect width="1280" height="800" fill="#F0F2F5"/>
+  <rect width="200" height="800" fill="#0B2748"/>
+  <text x="36" y="42" fill="white" font-size="15" font-weight="700">CAMVELLA</text>
+  <text x="36" y="95" fill="rgba(255,255,255,0.55)" font-size="13">Dashboard</text>
+  <rect x="8" y="420" width="184" height="36" rx="6" fill="#55B96A" opacity="0.2"/>
+  <text x="36" y="443" fill="#55B96A" font-size="13" font-weight="600">Financials</text>
+  <text x="36" y="762" fill="rgba(255,255,255,0.4)" font-size="12">Settings</text>
+  <rect x="200" y="0" width="1080" height="56" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="220" y="36" fill="#0B2748" font-size="20" font-weight="700">Accounts Receivable</text>
+  <rect x="200" y="56" width="1080" height="44" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <rect x="220" y="68" width="80" height="28" rx="6" fill="#0B2748"/>
+  <text x="260" y="86" fill="white" font-size="12" font-weight="600" text-anchor="middle">Aging</text>
+  <text x="332" y="86" fill="#64748B" font-size="12">Charges</text>
+  <text x="400" y="86" fill="#64748B" font-size="12">Payments</text>
+  <text x="472" y="86" fill="#64748B" font-size="12">Write-offs</text>
+  <!-- AR summary cards -->
+  <rect x="220" y="116" width="240" height="80" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="236" y="140" fill="#64748B" font-size="11">Total Outstanding</text>
+  <text x="236" y="168" fill="#EF4444" font-size="26" font-weight="800">$3,675</text>
+  <text x="236" y="186" fill="#94A3B8" font-size="11">1 delinquent unit</text>
+  <rect x="476" y="116" width="240" height="80" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="492" y="140" fill="#64748B" font-size="11">Current (0-30d)</text>
+  <text x="492" y="168" fill="#55B96A" font-size="26" font-weight="800">$0</text>
+  <text x="492" y="186" fill="#94A3B8" font-size="11">All current units paid</text>
+  <rect x="732" y="116" width="240" height="80" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="748" y="140" fill="#64748B" font-size="11">90+ Days</text>
+  <text x="748" y="168" fill="#EF4444" font-size="26" font-weight="800">$3,675</text>
+  <text x="748" y="186" fill="#94A3B8" font-size="11">Unit 104 — Patricia Nguyen</text>
+  <rect x="988" y="116" width="248" height="80" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="1004" y="140" fill="#64748B" font-size="11">YTD Collected</text>
+  <text x="1004" y="168" fill="#0B2748" font-size="26" font-weight="800">$11,025</text>
+  <text x="1004" y="186" fill="#94A3B8" font-size="11">75% collection rate</text>
+  <!-- AR Aging table -->
+  <rect x="220" y="216" width="1036" height="400" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="236" y="244" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.08em">AR AGING SUMMARY</text>
+  <rect x="236" y="256" width="1004" height="32" rx="4" fill="#F8FAFC"/>
+  <text x="252" y="276" fill="#64748B" font-size="11" font-weight="600">UNIT / OWNER</text>
+  <text x="500" y="276" fill="#64748B" font-size="11" font-weight="600">ASSOCIATION</text>
+  <text x="700" y="276" fill="#64748B" font-size="11" font-weight="600">0-30</text>
+  <text x="790" y="276" fill="#64748B" font-size="11" font-weight="600">31-60</text>
+  <text x="880" y="276" fill="#64748B" font-size="11" font-weight="600">61-90</text>
+  <text x="970" y="276" fill="#64748B" font-size="11" font-weight="600">90+</text>
+  <text x="1100" y="276" fill="#64748B" font-size="11" font-weight="600">TOTAL</text>
+  <!-- Unit 101-103 all paid -->
+  <rect x="236" y="288" width="1004" height="40" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="252" y="306" fill="#64748B" font-size="12">Unit 101 — Michael Castellano</text>
+  <text x="508" y="306" fill="#64748B" font-size="12">Palmetto Reserve HOA</text>
+  <text x="714" y="306" fill="#55B96A" font-size="12">—</text>
+  <text x="804" y="306" fill="#55B96A" font-size="12">—</text>
+  <text x="894" y="306" fill="#55B96A" font-size="12">—</text>
+  <text x="984" y="306" fill="#55B96A" font-size="12">—</text>
+  <text x="1112" y="306" fill="#55B96A" font-size="12" font-weight="600">$0.00</text>
+  <rect x="236" y="328" width="1004" height="40" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="252" y="346" fill="#64748B" font-size="12">Unit 102 — Sandra Whitmore</text>
+  <text x="508" y="346" fill="#64748B" font-size="12">Palmetto Reserve HOA</text>
+  <text x="714" y="346" fill="#55B96A" font-size="12">—</text>
+  <text x="804" y="346" fill="#55B96A" font-size="12">—</text>
+  <text x="894" y="346" fill="#55B96A" font-size="12">—</text>
+  <text x="984" y="346" fill="#55B96A" font-size="12">—</text>
+  <text x="1112" y="346" fill="#55B96A" font-size="12" font-weight="600">$0.00</text>
+  <rect x="236" y="368" width="1004" height="40" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="252" y="386" fill="#64748B" font-size="12">Unit 103 — James Oduya</text>
+  <text x="508" y="386" fill="#64748B" font-size="12">Palmetto Reserve HOA</text>
+  <text x="714" y="386" fill="#55B96A" font-size="12">—</text>
+  <text x="804" y="386" fill="#55B96A" font-size="12">—</text>
+  <text x="894" y="386" fill="#55B96A" font-size="12">—</text>
+  <text x="984" y="386" fill="#55B96A" font-size="12">—</text>
+  <text x="1112" y="386" fill="#55B96A" font-size="12" font-weight="600">$0.00</text>
+  <!-- Delinquent unit -->
+  <rect x="236" y="408" width="1004" height="48" fill="#FEF2F2" stroke="#FECACA" stroke-width="1"/>
+  <text x="252" y="428" fill="#0B2748" font-size="12" font-weight="600">Unit 104 — Patricia Nguyen ⚠</text>
+  <text x="252" y="446" fill="#EF4444" font-size="11">Delinquent since January 2026 · 7 months</text>
+  <text x="508" y="436" fill="#0B2748" font-size="12">Palmetto Reserve HOA</text>
+  <text x="714" y="436" fill="#EF4444" font-size="12" font-weight="600">$525</text>
+  <text x="804" y="436" fill="#EF4444" font-size="12" font-weight="600">$1,050</text>
+  <text x="894" y="436" fill="#EF4444" font-size="12" font-weight="600">$1,050</text>
+  <text x="984" y="436" fill="#EF4444" font-size="12" font-weight="600">$1,050</text>
+  <text x="1112" y="436" fill="#EF4444" font-size="14" font-weight="800">$3,675</text>
+  <!-- Totals row -->
+  <rect x="236" y="456" width="1004" height="36" fill="#F8FAFC" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="252" y="478" fill="#0B2748" font-size="12" font-weight="700">Totals</text>
+  <text x="714" y="478" fill="#0B2748" font-size="12" font-weight="700">$525</text>
+  <text x="804" y="478" fill="#0B2748" font-size="12" font-weight="700">$1,050</text>
+  <text x="894" y="478" fill="#0B2748" font-size="12" font-weight="700">$1,050</text>
+  <text x="984" y="478" fill="#0B2748" font-size="12" font-weight="700">$1,050</text>
+  <text x="1112" y="478" fill="#EF4444" font-size="14" font-weight="800">$3,675</text>
+  <!-- Delinquency action panel -->
+  <rect x="236" y="504" width="488" height="96" rx="6" fill="#FFF8F8" stroke="#FECACA" stroke-width="1"/>
+  <text x="252" y="528" fill="#991B1B" font-size="12" font-weight="700">⚠ Collection Action Required — Unit 104</text>
+  <text x="252" y="548" fill="#B91C1C" font-size="11">Patricia Nguyen · $3,675 overdue · 7 months delinquent</text>
+  <text x="252" y="568" fill="#B91C1C" font-size="11">Last payment: December 2025</text>
+  <rect x="252" y="580" width="120" height="28" rx="6" fill="#EF4444"/>
+  <text x="312" y="598" fill="white" font-size="12" font-weight="600" text-anchor="middle">Write-off</text>
+  <rect x="384" y="580" width="100" height="28" rx="6" fill="#F8FAFC" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="434" y="598" fill="#0B2748" font-size="12" text-anchor="middle">Statement</text>
+</svg>

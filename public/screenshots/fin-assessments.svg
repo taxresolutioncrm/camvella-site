@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <rect width="1280" height="800" fill="#F0F2F5"/>
+  <rect width="200" height="800" fill="#0B2748"/>
+  <text x="36" y="42" fill="white" font-size="15" font-weight="700">CAMVELLA</text>
+  <rect x="8" y="420" width="184" height="36" rx="6" fill="#55B96A" opacity="0.2"/>
+  <text x="36" y="443" fill="#55B96A" font-size="13" font-weight="600">Financials</text>
+  <text x="36" y="95" fill="rgba(255,255,255,0.55)" font-size="13">Dashboard</text>
+  <text x="36" y="762" fill="rgba(255,255,255,0.4)" font-size="12">Settings</text>
+  <!-- Top bar -->
+  <rect x="200" y="0" width="1080" height="56" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="220" y="36" fill="#0B2748" font-size="20" font-weight="700">Assessment Schedules</text>
+  <rect x="1080" y="14" width="180" height="32" rx="6" fill="#0B8F9C"/>
+  <text x="1170" y="34" fill="white" font-size="13" font-weight="600" text-anchor="middle">+ New Schedule</text>
+  <!-- Sub tabs -->
+  <rect x="200" y="56" width="1080" height="44" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <rect x="220" y="68" width="120" height="28" rx="6" fill="#0B2748"/>
+  <text x="280" y="86" fill="white" font-size="12" font-weight="600" text-anchor="middle">Schedules</text>
+  <text x="370" y="86" fill="#64748B" font-size="12">Late Fees</text>
+  <text x="440" y="86" fill="#64748B" font-size="12">History</text>
+  <!-- Table header -->
+  <rect x="200" y="100" width="1080" height="36" fill="#F8FAFC" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="224" y="122" fill="#64748B" font-size="11" font-weight="600">ASSOCIATION</text>
+  <text x="520" y="122" fill="#64748B" font-size="11" font-weight="600">FREQUENCY</text>
+  <text x="680" y="122" fill="#64748B" font-size="11" font-weight="600">AMOUNT</text>
+  <text x="820" y="122" fill="#64748B" font-size="11" font-weight="600">NEXT RUN</text>
+  <text x="980" y="122" fill="#64748B" font-size="11" font-weight="600">STATUS</text>
+  <text x="1100" y="122" fill="#64748B" font-size="11" font-weight="600">COLLECTED YTD</text>
+  <!-- Row 1 -->
+  <rect x="200" y="136" width="1080" height="56" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="224" y="158" fill="#0B2748" font-size="13" font-weight="600">Palmetto Reserve HOA</text>
+  <text x="224" y="178" fill="#64748B" font-size="11">4 units · $525/unit/month</text>
+  <text x="528" y="162" fill="#0B2748" font-size="12">Monthly</text>
+  <text x="688" y="162" fill="#0B2748" font-size="13" font-weight="700">$2,100</text>
+  <text x="828" y="162" fill="#0B2748" font-size="12">Sep 1, 2026</text>
+  <rect x="980" y="146" width="68" height="24" rx="12" fill="#D1FAE5"/>
+  <text x="1014" y="162" fill="#15803D" font-size="11" font-weight="600" text-anchor="middle">Active</text>
+  <text x="1108" y="162" fill="#55B96A" font-size="13" font-weight="700">$14,700</text>
+  <!-- Row 2 -->
+  <rect x="200" y="192" width="1080" height="56" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="224" y="214" fill="#0B2748" font-size="13" font-weight="600">Bayside Condo Association</text>
+  <text x="224" y="234" fill="#64748B" font-size="11">4 units · $680/unit/month</text>
+  <text x="528" y="218" fill="#0B2748" font-size="12">Monthly</text>
+  <text x="688" y="218" fill="#0B2748" font-size="13" font-weight="700">$2,720</text>
+  <text x="828" y="218" fill="#0B2748" font-size="12">Sep 1, 2026</text>
+  <rect x="980" y="202" width="68" height="24" rx="12" fill="#D1FAE5"/>
+  <text x="1014" y="218" fill="#15803D" font-size="11" font-weight="600" text-anchor="middle">Active</text>
+  <text x="1108" y="218" fill="#55B96A" font-size="13" font-weight="700">$19,040</text>
+  <!-- Row 3 -->
+  <rect x="200" y="248" width="1080" height="56" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="224" y="270" fill="#0B2748" font-size="13" font-weight="600">Magnolia Trace Community</text>
+  <text x="224" y="290" fill="#64748B" font-size="11">4 units · $495/unit/month</text>
+  <text x="528" y="274" fill="#0B2748" font-size="12">Monthly</text>
+  <text x="688" y="274" fill="#0B2748" font-size="13" font-weight="700">$1,980</text>
+  <text x="828" y="274" fill="#0B2748" font-size="12">Sep 1, 2026</text>
+  <rect x="980" y="258" width="68" height="24" rx="12" fill="#D1FAE5"/>
+  <text x="1014" y="274" fill="#15803D" font-size="11" font-weight="600" text-anchor="middle">Active</text>
+  <text x="1108" y="274" fill="#55B96A" font-size="13" font-weight="700">$13,860</text>
+  <!-- Schedule config panel -->
+  <rect x="220" y="328" width="1036" height="200" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="236" y="356" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.08em">ASSESSMENT SCHEDULE — PALMETTO RESERVE HOA</text>
+  <!-- Config grid -->
+  <text x="236" y="390" fill="#94A3B8" font-size="11">Billing frequency</text>
+  <text x="236" y="412" fill="#0B2748" font-size="14" font-weight="600">Monthly — 1st of each month</text>
+  <text x="520" y="390" fill="#94A3B8" font-size="11">Amount per unit</text>
+  <text x="520" y="412" fill="#0B2748" font-size="14" font-weight="600">$525.00</text>
+  <text x="760" y="390" fill="#94A3B8" font-size="11">Late fee</text>
+  <text x="760" y="412" fill="#0B2748" font-size="14" font-weight="600">$25.00 after 15 days</text>
+  <text x="1000" y="390" fill="#94A3B8" font-size="11">Special assessments</text>
+  <text x="1000" y="412" fill="#0B2748" font-size="14" font-weight="600">None active</text>
+  <line x1="236" y1="432" x2="1240" y2="432" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="236" y="460" fill="#94A3B8" font-size="11">Last run</text>
+  <text x="236" y="480" fill="#0B2748" font-size="13">Aug 1, 2026 · 4 charges posted · $2,100 billed</text>
+  <text x="236" y="500" fill="#94A3B8" font-size="11">Next run</text>
+  <text x="236" y="520" fill="#0B2748" font-size="13">Sep 1, 2026 · 4 charges will post automatically</text>
+  <!-- Late fee config -->
+  <rect x="220" y="548" width="1036" height="120" rx="8" fill="white" stroke="#E2E8ED" stroke-width="1"/>
+  <text x="236" y="576" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.08em">LATE FEE SCHEDULE</text>
+  <rect x="236" y="588" width="1004" height="36" rx="4" fill="#F8FAFC"/>
+  <text x="252" y="610" fill="#64748B" font-size="11" font-weight="600">COMMUNITY</text>
+  <text x="520" y="610" fill="#64748B" font-size="11" font-weight="600">GRACE PERIOD</text>
+  <text x="700" y="610" fill="#64748B" font-size="11" font-weight="600">FEE AMOUNT</text>
+  <text x="900" y="610" fill="#64748B" font-size="11" font-weight="600">FEE TYPE</text>
+  <rect x="236" y="624" width="1004" height="36" fill="white" stroke="#F1F5F9" stroke-width="1"/>
+  <text x="252" y="646" fill="#0B2748" font-size="12">Palmetto Reserve HOA</text>
+  <text x="528" y="646" fill="#0B2748" font-size="12">15 days</text>
+  <text x="708" y="646" fill="#0B2748" font-size="12">$25.00</text>
+  <text x="908" y="646" fill="#0B2748" font-size="12">Flat fee</text>
+</svg>
