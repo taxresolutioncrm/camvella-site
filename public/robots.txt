@@ -3,4 +3,4 @@ Allow: /
 Disallow: /demo/thank-you
 Disallow: /api/
 
-Sitemap: https://camvella.com/sitemap-index.xml
+Sitemap: https://camvella.com/sitemap.xml
