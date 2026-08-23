@@ -91,6 +91,9 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         } else {
           btn.disabled = false;
           btn.textContent = 'Send Message';
+          var errMsg = result.json.error || 'Something went wrong. Please try again.';
+          var errEl = form.querySelector('.contact-form-error');
+          if (errEl) { errEl.textContent = errMsg; errEl.style.display = 'block'; }
         }
       }).catch(function() { btn.disabled = false; btn.textContent = 'Send Message'; });
     });
