@@ -13,8 +13,6 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
       <form
         id="contact-form"
-        id="contact-form" novalidate
-        method="POST"
         novalidate
         aria-label="Contact form"
         style="background: white; padding: var(--space-8); border-radius: var(--radius-xl); border: 1px solid var(--clr-border); box-shadow: var(--shadow-sm);"
@@ -31,7 +29,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         </div>
         <div class="form-group">
           <label class="form-label" for="c_email">Email <span aria-hidden="true">*</span></label>
-          <input class="form-input" type="email" id="c_email" name="email" required inputmode="email" />
+          <input class="form-input" type="email" id="c_email" name="email" required inputmode="email" autocomplete="email" />
         </div>
         <div class="form-group">
           <label class="form-label" for="c_subject">Subject <span aria-hidden="true">*</span></label>
@@ -47,9 +45,8 @@ import BaseLayout from '../layouts/BaseLayout.astro'
           <label class="form-label" for="c_message">Message <span aria-hidden="true">*</span></label>
           <textarea class="form-textarea" id="c_message" name="message" required rows="5"></textarea>
         </div>
-        <button type="submit" class="btn btn--primary" style="width: 100%;" data-event="contact_form_submit">
-          Send Message
-        </button>
+        <button type="submit" class="btn btn--primary" style="width: 100%;" data-event="contact_form_submit">Send Message</button>
+        <p class="contact-form-error" hidden style="font-size: var(--text-sm); color: var(--clr-error, #dc2626); margin-top: var(--space-2); text-align: center;"></p>
       </form>
 
       <div style="margin-top: var(--space-8); text-align: center;">
@@ -58,45 +55,62 @@ import BaseLayout from '../layouts/BaseLayout.astro'
     </div>
   </div>
 
-</BaseLayout>
+  <script>
+    (function() {
+      const EDGE = 'https://fjqywulzsyfyzitneazb.supabase.co/functions/v1/submit-demo-lead';
+      const form = document.getElementById('contact-form');
+      if (!form) return;
 
-<script>
-  (function() {
-    var form = document.getElementById('contact-form');
-    if (!form) return;
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var btn = form.querySelector('[type="submit"]');
-      var data = {};
-      var fd = new FormData(form);
-      fd.forEach(function(v, k) { data[k] = v; });
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
-      fetch('https://fjqywulzsyfyzitneazb.supabase.co/functions/v1/submit-demo-lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          first_name: (data.name || '').split(' ')[0] || 'Visitor',
-          last_name: (data.name || '').split(' ').slice(1).join(' ') || '',
-          email: data.email || '',
-          company: data.company || 'Not provided',
-          communities: '0',
-          how_heard: data.message || '',
-          source_page: '/contact'
-        })
-      }).then(function(r) { return r.json().then(function(j) { return { ok: r.ok, json: j }; }); })
-      .then(function(result) {
-        if (result.ok) {
-          form.innerHTML = '<p style="text-align:center;padding:2rem 0;font-weight:600">Thanks! We will be in touch shortly.</p>';
-        } else {
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = form.querySelector('[type="submit"]');
+        const errEl = form.querySelector('.contact-form-error');
+        const fields = Object.fromEntries(new FormData(form).entries());
+        const required = ['first_name', 'last_name', 'email', 'subject', 'message'];
+        const missing = required.filter((key) => !String(fields[key] || '').trim());
+
+        if (missing.length) {
+          if (errEl) {
+            errEl.textContent = 'Please fill in all required fields.';
+            errEl.hidden = false;
+          }
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        if (errEl) errEl.hidden = true;
+
+        try {
+          const res = await fetch(EDGE, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              first_name: String(fields.first_name).trim(),
+              last_name: String(fields.last_name).trim(),
+              email: String(fields.email).trim(),
+              company: 'Website contact',
+              communities: 'contact',
+              subject: String(fields.subject).trim(),
+              message: String(fields.message).trim(),
+              form_type: 'contact',
+              source_page: '/contact'
+            })
+          });
+
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data.success) throw new Error(data.error || 'Unable to send your message.');
+
+          form.innerHTML = '<p style="text-align:center;padding:2rem 0;font-weight:600">Thanks! Your message was sent. We will be in touch shortly.</p>';
+        } catch (err) {
           btn.disabled = false;
           btn.textContent = 'Send Message';
-          var errMsg = result.json.error || 'Something went wrong. Please try again.';
-          var errEl = form.querySelector('.contact-form-error');
-          if (errEl) { errEl.textContent = errMsg; errEl.style.display = 'block'; }
+          if (errEl) {
+            errEl.textContent = err instanceof Error ? err.message : 'Something went wrong. Please try again.';
+            errEl.hidden = false;
+          }
         }
-      }).catch(function() { btn.disabled = false; btn.textContent = 'Send Message'; });
-    });
-  })();
-</script>
+      });
+    })();
+  </script>
 </BaseLayout>
