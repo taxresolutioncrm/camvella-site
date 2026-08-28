@@ -1,6 +1,3 @@
-<!-- PRE-LAUNCH BLOCKER: Replace hero__visual-frame content with real verified
-     Camvella dashboard screenshot before camvella.com DNS cutover.
-     Search for data-prelaunch-blocker="true" to find all placeholder locations. -->
 ---
 export interface Props {
   title: string
@@ -24,7 +21,7 @@ const pageTitle = title.includes('Camvella')
   ? title
   : `${title} | Camvella`
 
-// Analytics — supply real IDs when Romy creates the properties
+// Production analytics properties
 const CAMVELLA_GA4_ID = 'G-H1ZPCP2EE9'
 const CAMVELLA_CLARITY_ID = 'y62zna7yna'
 ---
@@ -85,11 +82,7 @@ const CAMVELLA_CLARITY_ID = 'y62zna7yna'
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   )}
 
-  <!-- ── GA4 + Clarity Analytics — wire IDs via frontmatter constants above ─────
-       GA4_ID and CLARITY_ID are defined as empty strings until Romy supplies values.
-       When empty, the scripts are not injected. No placeholder tags ship to production.
-       To activate: supply real IDs in the two const lines below the frontmatter block.
-  ─────────────────────────────────────────────────────────────────────────────────── -->
+  <!-- GA4 + Clarity Analytics -->
 
   <style is:global>
 /* ─── Camvella Design System ─────────────────────────────────────────────────
