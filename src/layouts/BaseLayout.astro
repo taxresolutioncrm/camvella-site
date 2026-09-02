@@ -958,6 +958,28 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 700; }
 a:not(.btn):hover { color: var(--clr-teal); }
 .text-teal { color: var(--clr-teal); }
 
+/* ─── Mobile navigation ────────────────────────────────────────────────── */
+.nav__mobile-menu {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  padding: var(--space-4);
+  background: rgba(11 39 72 / 0.99);
+  border-bottom: 1px solid rgba(255 255 255 / 0.12);
+  box-shadow: 0 14px 28px rgba(0 0 0 / 0.22);
+  z-index: 1000;
+}
+.nav__mobile-menu[hidden] { display: none !important; }
+.nav__mobile-menu a:not(.btn) {
+  display: block;
+  padding: .8rem .5rem;
+  color: rgba(255 255 255 / .9);
+  font-weight: 600;
+}
+.nav__mobile-menu .btn { width: 100%; margin-top: var(--space-3); }
+@media (min-width: 769px) { .nav__mobile-menu { display: none !important; } }
+
 /* ─── Hero Module Grid (replaces empty screenshot frame) ───────────────── */
 .hero-modules {
   border-top: 1px solid rgba(255 255 255 / 0.1);
@@ -1223,6 +1245,15 @@ body > *:first-child[style*="background"][style*="position: fixed"][style*="top:
               <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
             </svg>
           </button>
+          <div class="nav__mobile-menu" id="mobile-menu" hidden>
+            <a href="/product">Product</a>
+            <a href="/features/hoa-accounting">Accounting</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/compare">Compare</a>
+            <a href="/blog">Resources</a>
+            <a href="https://app.camvella.com" rel="noopener">Sign In</a>
+            <a href="/demo" class="btn btn--primary">Book a Demo</a>
+          </div>
         </div>
       </div>
     </nav>
@@ -1266,11 +1297,8 @@ body > *:first-child[style*="background"][style*="position: fixed"][style*="top:
         <div>
           <p class="footer__col-title">Compare</p>
           <ul class="footer__links">
-            <li><a href="/compare/cinc-alternatives" class="footer__link">CINC Alternatives</a></li>
-            <li><a href="/compare/vantaca-alternatives" class="footer__link">Vantaca Alternatives</a></li>
-            <li><a href="/compare/camvella-vs-cinc" class="footer__link">vs CINC</a></li>
-            <li><a href="/compare/camvella-vs-buildium" class="footer__link">vs Buildium</a></li>
-            <li><a href="/compare/camvella-vs-appfolio" class="footer__link">vs AppFolio</a></li>
+            <li><a href="/compare/camvella-vs-cinc" class="footer__link">Camvella vs CINC</a></li>
+            <li><a href="/compare" class="footer__link">Comparison Center</a></li>
           </ul>
         </div>
 
@@ -1305,10 +1333,20 @@ body > *:first-child[style*="background"][style*="position: fixed"][style*="top:
       }, { passive: true })
     }
 
-    if (toggle) {
+    const mobileMenu = document.getElementById('mobile-menu')
+    if (toggle && mobileMenu) {
       toggle.addEventListener('click', () => {
         const expanded = toggle.getAttribute('aria-expanded') === 'true'
         toggle.setAttribute('aria-expanded', String(!expanded))
+        toggle.setAttribute('aria-label', expanded ? 'Open menu' : 'Close menu')
+        mobileMenu.hidden = expanded
+      })
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          toggle.setAttribute('aria-expanded', 'false')
+          toggle.setAttribute('aria-label', 'Open menu')
+          mobileMenu.hidden = true
+        })
       })
     }
 
