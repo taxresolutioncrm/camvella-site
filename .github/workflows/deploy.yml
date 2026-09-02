@@ -1,7 +1,9 @@
-name: Deploy to Cloudflare Pages
+name: Validate Camvella Website
 
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -9,13 +11,13 @@ permissions:
   contents: read
 
 concurrency:
-  group: camvella-site-production
+  group: camvella-site-validation-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    name: Deploy Camvella Marketing Site
+    name: Build and Validate Marketing Site
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,14 +31,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Astro site
+      - name: Build Astro site and sitemap
         run: npm run build
 
-      - name: Install pinned Cloudflare CLI
-        run: npm install --no-save --include=optional wrangler@4.86.0 @cloudflare/workerd-linux-64
-
-      - name: Deploy to Cloudflare Pages
-        run: npx wrangler pages deploy dist --project-name=camvella-site --branch=main --commit-dirty=true
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Verify launch artifacts
+        run: |
+          test -f dist/index.html
+          test -f dist/robots.txt
+          test -f dist/sitemap.xml
+          grep -q "https://camvella.com/" dist/sitemap.xml
+          grep -q "G-H1ZPCP2EE9" dist/index.html
+          grep -q "y62zna7yna" dist/index.html
