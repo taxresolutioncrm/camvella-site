@@ -21,8 +21,6 @@ export default defineConfig({
         const pathname = new URL(page).pathname.replace(/\/$/, '') || '/'
         return !noIndexPaths.includes(pathname)
       },
-      changefreq: 'weekly',
-      priority: 0.7,
     }),
   ],
   compressHTML: true,
