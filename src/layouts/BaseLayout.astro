@@ -12,7 +12,7 @@ const {
   title,
   description,
   canonical = Astro.url.href,
-  ogImage = '/og/default.png',
+  ogImage = '/screenshots/dashboard-mock.svg',
   schema,
   noIndex = false,
 } = Astro.props
@@ -20,6 +20,12 @@ const {
 const pageTitle = title.includes('Camvella')
   ? title
   : `${title} | Camvella`
+
+const canonicalUrl = new URL(canonical, Astro.site)
+canonicalUrl.search = ''
+canonicalUrl.hash = ''
+const canonicalHref = canonicalUrl.toString()
+const ogImageHref = new URL(ogImage, Astro.site).toString()
 
 // Production analytics properties
 const CAMVELLA_GA4_ID = 'G-H1ZPCP2EE9'
@@ -35,24 +41,34 @@ const CAMVELLA_CLARITY_ID = 'y62zna7yna'
 
   <title>{pageTitle}</title>
   <meta name="description" content={description} />
-  <link rel="canonical" href={canonical} />
-  {noIndex && <meta name="robots" content="noindex, nofollow" />}
+  <link rel="canonical" href={canonicalHref} />
+  <link rel="alternate" hreflang="en-US" href={canonicalHref} />
+  <link rel="alternate" hreflang="x-default" href={canonicalHref} />
+  <meta
+    name="robots"
+    content={noIndex
+      ? 'noindex, nofollow'
+      : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+  />
 
   <!-- Open Graph -->
   <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={description} />
-  <meta property="og:url" content={canonical} />
+  <meta property="og:url" content={canonicalHref} />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+  <meta property="og:image" content={ogImageHref} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:site_name" content="Camvella" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image:alt" content="Camvella HOA management software" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={pageTitle} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+  <meta name="twitter:image" content={ogImageHref} />
+  <meta name="twitter:image:alt" content="Camvella HOA management software" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/brand/camvella-favicon.svg?v=2" />
@@ -68,7 +84,7 @@ const CAMVELLA_CLARITY_ID = 'y62zna7yna'
       "name": "Camvella",
       "url": "https://camvella.com",
       "description": "HOA management software for professional community association management companies",
-      "logo": "https://camvella.com/brand/logo.svg",
+      "logo": "https://camvella.com/brand/camvella-logo-stacked.svg",
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "sales",
@@ -77,12 +93,39 @@ const CAMVELLA_CLARITY_ID = 'y62zna7yna'
     })}
   </script>
 
+  <!-- WebSite Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Camvella",
+    "url": "https://camvella.com/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Camvella",
+      "url": "https://camvella.com/"
+    }
+  })} />
+
   <!-- Page-specific schema -->
   {schema && (
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   )}
 
   <!-- GA4 + Clarity Analytics -->
+  <script async src={`https://www.googletagmanager.com/gtag/js?id=${CAMVELLA_GA4_ID}`}></script>
+  <script is:inline set:html={`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${CAMVELLA_GA4_ID}', { anonymize_ip: true });
+  `} />
+  <script is:inline set:html={`
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, 'clarity', 'script', '${CAMVELLA_CLARITY_ID}');
+  `} />
 
   <style is:global>
 /* ─── Camvella Design System ─────────────────────────────────────────────────
