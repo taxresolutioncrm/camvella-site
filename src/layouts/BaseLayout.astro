@@ -12,7 +12,7 @@ const {
   title,
   description,
   canonical = Astro.url.href,
-  ogImage = '/og/default.png',
+  ogImage = '/screenshots/dashboard-mock.svg',
   schema,
   noIndex = false,
 } = Astro.props
@@ -42,6 +42,8 @@ const CAMVELLA_CLARITY_ID = 'y62zna7yna'
   <title>{pageTitle}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalHref} />
+  <link rel="alternate" hreflang="en-US" href={canonicalHref} />
+  <link rel="alternate" hreflang="x-default" href={canonicalHref} />
   <meta
     name="robots"
     content={noIndex
@@ -83,7 +85,6 @@ const CAMVELLA_CLARITY_ID = 'y62zna7yna'
       "url": "https://camvella.com",
       "description": "HOA management software for professional community association management companies",
       "logo": "https://camvella.com/brand/camvella-logo-stacked.svg",
-      "sameAs": ["https://www.linkedin.com/company/camvella"],
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "sales",
@@ -91,6 +92,19 @@ const CAMVELLA_CLARITY_ID = 'y62zna7yna'
       }
     })}
   </script>
+
+  <!-- WebSite Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Camvella",
+    "url": "https://camvella.com/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Camvella",
+      "url": "https://camvella.com/"
+    }
+  })} />
 
   <!-- Page-specific schema -->
   {schema && (
