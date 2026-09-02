@@ -1,7 +1,9 @@
 import { readdir, writeFile } from 'node:fs/promises'
 import { join, relative, sep } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const dist = new URL('../dist/', import.meta.url)
+const distPath = fileURLToPath(dist)
 const site = 'https://camvella.com'
 const excluded = new Set([
   '/404/',
@@ -23,11 +25,11 @@ async function htmlFiles(directory) {
   return nested.flat()
 }
 
-const files = await htmlFiles(dist)
+const files = await htmlFiles(distPath)
 const paths = files
   .filter((file) => file.endsWith(`${sep}index.html`) || file.endsWith('/index.html'))
   .map((file) => {
-    const local = relative(dist.pathname, file).split(sep).join('/')
+    const local = relative(distPath, file).split(sep).join('/')
     return local === 'index.html' ? '/' : `/${local.replace(/index\.html$/, '')}`
   })
   .filter((path) => !excluded.has(path))
