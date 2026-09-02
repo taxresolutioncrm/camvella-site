@@ -42,3 +42,8 @@ jobs:
           grep -q "https://camvella.com/" dist/sitemap.xml
           grep -q "G-H1ZPCP2EE9" dist/index.html
           grep -q "y62zna7yna" dist/index.html
+          grep -q 'id="mobile-menu"' dist/index.html
+          grep -q 'src="https://taxrescrm.app/book?product=camvella"' dist/demo/index.html
+          ! grep -R -q 'href="https://taxrescrm.app/book?product=camvella"' dist --include='*.html'
+          ! grep -R -q '/blog/hoa-accounting-guide' dist --include='*.html'
+          ! grep -q '/compare/camvella-vs-buildium' dist/compare/index.html
