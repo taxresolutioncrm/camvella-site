@@ -4,11 +4,24 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 const schema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
+  "@id": "https://camvella.com/#software",
   "name": "Camvella",
+  "alternateName": "Camvella HOA Management Software",
   "applicationCategory": "BusinessApplication",
+  "applicationSubCategory": "HOA and Community Association Management Software",
   "operatingSystem": "Web",
-  "description": "HOA management software for professional community association management companies. Violations, financials, board operations, resident portal — one system.",
-  "url": "https://camvella.com",
+  "description": "Camvella is HOA and community association management software for professional CAM companies, with accounting, violations, ARC workflows, board operations, resident portals, work orders, communications, and automation.",
+  "url": "https://camvella.com/",
+  "featureList": [
+    "HOA accounting",
+    "Violation management",
+    "Architectural review workflows",
+    "Board portal",
+    "Resident portal",
+    "Work orders and vendor management",
+    "Email and SMS communications",
+    "Workflow automation"
+  ],
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "USD",
@@ -93,8 +106,8 @@ const faqs = [
 ---
 
 <BaseLayout
-  title="Camvella — HOA Management Software for Professional CAM Companies"
-  description="HOA management software built for professional community association management companies. Violations, financials, board operations, resident portal — one…"
+  title="HOA & Community Association Management Software | Camvella"
+  description="Camvella is HOA and community association management software for professional CAM companies. Manage accounting, violations, ARC, boards, residents, work orders, communications, and automation in one platform."
   schema={schema}
 >
   <!-- ─── Hero ──────────────────────────────────────────────────────────── -->
@@ -109,7 +122,7 @@ const faqs = [
       </div>
 
       <h1 class="hero__headline">
-        HOA software that works like your team actually <em>works.</em>
+        HOA &amp; community association management software <em>built for professional CAM teams.</em>
       </h1>
 
       <p class="hero__body">
