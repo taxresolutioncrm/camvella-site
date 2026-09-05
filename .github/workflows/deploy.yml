@@ -58,14 +58,16 @@ jobs:
           expected='HOA &amp; Community Association Management Software | Camvella'
           for i in $(seq 1 30); do
             html="$(curl -fsSL --max-time 15 "https://camvella.com/?verify=$(date +%s)" || true)"
-            if printf '%s' "$html" | grep -Fq "$expected"; then
-              printf '%s' "$html" | grep -Fq 'Camvella is HOA and community association management software for professional CAM companies'
-              curl -fsSL --max-time 15 https://camvella.com/robots.txt | grep -qi 'sitemap'
-              curl -fsSL --max-time 15 https://camvella.com/sitemap.xml | grep -Fq 'https://camvella.com/'
+            robots="$(curl -fsSL --max-time 15 "https://camvella.com/robots.txt?verify=$(date +%s)" || true)"
+            sitemap="$(curl -fsSL --max-time 15 "https://camvella.com/sitemap.xml?verify=$(date +%s)" || true)"
+            if printf '%s' "$html" | grep -Fq "$expected" \
+              && printf '%s' "$html" | grep -Fq 'Camvella is HOA and community association management software for professional CAM companies' \
+              && printf '%s' "$robots" | grep -qi 'Sitemap: https://camvella.com/sitemap.xml' \
+              && printf '%s' "$sitemap" | grep -Fq '<loc>https://camvella.com/</loc>'; then
               echo 'Live Camvella SEO verification passed.'
               exit 0
             fi
-            echo "Waiting for Camvella production SEO ($i/30)..."
+            echo "Waiting for Camvella production SEO + sitemap ($i/30)..."
             sleep 10
           done
           echo 'Camvella production did not reach the expected SEO version.' >&2
