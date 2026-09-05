@@ -1,159 +1,76 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
-  <!-- Chrome bar -->
-  <rect width="1280" height="800" fill="#F0F2F5"/>
-  <!-- Sidebar -->
-  <rect width="200" height="800" fill="#0B2748"/>
-  <!-- Logo area -->
-  <rect x="16" y="16" width="168" height="40" rx="6" fill="#0d3060"/>
-  <text x="36" y="42" fill="white" font-size="15" font-weight="700" letter-spacing="-0.3">CAMVELLA</text>
-  <!-- Nav items -->
-  <rect x="8" y="72" width="184" height="36" rx="6" fill="#55B96A" opacity="0.2"/>
-  <text x="36" y="95" fill="#55B96A" font-size="13" font-weight="600">Dashboard</text>
-  <text x="36" y="131" fill="rgba(255,255,255,0.6)" font-size="13">Associations</text>
-  <text x="36" y="163" fill="rgba(255,255,255,0.6)" font-size="13">Units</text>
-  <text x="36" y="195" fill="rgba(255,255,255,0.6)" font-size="13">Owners</text>
-  <text x="36" y="227" fill="rgba(255,255,255,0.6)" font-size="13">Residents</text>
-  <text x="36" y="259" fill="rgba(255,255,255,0.6)" font-size="13">Violations</text>
-  <text x="36" y="291" fill="rgba(255,255,255,0.6)" font-size="13">ARC Requests</text>
-  <text x="36" y="323" fill="rgba(255,255,255,0.6)" font-size="13">Work Orders</text>
-  <text x="36" y="355" fill="rgba(255,255,255,0.6)" font-size="13">Vendors</text>
-  <text x="36" y="387" fill="rgba(255,255,255,0.6)" font-size="13">Communications</text>
-  <text x="36" y="419" fill="rgba(255,255,255,0.6)" font-size="13">Board Portal</text>
-  <text x="36" y="451" fill="rgba(255,255,255,0.6)" font-size="13">Reports</text>
-  <text x="36" y="483" fill="rgba(255,255,255,0.6)" font-size="13">Financials</text>
-  <text x="36" y="515" fill="rgba(255,255,255,0.6)" font-size="13">Users</text>
-  <text x="36" y="762" fill="rgba(255,255,255,0.4)" font-size="12">Settings</text>
+<rect width="1280" height="800" fill="#F8FAFB"/>
+<rect width="220" height="800" fill="#0B2748"/>
+<rect x="16" y="16" width="188" height="42" rx="10" fill="#12385F"/>
+<text x="34" y="43" fill="#fff" font-size="17" font-weight="800">CAMVELLA</text>
+<g font-size="13">
+<rect x="10" y="76" width="200" height="38" rx="8" fill="#0B8F9C"/>
+<text x="38" y="100" fill="#fff" font-weight="700">Dashboard</text>
+<text x="38" y="140" fill="#C6D6E5">Associations</text>
+<text x="38" y="174" fill="#C6D6E5">Units</text>
+<text x="38" y="208" fill="#C6D6E5">Owners</text>
+<text x="38" y="242" fill="#C6D6E5">Residents</text>
+<text x="38" y="276" fill="#C6D6E5">Violations</text>
+<text x="38" y="310" fill="#C6D6E5">ARC Requests</text>
+<text x="38" y="344" fill="#C6D6E5">Work Orders</text>
+<text x="38" y="378" fill="#C6D6E5">Vendors</text>
+<text x="38" y="412" fill="#C6D6E5">Communications</text>
+<text x="38" y="446" fill="#C6D6E5">Team Chat</text>
+<text x="38" y="480" fill="#C6D6E5">Board Portal</text>
+<text x="38" y="514" fill="#C6D6E5">Resident Portal</text>
+<text x="38" y="548" fill="#C6D6E5">Reports</text>
+<text x="38" y="582" fill="#C6D6E5">Financials</text>
+</g>
+<rect x="220" y="0" width="1060" height="58" fill="#fff" stroke="#E2E8ED"/>
+<text x="244" y="36" fill="#0B2748" font-size="15" font-weight="700">Camvella Platform</text>
+<circle cx="1240" cy="29" r="16" fill="#0B8F9C"/><text x="1240" y="34" fill="#fff" font-size="11" text-anchor="middle" font-weight="800">RC</text>
 
-  <!-- Top bar -->
-  <rect x="200" y="0" width="1080" height="56" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="220" y="35" fill="#0B2748" font-size="20" font-weight="700">Good morning, Romy</text>
-  <text x="220" y="52" fill="#64748B" font-size="12">Wednesday, August 20, 2026</text>
-  <!-- Action buttons -->
-  <rect x="980" y="14" width="90" height="30" rx="6" fill="#EF4444"/>
-  <text x="1025" y="33" fill="white" font-size="12" font-weight="600" text-anchor="middle">+ Violation</text>
-  <rect x="1080" y="14" width="90" height="30" rx="6" fill="#0B8F9C"/>
-  <text x="1125" y="33" fill="white" font-size="12" font-weight="600" text-anchor="middle">+ Work Order</text>
-  <rect x="1180" y="14" width="80" height="30" rx="6" fill="#55B96A"/>
-  <text x="1220" y="33" fill="white" font-size="12" font-weight="600" text-anchor="middle">+ Assoc</text>
+<rect x="246" y="82" width="1008" height="128" rx="16" fill="#0B2748"/>
+<defs><linearGradient id="hero" x1="0" x2="1"><stop offset="0" stop-color="#0B2748"/><stop offset="0.62" stop-color="#0B2748"/><stop offset="1" stop-color="#0B8F9C"/></linearGradient></defs>
+<rect x="246" y="82" width="1008" height="128" rx="16" fill="url(#hero)"/>
+<text x="270" y="108" fill="#7DE3DB" font-size="11" font-weight="800" letter-spacing="1.3">CAMVELLA COMMAND CENTER</text>
+<text x="270" y="143" fill="#fff" font-size="28" font-weight="800">Good afternoon, Romy</text>
+<text x="270" y="167" fill="rgba(255,255,255,.72)" font-size="13">Saturday, September 5, 2026</text>
+<rect x="920" y="112" width="92" height="38" rx="8" fill="#EF4444"/><text x="966" y="136" fill="#fff" font-size="12" text-anchor="middle" font-weight="700">+ Violation</text>
+<rect x="1020" y="112" width="112" height="38" rx="8" fill="#0B8F9C"/><text x="1076" y="136" fill="#fff" font-size="12" text-anchor="middle" font-weight="700">+ Work Order</text>
+<rect x="1140" y="112" width="86" height="38" rx="8" fill="#55B96A"/><text x="1183" y="136" fill="#fff" font-size="12" text-anchor="middle" font-weight="700">+ ARC</text>
 
-  <!-- KPI Cards row -->
-  <!-- Card 1: Associations -->
-  <rect x="220" y="72" width="188" height="90" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="236" y="100" fill="#64748B" font-size="11" font-weight="500">ASSOCIATIONS</text>
-  <text x="236" y="132" fill="#0B2748" font-size="32" font-weight="700">3</text>
-  <text x="236" y="152" fill="#55B96A" font-size="11">All active</text>
-  <!-- Card 2: Total Units -->
-  <rect x="420" y="72" width="188" height="90" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="436" y="100" fill="#64748B" font-size="11" font-weight="500">TOTAL UNITS</text>
-  <text x="436" y="132" fill="#0B2748" font-size="32" font-weight="700">12</text>
-  <text x="436" y="152" fill="#64748B" font-size="11">11 occupied · 1 vacant</text>
-  <!-- Card 3: Open Violations -->
-  <rect x="620" y="72" width="188" height="90" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="636" y="100" fill="#64748B" font-size="11" font-weight="500">OPEN VIOLATIONS</text>
-  <text x="636" y="132" fill="#EF4444" font-size="32" font-weight="700">5</text>
-  <text x="636" y="152" fill="#EF4444" font-size="11">2 high severity</text>
-  <!-- Card 4: ARC Pending -->
-  <rect x="820" y="72" width="188" height="90" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="836" y="100" fill="#64748B" font-size="11" font-weight="500">ARC PENDING</text>
-  <text x="836" y="132" fill="#F59E0B" font-size="32" font-weight="700">3</text>
-  <text x="836" y="152" fill="#64748B" font-size="11">Awaiting review</text>
-  <!-- Card 5: Work Orders -->
-  <rect x="1020" y="72" width="240" height="90" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="1036" y="100" fill="#64748B" font-size="11" font-weight="500">WORK ORDERS</text>
-  <text x="1036" y="132" fill="#0B8F9C" font-size="32" font-weight="700">5</text>
-  <text x="1036" y="152" fill="#64748B" font-size="11">2 in progress · 3 open</text>
+<g>
+<rect x="246" y="228" width="190" height="108" rx="12" fill="#fff" stroke="#E2E8ED"/><rect x="246" y="228" width="4" height="108" rx="2" fill="#0B8F9C"/>
+<text x="264" y="252" fill="#8FA3B8" font-size="10" font-weight="800">ASSOCIATIONS</text><text x="264" y="292" fill="#0B2748" font-size="30" font-weight="800">12</text><text x="264" y="316" fill="#0B8F9C" font-size="11">All active</text>
+<rect x="448" y="228" width="190" height="108" rx="12" fill="#fff" stroke="#E2E8ED"/><rect x="448" y="228" width="4" height="108" rx="2" fill="#2563EB"/>
+<text x="466" y="252" fill="#8FA3B8" font-size="10" font-weight="800">TOTAL UNITS</text><text x="466" y="292" fill="#0B2748" font-size="30" font-weight="800">864</text><text x="466" y="316" fill="#2563EB" font-size="11">Portfolio total</text>
+<rect x="650" y="228" width="190" height="108" rx="12" fill="#fff" stroke="#E2E8ED"/><rect x="650" y="228" width="4" height="108" rx="2" fill="#DC2626"/>
+<text x="668" y="252" fill="#8FA3B8" font-size="10" font-weight="800">OPEN VIOLATIONS</text><text x="668" y="292" fill="#0B2748" font-size="30" font-weight="800">18</text><text x="668" y="316" fill="#DC2626" font-size="11">Needs attention</text>
+<rect x="852" y="228" width="190" height="108" rx="12" fill="#fff" stroke="#E2E8ED"/><rect x="852" y="228" width="4" height="108" rx="2" fill="#D97706"/>
+<text x="870" y="252" fill="#8FA3B8" font-size="10" font-weight="800">ARC PENDING</text><text x="870" y="292" fill="#0B2748" font-size="30" font-weight="800">7</text><text x="870" y="316" fill="#D97706" font-size="11">Awaiting review</text>
+<rect x="1054" y="228" width="200" height="108" rx="12" fill="#fff" stroke="#E2E8ED"/><rect x="1054" y="228" width="4" height="108" rx="2" fill="#7C3AED"/>
+<text x="1072" y="252" fill="#8FA3B8" font-size="10" font-weight="800">WORK ORDERS</text><text x="1072" y="292" fill="#0B2748" font-size="30" font-weight="800">24</text><text x="1072" y="316" fill="#7C3AED" font-size="11">Active work</text>
+</g>
 
-  <!-- Attention Required -->
-  <rect x="220" y="180" width="740" height="200" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="236" y="208" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.05em">ATTENTION REQUIRED</text>
-  <!-- Alert 1 -->
-  <rect x="236" y="220" width="708" height="44" rx="6" fill="#FEF2F2"/>
-  <rect x="236" y="220" width="3" height="44" rx="1" fill="#EF4444"/>
-  <text x="252" y="238" fill="#991B1B" font-size="12" font-weight="600">HIGH · Roof Disrepair — Unit 103, Palmetto Reserve HOA</text>
-  <text x="252" y="256" fill="#B91C1C" font-size="11">Missing shingles visible from street — safety hazard · Due 7 days ago</text>
-  <rect x="880" y="228" width="56" height="24" rx="4" fill="#EF4444"/>
-  <text x="908" y="244" fill="white" font-size="11" font-weight="600" text-anchor="middle">View</text>
-  <!-- Alert 2 -->
-  <rect x="236" y="272" width="708" height="44" rx="6" fill="#FEF2F2"/>
-  <rect x="236" y="272" width="3" height="44" rx="1" fill="#EF4444"/>
-  <text x="252" y="290" fill="#991B1B" font-size="12" font-weight="600">HIGH · Unauthorized Fence — Unit 102, Palmetto Reserve HOA</text>
-  <text x="252" y="308" fill="#B91C1C" font-size="11">Installed without ARC approval · Due 7 days ago</text>
-  <rect x="880" y="280" width="56" height="24" rx="4" fill="#EF4444"/>
-  <text x="908" y="296" fill="white" font-size="11" font-weight="600" text-anchor="middle">View</text>
-  <!-- Alert 3 -->
-  <rect x="236" y="324" width="708" height="44" rx="6" fill="#FFFBEB"/>
-  <rect x="236" y="324" width="3" height="44" rx="1" fill="#F59E0B"/>
-  <text x="252" y="342" fill="#92400E" font-size="12" font-weight="600">Gate Motor Failure — Main Entry, Palmetto Reserve HOA</text>
-  <text x="252" y="360" fill="#B45309" font-size="11">Manual override engaged · Due in 3 days · $2,850 est.</text>
-  <rect x="880" y="332" width="56" height="24" rx="4" fill="#F59E0B"/>
-  <text x="908" y="348" fill="white" font-size="11" font-weight="600" text-anchor="middle">View</text>
+<rect x="246" y="354" width="664" height="174" rx="12" fill="#fff" stroke="#E2E8ED"/>
+<text x="266" y="380" fill="#0B2748" font-size="15" font-weight="800">Attention required</text>
+<text x="266" y="400" fill="#8FA3B8" font-size="11">Aging or overdue items that may need action.</text>
+<rect x="790" y="372" width="96" height="24" rx="12" fill="#FEE2E2"/><text x="838" y="388" fill="#DC2626" font-size="10" text-anchor="middle" font-weight="800">5 items</text>
+<rect x="266" y="420" width="624" height="42" rx="9" fill="#fff" stroke="#E2E8ED"/><rect x="278" y="428" width="7" height="26" rx="4" fill="#DC2626"/><text x="298" y="439" fill="#0B2748" font-size="12" font-weight="700">Violations past due</text><text x="298" y="454" fill="#8FA3B8" font-size="10">3 items need attention</text><text x="850" y="445" fill="#DC2626" font-size="11" text-anchor="end" font-weight="700">Review →</text>
+<rect x="266" y="470" width="624" height="42" rx="9" fill="#fff" stroke="#E2E8ED"/><rect x="278" y="478" width="7" height="26" rx="4" fill="#D97706"/><text x="298" y="489" fill="#0B2748" font-size="12" font-weight="700">ARC requests aging 30+ days</text><text x="298" y="504" fill="#8FA3B8" font-size="10">2 items need attention</text><text x="850" y="495" fill="#D97706" font-size="11" text-anchor="end" font-weight="700">Review →</text>
 
-  <!-- Recent Activity -->
-  <rect x="220" y="396" width="740" height="380" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="236" y="424" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.05em">RECENT ACTIVITY</text>
-  <!-- Activity items -->
-  <circle cx="248" cy="452" r="6" fill="#55B96A"/>
-  <text x="264" y="456" fill="#0B2748" font-size="12" font-weight="500">New ARC Request — Rear Patio Extension, Unit B1</text>
-  <text x="264" y="472" fill="#94A3B8" font-size="11">Magnolia Trace Community · Today 9:14 AM</text>
-  <line x1="236" y1="484" x2="944" y2="484" stroke="#F1F5F9" stroke-width="1"/>
-  <circle cx="248" cy="500" r="6" fill="#EF4444"/>
-  <text x="264" y="504" fill="#0B2748" font-size="12" font-weight="500">Violation Opened — Vehicle in Fire Lane (repeat)</text>
-  <text x="264" y="520" fill="#94A3B8" font-size="11">Bayside Condo Association · Today 8:32 AM</text>
-  <line x1="236" y1="532" x2="944" y2="532" stroke="#F1F5F9" stroke-width="1"/>
-  <circle cx="248" cy="548" r="6" fill="#0B8F9C"/>
-  <text x="264" y="552" fill="#0B2748" font-size="12" font-weight="500">Work Order Updated — HVAC 3rd Floor, in progress</text>
-  <text x="264" y="568" fill="#94A3B8" font-size="11">Bayside Condo Association · Yesterday 4:55 PM</text>
-  <line x1="236" y1="580" x2="944" y2="580" stroke="#F1F5F9" stroke-width="1"/>
-  <circle cx="248" cy="596" r="6" fill="#55B96A"/>
-  <text x="264" y="600" fill="#0B2748" font-size="12" font-weight="500">ARC Approved — Tinted Glass Balcony Enclosure, Unit 5C</text>
-  <text x="264" y="616" fill="#94A3B8" font-size="11">Bayside Condo Association · Yesterday 2:10 PM</text>
-  <line x1="236" y1="628" x2="944" y2="628" stroke="#F1F5F9" stroke-width="1"/>
-  <circle cx="248" cy="644" r="6" fill="#F59E0B"/>
-  <text x="264" y="648" fill="#0B2748" font-size="12" font-weight="500">Bill Approved — SunState Roofing $4,200 · SR-2026-0805</text>
-  <text x="264" y="664" fill="#94A3B8" font-size="11">Palmetto Reserve HOA · Aug 6, 9:00 AM</text>
-  <line x1="236" y1="676" x2="944" y2="676" stroke="#F1F5F9" stroke-width="1"/>
-  <circle cx="248" cy="692" r="6" fill="#64748B"/>
-  <text x="264" y="696" fill="#0B2748" font-size="12" font-weight="500">Assessment Run Posted — August 2026 HOA Assessment</text>
-  <text x="264" y="712" fill="#94A3B8" font-size="11">Palmetto Reserve HOA · Aug 1, 8:00 AM</text>
+<rect x="926" y="354" width="328" height="174" rx="12" fill="#fff" stroke="#E2E8ED"/>
+<text x="946" y="380" fill="#0B2748" font-size="15" font-weight="800">Financials</text><text x="1228" y="380" fill="#0B8F9C" font-size="11" text-anchor="end">Details →</text>
+<rect x="946" y="404" width="288" height="48" rx="9" fill="#FEE2E2"/><text x="960" y="422" fill="#4A6280" font-size="10" font-weight="700">AR OUTSTANDING</text><text x="960" y="444" fill="#DC2626" font-size="21" font-weight="800">$18,420</text>
+<rect x="946" y="462" width="288" height="48" rx="9" fill="#FEF3C7"/><text x="960" y="480" fill="#4A6280" font-size="10" font-weight="700">AP OPEN BILLS</text><text x="960" y="502" fill="#D97706" font-size="21" font-weight="800">$6,875</text>
 
-  <!-- Financials Sidebar -->
-  <rect x="976" y="180" width="284" height="596" rx="8" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="992" y="208" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.05em">FINANCIALS</text>
-  <text x="1232" y="208" fill="#0B8F9C" font-size="11" font-weight="500">Details →</text>
-  <!-- AR Outstanding -->
-  <text x="992" y="240" fill="#64748B" font-size="11">AR Outstanding</text>
-  <text x="992" y="264" fill="#EF4444" font-size="24" font-weight="700">$3,675</text>
-  <text x="992" y="280" fill="#94A3B8" font-size="11">Unit 104 delinquent · 7 months</text>
-  <line x1="992" y1="294" x2="1244" y2="294" stroke="#F1F5F9" stroke-width="1"/>
-  <!-- AP Open -->
-  <text x="992" y="318" fill="#64748B" font-size="11">AP Open Bills</text>
-  <text x="992" y="342" fill="#F59E0B" font-size="24" font-weight="700">$7,050</text>
-  <text x="992" y="358" fill="#94A3B8" font-size="11">2 bills pending payment</text>
-  <line x1="992" y1="372" x2="1244" y2="372" stroke="#F1F5F9" stroke-width="1"/>
-  <!-- YTD Revenue -->
-  <text x="992" y="396" fill="#64748B" font-size="11">YTD Revenue Billed</text>
-  <text x="992" y="420" fill="#0B2748" font-size="24" font-weight="700">$14,700</text>
-  <text x="992" y="436" fill="#94A3B8" font-size="11">7 months · 4 units · $525/mo</text>
-  <line x1="992" y1="450" x2="1244" y2="450" stroke="#F1F5F9" stroke-width="1"/>
-  <!-- Collected -->
-  <text x="992" y="474" fill="#64748B" font-size="11">YTD Collected</text>
-  <text x="992" y="498" fill="#55B96A" font-size="24" font-weight="700">$11,025</text>
-  <text x="992" y="514" fill="#94A3B8" font-size="11">75% collection rate</text>
-  <line x1="992" y1="528" x2="1244" y2="528" stroke="#F1F5F9" stroke-width="1"/>
-  <!-- Quick Actions -->
-  <text x="992" y="556" fill="#64748B" font-size="11" font-weight="600" letter-spacing="0.05em">QUICK ACTIONS</text>
-  <rect x="992" y="568" width="240" height="32" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="1112" y="588" fill="#0B2748" font-size="12" text-anchor="middle">View All Violations</text>
-  <rect x="992" y="608" width="240" height="32" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="1112" y="628" fill="#0B2748" font-size="12" text-anchor="middle">ARC Requests</text>
-  <rect x="992" y="648" width="240" height="32" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="1112" y="668" fill="#0B2748" font-size="12" text-anchor="middle">Work Orders</text>
-  <rect x="992" y="688" width="240" height="32" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="1112" y="708" fill="#0B2748" font-size="12" text-anchor="middle">Financial Reports</text>
-  <rect x="992" y="728" width="240" height="32" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="1112" y="748" fill="#0B2748" font-size="12" text-anchor="middle">Send Communication</text>
-
-  <!-- AI button -->
-  <circle cx="1250" cy="766" r="22" fill="#0B2748"/>
-  <text x="1250" y="772" fill="white" font-size="12" font-weight="600" text-anchor="middle">AI</text>
+<rect x="246" y="546" width="664" height="214" rx="12" fill="#fff" stroke="#E2E8ED"/>
+<text x="266" y="572" fill="#0B2748" font-size="15" font-weight="800">Recent activity</text><text x="266" y="592" fill="#8FA3B8" font-size="11">Latest operational changes across the selected office.</text>
+<g font-size="11">
+<circle cx="275" cy="622" r="4" fill="#DC2626"/><text x="292" y="626" fill="#0B2748" font-weight="700">Violation — Exterior paint condition</text><text x="870" y="626" fill="#8FA3B8" text-anchor="end">12m ago</text>
+<line x1="266" y1="642" x2="890" y2="642" stroke="#E2E8ED"/>
+<circle cx="275" cy="660" r="4" fill="#7C3AED"/><text x="292" y="664" fill="#0B2748" font-weight="700">Work Order — Pool gate repair</text><text x="870" y="664" fill="#8FA3B8" text-anchor="end">1h ago</text>
+<line x1="266" y1="680" x2="890" y2="680" stroke="#E2E8ED"/>
+<circle cx="275" cy="698" r="4" fill="#16A34A"/><text x="292" y="702" fill="#0B2748" font-weight="700">ARC — Hurricane shutter request approved</text><text x="870" y="702" fill="#8FA3B8" text-anchor="end">3h ago</text>
+</g>
+<rect x="926" y="546" width="328" height="214" rx="12" fill="#fff" stroke="#E2E8ED"/>
+<text x="946" y="572" fill="#0B2748" font-size="15" font-weight="800">Quick actions</text><text x="946" y="592" fill="#8FA3B8" font-size="11">Jump to the most-used office tools.</text>
+<g fill="#0B2748" font-size="12" font-weight="700"><text x="958" y="626">Violations</text><text x="1222" y="626" text-anchor="end">→</text><text x="958" y="658">ARC Requests</text><text x="1222" y="658" text-anchor="end">→</text><text x="958" y="690">Work Orders</text><text x="1222" y="690" text-anchor="end">→</text><text x="958" y="722">Reports</text><text x="1222" y="722" text-anchor="end">→</text></g>
+<rect x="1168" y="726" width="72" height="42" rx="21" fill="#0B8F9C"/><text x="1204" y="751" fill="#fff" font-size="12" text-anchor="middle" font-weight="800">AI</text>
 </svg>
