@@ -81,10 +81,25 @@ const CAMVELLA_CLARITY_ID = 'y62zna7yna'
     {JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
+      "@id": "https://camvella.com/#organization",
       "name": "Camvella",
-      "url": "https://camvella.com",
-      "description": "HOA management software for professional community association management companies",
-      "logo": "https://camvella.com/brand/camvella-logo-stacked.svg",
+      "alternateName": ["Camvella HOA Software", "Camvella Community Association Management Software"],
+      "url": "https://camvella.com/",
+      "description": "Camvella is HOA and community association management software for professional community association management companies and CAM teams.",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://camvella.com/brand/camvella-logo-stacked.svg"
+      },
+      "knowsAbout": [
+        "HOA management software",
+        "community association management software",
+        "CAM software",
+        "HOA accounting software",
+        "association management",
+        "resident portals",
+        "board portals",
+        "violation management"
+      ],
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "sales",
@@ -97,13 +112,13 @@ const CAMVELLA_CLARITY_ID = 'y62zna7yna'
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://camvella.com/#website",
     "name": "Camvella",
+    "alternateName": "Camvella HOA Management Software",
     "url": "https://camvella.com/",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Camvella",
-      "url": "https://camvella.com/"
-    }
+    "publisher": { "@id": "https://camvella.com/#organization" },
+    "about": { "@id": "https://camvella.com/#organization" },
+    "inLanguage": "en-US"
   })} />
 
   <!-- Page-specific schema -->
