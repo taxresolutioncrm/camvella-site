@@ -1,121 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
-  <rect width="1280" height="800" fill="#F0F2F5"/>
-  <rect width="200" height="800" fill="#0B2748"/>
-  <text x="36" y="42" fill="white" font-size="15" font-weight="700" letter-spacing="-0.3">CAMVELLA</text>
-  <text x="36" y="95" fill="rgba(255,255,255,0.6)" font-size="13">Dashboard</text>
-  <rect x="8" y="244" width="184" height="36" rx="6" fill="#55B96A" opacity="0.2"/>
-  <text x="36" y="267" fill="#55B96A" font-size="13" font-weight="600">Violations</text>
-  <text x="36" y="131" fill="rgba(255,255,255,0.6)" font-size="13">Associations</text>
-  <text x="36" y="163" fill="rgba(255,255,255,0.6)" font-size="13">Units</text>
-  <text x="36" y="195" fill="rgba(255,255,255,0.6)" font-size="13">Owners</text>
-  <text x="36" y="227" fill="rgba(255,255,255,0.6)" font-size="13">Residents</text>
-  <text x="36" y="299" fill="rgba(255,255,255,0.6)" font-size="13">ARC Requests</text>
-  <text x="36" y="331" fill="rgba(255,255,255,0.6)" font-size="13">Work Orders</text>
-  <text x="36" y="762" fill="rgba(255,255,255,0.4)" font-size="12">Settings</text>
-  <!-- Top bar -->
-  <rect x="200" y="0" width="1080" height="56" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="220" y="36" fill="#0B2748" font-size="20" font-weight="700">Violations</text>
-  <rect x="1100" y="14" width="160" height="32" rx="6" fill="#EF4444"/>
-  <text x="1180" y="34" fill="white" font-size="13" font-weight="600" text-anchor="middle">+ New Violation</text>
-  <!-- Filter bar -->
-  <rect x="200" y="56" width="1080" height="48" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <rect x="220" y="68" width="200" height="28" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="232" y="86" fill="#94A3B8" font-size="12">Search violations...</text>
-  <rect x="436" y="68" width="100" height="28" rx="6" fill="#FEF2F2" stroke="#FECACA" stroke-width="1"/>
-  <text x="486" y="86" fill="#EF4444" font-size="12" font-weight="500" text-anchor="middle">All Status</text>
-  <rect x="548" y="68" width="80" height="28" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="588" y="86" fill="#64748B" font-size="12" text-anchor="middle">Severity</text>
-  <rect x="640" y="68" width="120" height="28" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="700" y="86" fill="#64748B" font-size="12" text-anchor="middle">Association</text>
-  <!-- Summary counts -->
-  <rect x="900" y="63" width="60" height="26" rx="13" fill="#FEF2F2"/>
-  <text x="930" y="80" fill="#EF4444" font-size="11" font-weight="600" text-anchor="middle">5 Open</text>
-  <rect x="970" y="63" width="68" height="26" rx="13" fill="#F0FDF4"/>
-  <text x="1004" y="80" fill="#15803D" font-size="11" font-weight="600" text-anchor="middle">1 Resolved</text>
-  <!-- Table header -->
-  <rect x="200" y="104" width="1080" height="36" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <text x="224" y="126" fill="#64748B" font-size="11" font-weight="600">VIOLATION</text>
-  <text x="520" y="126" fill="#64748B" font-size="11" font-weight="600">UNIT / OWNER</text>
-  <text x="700" y="126" fill="#64748B" font-size="11" font-weight="600">STATUS</text>
-  <text x="820" y="126" fill="#64748B" font-size="11" font-weight="600">SEVERITY</text>
-  <text x="940" y="126" fill="#64748B" font-size="11" font-weight="600">DUE DATE</text>
-  <text x="1060" y="126" fill="#64748B" font-size="11" font-weight="600">FINE</text>
-  <!-- Row 1 - HIGH past due -->
-  <rect x="200" y="140" width="1080" height="60" fill="white" stroke="#FEE2E2" stroke-width="1"/>
-  <rect x="200" y="140" width="4" height="60" fill="#EF4444"/>
-  <text x="224" y="162" fill="#0B2748" font-size="12" font-weight="600">Roof in Disrepair — Missing Shingles</text>
-  <text x="224" y="180" fill="#64748B" font-size="11">Palmetto Reserve HOA · South-facing roof section</text>
-  <text x="520" y="162" fill="#0B2748" font-size="12">Unit 103</text>
-  <text x="520" y="180" fill="#64748B" font-size="11">James Oduya</text>
-  <rect x="700" y="150" width="72" height="22" rx="11" fill="#FEF2F2"/>
-  <text x="736" y="165" fill="#EF4444" font-size="11" font-weight="600" text-anchor="middle">Noticed</text>
-  <rect x="820" y="150" width="52" height="22" rx="11" fill="#FEF2F2"/>
-  <text x="846" y="165" fill="#EF4444" font-size="11" font-weight="600" text-anchor="middle">High</text>
-  <text x="940" y="165" fill="#EF4444" font-size="12" font-weight="600">7 days ago</text>
-  <text x="1060" y="165" fill="#0B2748" font-size="12">$500</text>
-  <!-- Row 2 - HIGH -->
-  <rect x="200" y="200" width="1080" height="60" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <rect x="200" y="200" width="4" height="60" fill="#EF4444"/>
-  <text x="224" y="222" fill="#0B2748" font-size="12" font-weight="600">Unauthorized Fence — No ARC Approval</text>
-  <text x="224" y="240" fill="#64748B" font-size="11">Palmetto Reserve HOA · Rear yard, east property line</text>
-  <text x="520" y="222" fill="#0B2748" font-size="12">Unit 102</text>
-  <text x="520" y="240" fill="#64748B" font-size="11">Sandra Whitmore</text>
-  <rect x="700" y="210" width="72" height="22" rx="11" fill="#FEF2F2"/>
-  <text x="736" y="225" fill="#EF4444" font-size="11" font-weight="600" text-anchor="middle">Noticed</text>
-  <rect x="820" y="210" width="52" height="22" rx="11" fill="#FEF2F2"/>
-  <text x="846" y="225" fill="#EF4444" font-size="11" font-weight="600" text-anchor="middle">High</text>
-  <text x="940" y="225" fill="#EF4444" font-size="12" font-weight="600">7 days ago</text>
-  <text x="1060" y="225" fill="#0B2748" font-size="12">$250</text>
-  <!-- Row 3 - MEDIUM FINED -->
-  <rect x="200" y="260" width="1080" height="60" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <rect x="200" y="260" width="4" height="60" fill="#F59E0B"/>
-  <text x="224" y="282" fill="#0B2748" font-size="12" font-weight="600">Vehicle in Fire Lane — Repeat Offense</text>
-  <text x="224" y="300" fill="#64748B" font-size="11">Bayside Condo Association · Building A south parking lane C</text>
-  <text x="520" y="282" fill="#0B2748" font-size="12">Unit 3B</text>
-  <text x="520" y="300" fill="#64748B" font-size="11">Karen Thompson</text>
-  <rect x="700" y="270" width="52" height="22" rx="11" fill="#FFFBEB"/>
-  <text x="726" y="285" fill="#F59E0B" font-size="11" font-weight="600" text-anchor="middle">Fined</text>
-  <rect x="820" y="270" width="68" height="22" rx="11" fill="#FFFBEB"/>
-  <text x="854" y="285" fill="#F59E0B" font-size="11" font-weight="600" text-anchor="middle">Medium</text>
-  <text x="940" y="285" fill="#0B2748" font-size="12">Aug 27, 2026</text>
-  <text x="1060" y="285" fill="#0B2748" font-size="12">$200</text>
-  <!-- Row 4 - MEDIUM open -->
-  <rect x="200" y="320" width="1080" height="60" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <rect x="200" y="320" width="4" height="60" fill="#F59E0B"/>
-  <text x="224" y="342" fill="#0B2748" font-size="12" font-weight="600">Lawn Overgrown — Grass Exceeds 6 Inches</text>
-  <text x="224" y="360" fill="#64748B" font-size="11">Palmetto Reserve HOA · Front yard</text>
-  <text x="520" y="342" fill="#0B2748" font-size="12">Unit 101</text>
-  <text x="520" y="360" fill="#64748B" font-size="11">Michael Castellano</text>
-  <rect x="700" y="330" width="52" height="22" rx="11" fill="#EFF6FF"/>
-  <text x="726" y="345" fill="#3B82F6" font-size="11" font-weight="600" text-anchor="middle">Open</text>
-  <rect x="820" y="330" width="68" height="22" rx="11" fill="#FFFBEB"/>
-  <text x="854" y="345" fill="#F59E0B" font-size="11" font-weight="600" text-anchor="middle">Medium</text>
-  <text x="940" y="345" fill="#0B2748" font-size="12">Aug 25, 2026</text>
-  <text x="1060" y="345" fill="#0B2748" font-size="12">$150</text>
-  <!-- Row 5 - LOW -->
-  <rect x="200" y="380" width="1080" height="60" fill="white" stroke="#E2E8F0" stroke-width="1"/>
-  <rect x="200" y="380" width="4" height="60" fill="#94A3B8"/>
-  <text x="224" y="402" fill="#0B2748" font-size="12" font-weight="600">Personal Items on Balcony — Visible from Common Area</text>
-  <text x="224" y="420" fill="#64748B" font-size="11">Bayside Condo Association · Unit 2A balcony</text>
-  <text x="520" y="402" fill="#0B2748" font-size="12">Unit 2A</text>
-  <text x="520" y="420" fill="#64748B" font-size="11">Robert Marchetti</text>
-  <rect x="700" y="390" width="52" height="22" rx="11" fill="#EFF6FF"/>
-  <text x="726" y="405" fill="#3B82F6" font-size="11" font-weight="600" text-anchor="middle">Open</text>
-  <rect x="820" y="390" width="44" height="22" rx="11" fill="#F1F5F9"/>
-  <text x="842" y="405" fill="#64748B" font-size="11" font-weight="600" text-anchor="middle">Low</text>
-  <text x="940" y="405" fill="#0B2748" font-size="12">Sep 7, 2026</text>
-  <text x="1060" y="405" fill="#0B2748" font-size="12">$100</text>
-  <!-- Row 6 - Resolved -->
-  <rect x="200" y="440" width="1080" height="60" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
-  <rect x="200" y="440" width="4" height="60" fill="#55B96A"/>
-  <text x="224" y="462" fill="#64748B" font-size="12" font-weight="500">Holiday Decorations — Not Removed by Feb 1</text>
-  <text x="224" y="480" fill="#94A3B8" font-size="11">Magnolia Trace Community · Front of 801 Magnolia Trace Way</text>
-  <text x="520" y="462" fill="#64748B" font-size="12">Unit A1</text>
-  <text x="520" y="480" fill="#94A3B8" font-size="11">Charles Beaumont</text>
-  <rect x="700" y="450" width="68" height="22" rx="11" fill="#F0FDF4"/>
-  <text x="734" y="465" fill="#15803D" font-size="11" font-weight="600" text-anchor="middle">Resolved</text>
-  <rect x="820" y="450" width="44" height="22" rx="11" fill="#F1F5F9"/>
-  <text x="842" y="465" fill="#64748B" font-size="11" font-weight="600" text-anchor="middle">Low</text>
-  <text x="940" y="465" fill="#55B96A" font-size="12">Resolved Jun 22</text>
-  <text x="1060" y="465" fill="#55B96A" font-size="12">$50 paid</text>
+<rect width="1280" height="800" fill="#F8FAFB"/><rect width="220" height="800" fill="#0B2748"/>
+<text x="34" y="43" fill="#fff" font-size="17" font-weight="800">CAMVELLA</text>
+<g fill="#C6D6E5" font-size="13"><text x="38" y="100">Dashboard</text><text x="38" y="140">Associations</text><text x="38" y="174">Units</text><text x="38" y="208">Owners</text><text x="38" y="242">Residents</text><text x="38" y="276">Violations</text><text x="38" y="310">ARC Requests</text><text x="38" y="344">Work Orders</text><text x="38" y="378">Vendors</text><text x="38" y="412">Communications</text><text x="38" y="446">Team Chat</text><text x="38" y="480">Reports</text></g>
+<rect x="10" y="252" width="200" height="38" rx="8" fill="#0B8F9C"/><text x="38" y="276" fill="#fff" font-size="13" font-weight="700">Violations</text>
+<rect x="220" y="0" width="1060" height="58" fill="#fff" stroke="#E2E8ED"/><text x="244" y="36" fill="#0B2748" font-size="15" font-weight="700">Camvella Platform</text>
+<text x="246" y="104" fill="#0B2748" font-size="28" font-weight="800">Violations</text><text x="246" y="130" fill="#4A6280" font-size="13">Violations for the selected office.</text>
+<rect x="1070" y="86" width="184" height="40" rx="9" fill="#EF4444"/><text x="1162" y="111" fill="#fff" text-anchor="middle" font-size="12" font-weight="800">+ New Violation</text>
+<rect x="246" y="154" width="228" height="104" rx="12" fill="#fff" stroke="#E2E8ED"/><text x="264" y="179" fill="#4A6280" font-size="11" font-weight="700">Total Violations</text><text x="264" y="216" fill="#0B2748" font-size="28" font-weight="800">18</text><text x="264" y="240" fill="#8FA3B8" font-size="10">All records</text><rect x="492" y="154" width="228" height="104" rx="12" fill="#fff" stroke="#E2E8ED"/><text x="510" y="179" fill="#4A6280" font-size="11" font-weight="700">Open</text><text x="510" y="216" fill="#0B2748" font-size="28" font-weight="800">11</text><text x="510" y="240" fill="#8FA3B8" font-size="10">Needs attention</text><rect x="738" y="154" width="228" height="104" rx="12" fill="#fff" stroke="#E2E8ED"/><text x="756" y="179" fill="#4A6280" font-size="11" font-weight="700">Past Due</text><text x="756" y="216" fill="#0B2748" font-size="28" font-weight="800">3</text><text x="756" y="240" fill="#8FA3B8" font-size="10">Beyond due date</text><rect x="984" y="154" width="228" height="104" rx="12" fill="#fff" stroke="#E2E8ED"/><text x="1002" y="179" fill="#4A6280" font-size="11" font-weight="700">Fines Due</text><text x="1002" y="216" fill="#0B2748" font-size="28" font-weight="800">6</text><text x="1002" y="240" fill="#8FA3B8" font-size="10">Outstanding fines</text>
+<rect x="246" y="280" width="1008" height="70" rx="12" fill="#fff" stroke="#E2E8ED"/><rect x="264" y="296" width="460" height="38" rx="8" fill="#fff" stroke="#CBD5E1"/><text x="280" y="320" fill="#8FA3B8" font-size="12">Search violations…</text><rect x="740" y="296" width="180" height="38" rx="8" fill="#fff" stroke="#CBD5E1"/><text x="756" y="320" fill="#4A6280" font-size="12">All Statuses</text><rect x="934" y="296" width="130" height="38" rx="8" fill="#fff" stroke="#CBD5E1"/><text x="999" y="320" fill="#4A6280" font-size="12" text-anchor="middle">Refresh</text>
+<rect x="246" y="370" width="1008" height="360" rx="12" fill="#fff" stroke="#E2E8ED"/>
+<rect x="246" y="370" width="1008" height="44" rx="12" fill="#F8FAFB"/><g fill="#4A6280" font-size="10" font-weight="800"><text x="270" y="397">RECORD</text><text x="610" y="397">STATUS</text><text x="760" y="397">DETAILS</text><text x="1085" y="397">UPDATED</text></g>
+<line x1="246" y1="472" x2="1254" y2="472" stroke="#E2E8ED"/><text x="270" y="442" fill="#0B2748" font-size="12" font-weight="700">Exterior paint</text><text x="270" y="459" fill="#8FA3B8" font-size="10">Unit 204 · Seaside HOA</text><rect x="600" y="428" width="104" height="24" rx="12" fill="#FEE2E2"/><text x="652" y="444" fill="#DC2626" font-size="10" text-anchor="middle" font-weight="800">OPEN</text><text x="760" y="442" fill="#4A6280" font-size="11">Notice sent · $100 fine</text><text x="1085" y="442" fill="#8FA3B8" font-size="10">12m ago</text><line x1="246" y1="530" x2="1254" y2="530" stroke="#E2E8ED"/><text x="270" y="500" fill="#0B2748" font-size="12" font-weight="700">Trash enclosure</text><text x="270" y="517" fill="#8FA3B8" font-size="10">Unit 118 · Seaside HOA</text><rect x="600" y="486" width="104" height="24" rx="12" fill="#FEF3C7"/><text x="652" y="502" fill="#D97706" font-size="10" text-anchor="middle" font-weight="800">NOTICED</text><text x="760" y="500" fill="#4A6280" font-size="11">Reinspection scheduled</text><text x="1085" y="500" fill="#8FA3B8" font-size="10">2h ago</text><line x1="246" y1="588" x2="1254" y2="588" stroke="#E2E8ED"/><text x="270" y="558" fill="#0B2748" font-size="12" font-weight="700">Landscape maintenance</text><text x="270" y="575" fill="#8FA3B8" font-size="10">Unit 305 · Harbor Point</text><rect x="600" y="544" width="104" height="24" rx="12" fill="#EBF8EE"/><text x="652" y="560" fill="#16A34A" font-size="10" text-anchor="middle" font-weight="800">RESOLVED</text><text x="760" y="558" fill="#4A6280" font-size="11">Closed by manager</text><text x="1085" y="558" fill="#8FA3B8" font-size="10">Yesterday</text>
+<rect x="1168" y="736" width="72" height="42" rx="21" fill="#0B8F9C"/><text x="1204" y="761" fill="#fff" font-size="12" text-anchor="middle" font-weight="800">AI</text>
 </svg>
