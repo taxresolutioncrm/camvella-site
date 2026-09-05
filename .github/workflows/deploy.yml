@@ -40,6 +40,8 @@ jobs:
           test -f dist/robots.txt
           test -f dist/sitemap.xml
           grep -q "https://camvella.com/" dist/sitemap.xml
+          grep -Fq '<title>HOA &amp; Community Association Management Software | Camvella</title>' dist/index.html
+          grep -Fq 'Camvella is HOA and community association management software for professional CAM companies' dist/index.html
           grep -q "G-H1ZPCP2EE9" dist/index.html
           grep -q "y62zna7yna" dist/index.html
           grep -q 'id="mobile-menu"' dist/index.html
@@ -47,3 +49,24 @@ jobs:
           ! grep -R -q 'href="https://taxrescrm.app/book?product=camvella"' dist --include='*.html'
           ! grep -R -q '/blog/hoa-accounting-guide' dist --include='*.html'
           ! grep -q '/compare/camvella-vs-buildium' dist/compare/index.html
+
+      - name: Verify live Camvella SEO
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected='HOA &amp; Community Association Management Software | Camvella'
+          for i in $(seq 1 30); do
+            html="$(curl -fsSL --max-time 15 "https://camvella.com/?verify=$(date +%s)" || true)"
+            if printf '%s' "$html" | grep -Fq "$expected"; then
+              printf '%s' "$html" | grep -Fq 'Camvella is HOA and community association management software for professional CAM companies'
+              curl -fsSL --max-time 15 https://camvella.com/robots.txt | grep -qi 'sitemap'
+              curl -fsSL --max-time 15 https://camvella.com/sitemap.xml | grep -Fq 'https://camvella.com/'
+              echo 'Live Camvella SEO verification passed.'
+              exit 0
+            fi
+            echo "Waiting for Camvella production SEO ($i/30)..."
+            sleep 10
+          done
+          echo 'Camvella production did not reach the expected SEO version.' >&2
+          exit 1
