@@ -29,7 +29,6 @@ const paths = files
   .filter((path) => !excluded.has(path))
   .sort()
 
-const today = new Date().toISOString().slice(0, 10)
 const entries = paths.map((path) => {
   const priority =
     path === '/' ? '1.0'
@@ -41,7 +40,6 @@ const entries = paths.map((path) => {
   return [
     '  <url>',
     `    <loc>${site}${path === '/' ? '/' : path}</loc>`,
-    `    <lastmod>${today}</lastmod>`,
     '    <changefreq>weekly</changefreq>',
     `    <priority>${priority}</priority>`,
     '  </url>',
