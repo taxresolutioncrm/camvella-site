@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+const schema = {
+  "@context":"https://schema.org","@type":"SoftwareApplication",
+  "name":"Camvella HOA Management Software","applicationCategory":"BusinessApplication","operatingSystem":"Web",
+  "url":"https://camvella.com/solutions/hoa-management-software/",
+  "description":"HOA management software for professional community association management companies, with accounting, violations, ARC, work orders, boards, residents, communications, and automation."
+}
+const faqs=[
+  ["What is HOA management software?","HOA management software centralizes association operations such as accounting, owner and resident records, violations, architectural requests, work orders, board workflows, documents, and communications."],
+  ["Who is Camvella built for?","Camvella is built for professional community association management companies and CAM teams managing multiple associations."],
+  ["Does Camvella include HOA accounting?","Yes. Camvella includes assessment billing, AR, AP, general ledger, budgeting, and financial reporting designed around association operations."]
+]
+---
+<BaseLayout title="HOA Management Software for Professional CAM Companies | Camvella" description="HOA management software for professional CAM companies. Run accounting, violations, ARC, work orders, boards, residents, vendors, communications, and reporting in one platform." schema={schema}>
+<section class="seo-hero"><div class="container"><p class="section__label">HOA management software</p><h1>One operating system for professional HOA management.</h1><p>Camvella brings association accounting, compliance, board operations, resident service, work orders, vendors, documents, and communications into one connected platform for professional community managers.</p><div class="seo-actions"><a class="btn btn--primary btn--lg" href="/demo">Book a Demo</a><a class="btn btn--dark btn--lg" href="/product">See the Product</a></div></div></section>
+<section class="section"><div class="container"><h2 class="section__headline">Built around the workflows CAM teams run every day.</h2><div class="seo-grid">
+<article><h3>HOA accounting</h3><p>Assessment schedules, AR, AP, general ledger, budgets, financial statements, and board-ready reporting.</p><a href="/features/hoa-accounting">Explore HOA accounting →</a></article>
+<article><h3>Violations & compliance</h3><p>Inspections, notices, fines, hearings, reinspections, attachments, and resolution history.</p><a href="/features/violations">Explore violation management →</a></article>
+<article><h3>Architectural review</h3><p>ARC submissions, documents, committee review, board voting, decisions, and resident communication.</p><a href="/features/arc">Explore ARC workflows →</a></article>
+<article><h3>Boards & residents</h3><p>Purpose-built portals connect meetings, resolutions, financial visibility, requests, statements, and documents.</p><a href="/features/board-portal">Explore board operations →</a></article>
+<article><h3>Work orders & vendors</h3><p>Move maintenance requests from intake through assignment, vendor coordination, attachments, and completion.</p><a href="/features/work-orders">Explore work orders →</a></article>
+<article><h3>Communications</h3><p>Keep email, SMS, templates, audience targeting, and delivery history attached to the communities they serve.</p><a href="/features/communications">Explore communications →</a></article>
+</div></div></section>
+<section class="section section--alt"><div class="container container--narrow"><h2 class="section__headline">HOA software should connect financial and operational work.</h2><p class="section__subhead">Professional management companies should not have to reconcile one system for accounting, another for compliance, another for resident communication, and spreadsheets for everything between them. Camvella is designed so the community remains the shared context across the work.</p></div></section>
+<section class="section"><div class="container container--narrow"><h2 class="section__headline">Common questions</h2><div class="seo-faq">{faqs.map(([q,a])=><details><summary>{q}</summary><p>{a}</p></details>)}</div></div></section>
+<section class="section section--dark"><div class="container"><h2 class="section__headline" style="color:white">See Camvella against a real association.</h2><p class="section__subhead">Bring one of your communities and walk through the workflows your team actually runs.</p><a class="btn btn--primary btn--lg" href="/demo">Book a Demo</a></div></section>
+</BaseLayout>
+<style>
+.seo-hero{padding:128px 0 72px;background:linear-gradient(135deg,var(--clr-navy),#0f4c5c);color:#fff}.seo-hero h1{font-size:clamp(2.5rem,5vw,4.6rem);line-height:1.02;max-width:16ch;margin:.4rem 0 1.2rem}.seo-hero p{max-width:62ch;font-size:1.1rem;line-height:1.7;color:rgba(255,255,255,.78)}.seo-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.seo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}.seo-grid article{padding:24px;border:1px solid var(--clr-border);border-radius:16px;background:#fff}.seo-grid h3{color:var(--clr-navy);margin-bottom:10px}.seo-grid p{color:var(--clr-text-soft);line-height:1.65;margin-bottom:14px}.seo-faq details{border-bottom:1px solid var(--clr-border);padding:18px 0}.seo-faq summary{font-weight:800;color:var(--clr-navy);cursor:pointer}.seo-faq p{padding-top:10px;color:var(--clr-text-soft);line-height:1.65}@media(max-width:800px){.seo-grid{grid-template-columns:1fr}.seo-hero{padding:108px 0 58px}}
+</style>
