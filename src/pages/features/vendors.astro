@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import FeatureGuide from '../../components/FeatureGuide.astro'
+const features = [{ title: "Vendor profiles", body: "Centralize company details, contacts, service categories, notes, and active status." },
+{ title: "Compliance documents", body: "Keep W-9s, certificates of insurance, licenses, and related files attached to the vendor record." },
+{ title: "Expiration visibility", body: "Track compliance dates so staff can identify records that need attention before assigning work." },
+{ title: "Work-order connection", body: "Assign vendors from the work-order workflow and preserve the relationship between the vendor and completed work." },
+{ title: "Private documents", body: "Vendor files live in private tenant-scoped storage and open through short-lived signed links." },
+{ title: "Searchable history", body: "Keep vendor-related records and documents accessible from one operational workspace." }]
+const workflow = [{ step: "01", title: "Create the vendor record", body: "Add core vendor details and service information." },
+{ step: "02", title: "Attach compliance files", body: "Upload W-9s, insurance, licenses, and supporting documents." },
+{ step: "03", title: "Assign work", body: "Connect the vendor to work orders and community activity." },
+{ step: "04", title: "Review history", body: "Use the vendor record to understand current status, files, and related work." }]
+const related = [{ href: "/features/work-orders", label: "Work Orders" },
+{ href: "/features/communications", label: "Communications" },
+{ href: "/features/documents", label: "Documents" }]
+---
+<BaseLayout title="Vendor Management Software for HOAs | Camvella" description="Manage HOA vendors, compliance documents, insurance records, work-order assignments, and vendor history in Camvella.">
+  <FeatureGuide
+    eyebrow="Vendor Management"
+    title="Vendor records that stay connected to the work."
+    description="Manage HOA vendors, compliance documents, insurance records, work-order assignments, and vendor history in Camvella."
+    intro="Keep vendor contacts, compliance information, documents, insurance records, and work-order history tied to the same communities your team manages."
+    features={features}
+    workflow={workflow}
+    related={related}
+  />
+</BaseLayout>
