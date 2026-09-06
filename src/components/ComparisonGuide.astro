@@ -1,0 +1,200 @@
+---
+interface Props {
+  competitor: string
+  slug: string
+  headline?: string
+  intro?: string
+  alternative?: boolean
+}
+const {
+  competitor,
+  slug,
+  headline = `Camvella vs. ${competitor}: what to compare before you switch.`,
+  intro = `A practical evaluation guide for professional HOA and community association management companies comparing Camvella with ${competitor}.`,
+  alternative = false,
+} = Astro.props
+
+const camvellaCapabilities = [
+  ['HOA accounting', 'Assessment AR, AP, GL, budgeting, financial statements, reserve visibility, and board-ready reporting.'],
+  ['Violations', 'Inspection-to-resolution workflow with notices, photos, fines, hearings, and activity history.'],
+  ['ARC', 'Resident submissions, supporting documents, manager review, board voting, decisions, and status tracking.'],
+  ['Board operations', 'Meetings, agendas, resolutions, minutes, documents, and read-only financial access.'],
+  ['Resident operations', 'Resident portal for violations, ARC, service requests, statements, documents, and profile updates.'],
+  ['Communications', 'Email, SMS, templates, delivery history, e-signatures, and office-level communication records.'],
+  ['Work orders & vendors', 'Work-order lifecycle, vendor assignment, attachments, vendor records, and compliance documents.'],
+  ['Security & tenancy', 'Private document storage, tenant-scoped access controls, role permissions, and audit-oriented workflows.'],
+]
+
+const evaluationQuestions = [
+  ['Accounting depth', 'Can your team run real association accounting without exporting core work into a second system?'],
+  ['Portfolio workflow', 'Can staff move across communities while keeping each association and office properly isolated?'],
+  ['ARC and violations', 'Are the workflows native, or will your team still depend on spreadsheets, email chains, or manual follow-up?'],
+  ['Board experience', 'Can board members get the information they need without exposing staff-only or resident-sensitive data?'],
+  ['Resident self-service', 'Can residents complete common tasks from a phone without calling the office?'],
+  ['Communication history', 'Can your staff see what was sent, to whom, through which channel, and when?'],
+  ['Implementation', 'What data has to move, who handles it, and how much staff retraining is required?'],
+  ['Total cost', 'What is included in the subscription, and what requires add-ons, implementation fees, transaction fees, or separate vendors?'],
+]
+
+const faq = [
+  {
+    q: `Is Camvella a direct replacement for ${competitor}?`,
+    a: `That depends on the modules your company relies on today. Camvella is built around HOA accounting, violations, ARC, board operations, resident self-service, work orders, vendors, communications, documents, and reporting. The right decision should be based on your actual portfolio and workflows, not a checklist alone.`
+  },
+  {
+    q: 'What should we test in a software evaluation?',
+    a: 'Use one real community and walk through a complete month: assessment activity, an AP bill, a violation, an ARC request, a work order, a board meeting, a resident request, and a communication. That exposes workflow gaps much faster than a generic sales demo.'
+  },
+  {
+    q: 'Does Camvella publish what is and is not available?',
+    a: 'Yes. Camvella separates live product capabilities from roadmap items and does not position roadmap functionality as already available.'
+  }
+]
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a }
+  }))
+}
+---
+<div class="compare-page">
+  <section class="compare-hero">
+    <div class="container compare-hero__grid">
+      <div>
+        <p class="compare-eyebrow">{alternative ? 'HOA software alternatives' : 'HOA software comparison'}</p>
+        <h1>{headline}</h1>
+        <p class="compare-hero__body">{intro}</p>
+        <div class="compare-hero__actions">
+          <a href="/demo" class="btn btn--primary btn--lg">Book a Demo</a>
+          <a href="/product" class="btn btn--ghost btn--lg compare-hero__ghost">Explore Camvella</a>
+        </div>
+      </div>
+      <div class="compare-scorecard" aria-label="Evaluation framework">
+        <p class="compare-scorecard__label">Use the same test for every vendor</p>
+        <div class="compare-scorecard__items">
+          <span>Accounting</span><span>Operations</span><span>Boards</span><span>Residents</span>
+          <span>Communications</span><span>Security</span><span>Implementation</span><span>Total cost</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="compare-intro">
+        <div>
+          <p class="section__label">What Camvella covers today</p>
+          <h2 class="section__headline">Start with the workflows your team actually runs.</h2>
+          <p class="section__subhead">A useful comparison should begin with day-to-day work, not marketing terminology. These are the areas Camvella is designed to keep inside one tenant-scoped platform.</p>
+        </div>
+        <a href="/pricing" class="compare-text-link">See transparent pricing →</a>
+      </div>
+      <div class="compare-cap-grid">
+        {camvellaCapabilities.map(([title, body]) => (
+          <article class="compare-cap-card">
+            <span class="compare-cap-card__check">✓</span>
+            <div><h3>{title}</h3><p>{body}</p></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <p class="section__label">Evaluation checklist</p>
+      <h2 class="section__headline">Questions to put in front of {competitor} and Camvella.</h2>
+      <p class="section__subhead">We intentionally frame these as questions instead of pretending every competitor account, package, integration, or contract is identical.</p>
+      <div class="compare-question-grid">
+        {evaluationQuestions.map(([title, body], i) => (
+          <article class="compare-question-card">
+            <span>{String(i + 1).padStart(2,'0')}</span>
+            <h3>{title}</h3>
+            <p>{body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container compare-switch">
+      <div class="compare-switch__copy">
+        <p class="section__label">Switching platforms</p>
+        <h2 class="section__headline">Do not evaluate software without evaluating the move.</h2>
+        <p class="section__subhead">Feature parity matters, but migration risk, staff adoption, permissions, accounting cutover, document handling, and resident access matter just as much.</p>
+      </div>
+      <div class="compare-switch__steps">
+        {[
+          ['01', 'Map the current system', 'List communities, users, roles, accounting data, documents, templates, integrations, and resident-facing workflows.'],
+          ['02', 'Choose a pilot community', 'Use a real association to validate accounting, violations, ARC, board work, communications, and resident access.'],
+          ['03', 'Validate permissions', 'Confirm staff, board, resident, vendor, and administrative access before moving the full portfolio.'],
+          ['04', 'Cut over deliberately', 'Move in a controlled sequence with opening balances, document checks, staff sign-off, and a resident communication plan.'],
+        ].map(([n,title,body]) => (
+          <div class="compare-step"><span>{n}</span><div><h3>{title}</h3><p>{body}</p></div></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container compare-bottom">
+      <div>
+        <p class="section__label">Bottom line</p>
+        <h2 class="section__headline">Compare your real workflow, not somebody else's checklist.</h2>
+        <p class="section__subhead">Bring one of your communities to the demo. We will walk through the work your team actually performs and show where Camvella fits — and where it does not.</p>
+      </div>
+      <a href="/demo" class="btn btn--primary btn--lg">Book a Portfolio Demo</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <p class="section__label">FAQ</p>
+      <h2 class="section__headline">Questions teams ask before switching.</h2>
+      <div class="compare-faq">
+        {faq.map(item => <article><h3>{item.q}</h3><p>{item.a}</p></article>)}
+      </div>
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    </div>
+  </section>
+</div>
+
+<style>
+.compare-hero{padding:calc(64px + var(--space-16)) 0 var(--space-16);background:linear-gradient(135deg,var(--clr-navy),#0d3857);color:#fff}
+.compare-hero__grid{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--space-16);align-items:center}
+.compare-eyebrow{font-size:var(--text-xs);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#7ed6df;margin-bottom:var(--space-4)}
+.compare-hero h1{font-size:clamp(2.25rem,4.7vw,4rem);max-width:18ch;letter-spacing:-.04em;line-height:1.02;margin-bottom:var(--space-5)}
+.compare-hero__body{font-size:var(--text-lg);line-height:1.7;color:rgba(255,255,255,.76);max-width:58ch}
+.compare-hero__actions{display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-8)}
+.compare-hero__ghost{color:#fff;border-color:rgba(255,255,255,.28)}
+.compare-scorecard{padding:var(--space-8);border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.06);border-radius:var(--radius-xl);box-shadow:0 24px 60px rgba(0,0,0,.2)}
+.compare-scorecard__label{font-size:var(--text-sm);font-weight:800;margin-bottom:var(--space-5)}
+.compare-scorecard__items{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.compare-scorecard__items span{padding:12px 14px;border-radius:10px;background:rgba(255,255,255,.07);font-size:var(--text-sm);color:rgba(255,255,255,.82)}
+.compare-intro{display:flex;justify-content:space-between;gap:var(--space-8);align-items:flex-end}
+.compare-text-link{font-weight:700;color:var(--clr-teal);white-space:nowrap}
+.compare-cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);margin-top:var(--space-10)}
+.compare-cap-card{display:flex;gap:var(--space-4);padding:var(--space-5);border:1px solid var(--clr-border);border-radius:var(--radius-lg);background:#fff}
+.compare-cap-card__check{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:0 0 30px;background:rgba(85,185,106,.13);color:var(--clr-amber-dark);font-weight:900}
+.compare-cap-card h3,.compare-question-card h3,.compare-step h3,.compare-faq h3{font-size:var(--text-base);color:var(--clr-navy);margin-bottom:6px}
+.compare-cap-card p,.compare-question-card p,.compare-step p,.compare-faq p{font-size:var(--text-sm);color:var(--clr-text-soft);line-height:1.65}
+.compare-question-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);margin-top:var(--space-10)}
+.compare-question-card{padding:var(--space-5);background:#fff;border:1px solid var(--clr-border);border-radius:var(--radius-lg)}
+.compare-question-card>span{display:block;font-size:var(--text-xs);font-weight:900;color:var(--clr-teal);margin-bottom:var(--space-4)}
+.compare-switch{display:grid;grid-template-columns:.8fr 1.2fr;gap:var(--space-16);align-items:start}
+.compare-switch__steps{display:flex;flex-direction:column;gap:var(--space-4)}
+.compare-step{display:flex;gap:var(--space-4);padding:var(--space-5);border:1px solid var(--clr-border);border-radius:var(--radius-lg)}
+.compare-step>span{font-weight:900;color:var(--clr-teal)}
+.compare-bottom{display:flex;align-items:center;justify-content:space-between;gap:var(--space-10)}
+.compare-bottom .section__headline{color:#fff;max-width:20ch}
+.compare-bottom .section__subhead{max-width:58ch}
+.compare-faq{display:flex;flex-direction:column;gap:var(--space-4);margin-top:var(--space-8)}
+.compare-faq article{padding:var(--space-5) 0;border-bottom:1px solid var(--clr-border)}
+@media(max-width:900px){.compare-hero__grid,.compare-switch{grid-template-columns:1fr}.compare-question-grid{grid-template-columns:repeat(2,1fr)}.compare-bottom{align-items:flex-start;flex-direction:column}}
+@media(max-width:640px){.compare-cap-grid,.compare-question-grid{grid-template-columns:1fr}.compare-intro{align-items:flex-start;flex-direction:column}.compare-scorecard__items{grid-template-columns:1fr}}
+</style>

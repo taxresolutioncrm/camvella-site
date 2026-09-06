@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import FeatureGuide from '../../components/FeatureGuide.astro'
+const features = [{ title: "PDF-based requests", body: "Start from the actual PDF your association or office needs signed." },
+{ title: "Signer details", body: "Define the signer and the fields required for the request." },
+{ title: "Secure signing links", body: "Public signing links are tokenized and validated before document access." },
+{ title: "Status tracking", body: "Track sent, viewed, signed, and voided requests from the office." },
+{ title: "Signed-copy storage", body: "Retain the resulting signed PDF in secure storage." },
+{ title: "Audit history", body: "Preserve signing activity and timestamps with the request record." }]
+const workflow = [{ step: "01", title: "Upload the PDF", body: "Create the signing request from the office." },
+{ step: "02", title: "Place required fields", body: "Define signature, initials, name, date, or text fields." },
+{ step: "03", title: "Send the secure link", body: "The signer opens a tokenized signing route without needing staff access." },
+{ step: "04", title: "Retain the result", body: "Camvella stores the signed copy and request history for future reference." }]
+const related = [{ href: "/features/documents", label: "Documents" },
+{ href: "/features/communications", label: "Communications" },
+{ href: "/product", label: "Product Overview" }]
+---
+<BaseLayout title="HOA E-Signature Software | Camvella" description="Create, send, track, sign, and securely store HOA e-signature requests inside Camvella.">
+  <FeatureGuide
+    eyebrow="E-Signatures"
+    title="Send signature requests without losing the document trail."
+    description="Create, send, track, sign, and securely store HOA e-signature requests inside Camvella."
+    intro="Create a signing request, define signer details and fields, send a secure signing link, track status, and retain the signed document and audit history inside Camvella."
+    features={features}
+    workflow={workflow}
+    related={related}
+  />
+</BaseLayout>

@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import FeatureGuide from '../../components/FeatureGuide.astro'
+const features = [{ title: "Financial reporting", body: "Access HOA accounting reports including balance sheet, income statement, budget, AR, and ledger views." },
+{ title: "Violation activity", body: "Review open work, status movement, enforcement history, and resolution activity." },
+{ title: "ARC history", body: "Track submissions, review status, decisions, supporting files, and approval history." },
+{ title: "Work-order status", body: "See maintenance activity by status, assignment, and completion progress." },
+{ title: "Board visibility", body: "Support board-facing reporting without exposing unrelated staff-only data." },
+{ title: "Communication records", body: "Review message history and delivery status alongside the operational context that triggered the communication." }]
+const workflow = [{ step: "01", title: "Choose the business question", body: "Start with finance, operations, board activity, or communication history." },
+{ step: "02", title: "Use the association context", body: "Keep reporting tied to the selected community and office." },
+{ step: "03", title: "Review the underlying record", body: "Move from summary information into the operational detail when follow-up is needed." },
+{ step: "04", title: "Share the right view", body: "Use role-aware access so staff and boards see the information appropriate to them." }]
+const related = [{ href: "/features/hoa-accounting", label: "HOA Accounting" },
+{ href: "/features/board-portal", label: "Board Portal" },
+{ href: "/product", label: "Product Overview" }]
+---
+<BaseLayout title="HOA Reporting Software | Camvella" description="Camvella reporting brings financial, operational, board, violation, ARC, work-order, and communication activity into one HOA management platform.">
+  <FeatureGuide
+    eyebrow="Reporting"
+    title="Reports built around the work your team already does."
+    description="Camvella reporting brings financial, operational, board, violation, ARC, work-order, and communication activity into one HOA management platform."
+    intro="Move from disconnected exports to reporting that reflects the same association, operational, financial, and communication records your staff uses every day."
+    features={features}
+    workflow={workflow}
+    related={related}
+  />
+</BaseLayout>

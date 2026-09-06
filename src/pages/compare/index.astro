@@ -2,33 +2,141 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 
 const comparisons = [
-  { href: "/compare/camvella-vs-cinc", label: "Camvella vs CINC Systems", desc: "Compare product focus, implementation approach, HOA workflows, financial operations, and fit for professional management companies." },
+  { href: "/compare/camvella-vs-cinc", label: "Camvella vs CINC Systems", desc: "A detailed comparison across HOA workflows, accounting, ARC, boards, residents, implementation, and platform fit.", tag: "Detailed comparison" },
+  { href: "/compare/camvella-vs-vantaca", label: "Camvella vs Vantaca", desc: "Use a workflow-first evaluation across accounting, portfolio operations, boards, residents, communications, and implementation.", tag: "Comparison guide" },
+  { href: "/compare/camvella-vs-appfolio", label: "Camvella vs AppFolio", desc: "Compare the operational and financial workflows a professional community management team actually runs.", tag: "Comparison guide" },
+  { href: "/compare/camvella-vs-buildium", label: "Camvella vs Buildium", desc: "Evaluate HOA-specific accounting, violations, ARC, board workflows, resident operations, and total cost.", tag: "Comparison guide" },
+  { href: "/compare/camvella-vs-enumerate", label: "Camvella vs Enumerate", desc: "A practical checklist for comparing community-management depth, security, adoption, and migration.", tag: "Comparison guide" },
+  { href: "/compare/cinc-alternatives", label: "CINC Alternatives", desc: "What HOA management companies should evaluate when considering alternatives to their current CINC workflow.", tag: "Alternatives guide" },
+  { href: "/compare/vantaca-alternatives", label: "Vantaca Alternatives", desc: "A practical evaluation framework for teams exploring alternatives across workflow depth, usability, and cost.", tag: "Alternatives guide" },
+]
+
+const dimensions = [
+  ["Accounting", "Assessment AR, AP, GL, budgets, statements, reserves, and reporting"],
+  ["Operations", "Violations, ARC, work orders, vendors, and document handling"],
+  ["Boards", "Meetings, resolutions, minutes, financial visibility, and secure access"],
+  ["Residents", "Self-service, requests, ARC, violations, documents, and statements"],
+  ["Communications", "Email, SMS, e-signatures, templates, history, and delivery workflow"],
+  ["Security", "Tenant isolation, roles, private storage, signed links, and auditability"],
+  ["Implementation", "Data migration, staff adoption, permissions, cutover, and training"],
+  ["Total cost", "Subscription, add-ons, transaction fees, implementation, and external tools"],
 ]
 ---
 
 <BaseLayout
-  title="HOA Software Comparisons | Camvella"
-  description="An honest comparison of Camvella and CINC Systems for professional HOA and community association management companies."
+  title="HOA Software Comparisons & Alternatives | Camvella"
+  description="Compare Camvella with CINC, Vantaca, AppFolio, Buildium, and Enumerate using real HOA accounting, operations, board, resident, communication, security, and implementation workflows."
 >
-  <div style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-8); background: var(--clr-navy); color: white;">
-    <div class="container">
-      <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; max-width: 22ch; margin-bottom: var(--space-4); line-height: 1.1;">Honest comparisons.</h1>
-      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 54ch; line-height: 1.65;">Our published comparisons focus on verifiable product differences and the practical needs of professional community association management companies. Additional comparisons will be published only after full editorial review.</p>
+  <section class="compare-index-hero">
+    <div class="container compare-index-hero__grid">
+      <div>
+        <p class="compare-index-eyebrow">HOA software evaluation center</p>
+        <h1>Compare the work. Not the marketing.</h1>
+        <p class="compare-index-hero__body">Choosing HOA software affects accounting, managers, boards, residents, vendors, and every document your team touches. Our comparison guides are built around the workflows a professional community association management company actually runs.</p>
+        <div class="compare-index-hero__actions">
+          <a href="/demo" class="btn btn--primary btn--lg">Book a Demo</a>
+          <a href="/product" class="btn btn--ghost btn--lg compare-index-ghost">Explore the Product</a>
+        </div>
+      </div>
+      <div class="compare-index-panel">
+        <p>8 dimensions we recommend testing</p>
+        <div>{dimensions.map(([title]) => <span>{title}</span>)}</div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <section class="section" aria-labelledby="compare-headline">
+  <section class="section" aria-labelledby="comparison-guides">
     <div class="container">
-      <h2 class="visually-hidden" id="compare-headline">Comparison pages</h2>
-      <div class="feature-grid">
-        {comparisons.map(c => (
-          <a href={c.href} class="feature-card" style="text-decoration: none; display: block;">
-            <h3 class="feature-card__title">{c.label}</h3>
-            <p class="feature-card__body">{c.desc}</p>
-            <p style="font-size: var(--text-sm); font-weight: 600; color: var(--clr-navy); margin-top: var(--space-3);">Read comparison →</p>
+      <p class="section__label">Comparison library</p>
+      <h2 class="section__headline" id="comparison-guides">Start with the platform you use — or the one you are evaluating.</h2>
+      <p class="section__subhead">Each guide gives your team a structured way to test the same core workflows across vendors instead of relying on a generic feature checklist.</p>
+      <div class="compare-card-grid">
+        {comparisons.map((c, i) => (
+          <a href={c.href} class:list={['compare-card', { 'compare-card--featured': i === 0 }]}>
+            <div class="compare-card__top"><span>{c.tag}</span><span>0{String(i + 1)}</span></div>
+            <h3>{c.label}</h3>
+            <p>{c.desc}</p>
+            <strong>Read guide →</strong>
           </a>
         ))}
       </div>
     </div>
   </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <p class="section__label">What to compare</p>
+      <h2 class="section__headline">A serious software evaluation should cover more than features.</h2>
+      <p class="section__subhead">The software has to work across finance, operations, governance, service, communication, security, and implementation. Missing one of those categories can create another system your team has to manage around.</p>
+      <div class="compare-dimension-grid">
+        {dimensions.map(([title, body], i) => (
+          <article><span>{String(i + 1).padStart(2,'0')}</span><h3>{title}</h3><p>{body}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container compare-method">
+      <div>
+        <p class="section__label">Our approach</p>
+        <h2 class="section__headline">We would rather tell you what to verify than invent a competitor claim.</h2>
+        <p class="section__subhead">Plans, integrations, implementation programs, and pricing can change. Our newer comparison guides focus on the questions your team should test directly with every vendor. Where we publish a specific competitive claim, it should be based on current public information or verified review evidence.</p>
+      </div>
+      <div class="compare-method__list">
+        <div><strong>Bring a real community.</strong><span>Generic demos hide operational gaps.</span></div>
+        <div><strong>Run a complete workflow.</strong><span>Start at intake and finish at resolution or reporting.</span></div>
+        <div><strong>Test permissions.</strong><span>Managers, boards, residents, and vendors should not see the same things.</span></div>
+        <div><strong>Price the whole stack.</strong><span>Count add-ons, external tools, implementation, and transaction costs.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container compare-cta">
+      <div>
+        <p class="section__label">See the difference</p>
+        <h2 class="section__headline">Use your portfolio as the comparison.</h2>
+        <p class="section__subhead">Bring one of your communities and the workflows you care about. We will show exactly how Camvella handles them.</p>
+      </div>
+      <a href="/demo" class="btn btn--primary btn--lg">Book a Portfolio Demo</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+.compare-index-hero{padding:calc(64px + var(--space-16)) 0 var(--space-16);background:linear-gradient(135deg,var(--clr-navy),#0d3857);color:#fff}
+.compare-index-hero__grid{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--space-16);align-items:center}
+.compare-index-eyebrow{font-size:var(--text-xs);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#7ed6df;margin-bottom:var(--space-4)}
+.compare-index-hero h1{font-size:clamp(2.5rem,5vw,4.25rem);line-height:1;letter-spacing:-.045em;max-width:14ch;margin-bottom:var(--space-5)}
+.compare-index-hero__body{font-size:var(--text-lg);line-height:1.72;color:rgba(255,255,255,.76);max-width:60ch}
+.compare-index-hero__actions{display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-8)}
+.compare-index-ghost{color:#fff;border-color:rgba(255,255,255,.28)}
+.compare-index-panel{padding:var(--space-8);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xl);background:rgba(255,255,255,.06);box-shadow:0 24px 60px rgba(0,0,0,.18)}
+.compare-index-panel>p{font-weight:800;margin-bottom:var(--space-5)}
+.compare-index-panel>div{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.compare-index-panel span{padding:12px 14px;border-radius:10px;background:rgba(255,255,255,.07);font-size:var(--text-sm);color:rgba(255,255,255,.82)}
+.compare-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5);margin-top:var(--space-10)}
+.compare-card{display:flex;flex-direction:column;min-height:250px;padding:var(--space-6);border:1px solid var(--clr-border);border-radius:var(--radius-xl);background:#fff;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.compare-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--clr-teal)}
+.compare-card--featured{grid-column:span 2;background:linear-gradient(135deg,#f7fbfc,#fff);border-color:rgba(11,143,156,.4)}
+.compare-card__top{display:flex;justify-content:space-between;gap:12px;font-size:var(--text-xs);font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--clr-teal);margin-bottom:var(--space-6)}
+.compare-card h3{font-size:var(--text-xl);color:var(--clr-navy);margin-bottom:var(--space-3)}
+.compare-card p{font-size:var(--text-sm);line-height:1.65;color:var(--clr-text-soft);margin-bottom:var(--space-5)}
+.compare-card strong{margin-top:auto;color:var(--clr-navy);font-size:var(--text-sm)}
+.compare-dimension-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);margin-top:var(--space-10)}
+.compare-dimension-grid article{padding:var(--space-5);border:1px solid var(--clr-border);border-radius:var(--radius-lg);background:#fff}
+.compare-dimension-grid span{font-size:var(--text-xs);font-weight:900;color:var(--clr-teal)}
+.compare-dimension-grid h3{font-size:var(--text-base);color:var(--clr-navy);margin:var(--space-3) 0 var(--space-2)}
+.compare-dimension-grid p{font-size:var(--text-sm);line-height:1.6;color:var(--clr-text-soft)}
+.compare-method{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-16);align-items:start}
+.compare-method__list{display:flex;flex-direction:column;gap:var(--space-3)}
+.compare-method__list div{padding:var(--space-5);border:1px solid var(--clr-border);border-radius:var(--radius-lg)}
+.compare-method__list strong,.compare-method__list span{display:block}
+.compare-method__list strong{color:var(--clr-navy);margin-bottom:4px}
+.compare-method__list span{font-size:var(--text-sm);color:var(--clr-text-soft)}
+.compare-cta{display:flex;align-items:center;justify-content:space-between;gap:var(--space-10)}
+.compare-cta .section__headline{color:#fff}
+@media(max-width:900px){.compare-index-hero__grid,.compare-method{grid-template-columns:1fr}.compare-card-grid{grid-template-columns:repeat(2,1fr)}.compare-card--featured{grid-column:span 2}.compare-dimension-grid{grid-template-columns:repeat(2,1fr)}.compare-cta{align-items:flex-start;flex-direction:column}}
+@media(max-width:640px){.compare-card-grid,.compare-dimension-grid,.compare-index-panel>div{grid-template-columns:1fr}.compare-card--featured{grid-column:auto}}
+</style>

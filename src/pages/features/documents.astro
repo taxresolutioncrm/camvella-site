@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import FeatureGuide from '../../components/FeatureGuide.astro'
+const features = [{ title: "ARC documents", body: "Store plans, photos, forms, and supporting material with each architectural request." },
+{ title: "Work-order files", body: "Keep before/after photos, PDFs, and service attachments connected to maintenance work." },
+{ title: "Vendor documents", body: "Store W-9s, insurance, compliance, and supporting vendor records." },
+{ title: "Board documents", body: "Keep board-related files tied to meetings, governance records, and association context." },
+{ title: "Violation photos", body: "Preserve evidence images with the violation record and its enforcement history." },
+{ title: "Private access", body: "Files remain private and are opened through short-lived signed URLs rather than public links." }]
+const workflow = [{ step: "01", title: "Upload from the source record", body: "Add the file from ARC, work order, vendor, board, or violation workflow." },
+{ step: "02", title: "Store it privately", body: "The file is written to tenant-scoped private storage." },
+{ step: "03", title: "Keep the business relationship", body: "The source record preserves why the file exists and who should have access." },
+{ step: "04", title: "Find it centrally", body: "The Documents hub surfaces stored files across the selected office." }]
+const related = [{ href: "/features/arc", label: "ARC" },
+{ href: "/features/work-orders", label: "Work Orders" },
+{ href: "/features/vendors", label: "Vendors" }]
+---
+<BaseLayout title="Secure HOA Document Management | Camvella" description="Securely store HOA ARC files, work-order attachments, vendor documents, board records, and violation photos in tenant-scoped private storage.">
+  <FeatureGuide
+    eyebrow="Secure Documents"
+    title="Documents stay with the record they belong to."
+    description="Securely store HOA ARC files, work-order attachments, vendor documents, board records, and violation photos in tenant-scoped private storage."
+    intro="Camvella keeps operational files in private, tenant-scoped storage and brings them into one searchable office-wide document view without turning the system into a random file dump."
+    features={features}
+    workflow={workflow}
+    related={related}
+  />
+</BaseLayout>

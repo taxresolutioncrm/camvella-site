@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import FeatureGuide from '../../components/FeatureGuide.astro'
+const features = [{ title: "Violation notices", body: "Use workflow triggers to support consistent notice and follow-up steps." },
+{ title: "Reinspection reminders", body: "Keep recurring compliance follow-up from depending on a manager's memory." },
+{ title: "ARC decisions", body: "Connect completed review activity to the next communication or operational step." },
+{ title: "Work-order completion", body: "Trigger follow-up activity when work reaches completion." },
+{ title: "Role-aware execution", body: "Automation runs within the same tenant and permission model as the rest of the platform." },
+{ title: "History & oversight", body: "Keep automation activity visible so staff can understand what ran and what still needs human attention." }]
+const workflow = [{ step: "01", title: "Choose a repeatable trigger", body: "Start with a workflow event that has a predictable next step." },
+{ step: "02", title: "Define the action", body: "Set the communication, reminder, or operational follow-up." },
+{ step: "03", title: "Keep approval boundaries", body: "Do not automate decisions that should remain with managers, boards, or accounting staff." },
+{ step: "04", title: "Review history", body: "Use automation history to confirm what ran and what needs intervention." }]
+const related = [{ href: "/features/violations", label: "Violations" },
+{ href: "/features/arc", label: "ARC" },
+{ href: "/features/work-orders", label: "Work Orders" }]
+---
+<BaseLayout title="HOA Workflow Automation Software | Camvella" description="Automate repeatable HOA workflows in Camvella while keeping staff in control of notices, reminders, decisions, and operational follow-up.">
+  <FeatureGuide
+    eyebrow="Workflow Automation"
+    title="Automate the repeatable work. Keep people in control of the decisions."
+    description="Automate repeatable HOA workflows in Camvella while keeping staff in control of notices, reminders, decisions, and operational follow-up."
+    intro="Camvella automation is designed to reduce repetitive follow-up around established HOA workflows without turning operational decisions into a black box."
+    features={features}
+    workflow={workflow}
+    related={related}
+  />
+</BaseLayout>
