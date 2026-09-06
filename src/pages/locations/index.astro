@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { states } from '../../data/states'
+---
+<BaseLayout title="HOA Management Software Across the United States | Camvella" description="Camvella serves professional HOA and community association management companies nationwide. Browse state-specific HOA management software pages for all 50 states.">
+<section class="hero"><div class="container"><p class="section__label">Nationwide coverage</p><h1>HOA management software for community management companies across all 50 states.</h1><p>Camvella is built as a national platform for professional CAM companies. Explore state-specific pages below or start with the complete HOA management software overview.</p><a class="btn btn--primary btn--lg" href="/solutions/hoa-management-software">Explore Camvella</a></div></section>
+<section class="section"><div class="container"><h2 class="section__headline">Browse HOA software by state.</h2><div class="states">{states.map(([slug,name])=><a href={`/locations/${slug}/`}>{name}</a>)}</div></div></section>
+</BaseLayout>
+<style>.hero{padding:128px 0 72px;background:var(--clr-navy);color:white}.hero h1{font-size:clamp(2.4rem,5vw,4.4rem);max-width:19ch;margin:8px 0 18px}.hero p:not(.section__label){max-width:64ch;color:rgba(255,255,255,.76);line-height:1.7;margin-bottom:24px}.states{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:28px}.states a{padding:13px 14px;border:1px solid var(--clr-border);border-radius:10px;background:#fff;color:var(--clr-navy);font-weight:700}@media(max-width:900px){.states{grid-template-columns:repeat(3,1fr)}}@media(max-width:560px){.states{grid-template-columns:repeat(2,1fr)}}</style>
