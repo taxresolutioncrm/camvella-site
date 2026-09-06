@@ -1,9 +1,6 @@
 name: Validate Camvella Website
 
 on:
-  push:
-    branches:
-      - polish/full-site-depth-20260905
   workflow_dispatch:
 
 permissions:
