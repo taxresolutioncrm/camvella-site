@@ -1,6 +1,10 @@
 name: Validate Camvella Website
 
 on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -37,7 +41,16 @@ jobs:
           test -f dist/sitemap.xml
           grep -q "https://camvella.com/" dist/sitemap.xml
           grep -Fq '<title>HOA &amp; Community Association Management Software | Camvella</title>' dist/index.html
-          grep -Fq 'Camvella is HOA and community association management software for professional CAM companies' dist/index.html
+          grep -Fq 'HOA management software' dist/index.html
+          grep -Fq 'professional community managers' dist/index.html
+          grep -q '/compare/camvella-vs-appfolio/' dist/sitemap.xml
+          grep -q '/compare/camvella-vs-buildium/' dist/sitemap.xml
+          grep -q '/compare/camvella-vs-vantaca/' dist/sitemap.xml
+          grep -q '/features/automation/' dist/sitemap.xml
+          grep -q '/features/documents/' dist/sitemap.xml
+          grep -q '/features/e-signatures/' dist/sitemap.xml
+          grep -q '/features/reporting/' dist/sitemap.xml
+          grep -q '/features/vendors/' dist/sitemap.xml
           grep -q "G-H1ZPCP2EE9" dist/index.html
           grep -q "y62zna7yna" dist/index.html
           grep -q 'id="mobile-menu"' dist/index.html
@@ -66,7 +79,8 @@ jobs:
             robots="$(curl -fsSL --max-time 15 "https://camvella.com/robots.txt?verify=$(date +%s)" || true)"
             sitemap="$(curl -fsSL --max-time 15 "https://camvella.com/sitemap.xml?verify=$(date +%s)" || true)"
             if printf '%s' "$html" | grep -Fq "$expected" \
-              && printf '%s' "$html" | grep -Fq 'Camvella is HOA and community association management software for professional CAM companies' \
+              && printf '%s' "$html" | grep -Fq 'HOA management software' \
+              && printf '%s' "$html" | grep -Fq 'professional community managers' \
               && printf '%s' "$robots" | grep -qi 'Sitemap: https://camvella.com/sitemap.xml' \
               && printf '%s' "$sitemap" | grep -Fq '<loc>https://camvella.com/</loc>'; then
               echo 'Live Camvella SEO verification passed.'
