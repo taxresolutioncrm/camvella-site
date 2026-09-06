@@ -8,6 +8,8 @@ const site = 'https://camvella.com'
 const excluded = new Set([
   '/404/',
   '/demo/thank-you/',
+  '/solutions/florida-hoa-management-software/',
+  '/solutions/texas-hoa-management-software/',
 ])
 
 async function htmlFiles(directory) {
