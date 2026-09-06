@@ -140,3 +140,27 @@ const dimensions = [
 @media(max-width:900px){.compare-index-hero__grid,.compare-method{grid-template-columns:1fr}.compare-card-grid{grid-template-columns:repeat(2,1fr)}.compare-card--featured{grid-column:span 2}.compare-dimension-grid{grid-template-columns:repeat(2,1fr)}.compare-cta{align-items:flex-start;flex-direction:column}}
 @media(max-width:640px){.compare-card-grid,.compare-dimension-grid,.compare-index-panel>div{grid-template-columns:1fr}.compare-card--featured{grid-column:auto}}
 </style>
+
+<style>
+/* Final visual density pass */
+.compare-index-hero{padding:112px 0 58px!important}
+.compare-index-hero__grid{gap:48px!important}
+.compare-index-hero h1{font-size:clamp(2.55rem,4.4vw,4rem)!important;max-width:15ch!important}
+.compare-index-panel{padding:24px!important}
+.compare-index-panel>div{gap:8px!important}
+.compare-index-panel span{padding:10px 12px!important}
+.compare-index-hero + .section{padding-top:52px!important;padding-bottom:64px!important}
+.compare-card-grid{gap:16px!important;margin-top:30px!important}
+.compare-card{min-height:218px!important;padding:22px!important;border-radius:15px!important;box-shadow:0 8px 24px rgba(11,39,72,.06)}
+.compare-card--featured{grid-column:span 2!important;min-height:218px!important;background:linear-gradient(135deg,#0d2c4b,#0f5664)!important;border-color:transparent!important}
+.compare-card--featured h3,.compare-card--featured strong{color:#fff!important}
+.compare-card--featured p{color:rgba(255,255,255,.72)!important}
+.compare-card--featured .compare-card__top{color:#8cdee5!important}
+.compare-dimension-grid{gap:14px!important;margin-top:28px!important}
+.compare-dimension-grid article{padding:20px!important}
+.compare-method{gap:48px!important}
+.compare-method__list div{padding:18px!important}
+.section--alt{padding-top:64px!important;padding-bottom:64px!important}
+.compare-cta{padding-top:2px;padding-bottom:2px}
+@media(max-width:640px){.compare-index-hero{padding:96px 0 46px!important}.compare-index-hero + .section{padding-top:38px!important}.compare-card--featured{grid-column:auto!important}}
+</style>
