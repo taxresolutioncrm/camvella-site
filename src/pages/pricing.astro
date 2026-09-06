@@ -159,6 +159,35 @@ const schema = {
     </div>
   </section>
 
+  <section class="pricing-trust" aria-labelledby="pricing-trust-headline">
+    <div class="container pricing-trust__grid">
+      <div class="pricing-trust__intro">
+        <p class="section__label">Simple by design</p>
+        <h2 class="section__headline" id="pricing-trust-headline">A platform without surprises.</h2>
+        <p class="section__subhead">Know what you are buying, how onboarding works, and where to get help before you sign.</p>
+        <a href="/demo" class="btn btn--dark">Talk through your portfolio</a>
+      </div>
+      <div class="pricing-trust__cards">
+        <article class="pricing-trust__card">
+          <span>01</span>
+          <div><h3>Clear subscriptions</h3><p>Published plan structure with straightforward community limits and no per-user fees.</p></div>
+        </article>
+        <article class="pricing-trust__card">
+          <span>02</span>
+          <div><h3>No hidden platform fees</h3><p>No implementation or onboarding fee added on top of the subscription.</p></div>
+        </article>
+        <article class="pricing-trust__card">
+          <span>03</span>
+          <div><h3>Guided onboarding</h3><p>We help your team configure communities, permissions, workflows, and the first operational setup.</p></div>
+        </article>
+        <article class="pricing-trust__card">
+          <span>04</span>
+          <div><h3>Real support</h3><p>Get help from a support path designed around the workflows your management company actually runs.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="section section--alt" aria-labelledby="pricing-faq-headline">
     <div class="container container--narrow">
@@ -213,3 +242,17 @@ const schema = {
     </div>
   </section>
 </BaseLayout>
+
+<style>
+.pricing-trust{padding:70px 0;background:linear-gradient(180deg,#f7fafc 0%,#eef5f7 100%);border-top:1px solid var(--clr-border);border-bottom:1px solid var(--clr-border)}
+.pricing-trust__grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
+.pricing-trust__intro .section__headline{max-width:12ch}
+.pricing-trust__intro .section__subhead{max-width:42ch;margin-bottom:28px}
+.pricing-trust__cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pricing-trust__card{display:flex;gap:16px;min-height:150px;padding:22px;border:1px solid #dbe6ed;border-radius:16px;background:#fff;box-shadow:0 10px 28px rgba(11,39,72,.05)}
+.pricing-trust__card>span{flex:0 0 auto;font-size:.75rem;font-weight:900;color:var(--clr-teal);letter-spacing:.08em}
+.pricing-trust__card h3{font-size:1.05rem;color:var(--clr-navy);margin:0 0 7px}
+.pricing-trust__card p{font-size:.92rem;line-height:1.65;color:var(--clr-text-soft);margin:0}
+@media(max-width:900px){.pricing-trust__grid{grid-template-columns:1fr}.pricing-trust__cards{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.pricing-trust{padding:48px 0}.pricing-trust__cards{grid-template-columns:1fr}.pricing-trust__card{min-height:0}}
+</style>
