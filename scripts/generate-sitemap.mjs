@@ -8,12 +8,6 @@ const site = 'https://camvella.com'
 const excluded = new Set([
   '/404/',
   '/demo/thank-you/',
-  '/compare/camvella-vs-appfolio/',
-  '/compare/camvella-vs-buildium/',
-  '/compare/camvella-vs-enumerate/',
-  '/compare/camvella-vs-vantaca/',
-  '/compare/cinc-alternatives/',
-  '/compare/vantaca-alternatives/',
 ])
 
 async function htmlFiles(directory) {
@@ -37,7 +31,13 @@ const paths = files
 
 const today = new Date().toISOString().slice(0, 10)
 const entries = paths.map((path) => {
-  const priority = path === '/' ? '1.0' : path === '/pricing/' || path === '/demo/' ? '0.9' : '0.7'
+  const priority =
+    path === '/' ? '1.0'
+    : path === '/pricing/' || path === '/demo/' ? '0.9'
+    : path.startsWith('/features/') || path.startsWith('/solutions/') ? '0.8'
+    : path.startsWith('/compare/') ? '0.75'
+    : path === '/privacy/' || path === '/terms/' ? '0.3'
+    : '0.7'
   return [
     '  <url>',
     `    <loc>${site}${path === '/' ? '/' : path}</loc>`,
