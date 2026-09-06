@@ -21,7 +21,9 @@ const pageTitle = title.includes('Camvella')
   ? title
   : `${title} | Camvella`
 
-const canonicalUrl = new URL(canonical, Astro.site)
+const canonicalUrl = canonical
+  ? new URL(canonical, Astro.site)
+  : new URL(Astro.url.pathname, Astro.site)
 canonicalUrl.search = ''
 canonicalUrl.hash = ''
 const canonicalHref = canonicalUrl.toString()
