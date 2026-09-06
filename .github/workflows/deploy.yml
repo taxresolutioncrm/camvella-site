@@ -44,7 +44,16 @@ jobs:
           grep -q 'src="https://taxrescrm.app/book?product=camvella"' dist/demo/index.html
           ! grep -R -q 'href="https://taxrescrm.app/book?product=camvella"' dist --include='*.html'
           ! grep -R -q '/blog/hoa-accounting-guide' dist --include='*.html'
-          ! grep -q '/compare/camvella-vs-buildium' dist/compare/index.html
+          grep -q '/compare/camvella-vs-buildium' dist/compare/index.html
+          grep -q '/compare/camvella-vs-appfolio' dist/compare/index.html
+          grep -q '/compare/camvella-vs-vantaca' dist/compare/index.html
+          grep -q '/features/documents' dist/product/index.html
+          grep -q '/features/e-signatures' dist/product/index.html
+          grep -q '/features/vendors' dist/product/index.html
+          test -f dist/features/reporting/index.html
+          test -f dist/features/automation/index.html
+          ! grep -R -q 'Check back soon' dist/compare --include='*.html'
+          ! grep -R -q 'This detailed comparison page is being built' dist/compare --include='*.html'
 
       - name: Verify live Camvella SEO
         if: github.event_name == 'push'
