@@ -1078,27 +1078,38 @@ a:not(.btn):hover { color: var(--clr-teal); }
   .hero__two-col {
     grid-template-columns: 1fr;
   }
-  .hero__right { display: none; } /* hidden on mobile until real screenshots available */
+  .hero__left {
+    max-width: 760px;
+  }
+  .hero__headline {
+    font-size: clamp(2.4rem, 7vw, 3.6rem);
+    max-width: 17ch;
+  }
+  .hero__right { display: none; }
 }
 @media (max-width: 640px) {
   .hero {
-    padding-top: calc(64px + var(--space-12));
-    padding-bottom: var(--space-14);
+    padding-top: calc(64px + var(--space-10));
+    padding-bottom: var(--space-12);
   }
   .hero__eyebrow {
-    margin-bottom: var(--space-5);
-    font-size: 0.7rem;
+    margin-bottom: var(--space-4);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
   }
   .hero__headline {
-    max-width: 12ch;
-    font-size: clamp(2.45rem, 11vw, 3.25rem);
-    line-height: 0.98;
-    margin-bottom: var(--space-5);
+    max-width: 15ch;
+    font-size: clamp(2rem, 7vw, 2.65rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    margin-bottom: var(--space-4);
+    text-wrap: balance;
   }
   .hero__body {
-    font-size: var(--text-base);
-    line-height: 1.55;
-    margin-bottom: var(--space-7);
+    max-width: 36rem;
+    font-size: 0.98rem;
+    line-height: 1.5;
+    margin-bottom: var(--space-6);
   }
   .hero__actions {
     gap: var(--space-3);
@@ -1106,6 +1117,9 @@ a:not(.btn):hover { color: var(--clr-teal); }
   .hero__actions .btn {
     flex: 1 1 100%;
     justify-content: center;
+  }
+  .hero-modules {
+    margin-top: var(--space-4);
   }
 }
 
