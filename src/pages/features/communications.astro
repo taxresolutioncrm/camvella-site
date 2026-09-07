@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 ---
 <BaseLayout
   title="HOA Communication Software | Camvella"
-  description="HOA communication tools for professional management companies. Email and SMS to residents, owners, and boards — with templates, delivery tracking, and…"
+  description="HOA communication tools for professional management companies. Send email and SMS to residents, owners, and boards with targeting, templates, delivery tracking, and office-level provider flexibility."
 >
   <div style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-8); background: var(--clr-navy); color: white;">
     <div class="container">
@@ -17,11 +17,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
     <div class="container">
       <div class="feature-grid">
         {[
-          { title: "Email & SMS", body: "Reach residents by email or SMS from one compose window. Brevo powers email delivery. Telnyx powers SMS. Both tracked." },
+          { title: "Email & SMS", body: "Reach residents by email or SMS from one compose window. Camvella routes delivery through the provider connected to the selected office or association." },
           { title: "Audience Targeting", body: "Send to an entire association, a specific building, a single unit, or individual owners and residents. No list management required." },
           { title: "Templates", body: "Save message templates for recurring communications — late assessment notices, violation notices, meeting announcements, seasonal reminders." },
           { title: "Merge Fields", body: "Personalize messages with owner name, unit number, community name, and balance — populated automatically from the database." },
-          { title: "Delivery Tracking", body: "See which recipients received, opened, or failed. Delivery receipts come back from Brevo and Telnyx webhooks." },
+          { title: "Delivery Tracking", body: "Track queued, sent, delivered, and failed recipient activity with provider references attached to the originating communication." },
           { title: "Communication History", body: "Every message sent to every recipient, searchable and filterable. Your team always knows what was sent when." },
         ].map(f => (
           <div class="feature-card">
@@ -34,8 +34,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
   </section>
   <section class="section section--alt">
     <div class="container container--narrow" style="text-align: center;">
-      <h2 class="section__headline">What Camvella communications won't do</h2>
-      <p class="section__subhead" style="margin: var(--space-4) auto 0; text-align: center;">No two-way SMS threading in V1. No scheduled campaigns. No email open/click rate dashboard (delivery receipts yes, analytics dashboard no). We're being specific because you deserve an honest feature list.</p>
+      <p class="section__label">Office-level flexibility</p>
+      <h2 class="section__headline">Use the provider that fits the office.</h2>
+      <p class="section__subhead" style="margin: var(--space-4) auto 0; text-align: center;">Camvella keeps communication history, recipients, delivery state, and tenant isolation consistent while allowing supported providers to be configured per office or association.</p>
     </div>
   </section>
   <section class="section section--dark">
