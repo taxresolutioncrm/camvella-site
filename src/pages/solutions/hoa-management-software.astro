@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
-const schema = {
+const softwareSchema = {
   "@context":"https://schema.org","@type":"SoftwareApplication",
   "name":"Camvella HOA Management Software","applicationCategory":"BusinessApplication","operatingSystem":"Web",
   "url":"https://camvella.com/solutions/hoa-management-software/",
@@ -11,6 +11,15 @@ const faqs=[
   ["Who is Camvella built for?","Camvella is built for professional community association management companies and CAM teams managing multiple associations."],
   ["Does Camvella include HOA accounting?","Yes. Camvella includes assessment billing, AR, AP, general ledger, budgeting, and financial reporting designed around association operations."]
 ]
+const schema = [softwareSchema, {
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity": faqs.map(([q,a]) => ({
+    "@type":"Question",
+    "name":q,
+    "acceptedAnswer":{"@type":"Answer","text":a}
+  }))
+}]
 ---
 <BaseLayout title="HOA Management Software for Professional CAM Companies | Camvella" description="HOA management software for professional CAM companies. Run accounting, violations, ARC, work orders, boards, residents, vendors, communications, and reporting in one platform." schema={schema}>
 <section class="seo-hero"><div class="container"><p class="section__label">HOA management software</p><h1>One operating system for professional HOA management.</h1><p>Camvella brings association accounting, compliance, board operations, resident service, work orders, vendors, documents, and communications into one connected platform for professional community managers.</p><div class="seo-actions"><a class="btn btn--primary btn--lg" href="/demo">Book a Demo</a><a class="btn btn--dark btn--lg" href="/product">See the Product</a></div></div></section>
