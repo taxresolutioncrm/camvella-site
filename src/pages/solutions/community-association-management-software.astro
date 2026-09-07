@@ -1,6 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
-const schema={"@context":"https://schema.org","@type":"SoftwareApplication","name":"Camvella Community Association Management Software","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://camvella.com/solutions/community-association-management-software/"}
+const schema=[
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Camvella Community Association Management Software","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://camvella.com/solutions/community-association-management-software/","description":"Community association management software for professional CAM companies managing association accounting, compliance, boards, residents, vendors, work orders and communications."},
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What is community association management software?","acceptedAnswer":{"@type":"Answer","text":"Community association management software connects association records, accounting, compliance, board operations, resident service, work orders, vendors, documents and communications in one operating system."}},
+    {"@type":"Question","name":"Is Camvella built for professional management companies?","acceptedAnswer":{"@type":"Answer","text":"Yes. Camvella is designed for professional community association management companies and CAM teams managing multiple associations from one login while keeping each community's records separated."}}
+  ]}
+]
 ---
 <BaseLayout title="Community Association Management Software | Camvella" description="Community association management software for professional management companies. Connect HOA accounting, compliance, ARC, boards, residents, work orders, vendors, documents, and communications." schema={schema}>
 <section class="hero2"><div class="container"><p class="section__label">Community association management software</p><h1>Manage communities without fragmenting the work.</h1><p>Camvella gives professional association management teams one place for financial operations, compliance, boards, residents, vendors, service requests, documents, and communications.</p><a class="btn btn--primary btn--lg" href="/demo">Book a Demo</a></div></section>
