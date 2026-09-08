@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const faq = [
+  ['What should an HOA management company compare in software?', 'Compare accounting, violations, ARC, work orders, board and resident portals, communications, permissions, reporting, implementation, migration, security and total cost.'],
+  ['Should HOA accounting be native to the platform?', 'For professional management companies, native HOA accounting can reduce duplicate entry and make association financial activity easier to keep connected to operations and reporting.'],
+  ['How should we test vendors during a demo?', 'Use a real community and run complete workflows from intake through resolution, accounting entry, resident or board communication and reporting.']
+]
+
+const schema = [
+  {'@context':'https://schema.org','@type':'Article','headline':'HOA Management Software Buyer’s Guide','mainEntityOfPage':'https://camvella.com/guides/hoa-software-buyers-guide/','about':['HOA management software','community association management software','HOA accounting software']},
+  {'@context':'https://schema.org','@type':'FAQPage','mainEntity':faq.map(([q,a])=>({'@type':'Question','name':q,'acceptedAnswer':{'@type':'Answer','text':a}}))}
+]
+---
+<BaseLayout
+  title="HOA Management Software Buyer’s Guide | Camvella"
+  description="A practical HOA software buyer’s guide for management companies comparing accounting, operations, portals, security, implementation and total cost."
+  schema={schema}
+>
+  <section class="guide-hero">
+    <div class="container container--narrow">
+      <p class="section__label">Buyer’s guide</p>
+      <h1>How to choose HOA management software without buying another workaround.</h1>
+      <p>Professional community association management companies need more than a contact database and resident portal. The platform has to support the financial, operational, governance and service work your team performs every day.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow guide-body">
+      <h2>1. Start with the workflows that cost your team time.</h2>
+      <p>Map the work that currently requires duplicate entry, spreadsheets, email chains or separate systems. Common examples include violations, ARC requests, work orders, vendor compliance, board records, resident requests and association accounting.</p>
+
+      <h2>2. Test accounting as an operating system, not a checkbox.</h2>
+      <p>Ask the vendor to show assessment billing, receivables, payables, GL detail, budgets, financial statements, association separation and board-ready reporting using realistic data.</p>
+
+      <h2>3. Run one complete community workflow in the demo.</h2>
+      <p>Do not settle for a feature tour. Bring a real scenario and follow it from intake to completion. A useful demo should show permissions, communication history, documents, task ownership, status changes and reporting in context.</p>
+
+      <h2>4. Compare the whole cost of the stack.</h2>
+      <p>Include subscription fees, implementation, migration, transaction charges, paid add-ons and external tools the platform still requires. A lower base subscription can become more expensive if key functions live outside the product.</p>
+
+      <h2>5. Treat migration and adoption as part of the product.</h2>
+      <p>Ask how communities, units, owners, balances, documents and historical records move into the new system. Confirm how staff, boards and residents will be trained and what the cutover plan looks like.</p>
+
+      <div class="guide-cta">
+        <h2>Evaluate Camvella against your actual portfolio.</h2>
+        <p>Bring one community and the workflows your team cares about. We will show how the platform handles them end to end.</p>
+        <a class="btn btn--primary btn--lg" href="/demo">Book a Portfolio Demo</a>
+        <a class="btn btn--ghost btn--lg" href="/compare">Compare HOA Software</a>
+      </div>
+
+      <section class="faq-block">
+        <h2>Frequently asked questions</h2>
+        {faq.map(([q,a]) => <article><h3>{q}</h3><p>{a}</p></article>)}
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.guide-hero{padding:128px 0 72px;background:linear-gradient(135deg,var(--clr-navy),#0d3857);color:#fff}
+.guide-hero h1{font-size:clamp(2.5rem,5vw,4.2rem);line-height:1;letter-spacing:-.045em;max-width:16ch;margin:.5rem 0 1.3rem}
+.guide-hero p{font-size:var(--text-lg);line-height:1.75;color:rgba(255,255,255,.76);max-width:62ch}
+.guide-body h2{font-size:clamp(1.45rem,2.6vw,2rem);color:var(--clr-navy);margin:2.4rem 0 .8rem}
+.guide-body>p{font-size:1.03rem;line-height:1.8;color:var(--clr-text-soft)}
+.guide-cta{margin:3rem 0;padding:2rem;border:1px solid var(--clr-border);border-radius:var(--radius-xl);background:#f7fbfc}
+.guide-cta p{margin:.7rem 0 1.4rem;color:var(--clr-text-soft)}.guide-cta .btn{margin-right:.6rem;margin-top:.5rem}
+.faq-block{margin-top:3rem}.faq-block article{padding:1.2rem 0;border-top:1px solid var(--clr-border)}.faq-block h3{color:var(--clr-navy);font-size:1.05rem}.faq-block p{color:var(--clr-text-soft);line-height:1.7;margin-top:.4rem}
+</style>
