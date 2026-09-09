@@ -111,34 +111,46 @@ const faqs = [
   schema={schema}
 >
   <!-- ─── Hero ──────────────────────────────────────────────────────────── -->
-  <section class="hero camvella-home-hero" aria-label="Hero">
+  <section class="hero camvella-home-hero" aria-labelledby="camvella-home-title">
     <div class="container">
-      <div class="camvella-hero-copy">
-        <div class="hero__eyebrow" aria-hidden="true">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="4"/></svg>
-          Professional CAM software
+      <div class="camvella-operating-intro">
+        <div class="camvella-operating-label">
+          <div class="hero__eyebrow" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="4"/></svg>
+            Professional CAM software
+          </div>
+          <span>Portfolio operations</span>
         </div>
-        <h1 class="camvella-hero-title">HOA & community association management software for CAM teams.</h1>
-        <p class="camvella-hero-body">Run association accounting, violations, ARC, boards, residents, work orders, vendors and communications from one platform built for professional HOA and community association management companies.</p>
-        <div class="hero__actions camvella-hero-actions">
-          <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
-          <a href="/product" class="btn btn--lg camvella-secondary">See the Product</a>
+        <h1 id="camvella-home-title">Run every association from one operating desk.</h1>
+        <div class="camvella-operating-copy">
+          <p>Accounting, compliance, boards, residents, ARC, work orders, vendors and communications stay connected across every community you manage.</p>
+          <div class="hero__actions">
+            <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
+            <a href="/product" class="btn btn--lg camvella-secondary">See the Product</a>
+          </div>
         </div>
       </div>
 
-      <div class="portfolio-board" aria-label="Camvella portfolio operating view">
-        <div class="portfolio-board__top">
-          <span>Portfolio command view</span>
-          <strong>12 communities · one operating system</strong>
-        </div>
-        <div class="portfolio-board__grid">
-          <article><span>Accounting</span><strong>$684K</strong><small>assessment receivables tracked</small></article>
-          <article><span>Compliance</span><strong>43</strong><small>open violations across portfolio</small></article>
-          <article><span>ARC</span><strong>18</strong><small>requests awaiting board action</small></article>
-          <article><span>Service</span><strong>27</strong><small>active work orders & vendors</small></article>
-        </div>
-        <div class="portfolio-board__flow">
-          <span>Association record</span><b>→</b><span>Board + resident activity</span><b>→</b><span>Accounting + compliance</span><b>→</b><span>Portfolio reporting</span>
+      <div class="portfolio-desk" aria-label="Camvella portfolio operating desk">
+        <aside class="portfolio-desk__rail">
+          <span class="portfolio-desk__rail-label">Today</span>
+          <strong>12</strong><small>communities</small>
+          <div><b>4</b><span>boards meeting</span></div>
+          <div><b>18</b><span>ARC decisions</span></div>
+          <div><b>27</b><span>work orders</span></div>
+        </aside>
+        <div class="portfolio-desk__main">
+          <div class="portfolio-desk__head">
+            <div><span>Association</span><span>Status</span><span>Finance</span><span>Operations</span></div>
+            <strong>Portfolio command view</strong>
+          </div>
+          <div class="portfolio-desk__row"><b>Seabreeze HOA</b><span>Board packet ready</span><strong>$118K AR</strong><em>3 open items</em></div>
+          <div class="portfolio-desk__row"><b>Palmetto Lakes</b><span>Violation cycle active</span><strong>$84K reserves</strong><em>7 open items</em></div>
+          <div class="portfolio-desk__row"><b>Harbor Pointe</b><span>ARC review today</span><strong>Budget on plan</strong><em>5 open items</em></div>
+          <div class="portfolio-desk__row"><b>Oaks at Wellington</b><span>Vendor renewal due</span><strong>$42K AP</strong><em>4 open items</em></div>
+          <div class="portfolio-desk__footer">
+            <span>Accounting</span><span>Compliance</span><span>Boards</span><span>Residents</span><span>Service</span>
+          </div>
         </div>
       </div>
 
