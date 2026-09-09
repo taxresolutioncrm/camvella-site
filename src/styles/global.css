@@ -1101,3 +1101,34 @@ body > *:first-child[style*="background"][style*="position: fixed"][style*="top:
   .camvella-hero-title{max-width:15ch}
   .portfolio-board{transform:none}
 }
+
+
+/* 2026-09 final homepage architecture: portfolio operating desk */
+.camvella-home-hero{padding-top:112px;padding-bottom:54px;background:var(--clr-navy);color:#fff}
+.camvella-home-hero:before{background:radial-gradient(ellipse at 78% 18%,rgba(11,143,156,.18),transparent 38rem)}
+.camvella-home-hero .container{display:block!important}
+.camvella-operating-intro{display:grid;grid-template-columns:180px minmax(0,1fr) 360px;gap:42px;align-items:start}
+.camvella-operating-label{padding-top:4px}
+.camvella-operating-label>span{display:block;margin-top:14px;font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.42)}
+.camvella-operating-intro h1{font-size:clamp(2.35rem,4vw,3.85rem);line-height:1.02;letter-spacing:-.045em;max-width:10.8ch;margin:0;color:#fff;text-wrap:balance}
+.camvella-operating-copy p{font-size:1rem;line-height:1.72;color:rgba(255,255,255,.72);margin:0 0 24px}
+.camvella-operating-copy .hero__actions{gap:12px}
+.portfolio-desk{display:grid;grid-template-columns:190px 1fr;margin-top:54px;border:1px solid rgba(255,255,255,.12);border-radius:18px;overflow:hidden;background:#091f38;box-shadow:0 28px 70px rgba(0,0,0,.22)}
+.portfolio-desk__rail{padding:24px 22px;background:#0d3157;border-right:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column}
+.portfolio-desk__rail-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--clr-amber-light)}
+.portfolio-desk__rail>strong{font-size:3.2rem;line-height:1;margin-top:24px}
+.portfolio-desk__rail>small{font-size:.74rem;color:rgba(255,255,255,.48);margin-top:5px}
+.portfolio-desk__rail>div{display:grid;grid-template-columns:32px 1fr;gap:8px;align-items:center;padding-top:16px;margin-top:16px;border-top:1px solid rgba(255,255,255,.08)}
+.portfolio-desk__rail>div b{font-size:1rem;color:#fff}.portfolio-desk__rail>div span{font-size:.72rem;color:rgba(255,255,255,.56)}
+.portfolio-desk__main{min-width:0}
+.portfolio-desk__head{display:flex;justify-content:space-between;gap:24px;align-items:center;padding:17px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.portfolio-desk__head>div{display:grid;grid-template-columns:1.2fr 1.4fr .9fr .9fr;gap:18px;flex:1}
+.portfolio-desk__head span{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.34)}
+.portfolio-desk__head strong{font-size:.7rem;color:rgba(255,255,255,.66);white-space:nowrap}
+.portfolio-desk__row{display:grid;grid-template-columns:1.2fr 1.4fr .9fr .9fr;gap:18px;align-items:center;padding:20px;border-bottom:1px solid rgba(255,255,255,.07)}
+.portfolio-desk__row b{font-size:.9rem}.portfolio-desk__row span{font-size:.78rem;color:rgba(255,255,255,.62)}.portfolio-desk__row strong{font-size:.8rem;color:var(--clr-amber-light)}.portfolio-desk__row em{font-style:normal;font-size:.72rem;color:rgba(255,255,255,.46)}
+.portfolio-desk__footer{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,.06)}
+.portfolio-desk__footer span{padding:14px;text-align:center;background:rgba(255,255,255,.025);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.48)}
+.camvella-trust{margin-top:24px!important;padding-top:22px!important}
+@media(max-width:980px){.camvella-operating-intro{grid-template-columns:1fr}.camvella-operating-label{display:flex;justify-content:space-between;gap:20px}.camvella-operating-intro h1{max-width:14ch}.portfolio-desk{grid-template-columns:1fr}.portfolio-desk__rail{display:grid;grid-template-columns:auto auto auto repeat(3,1fr);gap:14px;align-items:center;border-right:0;border-bottom:1px solid rgba(255,255,255,.08)}.portfolio-desk__rail>strong{margin-top:0;font-size:2rem}.portfolio-desk__rail>small{margin-top:0}.portfolio-desk__rail>div{padding-top:0;margin-top:0;border-top:0}.portfolio-desk__head>strong{display:none}}
+@media(max-width:700px){.camvella-home-hero{padding-top:96px}.portfolio-desk{overflow-x:auto}.portfolio-desk__main{min-width:720px}.portfolio-desk__rail{min-width:720px}.camvella-operating-intro h1{font-size:clamp(2.2rem,10vw,3rem)}}
