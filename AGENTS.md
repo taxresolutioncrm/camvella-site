@@ -40,3 +40,12 @@ These rules govern all work in this repository. Do not deviate from them unless 
 4. If it would deviate, STOP and obtain Romy's explicit approval before making that deviation.
 
 These rules are intentionally strict. Consistency across the RomyLabs portfolio takes priority over convenience.
+
+
+## Post-Release Marketing Design Freeze
+- After the September 2026 approved marketing-site redesign is released and verified, the public product website is visually frozen.
+- Do not redesign, restyle, recolor, rebrand, replace the logo, change the visual identity, or perform a general marketing-site refresh without Romy's explicit approval in the current conversation.
+- Preserve the approved page composition and branding as the visual source of truth.
+- Future website changes are limited to necessary bug fixes, security/compliance fixes, browser/mobile compatibility fixes, broken links/routes/forms, and factual pricing/contact/content corrections unless Romy explicitly requests a design change.
+- Do not interpret routine SEO, product, CRM, or backend work as authorization to alter the marketing-site design.
+- RomyLabs corporate site is not governed by this product-site freeze because it must continue to evolve as new products are added.
