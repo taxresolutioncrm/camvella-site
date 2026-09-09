@@ -111,53 +111,55 @@ const faqs = [
   schema={schema}
 >
   <!-- ─── Hero ──────────────────────────────────────────────────────────── -->
-  <section class="hero camvella-home-hero" aria-labelledby="camvella-home-title">
+  <section class="camvella-exec-hero" aria-labelledby="camvella-home-title">
     <div class="container">
-      <div class="camvella-operating-intro">
-        <div class="camvella-operating-label">
-          <div class="hero__eyebrow" aria-hidden="true">
+      <div class="camvella-exec-masthead">
+        <div>
+          <div class="hero__eyebrow">
             <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="4"/></svg>
             Professional CAM software
           </div>
-          <span>Portfolio operations</span>
+          <p class="camvella-exec-kicker">For management companies running multiple associations.</p>
         </div>
-        <h1 id="camvella-home-title">Run every association from one operating desk.</h1>
-        <div class="camvella-operating-copy">
-          <p>Accounting, compliance, boards, residents, ARC, work orders, vendors and communications stay connected across every community you manage.</p>
-          <div class="hero__actions">
-            <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
-            <a href="/product" class="btn btn--lg camvella-secondary">See the Product</a>
+        <div class="camvella-exec-message">
+          <h1 id="camvella-home-title">One portfolio. Every association under control.</h1>
+          <p>Camvella connects HOA accounting, compliance, ARC, boards, residents, vendors, work orders and communications across every community your team manages.</p>
+        </div>
+        <div class="camvella-exec-actions">
+          <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
+          <a href="/product" class="camvella-inline-link">Tour the platform →</a>
+        </div>
+      </div>
+
+      <div class="camvella-product-window">
+        <div class="camvella-product-window__bar">
+          <div><span></span><span></span><span></span></div>
+          <strong>Portfolio command center</strong>
+          <small>app.camvella.com</small>
+        </div>
+        <div class="camvella-product-window__body">
+          <aside>
+            <span>PORTFOLIO</span>
+            <strong>12</strong>
+            <small>communities</small>
+            <ul>
+              <li><b>4</b><span>board meetings</span></li>
+              <li><b>18</b><span>ARC decisions</span></li>
+              <li><b>27</b><span>work orders</span></li>
+              <li><b>$684K</b><span>receivables tracked</span></li>
+            </ul>
+          </aside>
+          <div class="camvella-product-image">
+            <img src="/screenshots/dashboard.svg?v=20260909" alt="Camvella portfolio dashboard for HOA and community association management" width="1280" height="800">
           </div>
         </div>
       </div>
 
-      <div class="portfolio-desk" aria-label="Camvella portfolio operating desk">
-        <aside class="portfolio-desk__rail">
-          <span class="portfolio-desk__rail-label">Today</span>
-          <strong>12</strong><small>communities</small>
-          <div><b>4</b><span>boards meeting</span></div>
-          <div><b>18</b><span>ARC decisions</span></div>
-          <div><b>27</b><span>work orders</span></div>
-        </aside>
-        <div class="portfolio-desk__main">
-          <div class="portfolio-desk__head">
-            <div><span>Association</span><span>Status</span><span>Finance</span><span>Operations</span></div>
-            <strong>Portfolio command view</strong>
-          </div>
-          <div class="portfolio-desk__row"><b>Seabreeze HOA</b><span>Board packet ready</span><strong>$118K AR</strong><em>3 open items</em></div>
-          <div class="portfolio-desk__row"><b>Palmetto Lakes</b><span>Violation cycle active</span><strong>$84K reserves</strong><em>7 open items</em></div>
-          <div class="portfolio-desk__row"><b>Harbor Pointe</b><span>ARC review today</span><strong>Budget on plan</strong><em>5 open items</em></div>
-          <div class="portfolio-desk__row"><b>Oaks at Wellington</b><span>Vendor renewal due</span><strong>$42K AP</strong><em>4 open items</em></div>
-          <div class="portfolio-desk__footer">
-            <span>Accounting</span><span>Compliance</span><span>Boards</span><span>Residents</span><span>Service</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero__trust camvella-trust">
-        <span class="hero__trust-item">HOA-specific from day one</span>
-        <span class="hero__trust-item">Full financial accounting included</span>
-        <span class="hero__trust-item">Operational in days, not months</span>
+      <div class="camvella-exec-proof">
+        <span>HOA-specific accounting</span>
+        <span>Board + resident operations</span>
+        <span>Association-level separation</span>
+        <span>Multi-community portfolio view</span>
       </div>
     </div>
   </section>
@@ -376,27 +378,57 @@ const faqs = [
     }
   }
 .buyer-intent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.buyer-intent-grid article{padding:24px;border:1px solid var(--clr-border);border-radius:16px;background:#fff}.buyer-intent-grid h3{color:var(--clr-navy);margin-bottom:10px}.buyer-intent-grid p{color:var(--clr-text-soft);line-height:1.65}.buyer-intent-grid a{text-decoration:underline;text-decoration-color:rgba(11,143,156,.25);text-underline-offset:4px}@media(max-width:800px){.buyer-intent-grid{grid-template-columns:1fr}}
-  .camvella-home-hero{padding:88px 0 64px;background:radial-gradient(circle at 50% -15%,rgba(85,185,106,.18),transparent 34rem),var(--clr-navy);color:#fff}
-  .camvella-hero-copy{max-width:900px;margin:0 auto;text-align:center}
-  .camvella-hero-copy .hero__eyebrow{justify-content:center}
-  .camvella-hero-title{font-size:clamp(3rem,6.5vw,5.9rem);line-height:.96;letter-spacing:-.055em;max-width:980px;margin:22px auto 24px;color:#fff;text-wrap:balance}
-  .camvella-hero-body{font-size:18px;line-height:1.75;max-width:840px;margin:0 auto;color:rgba(255,255,255,.78)}
-  .camvella-hero-actions{justify-content:center;margin-top:30px}
-  .camvella-secondary{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18)}
-  .portfolio-board{margin:48px auto 0;max-width:1100px;border:1px solid rgba(255,255,255,.14);border-radius:22px;overflow:hidden;background:rgba(4,20,38,.56);box-shadow:0 28px 70px rgba(0,0,0,.18)}
-  .portfolio-board__top{display:flex;justify-content:space-between;gap:20px;padding:18px 22px;border-bottom:1px solid rgba(255,255,255,.11);font-size:12px;color:rgba(255,255,255,.62)}
-  .portfolio-board__top strong{color:#fff}
-  .portfolio-board__grid{display:grid;grid-template-columns:repeat(4,1fr)}
-  .portfolio-board__grid article{padding:25px 22px;border-right:1px solid rgba(255,255,255,.09)}
-  .portfolio-board__grid article:last-child{border-right:0}
-  .portfolio-board__grid span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#74d48a;font-weight:800}
-  .portfolio-board__grid strong{display:block;font-size:28px;margin:8px 0 5px;color:#fff}
-  .portfolio-board__grid small{color:rgba(255,255,255,.55);font-size:11px;line-height:1.4}
-  .portfolio-board__flow{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:15px 22px;background:rgba(255,255,255,.04);font-size:11px;color:rgba(255,255,255,.68)}
-  .portfolio-board__flow b{color:#55B96A}
-  .camvella-trust{justify-content:center}
-  @media(max-width:800px){.portfolio-board__grid{grid-template-columns:repeat(2,1fr)}.portfolio-board__grid article:nth-child(2){border-right:0}.portfolio-board__grid article:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.09)}}
-  @media(max-width:560px){.portfolio-board__top{flex-direction:column}.portfolio-board__grid{grid-template-columns:1fr}.portfolio-board__grid article{border-right:0;border-bottom:1px solid rgba(255,255,255,.09)}.portfolio-board__grid article:last-child{border-bottom:0}}
+
+  /* Final premium homepage — light executive portfolio presentation */
+  .camvella-exec-hero{
+    padding:116px 0 58px;
+    background:radial-gradient(circle at 86% 12%,rgba(85,185,106,.11),transparent 30rem),linear-gradient(180deg,#ffffff 0%,#f7faf8 100%);
+    color:var(--clr-navy);
+    border-bottom:1px solid var(--clr-border);
+  }
+  .camvella-exec-masthead{display:grid;grid-template-columns:220px minmax(0,1fr) 180px;gap:48px;align-items:start}
+  .camvella-exec-masthead .hero__eyebrow{margin:0;color:var(--clr-amber-dark);background:rgba(85,185,106,.10);border-color:rgba(85,185,106,.22)}
+  .camvella-exec-kicker{margin-top:16px;max-width:190px;font-size:.82rem;line-height:1.55;color:var(--clr-text-soft)}
+  .camvella-exec-message h1{margin:0;max-width:12ch;font-size:clamp(2.35rem,3.8vw,3.6rem);line-height:1.01;letter-spacing:-.045em;color:var(--clr-navy);text-wrap:balance}
+  .camvella-exec-message p{max-width:680px;margin-top:20px;font-size:1rem;line-height:1.72;color:var(--clr-text-mid)}
+  .camvella-exec-actions{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding-top:4px}
+  .camvella-inline-link{font-size:.84rem;font-weight:700;color:var(--clr-navy)}
+  .camvella-inline-link:hover{color:var(--clr-teal)}
+  .camvella-product-window{margin-top:56px;border:1px solid var(--clr-border);border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 24px 64px rgba(11,39,72,.13)}
+  .camvella-product-window__bar{height:42px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 15px;background:var(--clr-navy);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+  .camvella-product-window__bar>div{display:flex;gap:7px}
+  .camvella-product-window__bar>div span{width:8px;height:8px;border-radius:50%;background:var(--clr-amber)}
+  .camvella-product-window__bar>div span:nth-child(2){background:var(--clr-teal)}
+  .camvella-product-window__bar>div span:nth-child(3){background:rgba(255,255,255,.28)}
+  .camvella-product-window__bar strong{font-size:.72rem;letter-spacing:.04em}
+  .camvella-product-window__bar small{justify-self:end;font-family:var(--font-mono);font-size:.62rem;color:rgba(255,255,255,.5)}
+  .camvella-product-window__body{display:grid;grid-template-columns:205px 1fr;min-height:430px}
+  .camvella-product-window__body aside{padding:26px 22px;background:#f5f8f6;border-right:1px solid var(--clr-border)}
+  .camvella-product-window__body aside>span{display:block;font-size:.62rem;font-weight:800;letter-spacing:.12em;color:var(--clr-teal)}
+  .camvella-product-window__body aside>strong{display:block;margin-top:18px;font-size:3rem;line-height:1;color:var(--clr-navy)}
+  .camvella-product-window__body aside>small{display:block;margin-top:5px;font-size:.72rem;color:var(--clr-text-soft)}
+  .camvella-product-window__body aside ul{display:grid;gap:0;margin-top:24px}
+  .camvella-product-window__body aside li{display:grid;grid-template-columns:54px 1fr;gap:8px;align-items:center;padding:13px 0;border-top:1px solid var(--clr-border)}
+  .camvella-product-window__body aside li b{font-size:.9rem;color:var(--clr-navy)}
+  .camvella-product-window__body aside li span{font-size:.68rem;line-height:1.35;color:var(--clr-text-soft)}
+  .camvella-product-image{min-width:0;background:#fff;display:flex;align-items:flex-start;justify-content:flex-start}
+  .camvella-product-image img{display:block;width:100%;height:auto;object-fit:contain;object-position:top left}
+  .camvella-exec-proof{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:18px;border-top:1px solid var(--clr-border)}
+  .camvella-exec-proof span{padding:15px 14px 0 0;font-size:.72rem;color:var(--clr-text-soft)}
+  .camvella-exec-proof span:before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--clr-amber);margin-right:8px;vertical-align:1px}
+  @media(max-width:980px){
+    .camvella-exec-masthead{grid-template-columns:1fr;gap:26px}
+    .camvella-exec-kicker{max-width:560px}
+    .camvella-exec-message h1{max-width:14ch}
+    .camvella-exec-actions{flex-direction:row;align-items:center}
+  }
+  @media(max-width:720px){
+    .camvella-exec-hero{padding-top:96px}
+    .camvella-exec-message h1{font-size:clamp(2.2rem,10vw,3rem)}
+    .camvella-product-window{overflow-x:auto}
+    .camvella-product-window__body,.camvella-product-window__bar{min-width:760px}
+    .camvella-exec-proof{grid-template-columns:1fr 1fr}
+  }
 </style>
 
 

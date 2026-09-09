@@ -29,6 +29,7 @@ const paths = files
     return local === 'index.html' ? '/' : `/${local.replace(/index\.html$/, '')}`
   })
   .filter((path) => !excluded.has(path))
+  .filter((path) => path === '/locations/' || !path.startsWith('/locations/'))
   .sort()
 
 const entries = paths.map((path) => {
