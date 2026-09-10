@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+const schema={'@context':'https://schema.org','@type':'Article','headline':'HOA Software Implementation Checklist','mainEntityOfPage':'https://camvella.com/guides/hoa-software-implementation-checklist/','about':['HOA software implementation','community association software migration']}
+---
+<BaseLayout
+  title="HOA Software Implementation Checklist | Camvella"
+  description="A practical implementation checklist for HOA management companies moving communities, accounting, permissions, boards, residents and workflows into new software."
+  schema={schema}
+>
+<section class="guide-hero"><div class="container container--narrow"><p class="section__label">Implementation guide</p><h1>HOA software implementation checklist for a clean cutover.</h1><p>Use this checklist before moving a management portfolio into a new platform so accounting, data, permissions and day-to-day operations do not get separated during transition.</p></div></section>
+<section class="section"><div class="container container--narrow guide-body">
+  <h2>Portfolio and data inventory</h2>
+  <ul><li>List every association, unit and property record.</li><li>Confirm owner and resident contact data.</li><li>Inventory documents, violation history, ARC records, vendor files and open work orders.</li><li>Define which history must be migrated versus archived.</li></ul>
+  <h2>Accounting cutover</h2>
+  <ul><li>Choose the accounting cutoff date.</li><li>Reconcile opening balances before import.</li><li>Map chart-of-accounts structure and funds.</li><li>Validate open AR, AP, budgets and bank balances after migration.</li></ul>
+  <h2>Roles and permissions</h2>
+  <ul><li>Map managers, accounting staff, board users and support roles.</li><li>Verify association-level data isolation.</li><li>Test who can approve, edit, export and view financial records.</li></ul>
+  <h2>Resident and board rollout</h2>
+  <ul><li>Prepare portal invitations and login instructions.</li><li>Choose a small pilot group before portfolio-wide launch.</li><li>Confirm support ownership for first-week questions.</li></ul>
+  <h2>Go-live verification</h2>
+  <ul><li>Run one violation, ARC request, work order and accounting workflow end to end.</li><li>Verify email and SMS delivery.</li><li>Confirm reports, documents and audit history.</li><li>Keep a rollback/export copy of pre-cutover data.</li></ul>
+  <div class="guide-cta"><h2>See how Camvella handles implementation.</h2><p>We can walk through your current stack, portfolio size and migration priorities in a product demo.</p><a class="btn btn--primary btn--lg" href="/demo">Book a Demo</a><a class="btn btn--ghost btn--lg" href="/guides/hoa-software-buyers-guide">Read the Buyer’s Guide</a></div>
+</div></section>
+</BaseLayout>
+<style>
+.guide-hero{padding:128px 0 72px;background:linear-gradient(135deg,var(--clr-navy),#0d3857);color:#fff}.guide-hero h1{font-size:clamp(2.5rem,5vw,4.1rem);line-height:1;letter-spacing:-.045em;max-width:17ch;margin:.5rem 0 1.3rem}.guide-hero p{font-size:var(--text-lg);line-height:1.75;color:rgba(255,255,255,.76);max-width:62ch}.guide-body h2{color:var(--clr-navy);margin:2.2rem 0 .75rem}.guide-body ul{display:grid;gap:.65rem;padding-left:1.25rem;color:var(--clr-text-soft);line-height:1.7}.guide-cta{margin-top:3rem;padding:2rem;border-radius:var(--radius-xl);background:#f7fbfc;border:1px solid var(--clr-border)}.guide-cta p{margin:.6rem 0 1.2rem}.guide-cta .btn{margin-right:.6rem;margin-top:.5rem}
+</style>
