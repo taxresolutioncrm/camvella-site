@@ -38,6 +38,7 @@ const entries = paths.map((path) => {
     : path === '/pricing/' || path === '/demo/' ? '0.9'
     : path.startsWith('/features/') || path.startsWith('/solutions/') ? '0.8'
     : path.startsWith('/compare/') ? '0.75'
+    : path === '/security/' ? '0.6'
     : path === '/privacy/' || path === '/terms/' ? '0.3'
     : '0.7'
   return [
