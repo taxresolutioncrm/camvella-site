@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
-const schema={'@context':'https://schema.org','@type':'Article','headline':'HOA Software Implementation Checklist','mainEntityOfPage':'https://camvella.com/guides/hoa-software-implementation-checklist/','about':['HOA software implementation','community association software migration']}
+const schema={'@context':'https://schema.org','@type':'Article','headline':'HOA Software Implementation Checklist','mainEntityOfPage':'https://camvella.com/guides/hoa-software-implementation-checklist/','author':{'@type':'Organization','name':'Camvella','url':'https://camvella.com/'},'publisher':{'@type':'Organization','name':'Camvella','url':'https://camvella.com/','logo':{'@type':'ImageObject','url':'https://camvella.com/brand/camvella-logo-stacked.svg'}},'datePublished':'2026-09-10','dateModified':'2026-09-10','inLanguage':'en-US','about':['HOA software implementation','community association software migration']}
 ---
 <BaseLayout
   title="HOA Software Implementation Checklist | Camvella"
@@ -19,9 +19,10 @@ const schema={'@context':'https://schema.org','@type':'Article','headline':'HOA 
   <ul><li>Prepare portal invitations and login instructions.</li><li>Choose a small pilot group before portfolio-wide launch.</li><li>Confirm support ownership for first-week questions.</li></ul>
   <h2>Go-live verification</h2>
   <ul><li>Run one violation, ARC request, work order and accounting workflow end to end.</li><li>Verify email and SMS delivery.</li><li>Confirm reports, documents and audit history.</li><li>Keep a rollback/export copy of pre-cutover data.</li></ul>
+  <p class="guide-related"><strong>Planning the purchase first?</strong> Read the <a href="/guides/hoa-software-buyers-guide">HOA software buyer’s guide</a> and <a href="/guides/hoa-software-pricing-guide">pricing guide</a>.</p>
   <div class="guide-cta"><h2>See how Camvella handles implementation.</h2><p>We can walk through your current stack, portfolio size and migration priorities in a product demo.</p><a class="btn btn--primary btn--lg" href="/demo">Book a Demo</a><a class="btn btn--ghost btn--lg" href="/guides/hoa-software-buyers-guide">Read the Buyer’s Guide</a></div>
 </div></section>
 </BaseLayout>
 <style>
-.guide-hero{padding:128px 0 72px;background:linear-gradient(135deg,var(--clr-navy),#0d3857);color:#fff}.guide-hero h1{font-size:clamp(2.5rem,5vw,4.1rem);line-height:1;letter-spacing:-.045em;max-width:17ch;margin:.5rem 0 1.3rem}.guide-hero p{font-size:var(--text-lg);line-height:1.75;color:rgba(255,255,255,.76);max-width:62ch}.guide-body h2{color:var(--clr-navy);margin:2.2rem 0 .75rem}.guide-body ul{display:grid;gap:.65rem;padding-left:1.25rem;color:var(--clr-text-soft);line-height:1.7}.guide-cta{margin-top:3rem;padding:2rem;border-radius:var(--radius-xl);background:#f7fbfc;border:1px solid var(--clr-border)}.guide-cta p{margin:.6rem 0 1.2rem}.guide-cta .btn{margin-right:.6rem;margin-top:.5rem}
+.guide-hero{padding:128px 0 72px;background:linear-gradient(135deg,var(--clr-navy),#0d3857);color:#fff}.guide-hero h1{font-size:clamp(2.5rem,5vw,4.1rem);line-height:1;letter-spacing:-.045em;max-width:17ch;margin:.5rem 0 1.3rem}.guide-hero p{font-size:var(--text-lg);line-height:1.75;color:rgba(255,255,255,.76);max-width:62ch}.guide-body h2{color:var(--clr-navy);margin:2.2rem 0 .75rem}.guide-body ul{display:grid;gap:.65rem;padding-left:1.25rem;color:var(--clr-text-soft);line-height:1.7}.guide-related{margin-top:2.2rem;color:var(--clr-text-soft);line-height:1.7}.guide-related a{font-weight:700;color:var(--clr-navy)}.guide-cta{margin-top:3rem;padding:2rem;border-radius:var(--radius-xl);background:#f7fbfc;border:1px solid var(--clr-border)}.guide-cta p{margin:.6rem 0 1.2rem}.guide-cta .btn{margin-right:.6rem;margin-top:.5rem}
 </style>
