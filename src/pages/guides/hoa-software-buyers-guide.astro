@@ -8,7 +8,7 @@ const faq = [
 ]
 
 const schema = [
-  {'@context':'https://schema.org','@type':'Article','headline':'HOA Management Software Buyer’s Guide','mainEntityOfPage':'https://camvella.com/guides/hoa-software-buyers-guide/','about':['HOA management software','community association management software','HOA accounting software']},
+  {'@context':'https://schema.org','@type':'Article','headline':'HOA Management Software Buyer’s Guide','mainEntityOfPage':'https://camvella.com/guides/hoa-software-buyers-guide/','author':{'@type':'Organization','name':'Camvella','url':'https://camvella.com/'},'publisher':{'@type':'Organization','name':'Camvella','url':'https://camvella.com/','logo':{'@type':'ImageObject','url':'https://camvella.com/brand/camvella-logo-stacked.svg'}},'datePublished':'2026-09-10','dateModified':'2026-09-10','inLanguage':'en-US','about':['HOA management software','community association management software','HOA accounting software']},
   {'@context':'https://schema.org','@type':'FAQPage','mainEntity':faq.map(([q,a])=>({'@type':'Question','name':q,'acceptedAnswer':{'@type':'Answer','text':a}}))}
 ]
 ---
@@ -49,6 +49,8 @@ const schema = [
         <a class="btn btn--ghost btn--lg" href="/compare">Compare HOA Software</a>
       </div>
 
+      <div class="guide-related" aria-label="Related HOA software guides"><strong>Continue the evaluation:</strong> <a href="/guides/hoa-software-pricing-guide">HOA software pricing guide</a> · <a href="/guides/hoa-software-implementation-checklist">Implementation checklist</a></div>
+
       <section class="faq-block">
         <h2>Frequently asked questions</h2>
         {faq.map(([q,a]) => <article><h3>{q}</h3><p>{a}</p></article>)}
@@ -65,5 +67,6 @@ const schema = [
 .guide-body>p{font-size:1.03rem;line-height:1.8;color:var(--clr-text-soft)}
 .guide-cta{margin:3rem 0;padding:2rem;border:1px solid var(--clr-border);border-radius:var(--radius-xl);background:#f7fbfc}
 .guide-cta p{margin:.7rem 0 1.4rem;color:var(--clr-text-soft)}.guide-cta .btn{margin-right:.6rem;margin-top:.5rem}
+.guide-related{margin:2rem 0;padding:1rem 1.2rem;border-left:3px solid var(--clr-teal);background:#f7fbfc;color:var(--clr-text-mid);line-height:1.7}.guide-related a{font-weight:700;color:var(--clr-navy)}
 .faq-block{margin-top:3rem}.faq-block article{padding:1.2rem 0;border-top:1px solid var(--clr-border)}.faq-block h3{color:var(--clr-navy);font-size:1.05rem}.faq-block p{color:var(--clr-text-soft);line-height:1.7;margin-top:.4rem}
 </style>
