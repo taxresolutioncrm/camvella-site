@@ -29,8 +29,9 @@ const paths = files
     return local === 'index.html' ? '/' : `/${local.replace(/index\.html$/, '')}`
   })
   .filter((path) => !excluded.has(path))
-  .filter((path) => path === '/locations/' || !path.startsWith('/locations/'))
   .sort()
+
+const lastmod = new Date().toISOString().slice(0, 10)
 
 const entries = paths.map((path) => {
   const priority =
@@ -44,6 +45,7 @@ const entries = paths.map((path) => {
   return [
     '  <url>',
     `    <loc>${site}${path === '/' ? '/' : path}</loc>`,
+    `    <lastmod>${lastmod}</lastmod>`,
     '    <changefreq>weekly</changefreq>',
     `    <priority>${priority}</priority>`,
     '  </url>',
