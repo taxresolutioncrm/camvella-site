@@ -40,10 +40,10 @@ const groups=[
 ['Compliance',['compliance','consent','documents','audit']],
 ['Carrier Ops',['carriers','contracting','catalog']],
 ['Team',['tasks','automations','team','permissions']],
-['System',['onboarding','communications','advanced','settings']]
+['Communications',['inbox','email','phone','sms','fax','voicemail']],['System',['onboarding','communications','advanced','settings']]
 ];
-const labels={overview:'Overview',manager:'Manager Dashboard',reports:'Reports',leads:'Lead Pipeline',appointments:'Appointments',clients:'Clients',client360:'Client 360',aca:'ACA',medicare:'Medicare',enrollment:'Enrollment Queue',eligibility:'Eligibility',plans:'Plan Compare',evidence:'Evidence Bundles',policies:'Policies',service:'Policy Service',renewals:'Renewals',requests:'Portal Requests',portal:'Client Portal',commissions:'Commissions',exceptions:'Exceptions',mapping:'Statement Mapping',compliance:'Compliance',consent:'Consent',documents:'Documents',audit:'Audit Log',carriers:'Carriers',contracting:'Carrier Contracting',catalog:'Product Catalog',tasks:'Tasks',automations:'Automations',team:'Team & Licensing',permissions:'Permissions',onboarding:'Agency Onboarding',communications:'Communications',advanced:'Advanced Reports',settings:'Settings'};
-const icons={overview:'▦',manager:'◫',reports:'▥',leads:'◆',appointments:'◷',clients:'●',client360:'◉',aca:'A',medicare:'M',enrollment:'⇢',eligibility:'◎',plans:'⇄',evidence:'▣',policies:'▤',service:'↔',renewals:'↻',requests:'↗',portal:'◌',commissions:'$',exceptions:'!',mapping:'⇆',compliance:'✓',consent:'✓',documents:'▧',audit:'≡',carriers:'◇',contracting:'◇',catalog:'▦',tasks:'☑',automations:'⚡',team:'♙',permissions:'⌘',onboarding:'◎',communications:'✉',advanced:'▥',settings:'⚙'};
+const labels={overview:'Overview',manager:'Manager Dashboard',reports:'Reports',leads:'Lead Pipeline',appointments:'Appointments',clients:'Clients',client360:'Client 360',aca:'ACA',medicare:'Medicare',enrollment:'Enrollment Queue',eligibility:'Eligibility',plans:'Plan Compare',evidence:'Evidence Bundles',policies:'Policies',service:'Policy Service',renewals:'Renewals',requests:'Portal Requests',portal:'Client Portal',commissions:'Commissions',exceptions:'Exceptions',mapping:'Statement Mapping',compliance:'Compliance',consent:'Consent',documents:'Documents',audit:'Audit Log',carriers:'Carriers',contracting:'Carrier Contracting',catalog:'Product Catalog',tasks:'Tasks',automations:'Automations',team:'Team & Licensing',permissions:'Permissions',onboarding:'Agency Onboarding',communications:'Communications',inbox:'Unified Inbox',email:'Email',phone:'Phone',sms:'SMS',fax:'Fax',voicemail:'Voicemail',advanced:'Advanced Reports',settings:'Settings'};
+const icons={overview:'▦',manager:'◫',reports:'▥',leads:'◆',appointments:'◷',clients:'●',client360:'◉',aca:'A',medicare:'M',enrollment:'⇢',eligibility:'◎',plans:'⇄',evidence:'▣',policies:'▤',service:'↔',renewals:'↻',requests:'↗',portal:'◌',commissions:'$',exceptions:'!',mapping:'⇆',compliance:'✓',consent:'✓',documents:'▧',audit:'≡',carriers:'◇',contracting:'◇',catalog:'▦',tasks:'☑',automations:'⚡',team:'♙',permissions:'⌘',onboarding:'◎',communications:'✉',inbox:'▣',email:'✉',phone:'☎',sms:'◌',fax:'▧',voicemail:'▶',advanced:'▥',settings:'⚙'};
 const status=(t,c='')=>'<span class="pill '+c+'">'+t+'</span>';
 const kpi=(l,v,f,d='')=>'<div class="kpi"><div class="kpiLabel">'+l+'</div><div class="kpiVal">'+v+(d?'<span class="delta">'+d+'</span>':'')+'</div><div class="kpiFoot">'+f+'</div></div>';
 const head=(e,t,p,actions='')=>'<div class="pageHead"><div><div class="eyebrow">'+e+'</div><h1>'+t+'</h1><p>'+p+'</p></div><div class="actions">'+actions+'</div></div>';
@@ -223,7 +223,45 @@ function advanced(){return head('Analytics','Advanced Reports','Deeper agency in
 '<div class="gridEqual">'+panel('Carrier mix','Issued book',row('Humana','28% of active policies','Largest')+row('Ambetter','24% of active policies','Healthy')+row('Florida Blue','18% of active policies','Healthy')+row('Other carriers','30% combined','Diversified'))+
 panel('Operational quality','Last 30 days',row('Median first response','4m 18s','Good')+row('Median service resolution','7.4h','Good')+row('Commission match rate','92%','Review','warn')+row('Evidence completeness','94%','Review','warn'))+'</div>'}
 
-const views={overview,leads,client360,enrollment,commissions,compliance,manager,portal,policies,reports,aca,medicare,renewals,documents,carriers,contracting,evidence,onboarding,automations,team,settings,eligibility,plans,service,exceptions,mapping,consent,audit,requests,permissions,communications,advanced};
+
+function inbox(){return head('Communications','Unified Inbox','One queue for email, SMS, fax, voicemail and portal conversations.',btn('New Message')+btn('Assign Conversation','secondary'))+
+'<div class="kpis">'+kpi('Unread','14','Across all channels')+kpi('Needs reply','9','Assigned conversations')+kpi('Faxes received','6','Last 24 hours')+kpi('Voicemails','4','2 unreviewed')+'</div>'+
+'<div class="grid2">'+panel('Priority conversations','Newest first',row('Angela Reed','SMS · “I uploaded the income document.”','Unread','blue')+row('Robert King','Voicemail · 0:48 · Medicare question','Review','warn')+row('Maria Alvarez','Email · Appointment confirmation reply','Unread','blue')+row('Carrier Ops','Fax · 5 pages · contracting packet','New','blue'))+
+panel('Channel health','Sandbox providers',row('Email','Provider not connected','Offline','warn')+row('Phone / SMS','Provider not connected','Offline','warn')+row('Fax','Provider not connected','Offline','warn')+row('Voicemail','Provider not connected','Offline','warn'))+'</div>'}
+function email(){return head('Communications','Email','Inbox, sent mail, compose, templates and client-linked threads.',btn('Compose Email')+btn('New Template','secondary'))+
+'<div class="kpis">'+kpi('Unread','7','Client + carrier mail')+kpi('Sent today','18','Sandbox activity')+kpi('Drafts','3','Needs review')+kpi('Templates','12','Agency library')+'</div>'+
+'<div class="panel" style="margin-top:14px">'+table(['From / To','Subject','Linked Record','Time','Status'],[
+tr(['<b>Angela Reed</b><span>angela@example.com</span>','Income document uploaded','Client · ACA','4:18 PM',status('Unread','blue')]),
+tr(['<b>Romy Agency</b><span>sent</span>','Your enrollment review summary','Robert King','3:42 PM',status('Delivered')]),
+tr(['<b>Carrier Contracting</b><span>appointments@carrier.com</span>','Appointment follow-up','Carrier · Humana','2:15 PM',status('Unread','blue')]),
+tr(['<b>Maria Alvarez</b><span>maria@example.com</span>','Re: Tomorrow appointment','Lead · ACA','1:08 PM',status('Replied')])
+])+'</div>'}
+function phone(){return head('Communications','Phone','Outbound dialer, inbound call queue, call history and recording references.',btn('Open Dialer')+btn('Call Client','secondary'))+
+'<div class="kpis">'+kpi('Calls today','23','16 outbound · 7 inbound')+kpi('Answer rate','72%','Last 7 days')+kpi('Avg. talk time','6m 42s','Connected calls')+kpi('Recordings linked','96%','Medicare calls')+'</div>'+
+'<div class="grid2">'+panel('Recent calls','Call history',row('Robert King','Inbound · 8m 14s · recording ref saved','Completed')+row('Maria Alvarez','Outbound · 3m 22s · appointment reminder','Completed')+row('James Wilson','Outbound · no answer · follow-up task created','No answer','warn')+row('Elaine Carter','Inbound · 5m 41s · Medicare plan question','Completed'))+
+panel('Dialer status','Provider readiness',row('Outbound calling','Adapter placeholder ready','Disconnected','warn')+row('Inbound routing','Queue model prepared','Disconnected','warn')+row('Call recordings','Evidence field prepared','Disconnected','warn')+row('Caller ID / numbers','Provider pending','Disconnected','warn'))+'</div>'}
+function sms(){return head('Communications','SMS','Two-way texting, templates, opt-out status and client-linked conversation history.',btn('New SMS')+btn('Template Library','secondary'))+
+'<div class="kpis">'+kpi('Unread','4','Client replies')+kpi('Sent today','23','Sandbox activity')+kpi('Reply rate','61%','Last 7 days')+kpi('Opt-outs','2','Current month')+'</div>'+
+'<div class="panel" style="margin-top:14px">'+table(['Client','Last Message','Direction','Time','Status'],[
+tr(['Angela Reed','I uploaded the income document.','Inbound','4:31 PM',status('Unread','blue')]),
+tr(['Maria Alvarez','Reminder: appointment tomorrow at 2:30 PM.','Outbound','2:12 PM',status('Delivered')]),
+tr(['Marcus Hill','Can we review my renewal options?','Inbound','11:08 AM',status('Needs reply','warn')]),
+tr(['Robert King','Your review summary is ready in the portal.','Outbound','9:41 AM',status('Delivered')])
+])+'</div>'}
+function fax(){return head('Communications','Fax','Inbound and outbound fax queue with client, carrier and contracting attachments.',btn('Send Fax')+btn('Upload for Fax','secondary'))+
+'<div class="kpis">'+kpi('Inbox','6','Last 24 hours')+kpi('Outbox','4','2 delivered · 2 queued')+kpi('Pages today','37','Inbound + outbound')+kpi('Needs filing','3','Unlinked documents')+'</div>'+
+'<div class="grid2">'+panel('Fax inbox','Newest first',row('Carrier Contracting','5 pages · agent appointment packet','New','blue')+row('Provider Office','3 pages · records request','Needs filing','warn')+row('Client Upload Service','2 pages · proof of residency','Filed'))+
+panel('Fax outbox','Delivery status',row('Humana Contracting','7 pages · agent packet','Delivered')+row('Florida Blue','4 pages · servicing request','Delivered')+row('Provider Office','2 pages · authorization','Queued','warn'))+'</div>'}
+function voicemail(){return head('Communications','Voicemail','Inbound voicemail queue with transcription, assignment and client linking.',btn('Mark All Reviewed','secondary'))+
+'<div class="kpis">'+kpi('New','4','2 urgent')+kpi('Transcribed','4','Sandbox sample')+kpi('Assigned','3','1 unassigned')+kpi('Avg. response','18m','Business hours')+'</div>'+
+'<div class="panel" style="margin-top:14px">'+table(['Caller','Transcript Preview','Linked Record','Received','Status'],[
+tr(['Robert King','“Hi, I had a question about the plan we discussed…”','Client · Medicare','4:02 PM',status('New','blue')]),
+tr(['Unknown · 561-555-0198','“I found you online and need help with Medicare…”','Unlinked','3:18 PM',status('New','blue')]),
+tr(['Angela Reed','“Just letting you know I sent the document…”','Client · ACA','1:36 PM',status('Reviewed')]),
+tr(['Carrier Rep','“Calling regarding producer appointment status…”','Carrier · Contracting','11:12 AM',status('Assigned')])
+])+'</div>'}
+
+const views={overview,leads,client360,enrollment,commissions,compliance,manager,portal,policies,reports,aca,medicare,renewals,documents,carriers,contracting,evidence,onboarding,automations,team,settings,eligibility,plans,service,exceptions,mapping,consent,audit,requests,permissions,communications,advanced,inbox,email,phone,sms,fax,voicemail};
 function demo(msg){alert(msg+'\n\nSandbox action only. No production data was changed.');}
 function render(){const r=(location.hash||'#overview').slice(1);document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()}
 document.getElementById('nav').innerHTML=groups.map(([g,rs])=>'<div class="group"><div class="groupTitle">'+g+'</div>'+rs.map(r=>'<button class="navBtn" data-r="'+r+'"><span class="navIcon">'+(icons[r]||'•')+'</span><span class="navLabel">'+labels[r]+'</span>'+(r==='exceptions'?'<span class="badge">6</span>':'')+'</button>').join('')+'</div>').join('');
