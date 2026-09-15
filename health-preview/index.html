@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>RomyLabs Insurance CRM — Online Sandbox v3</title>
+<title>RomyLabs Insurance CRM — Online Sandbox Final QA</title>
 <style>
 :root{--ink:#163042;--muted:#6f8290;--line:#dfe8ed;--paper:#fff;--bg:#f4f7f9;--nav:#0d2638;--nav2:#15394f;--teal:#0f746b;--teal2:#e9f7f5;--blue:#285f8f;--gold:#a87313;--red:#b44848;--shadow:0 8px 24px rgba(19,48,66,.06)}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}
@@ -261,7 +261,40 @@ tr(['Angela Reed','“Just letting you know I sent the document…”','Client �
 tr(['Carrier Rep','“Calling regarding producer appointment status…”','Carrier · Contracting','11:12 AM',status('Assigned')])
 ])+'</div>'}
 
-const views={overview,leads,client360,enrollment,commissions,compliance,manager,portal,policies,reports,aca,medicare,renewals,documents,carriers,contracting,evidence,onboarding,automations,team,settings,eligibility,plans,service,exceptions,mapping,consent,audit,requests,permissions,communications,advanced,inbox,email,phone,sms,fax,voicemail};
+
+function clients(){return head('Clients','Clients & Households','Search the active book by market, carrier, household, renewal risk and service status.',btn('Add Client')+btn('Import Clients','secondary'))+
+'<div class="kpis">'+kpi('Active clients','214','Across ACA + Medicare')+kpi('Households','176','Current book')+kpi('Portal active','68%','145 clients')+kpi('Renewal risk','14','Needs outreach')+'</div>'+
+'<div class="panel" style="margin-top:14px">'+table(['Client','Market','Carrier / Plan','Household','Owner','Renewal','Status'],[
+tr(['<b>Angela Reed</b><span>angela@example.com</span>','ACA','Ambetter Silver Select','4','Jordan Lee','Dec 15',status('Active')]),
+tr(['<b>Robert King</b><span>561-555-0148</span>','Medicare','Humana Choice Plus','1','Casey Morgan','AEP',status('Active')]),
+tr(['<b>Marcus Hill</b><span>marcus@example.com</span>','ACA','Florida Blue Silver','2','Jordan Lee','Nov 18',status('At risk','warn')]),
+tr(['<b>Elaine Carter</b><span>772-555-0181</span>','Medicare','Aetna MA-PD','1','Taylor Brooks','AEP',status('Review','blue')])
+])+'</div>'}
+function appointments(){return head('Sales','Appointments','Book, assign and track ACA and Medicare consultations with attendance and outcome status.',btn('Book Appointment'))+
+'<div class="kpis">'+kpi('Today','9','6 Medicare · 3 ACA')+kpi('This week','31','Booked consultations')+kpi('Show rate','82%','Rolling 30 days')+kpi('Needs follow-up','5','No-show / undecided')+'</div>'+
+'<div class="panel" style="margin-top:14px">'+table(['Time','Client / Lead','Market','Type','Agent','Outcome','Status'],[
+tr(['2:30 PM','Maria Alvarez','ACA','New client consult','Jordan Lee','—',status('Upcoming','blue')]),
+tr(['3:15 PM','James Wilson','Medicare','Plan review','Casey Morgan','—',status('Upcoming','blue')]),
+tr(['11:00 AM','Tasha Green','ACA','SEP consult','Jordan Lee','Needs docs',status('Follow-up','warn')]),
+tr(['9:30 AM','Robert King','Medicare','Annual review','Casey Morgan','Enrollment review',status('Completed')])
+])+'</div>'}
+function tasks(){return head('Team','Tasks','Operational work queue across sales, enrollment, compliance, servicing and revenue.',btn('New Task'))+
+'<div class="kpis">'+kpi('Open','23','Across team')+kpi('Due today','8','3 high priority')+kpi('Overdue','7','Needs manager action')+kpi('Completed today','19','Agency-wide')+'</div>'+
+'<div class="grid2">'+panel('My tasks','Priority order',row('Call Maria Alvarez','ACA appointment follow-up · due 5:00 PM','High','red')+row('Review Marcus Hill consent','Enrollment blocker · due today','High','red')+row('Resolve Ambetter commission match','Revenue exception · due tomorrow','Open','warn'))+
+panel('Team workload','Open tasks',row('Jordan Lee','8 open · 2 overdue','Review','warn')+row('Casey Morgan','6 open · 1 overdue','Healthy')+row('Taylor Brooks','5 open · 3 overdue','Action','red'))+'</div>'}
+function history(){return head('Policy Ops','Policy History','Chronological policy, servicing, carrier and renewal events tied to each client.',btn('Add Event'))+
+'<div class="profile"><div class="profileCard"><div class="profileAvatar">MH</div><h2>Marcus Hill</h2><div class="meta">ACA · Florida Blue</div><div class="mini"><div><b>01/01/26</b><span>Effective</span></div><div><b>11/18/26</b><span>Renewal due</span></div><div><b>2</b><span>Service events</span></div><div><b>1</b><span>Open issue</span></div></div></div>'+
+'<section class="panel"><div class="panelHead"><h3>Policy timeline</h3><span>Newest first</span></div><div class="timeline"><div class="event"><div class="dot"></div><div><b>Renewal risk flagged</b><span>Sep 15 · No review appointment booked</span></div></div><div class="event"><div class="dot"></div><div><b>Billing question escalated to carrier</b><span>Sep 13 · Service request SR-2190</span></div></div><div class="event"><div class="dot"></div><div><b>Address updated</b><span>May 4 · Client portal request completed</span></div></div><div class="event"><div class="dot"></div><div><b>Policy issued</b><span>Jan 1 · Florida Blue Silver</span></div></div></div></section></div>'}
+function catalog(){return head('Carrier Ops','Product Catalog','Reference carrier product availability by market, state, product type and readiness.',btn('Add Product')+btn('Import Catalog','secondary'))+
+'<div class="kpis">'+kpi('Products','86','Cataloged')+kpi('ACA','41','Marketplace / individual')+kpi('Medicare','45','MA / MA-PD / PDP')+kpi('States','9','Current sandbox')+'</div>'+
+'<div class="panel" style="margin-top:14px">'+table(['Carrier','Product','Market','Type','States','Year','Status'],[
+tr(['Ambetter','Silver Select 210','ACA','Silver','FL · GA · NC','2026',status('Active')]),
+tr(['Florida Blue','Silver 73','ACA','Silver','FL','2026',status('Active')]),
+tr(['Humana','Choice Plus','Medicare','MA-PD','FL · GA · TN','2026',status('Active')]),
+tr(['Aetna','Value PPO','Medicare','MA','FL · NC','2026',status('Review','warn')])
+])+'</div>'}
+
+const views={overview,leads,clients,client360,appointments,enrollment,commissions,compliance,manager,portal,policies,reports,aca,medicare,renewals,documents,carriers,contracting,evidence,onboarding,automations,tasks,team,settings,eligibility,plans,service,exceptions,mapping,consent,audit,requests,permissions,communications,advanced,inbox,email,phone,sms,fax,voicemail,history,catalog};
 function demo(msg){alert(msg+'\n\nSandbox action only. No production data was changed.');}
 function render(){const r=(location.hash||'#overview').slice(1);document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()}
 document.getElementById('nav').innerHTML=groups.map(([g,rs])=>'<div class="group"><div class="groupTitle">'+g+'</div>'+rs.map(r=>'<button class="navBtn" data-r="'+r+'"><span class="navIcon">'+(icons[r]||'•')+'</span><span class="navLabel">'+labels[r]+'</span>'+(r==='exceptions'?'<span class="badge">6</span>':'')+'</button>').join('')+'</div>').join('');
