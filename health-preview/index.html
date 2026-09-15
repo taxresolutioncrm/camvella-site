@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>RomyLabs Insurance CRM — Online Sandbox</title>
+<title>RomyLabs Insurance CRM — Online Sandbox v3</title>
 <style>
 :root{--ink:#163042;--muted:#6f8290;--line:#dfe8ed;--paper:#fff;--bg:#f4f7f9;--nav:#0d2638;--nav2:#15394f;--teal:#0f746b;--teal2:#e9f7f5;--blue:#285f8f;--gold:#a87313;--red:#b44848;--shadow:0 8px 24px rgba(19,48,66,.06)}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}
@@ -27,7 +27,7 @@
 </head>
 <body>
 <div class="app">
-<aside class="sidebar"><div class="logo"><div class="logoMark">RI</div><div><b>RomyLabs Insurance</b><span>ACA + Medicare CRM</span></div></div><div id="nav"></div></aside>
+<aside class="sidebar"><div class="logo"><div class="logoMark">HI</div><div><b>RomyLabs Insurance</b><span>ACA + Medicare CRM</span></div></div><div id="nav"></div></aside>
 <main class="main"><header class="topbar"><div class="search"><input id="search" placeholder="Search clients, policies, carriers, tasks…"></div><div class="account"><div class="avatar">RA</div><div><b>Romy Agency</b><span>Sandbox · backend disconnected</span></div></div></header><div id="view" class="content"></div></main>
 </div>
 <script>
@@ -53,7 +53,7 @@ const btn=(t,kind='primary',msg=t)=>'<button class="btn '+kind+'" onclick="demo(
 const table=(h,rows)=>'<div class="tableWrap"><table class="table"><thead><tr>'+h.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';
 const tr=(cells)=>'<tr>'+cells.map((x,i)=>'<td class="'+(i===0?'nameCell':'')+'">'+x+'</td>').join('')+'</tr>';
 function overview(){return head('Agency operations','Command Center','ACA + Medicare production, compliance, retention and revenue in one place.',btn('+ New Lead')+btn('Book Appointment','secondary'))+
-'<div class="notice"><b>Sandbox mode:</b> workflows are interactive, but Supabase, CMS, telephony, email and carrier feeds remain intentionally disconnected.</div>'+
+'<div class="notice"><b>NEW BUILD · SEP 15:</b> polished navigation, Client 360, manager, commission, compliance and enrollment layouts are live in this preview. Supabase and production integrations remain disconnected.</div>'+
 '<div class="kpis">'+kpi('Open leads','38','12 need follow-up','+8%')+kpi('Enrollment queue','17','5 need review')+kpi('Renewals','64','14 at risk')+kpi('Commission variance','$4,820','6 exceptions')+'</div>'+
 '<div class="grid2">'+panel('Today’s work','Priority queue',row('Maria Alvarez','ACA · appointment at 2:30 PM','Today','blue')+row('Robert King','Medicare enrollment · evidence complete','Review','warn')+row('Marcus Hill','Renewal due in 12 days','At risk','red')+row('Humana statement','Commission exception · $1,210','Open','warn'))+
 panel('Agency health','Last 30 days',row('Lead → appointment','62% conversion','Healthy')+row('Appointment → enroll','48% conversion','Healthy')+row('Evidence completeness','94% of active enrollments','Review','warn')+row('Retention','91% active retention','Healthy'))+'</div>'+
