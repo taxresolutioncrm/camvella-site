@@ -104,7 +104,64 @@ function generic(route){return head('Operations',labels[route]||'Workspace','Thi
 '<div class="kpis">'+kpi('Open','12','Current queue')+kpi('In progress','7','Assigned')+kpi('Completed','34','This month')+kpi('Exceptions','3','Needs attention')+'</div>'+
 '<div class="grid2">'+panel('Current workflow','Operational queue',row('Primary workflow','Configured in sandbox','Active')+row('Evidence + audit','Mapped to future backend','Ready')+row('Permissions','Role model prepared','Review','warn'))+
 panel('Integration readiness','Backend boundary',row('Supabase persistence','Not connected','Pending','warn')+row('Live provider feed','Not connected','Pending','warn')+row('Audit model','Prepared','Ready'))+'</div>'}
-const views={overview,leads,client360,enrollment,commissions,compliance,manager,portal,policies,reports};
+
+function aca(){return head('Enrollments','ACA Workspace','Household eligibility, consent, plan review, Marketplace handoff and renewal controls.',btn('New ACA Case')+btn('Run Eligibility','secondary'))+
+'<div class="kpis">'+kpi('Open ACA cases','21','8 in review')+kpi('SEP opportunities','5','Eligibility pending')+kpi('Consent complete','92%','34 / 37')+kpi('Renewals due','39','Next 60 days')+'</div>'+
+'<div class="grid2">'+panel('ACA case queue','Household + Marketplace workflow',row('Maria Alvarez','4-person household · FL · appointment today','Needs review','warn')+row('Angela Reed','APTC verified · comparison saved','Ready')+row('Tasha Green','SEP event submitted · docs pending','Blocked','red'))+
+panel('Workflow health','Current book',row('Household intake','37 / 37 complete','100%')+row('Eligibility review','32 / 37 complete','86%','warn')+row('Plan comparison','29 / 37 complete','78%','warn')+row('Application review evidence','37 / 37 complete','100%'))+'</div>'}
+function medicare(){return head('Enrollments','Medicare Workspace','AEP, OEP and SEP workflows with plan analysis, compliance evidence and carrier handoff.',btn('New Medicare Case')+btn('Start Needs Analysis','secondary'))+
+'<div class="kpis">'+kpi('Open Medicare cases','17','6 in review')+kpi('AEP reviews','44','Scheduled')+kpi('Call evidence','96%','49 / 51 linked')+kpi('Cert alerts','2','Agent action required')+'</div>'+
+'<div class="grid2">'+panel('Medicare case queue','MA / MA-PD / PDP',row('James Wilson','MA-PD comparison · referral lead','Quoted','blue')+row('Robert King','SOA + recording reference complete','Ready')+row('Elaine Carter','Prescription list incomplete','Blocked','red'))+
+panel('Compliance gates','Before submission',row('Permission / scope evidence','51 / 51','100%')+row('Needs analysis','47 / 51','92%','warn')+row('Call recording references','49 / 51','96%','warn')+row('Carrier certification','2 agents due','Action','red'))+'</div>'}
+function renewals(){return head('Retention','Renewals','Prioritize upcoming ACA and Medicare reviews, outreach and at-risk retention.',btn('Create Campaign')+btn('Export Queue','secondary'))+
+'<div class="kpis">'+kpi('Due in 60 days','64','ACA + Medicare')+kpi('At risk','14','Needs outreach')+kpi('Scheduled reviews','31','48% booked')+kpi('Retention','91%','Rolling 12 months')+'</div>'+
+'<div class="panel" style="margin-top:14px">'+table(['Client','Market','Current Plan','Renewal Window','Owner','Risk'],[
+tr(['<b>Marcus Hill</b><span>Last contact Sep 1</span>','ACA','Florida Blue Silver','Nov 1–Dec 15','Jordan Lee',status('High','red')]),
+tr(['<b>Robert King</b><span>Portal active</span>','Medicare','Humana Choice Plus','AEP 2026','Casey Morgan',status('Low')]),
+tr(['<b>Angela Reed</b><span>Auto outreach enabled</span>','ACA','Ambetter Silver','Nov 1–Dec 15','Jordan Lee',status('Medium','warn')])
+])+'</div>'}
+function documents(){return head('Compliance','Documents & Evidence','Enrollment files, consent artifacts, plan comparisons and client uploads.',btn('Upload Document')+btn('Create Evidence Bundle','secondary'))+
+'<div class="kpis">'+kpi('Documents','284','Across active clients')+kpi('Missing items','7','Needs follow-up')+kpi('Evidence bundles','42','Enrollment-linked')+kpi('Portal uploads','19','Last 30 days')+'</div>'+
+'<div class="grid2">'+panel('Recent documents','Client + enrollment files',row('Proof of income.pdf','Angela Reed · ACA','Verified')+row('SOA-Robert-King.pdf','Robert King · Medicare','Verified')+row('SEP-event-proof.jpg','Tasha Green · ACA','Review','warn'))+
+panel('Missing evidence','Blocks or exceptions',row('Consent artifact','Marcus Hill','Required','red')+row('Prescription list','Elaine Carter','Needed','warn')+row('Carrier acknowledgment','James Wilson','Pending','warn'))+'</div>'}
+function carriers(){return head('Carrier Ops','Carriers','Carrier relationships, markets, appointments, contacts and product availability.',btn('Add Carrier'))+
+'<div class="kpis">'+kpi('Active carriers','14','ACA + Medicare')+kpi('States covered','9','Current sandbox')+kpi('Appointments pending','2','Agent/carrier')+kpi('Products cataloged','86','Plans / product lines')+'</div>'+
+'<div class="panel" style="margin-top:14px">'+table(['Carrier','Market','States','Products','Contracting','Status'],[
+tr(['<b>Humana</b><span>MA / PDP</span>','Medicare','FL · GA · TN','18',status('Current'),status('Active')]),
+tr(['<b>Florida Blue</b><span>Individual / Family</span>','ACA','FL','12',status('Current'),status('Active')]),
+tr(['<b>Ambetter</b><span>Marketplace</span>','ACA','FL · GA · NC','21',status('Review','warn'),status('Active')])
+])+'</div>'}
+function contracting(){return head('Carrier Ops','Carrier Contracting','Track agency and agent appointments, certifications and carrier readiness by state.',btn('Add Appointment'))+
+'<div class="gridEqual">'+panel('Appointment matrix','Agent readiness',row('Jordan Lee · Humana · FL','Appointment + cert current','Ready')+row('Casey Morgan · Aetna · GA','Certification expires Oct 1','Due','warn')+row('Taylor Brooks · Ambetter · NC','Carrier appointment pending','Blocked','red'))+
+panel('Agency readiness','Carrier-level',row('Humana','3 states · 4 agents','Ready')+row('Ambetter','3 states · 3 agents','Review','warn')+row('Florida Blue','FL · 2 agents','Ready'))+'</div>'}
+function evidence(){return head('Compliance','Evidence Bundles','Package consent, plan review, eligibility, application review and recording references per enrollment.',btn('Build Bundle'))+
+'<div class="panel">'+table(['Enrollment','Client','Market','Consent','Plan Review','Application Review','Recording','Bundle'],[
+tr(['ENR-1042','Angela Reed','ACA',status('Complete'),status('Complete'),status('Complete'),status('N/A','blue'),status('Ready')]),
+tr(['ENR-1048','Robert King','Medicare',status('Complete'),status('Complete'),status('Complete'),status('Linked'),status('Ready')]),
+tr(['ENR-1051','Marcus Hill','ACA',status('Missing','red'),status('Complete'),status('Pending','warn'),status('N/A','blue'),status('Blocked','red')])
+])+'</div>'}
+function onboarding(){return head('Setup','Agency Onboarding','Launch checklist for users, states, carriers, compliance, communications and reporting.',btn('Invite Team')+btn('Run Readiness Check','secondary'))+
+'<div class="kpis">'+kpi('Readiness','82%','Sandbox configuration')+kpi('Team invited','6','4 active')+kpi('States configured','4','FL · GA · TN · NC')+kpi('Carrier setup','10 / 14','71% ready')+'</div>'+
+'<div class="grid2">'+panel('Launch checklist','Core setup',row('Agency profile + branding','Configured','Complete')+row('Users + roles','4 active · 2 invited','Review','warn')+row('State licensing matrix','4 states loaded','Complete')+row('Carrier contracting','2 pending','Action','red'))+
+panel('Integration checklist','Connect later',row('Supabase','Not connected','Pending','warn')+row('CMS Marketplace API','Adapter ready','Pending','warn')+row('Phone / SMS / email','Provider selection pending','Pending','warn'))+'</div>'}
+function automations(){return head('Team','Automations','Event-driven follow-up, renewal, compliance and task workflows.',btn('New Automation'))+
+'<div class="panel">'+table(['Automation','Trigger','Action','Owner','Status'],[
+tr(['New lead response','Lead created','Assign + SMS/email task','Sales',status('Enabled')]),
+tr(['Renewal outreach','60 days before renewal','Create review task + outreach','Retention',status('Enabled')]),
+tr(['Missing evidence','Enrollment enters review','Compliance task','Compliance',status('Enabled')]),
+tr(['Commission exception','Variance detected','Create analyst task','Revenue',status('Paused','warn')])
+])+'</div>'}
+function team(){return head('Team','Team & Licensing','Users, production, state licenses, carrier certifications and role readiness.',btn('Add Team Member'))+
+'<div class="panel">'+table(['Team Member','Role','States','Carrier Certs','Production','Status'],[
+tr(['<b>Jordan Lee</b><span>jordan@agency.com</span>','Agent','FL · GA','Current','12 enrollments',status('Ready')]),
+tr(['<b>Casey Morgan</b><span>casey@agency.com</span>','Agent','FL · TN','1 due Oct 1','8 enrollments',status('Action','warn')]),
+tr(['<b>Taylor Brooks</b><span>taylor@agency.com</span>','Agent','NC','Current','6 enrollments',status('License due','red')])
+])+'</div>'}
+function settings(){return head('System','Settings','Integration status, agency defaults, permissions and sandbox controls.')+
+'<div class="gridEqual">'+panel('Integrations','Connection state',row('Supabase','Awaiting dedicated project','Disconnected','warn')+row('CMS Marketplace API','Adapter prepared','Disconnected','warn')+row('Telephony / SMS','Provider pending','Disconnected','warn')+row('Email','Provider pending','Disconnected','warn'))+
+panel('Agency defaults','Sandbox configuration',row('Primary market','ACA + Medicare','Set')+row('Default timezone','America/New_York','Set')+row('Evidence enforcement','Required before submission','Enabled')+row('Portal access','Invite-based','Enabled'))+'</div>'}
+
+const views={overview,leads,client360,enrollment,commissions,compliance,manager,portal,policies,reports,aca,medicare,renewals,documents,carriers,contracting,evidence,onboarding,automations,team,settings};
 function demo(msg){alert(msg+'\n\nSandbox action only. No production data was changed.');}
 function render(){const r=(location.hash||'#overview').slice(1);document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()}
 document.getElementById('nav').innerHTML=groups.map(([g,rs])=>'<div class="group"><div class="groupTitle">'+g+'</div>'+rs.map(r=>'<button class="navBtn" data-r="'+r+'"><span class="navIcon">'+(icons[r]||'•')+'</span><span class="navLabel">'+labels[r]+'</span>'+(r==='exceptions'?'<span class="badge">6</span>':'')+'</button>').join('')+'</div>').join('');
