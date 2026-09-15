@@ -161,7 +161,69 @@ function settings(){return head('System','Settings','Integration status, agency 
 '<div class="gridEqual">'+panel('Integrations','Connection state',row('Supabase','Awaiting dedicated project','Disconnected','warn')+row('CMS Marketplace API','Adapter prepared','Disconnected','warn')+row('Telephony / SMS','Provider pending','Disconnected','warn')+row('Email','Provider pending','Disconnected','warn'))+
 panel('Agency defaults','Sandbox configuration',row('Primary market','ACA + Medicare','Set')+row('Default timezone','America/New_York','Set')+row('Evidence enforcement','Required before submission','Enabled')+row('Portal access','Invite-based','Enabled'))+'</div>'}
 
-const views={overview,leads,client360,enrollment,commissions,compliance,manager,portal,policies,reports,aca,medicare,renewals,documents,carriers,contracting,evidence,onboarding,automations,team,settings};
+
+function eligibility(){return head('Enrollments','Eligibility Detail','Household, income, SEP/Medicare eligibility, subsidy context and verification status.',btn('Recheck Eligibility'))+
+'<div class="profile"><div class="profileCard"><div class="profileAvatar">MA</div><h2>Maria Alvarez</h2><div class="meta">ACA household · Florida</div><div class="mini"><div><b>4</b><span>Household size</span></div><div><b>$72,600</b><span>Annual income</span></div><div><b>$764</b><span>Est. APTC</span></div><div><b>SEP</b><span>Enrollment path</span></div></div></div>'+
+'<section class="panel"><div class="panelHead"><h3>Eligibility checks</h3><span>Sandbox data</span></div><div class="panelBody">'+row('Household composition','4 members verified','Complete')+row('Income review','$72,600 annual estimate','Complete')+row('SEP qualifying event','Loss of coverage · evidence uploaded','Review','warn')+row('Marketplace eligibility','Estimated eligible','Ready')+row('Medicaid/CHIP screen','No referral indicated','Complete')+'</div></section></div>'}
+function plans(){return head('Enrollments','Plan Compare','Compare premiums, deductibles, providers, prescriptions and estimated client fit.',btn('Run Comparison'))+
+'<div class="panel"><div class="panelHead"><h3>ACA sample comparison</h3><span>Demo data until CMS/carrier feeds connect</span></div>'+table(['Plan','Premium','Deductible','PCP','Rx Fit','Provider Fit','Est. Fit'],[
+tr(['<b>Silver Select 210</b><span>Sample plan</span>','$124/mo','$1,850','$25',status('4/4'),status('3/3'),status('Strong')]),
+tr(['<b>Silver Value 340</b><span>Sample plan</span>','$168/mo','$1,200','$35',status('4/4'),status('2/3','warn'),status('Good','blue')]),
+tr(['<b>Gold Choice 120</b><span>Sample plan</span>','$244/mo','$500','$20',status('4/4'),status('3/3'),status('Strong')])
+])+'</div>'+
+'<div class="gridEqual">'+panel('Saved client priorities','Angela Reed',row('Primary care doctor','Dr. Samuel Price','Required')+row('Prescriptions','4 medications','Required')+row('Preferred pharmacy','CVS','Preferred'))+panel('Comparison controls','Planned live integration',row('CMS Marketplace plans','Adapter prepared','Pending','warn')+row('Provider directory','Adapter prepared','Pending','warn')+row('Drug coverage','Adapter prepared','Pending','warn'))+'</div>'}
+function service(){return head('Policy Ops','Policy Service','Post-enrollment changes, ID cards, PCP updates, billing questions and coverage support.',btn('New Service Request'))+
+'<div class="kpis">'+kpi('Open requests','11','3 SLA risk')+kpi('Avg. resolution','7.4h','Business hours')+kpi('Portal submitted','6','55% of open')+kpi('Escalated','2','Carrier action')+'</div>'+
+'<div class="panel" style="margin-top:14px">'+table(['Request','Client','Type','Submitted','Owner','SLA','Status'],[
+tr(['SR-2204','Angela Reed','PCP change','2h ago','Jordan Lee','22h left',status('Open','blue')]),
+tr(['SR-2201','Robert King','ID card','7h ago','Casey Morgan','17h left',status('Open','blue')]),
+tr(['SR-2196','Tasha Green','Address update','Yesterday','Jordan Lee','2h left',status('SLA risk','warn')]),
+tr(['SR-2190','Marcus Hill','Billing question','2 days ago','Carrier desk','Escalated',status('Escalated','red')])
+])+'</div>'}
+function exceptions(){return head('Revenue','Commission Exceptions','Investigate unmatched payments, short pays, chargebacks and split mismatches.',btn('Create Exception')+btn('Export','secondary'))+
+'<div class="kpis">'+kpi('Open exceptions','6','$4,820 variance')+kpi('Unmatched rows','13','Across 3 statements')+kpi('Chargebacks','3','$1,140')+kpi('Split mismatches','2','$420')+'</div>'+
+'<div class="panel" style="margin-top:14px">'+table(['Exception','Carrier','Policy / Client','Reason','Amount','Owner','Status'],[
+tr(['EX-104','Humana','Robert King','Unexpected chargeback','$620','Revenue Ops',status('Review','warn')]),
+tr(['EX-103','Ambetter','Policy 88421','No policy match','$380','Jordan Lee',status('Open','blue')]),
+tr(['EX-101','Florida Blue','Angela Reed','Agent split mismatch','$210','Revenue Ops',status('Open','blue')])
+])+'</div>'}
+function mapping(){return head('Revenue','Statement Mapping','Normalize carrier commission files into a consistent reconciliation model.',btn('Upload Statement'))+
+'<div class="gridEqual">'+panel('Latest mapping','Humana · Sep 2026',row('Rows imported','118 total','Loaded')+row('Automatically matched','109 rows','92%')+row('Unmatched','9 rows','Review','warn')+row('Mapped amount','$12,940','Ready'))+
+panel('Column mapping','Carrier → CRM',row('Member ID','member_id','Mapped')+row('Policy number','policy_number','Mapped')+row('Paid amount','commission_amount','Mapped')+row('Producer code','agent_external_id','Review','warn'))+'</div>'}
+function consent(){return head('Compliance','Consent & Permission','Capture and track client authorization, review acknowledgments and enrollment permissions.',btn('Record Consent'))+
+'<div class="kpis">'+kpi('Active consents','127','Current records')+kpi('Missing','3','Enrollment blockers')+kpi('Expiring soon','8','Review window')+kpi('Audit complete','96%','Artifacts linked')+'</div>'+
+'<div class="panel" style="margin-top:14px">'+table(['Client','Market','Consent Type','Captured','Method','Artifact','Status'],[
+tr(['Angela Reed','ACA','Enrollment assistance','Sep 2','Electronic',status('Linked'),status('Valid')]),
+tr(['Robert King','Medicare','Permission / scope','Sep 5','Recorded call',status('Linked'),status('Valid')]),
+tr(['Marcus Hill','ACA','Enrollment assistance','—','—',status('Missing','red'),status('Blocked','red')])
+])+'</div>'}
+function audit(){return head('Compliance','Audit Log','Immutable-style operational history for enrollment, evidence, servicing and revenue actions.',btn('Export Audit','secondary'))+
+'<div class="panel">'+table(['Time','Actor','Area','Action','Record','Result'],[
+tr(['Sep 15 · 4:42 PM','Jordan Lee','Enrollment','Advanced to review','ENR-1051',status('Logged')]),
+tr(['Sep 15 · 4:19 PM','Revenue Ops','Commissions','Created exception','EX-104',status('Logged')]),
+tr(['Sep 15 · 3:58 PM','Casey Morgan','Client','Portal invite sent','Robert King',status('Logged')]),
+tr(['Sep 15 · 3:31 PM','Compliance','Evidence','Marked artifact missing','Marcus Hill',status('Logged')])
+])+'</div>'}
+function requests(){return head('Client experience','Portal Requests','Route member-submitted service requests into accountable agency workflows.',btn('New Request'))+
+'<div class="kpis">'+kpi('Open','11','All portal requests')+kpi('SLA risk','3','Due < 4 hours')+kpi('Resolved today','8','Median 5.2h')+kpi('Portal adoption','68%','Active clients')+'</div>'+
+'<div class="grid2">'+panel('Request queue','Oldest first',row('PCP update','Angela Reed · 2h ago','Open','blue')+row('ID card','Robert King · 7h ago','Open','blue')+row('Address change','Tasha Green · yesterday','SLA risk','warn'))+panel('Routing rules','Configured',row('Coverage / ID cards','Policy service queue','Enabled')+row('Billing','Carrier escalation queue','Enabled')+row('Enrollment changes','Assigned agent','Enabled'))+'</div>'}
+function permissions(){return head('Team','Permissions','Role-based access model for agency administrators, managers, agents, compliance and revenue teams.')+
+'<div class="panel">'+table(['Capability','Admin','Manager','Agent','Compliance','Revenue'],[
+tr(['Client records',status('Full'),status('Full'),status('Assigned'),status('Read'),status('Read')]),
+tr(['Enrollment submit',status('Yes'),status('Yes'),status('Assigned'),status('Review'),status('No','red')]),
+tr(['Compliance evidence',status('Full'),status('Review'),status('Upload'),status('Full'),status('Read')]),
+tr(['Commission statements',status('Full'),status('Read'),status('Own'),status('No','red'),status('Full')]),
+tr(['Team / settings',status('Full'),status('Limited','warn'),status('No','red'),status('No','red'),status('No','red')])
+])+'</div>'}
+function communications(){return head('System','Communications','Unified client contact timeline for calls, SMS, email and portal messages.',btn('New Message'))+
+'<div class="kpis">'+kpi('Unread','9','Across channels')+kpi('Calls today','23','7 Medicare')+kpi('Messages today','41','SMS + email')+kpi('Follow-ups due','12','Before EOD')+'</div>'+
+'<div class="grid2">'+panel('Recent conversations','Latest activity',row('Angela Reed','SMS · “Uploaded the document”','Unread','blue')+row('Robert King','Call · 8m 14s · recording ref saved','Complete')+row('Maria Alvarez','Email · appointment confirmation','Delivered'))+panel('Provider readiness','Connect later',row('Voice / recording','Provider pending','Disconnected','warn')+row('SMS','Provider pending','Disconnected','warn')+row('Email','Provider pending','Disconnected','warn'))+'</div>'}
+function advanced(){return head('Analytics','Advanced Reports','Deeper agency intelligence for cohort retention, carrier mix, compliance and revenue quality.',btn('Export Report','secondary'))+
+'<div class="kpis">'+kpi('90-day retention','93%','Issued policies')+kpi('ACA conversion','51%','Completed appointments')+kpi('Medicare conversion','45%','Completed appointments')+kpi('Evidence risk','6%','Open enrollment files')+'</div>'+
+'<div class="gridEqual">'+panel('Carrier mix','Issued book',row('Humana','28% of active policies','Largest')+row('Ambetter','24% of active policies','Healthy')+row('Florida Blue','18% of active policies','Healthy')+row('Other carriers','30% combined','Diversified'))+
+panel('Operational quality','Last 30 days',row('Median first response','4m 18s','Good')+row('Median service resolution','7.4h','Good')+row('Commission match rate','92%','Review','warn')+row('Evidence completeness','94%','Review','warn'))+'</div>'}
+
+const views={overview,leads,client360,enrollment,commissions,compliance,manager,portal,policies,reports,aca,medicare,renewals,documents,carriers,contracting,evidence,onboarding,automations,team,settings,eligibility,plans,service,exceptions,mapping,consent,audit,requests,permissions,communications,advanced};
 function demo(msg){alert(msg+'\n\nSandbox action only. No production data was changed.');}
 function render(){const r=(location.hash||'#overview').slice(1);document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()}
 document.getElementById('nav').innerHTML=groups.map(([g,rs])=>'<div class="group"><div class="groupTitle">'+g+'</div>'+rs.map(r=>'<button class="navBtn" data-r="'+r+'"><span class="navIcon">'+(icons[r]||'•')+'</span><span class="navLabel">'+labels[r]+'</span>'+(r==='exceptions'?'<span class="badge">6</span>':'')+'</button>').join('')+'</div>').join('');
