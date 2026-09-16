@@ -1,0 +1,42 @@
+{
+  "email": {
+    "event_type": "message.delivered",
+    "provider_event_id": "evt_email_001",
+    "to": "angela@example.test",
+    "provider_status": "delivered"
+  },
+  "sms": {
+    "event_type": "message.received",
+    "provider_event_id": "evt_sms_001",
+    "from": "+15615550121",
+    "body": "I uploaded the income document."
+  },
+  "voice": {
+    "event_type": "call.completed",
+    "provider_event_id": "evt_call_001",
+    "from": "+15615550148",
+    "duration_seconds": 494,
+    "recording_ref": "mock://recording/001"
+  },
+  "fax": {
+    "event_type": "fax.received",
+    "provider_event_id": "evt_fax_001",
+    "from": "+15615550199",
+    "pages": 5,
+    "document_ref": "mock://fax/001"
+  },
+  "cms": {
+    "event_type": "plans.response",
+    "provider_event_id": "evt_cms_001",
+    "market": "aca",
+    "state": "FL",
+    "plan_count": 3
+  },
+  "carrier": {
+    "event_type": "commission.statement",
+    "provider_event_id": "evt_carrier_001",
+    "carrier": "Humana",
+    "row_count": 118,
+    "total_amount": 12940
+  }
+}
