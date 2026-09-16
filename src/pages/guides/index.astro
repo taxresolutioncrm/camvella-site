@@ -1,4 +1,5 @@
 ---
+import { seoGuides } from '../../data/seoGuides'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 ---
 <BaseLayout title="HOA Management Guides | Camvella" description="Practical HOA management guides covering software evaluation, implementation, pricing, violations, reserve accounting and community association operations.">
@@ -9,5 +10,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 <a href="/guides/hoa-software-implementation-checklist"><h2>Implementation Checklist</h2><p>Plan data migration, staff setup, testing, training and cutover.</p></a>
 <a href="/guides/hoa-violation-management-workflow"><h2>Violation Management Workflow</h2><p>Connect evidence, notices, cure periods, hearings, fines and closure.</p></a>
 <a href="/guides/hoa-reserve-fund-accounting-guide"><h2>Reserve Fund Accounting Guide</h2><p>Keep reserve activity separate, controlled and board-ready.</p></a>
-</div></section></BaseLayout>
+{seoGuides.map((guide) => <a href={`/guides/${guide.slug}`}><h2>{guide.title}</h2><p>{guide.description}</p></a>)}
+</div>
+</section></BaseLayout>
 <style>.guide-hero{padding:128px 0 72px;background:linear-gradient(135deg,var(--clr-navy),#0d3857);color:#fff}.guide-hero h1{font-size:clamp(2.4rem,5vw,4rem);line-height:1.02;letter-spacing:-.045em;margin:.5rem 0 1.2rem}.guide-hero p{color:rgba(255,255,255,.76);font-size:var(--text-lg);line-height:1.7}.guide-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}.guide-grid a{padding:1.5rem;border:1px solid var(--clr-border);border-radius:var(--radius-xl);background:#fff}.guide-grid h2{font-size:1.2rem;color:var(--clr-navy);margin-bottom:.6rem}.guide-grid p{color:var(--clr-text-soft);line-height:1.7}</style>
