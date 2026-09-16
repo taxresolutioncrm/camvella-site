@@ -1,0 +1,3 @@
+carrier,external_member_id,external_policy_number,producer_external_id,commission_type,gross_amount,split_amount,net_amount,effective_date,paid_date
+Humana,M1001,POL1001,AGENT01,renewal,125.00,25.00,100.00,2026-01-01,2026-09-10
+Ambetter,M1002,POL1002,AGENT02,new_business,180.00,0.00,180.00,2026-08-01,2026-09-10
