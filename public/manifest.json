@@ -7,6 +7,6 @@
   "background_color": "#0F1B2D",
   "theme_color": "#0F1B2D",
   "icons": [
-    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+    { "src": "/brand/camvella-favicon.svg?v=20260916", "sizes": "any", "type": "image/svg+xml" }
   ]
 }
