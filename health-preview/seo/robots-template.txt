@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /app/
+Disallow: /account/
+Disallow: /auth/
+
+Sitemap: https://DOMAIN/sitemap.xml
