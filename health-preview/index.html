@@ -21,6 +21,7 @@
 .cardGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:14px}.infoCard{border:1px solid var(--line);border-radius:11px;padding:13px}.infoCard h4{margin:0 0 7px;font-size:12px}.infoCard p{margin:4px 0;font-size:11px;color:var(--muted)}
 .timeline{padding:8px 16px}.event{display:grid;grid-template-columns:18px 1fr;gap:10px;padding:10px 0}.dot{width:9px;height:9px;border-radius:50%;background:var(--teal);margin-top:5px}.event b{font-size:12px}.event span{font-size:10px;color:var(--muted);display:block;margin-top:2px}
 .empty{padding:28px;text-align:center;color:var(--muted);font-size:12px}
+.modalBackdrop{position:fixed;inset:0;background:rgba(7,24,35,.52);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}.modalBackdrop.open{display:flex}.modal{width:min(620px,96vw);max-height:88vh;overflow:auto;background:#fff;border-radius:16px;box-shadow:0 28px 80px rgba(0,0,0,.24)}.modalHead{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line)}.modalHead h3{margin:0;font-size:15px}.modalClose{border:0;background:#f2f5f6;width:31px;height:31px;border-radius:8px;cursor:pointer}.modalBody{padding:18px}.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}.field input,.field select,.field textarea{border:1px solid var(--line);border-radius:9px;padding:10px;background:#fbfcfd;color:var(--ink);outline:none}.field textarea{min-height:100px;resize:vertical}.modalFoot{display:flex;justify-content:flex-end;gap:8px;padding:14px 18px;border-top:1px solid var(--line)}.toast{position:fixed;right:22px;bottom:22px;background:#102f40;color:#fff;padding:12px 14px;border-radius:10px;box-shadow:var(--shadow);font-size:12px;opacity:0;transform:translateY(8px);pointer-events:none;transition:.2s;z-index:60}.toast.show{opacity:1;transform:none}
 @media(max-width:1100px){.kpis{grid-template-columns:1fr 1fr}.grid2,.gridEqual,.profile{grid-template-columns:1fr}.app{grid-template-columns:84px 1fr}.logo div:last-child,.navLabel,.groupTitle,.badge{display:none}.groupToggle{justify-content:center;padding:6px 0}.groupChevron{font-size:13px}.logo{justify-content:center}.navBtn{justify-content:center}.content{padding:18px}.cardGrid{grid-template-columns:1fr 1fr}}
 @media(max-width:680px){.kpis{grid-template-columns:1fr}.topbar{padding:0 14px}.search{width:58vw}.content{padding:12px}.pageHead{align-items:flex-start;flex-direction:column}.cardGrid{grid-template-columns:1fr}.stageRow{grid-template-columns:1fr 1fr}.app{grid-template-columns:66px 1fr}.sidebar{padding:12px 8px}}
 </style>
@@ -30,6 +31,16 @@
 <aside class="sidebar"><div class="logo"><div class="logoMark">HI</div><div><b>RomyLabs Insurance</b><span>ACA + Medicare CRM</span></div></div><div id="nav"></div></aside>
 <main class="main"><header class="topbar"><div class="search"><input id="search" placeholder="Search clients, policies, carriers, tasks…"></div><div class="account"><div class="avatar">RA</div><div><b>Romy Agency</b><span>Sandbox · backend disconnected</span></div></div></header><div id="view" class="content"></div></main>
 </div>
+<div id="actionModal" class="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal">
+    <div class="modalHead"><h3 id="modalTitle">New record</h3><button class="modalClose" id="modalClose" aria-label="Close">×</button></div>
+    <form id="modalForm">
+      <div class="modalBody"><div id="modalFields" class="formGrid"></div></div>
+      <div class="modalFoot"><button type="button" class="btn secondary" id="modalCancel">Cancel</button><button type="submit" class="btn primary">Save in sandbox</button></div>
+    </form>
+  </div>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script>
 const groups=[
 ['Command',['overview','manager','reports']],
@@ -49,7 +60,7 @@ const kpi=(l,v,f,d='')=>'<div class="kpi"><div class="kpiLabel">'+l+'</div><div 
 const head=(e,t,p,actions='')=>'<div class="pageHead"><div><div class="eyebrow">'+e+'</div><h1>'+t+'</h1><p>'+p+'</p></div><div class="actions">'+actions+'</div></div>';
 const row=(a,b,s,c='')=>'<div class="item"><div><b>'+a+'</b><div class="meta">'+b+'</div></div>'+status(s,c)+'</div>';
 const panel=(title,sub,body)=>'<section class="panel"><div class="panelHead"><h3>'+title+'</h3><span>'+sub+'</span></div><div class="panelBody">'+body+'</div></section>';
-const btn=(t,kind='primary',msg=t)=>'<button class="btn '+kind+'" onclick="demo(\''+msg.replaceAll("'","\\'")+'\')">'+t+'</button>';
+const btn=(t,kind='primary',msg=t)=>'<button class="btn '+kind+'" onclick="openAction(\''+msg.replaceAll("'","\\'")+'\')">'+t+'</button>';
 const table=(h,rows)=>'<div class="tableWrap"><table class="table"><thead><tr>'+h.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';
 const tr=(cells)=>'<tr>'+cells.map((x,i)=>'<td class="'+(i===0?'nameCell':'')+'">'+x+'</td>').join('')+'</tr>';
 function overview(){return head('Agency operations','Command Center','ACA + Medicare production, compliance, retention and revenue in one place.',btn('+ New Lead')+btn('Book Appointment','secondary'))+
@@ -311,7 +322,60 @@ panel('Import diagnostics','Pre-backend templates',row('Lead CSV','Required fiel
 panel('Launch simulation','What can run without backend',row('Navigation + module flow','All routes available','Pass')+row('Provider event shapes','Fixture-driven','Pass')+row('CSV normalization rules','Static validation','Pass')+row('Persistent data writes','Requires Supabase','Blocked','warn'))+'</div>'}
 
 const views={overview,leads,clients,client360,appointments,enrollment,commissions,compliance,manager,portal,policies,reports,aca,medicare,renewals,documents,carriers,contracting,evidence,onboarding,automations,tasks,team,settings,eligibility,plans,service,exceptions,mapping,consent,audit,requests,permissions,communications,advanced,integration,lab,inbox,email,phone,sms,fax,voicemail,history,catalog};
-function demo(msg){alert(msg+'\n\nSandbox action only. No production data was changed.');}
+const actionSchemas={
+'New Lead':[['First name','text'],['Last name','text'],['Market','select','ACA|Medicare'],['Phone','tel'],['Email','email'],['Source','text']],
+'Book Appointment':[['Client / Lead','text'],['Market','select','ACA|Medicare'],['Date & time','datetime-local'],['Agent','text'],['Type','text']],
+'Compose Email':[['To','email'],['Subject','text'],['Message','textarea']],
+'New Message':[['Channel','select','Email|SMS|Portal'],['To','text'],['Message','textarea']],
+'New SMS':[['To','tel'],['Message','textarea']],
+'Send Fax':[['To fax number','tel'],['Document reference','text'],['Notes','textarea']],
+'Open Dialer':[['Phone number','tel'],['Client / Lead','text'],['Recording','select','Enabled|Disabled']],
+'Call Client':[['Phone number','tel'],['Client','text'],['Recording','select','Enabled|Disabled']],
+'New Task':[['Task','text'],['Assigned to','text'],['Priority','select','Normal|High|Urgent'],['Due','datetime-local']],
+'New Service Request':[['Client','text'],['Request type','text'],['Priority','select','Normal|High|Urgent'],['Details','textarea']],
+'New Enrollment':[['Client','text'],['Market','select','ACA|Medicare'],['Enrollment type','text'],['Agent','text']],
+'New ACA Case':[['Client','text'],['SEP / Enrollment reason','text'],['Household size','number'],['Agent','text']],
+'New Medicare Case':[['Client','text'],['Election period','select','AEP|OEP|SEP|ICEP'],['Product focus','select','MA|MA-PD|PDP'],['Agent','text']],
+'Upload Document':[['Client','text'],['Document type','text'],['File name','text'],['Notes','textarea']],
+'Record Consent':[['Client','text'],['Consent type','text'],['Capture method','select','Electronic|Recorded call|Paper'],['Artifact reference','text']],
+'Add Appointment':[['Carrier','text'],['Agent','text'],['State','text'],['Market','select','ACA|Medicare']],
+'Import Statement':[['Carrier','text'],['Statement period','month'],['File name','text']],
+'Upload Statement':[['Carrier','text'],['Statement period','month'],['File name','text']],
+'Add Client':[['First name','text'],['Last name','text'],['Market','select','ACA|Medicare'],['Phone','tel'],['Email','email']],
+'Add Carrier':[['Carrier name','text'],['Market','select','ACA|Medicare'],['Status','select','Active|Review']],
+'Add Product':[['Carrier','text'],['Product name','text'],['Market','select','ACA|Medicare'],['State','text'],['Plan year','number']],
+'Invite Team':[['Name','text'],['Email','email'],['Role','select','Agency Admin|Manager|Agent|Compliance|Revenue']],
+'Invite Client':[['Client','text'],['Email','email']],
+'Send Portal Invite':[['Client','text'],['Email','email']]
+};
+const defaultSchema=[['Name / record','text'],['Details','textarea']];
+function actionKey(label){return Object.keys(actionSchemas).find(k=>label.toLowerCase().includes(k.toLowerCase()))||label}
+function fieldHtml([label,type,options]){
+ const id='f-'+label.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+ if(type==='textarea')return '<div class="field full"><label for="'+id+'">'+label+'</label><textarea id="'+id+'" name="'+label+'" required></textarea></div>';
+ if(type==='select')return '<div class="field"><label for="'+id+'">'+label+'</label><select id="'+id+'" name="'+label+'" required>'+options.split('|').map(x=>'<option>'+x+'</option>').join('')+'</select></div>';
+ return '<div class="field"><label for="'+id+'">'+label+'</label><input id="'+id+'" name="'+label+'" type="'+type+'" required></div>';
+}
+function openAction(label){
+ const key=actionKey(label),modal=document.getElementById('actionModal');
+ document.getElementById('modalTitle').textContent=label;
+ document.getElementById('modalFields').innerHTML=(actionSchemas[key]||defaultSchema).map(fieldHtml).join('');
+ modal.dataset.action=label;modal.classList.add('open');modal.setAttribute('aria-hidden','false');
+ setTimeout(()=>modal.querySelector('input,select,textarea')?.focus(),20);
+}
+function closeAction(){const m=document.getElementById('actionModal');m.classList.remove('open');m.setAttribute('aria-hidden','true')}
+function showToast(message){const t=document.getElementById('toast');t.textContent=message;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2300)}
+document.getElementById('modalClose').onclick=closeAction;
+document.getElementById('modalCancel').onclick=closeAction;
+document.getElementById('actionModal').addEventListener('click',e=>{if(e.target.id==='actionModal')closeAction()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAction()});
+document.getElementById('modalForm').addEventListener('submit',e=>{
+ e.preventDefault();const modal=document.getElementById('actionModal');
+ const entry={id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())),action:modal.dataset.action,fields:Object.fromEntries(new FormData(e.target)),created_at:new Date().toISOString()};
+ const log=JSON.parse(localStorage.getItem('health-crm-sandbox-actions')||'[]');log.unshift(entry);localStorage.setItem('health-crm-sandbox-actions',JSON.stringify(log.slice(0,100)));
+ closeAction();showToast((modal.dataset.action||'Action')+' saved in sandbox');e.target.reset();
+});
+function demo(msg){showToast(msg+' · sandbox only');}
 function render(){const r=(location.hash||'#overview').slice(1);document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));const activeBtn=document.querySelector('.navBtn[data-r="'+r+'"]');if(activeBtn){const g=activeBtn.closest('.group');if(g&&g.classList.contains('collapsed')){g.classList.remove('collapsed');sidebarState[g.dataset.group]=false;localStorage.setItem(sidebarStateKey,JSON.stringify(sidebarState));const toggle=g.querySelector('.groupToggle');if(toggle)toggle.setAttribute('aria-expanded','true')}}document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()}
 const sidebarStateKey='health-crm-sidebar-groups-v1';
 let sidebarState={};
