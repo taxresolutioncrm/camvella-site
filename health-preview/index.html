@@ -9,7 +9,7 @@
 *{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}
 .app{display:grid;grid-template-columns:268px 1fr;min-height:100vh}.sidebar{background:linear-gradient(180deg,var(--nav),#0b2130);color:#fff;height:100vh;position:sticky;top:0;overflow:auto;padding:18px 14px 20px}
 .logo{display:flex;align-items:center;gap:11px;padding:4px 8px 17px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px}.logoMark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#58d2c7,#1e8f86);display:grid;place-items:center;font-weight:900;color:#092837}.logo b{font-size:15px;display:block}.logo span{font-size:11px;color:#9cb7c7}
-.group{margin-top:15px}.groupTitle{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#7795a7;padding:0 10px 7px}.navBtn{width:100%;display:flex;align-items:center;gap:10px;border:0;background:transparent;color:#bcd0db;padding:9px 10px;border-radius:9px;margin:2px 0;text-align:left;cursor:pointer;font-size:13px}.navBtn:hover,.navBtn.active{background:var(--nav2);color:#fff}.navIcon{width:18px;text-align:center;opacity:.9}.badge{margin-left:auto;background:#1d536d;padding:2px 7px;border-radius:999px;font-size:10px;color:#d8edf5}
+.group{margin-top:8px}.groupToggle{width:100%;border:0;background:transparent;color:#7896a8;padding:8px 10px 6px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-radius:8px}.groupToggle:hover{background:rgba(255,255,255,.035);color:#a8c0cd}.groupTitle{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:800}.groupChevron{font-size:11px;transition:transform .18s ease;color:#66879a}.group.collapsed .groupChevron{transform:rotate(-90deg)}.groupBody{display:grid;grid-template-rows:1fr;transition:grid-template-rows .18s ease,opacity .18s ease;opacity:1}.groupBodyInner{min-height:0;overflow:hidden}.group.collapsed .groupBody{grid-template-rows:0fr;opacity:.35}.navBtn{width:100%;display:flex;align-items:center;gap:10px;border:0;background:transparent;color:#bcd0db;padding:9px 10px;border-radius:9px;margin:2px 0;text-align:left;cursor:pointer;font-size:13px}.navBtn:hover,.navBtn.active{background:var(--nav2);color:#fff}.navIcon{width:18px;text-align:center;opacity:.9}.badge{margin-left:auto;background:#1d536d;padding:2px 7px;border-radius:999px;font-size:10px;color:#d8edf5}
 .main{min-width:0}.topbar{height:72px;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 26px;position:sticky;top:0;z-index:10;backdrop-filter:blur(8px)}.search{width:min(520px,52vw);position:relative}.search input{width:100%;border:1px solid var(--line);background:#f9fbfc;border-radius:10px;padding:10px 13px 10px 36px;outline:none}.search:before{content:"⌕";position:absolute;left:12px;top:8px;color:#80919d;font-size:18px}.account{display:flex;gap:11px;align-items:center}.avatar{width:34px;height:34px;border-radius:50%;background:#e7f3f4;color:#176c66;display:grid;place-items:center;font-weight:800}.account b{font-size:13px}.account span{display:block;color:var(--muted);font-size:11px}
 .content{padding:26px;max-width:1500px;margin:auto}.pageHead{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;margin-bottom:20px}.eyebrow{font-size:11px;color:var(--teal);font-weight:800;letter-spacing:.08em;text-transform:uppercase}.pageHead h1{font-size:28px;margin:4px 0 4px;letter-spacing:-.03em}.pageHead p{margin:0;color:var(--muted);font-size:13px}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:9px;padding:9px 12px;cursor:pointer;font-weight:700;font-size:12px}.btn.primary{background:var(--teal);color:#fff}.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
 .notice{background:#edf8f6;border:1px solid #c9ebe6;border-radius:12px;padding:11px 13px;margin-bottom:16px;font-size:12px;color:#2b605c}
@@ -21,7 +21,7 @@
 .cardGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:14px}.infoCard{border:1px solid var(--line);border-radius:11px;padding:13px}.infoCard h4{margin:0 0 7px;font-size:12px}.infoCard p{margin:4px 0;font-size:11px;color:var(--muted)}
 .timeline{padding:8px 16px}.event{display:grid;grid-template-columns:18px 1fr;gap:10px;padding:10px 0}.dot{width:9px;height:9px;border-radius:50%;background:var(--teal);margin-top:5px}.event b{font-size:12px}.event span{font-size:10px;color:var(--muted);display:block;margin-top:2px}
 .empty{padding:28px;text-align:center;color:var(--muted);font-size:12px}
-@media(max-width:1100px){.kpis{grid-template-columns:1fr 1fr}.grid2,.gridEqual,.profile{grid-template-columns:1fr}.app{grid-template-columns:84px 1fr}.logo div:last-child,.navLabel,.groupTitle,.badge{display:none}.logo{justify-content:center}.navBtn{justify-content:center}.content{padding:18px}.cardGrid{grid-template-columns:1fr 1fr}}
+@media(max-width:1100px){.kpis{grid-template-columns:1fr 1fr}.grid2,.gridEqual,.profile{grid-template-columns:1fr}.app{grid-template-columns:84px 1fr}.logo div:last-child,.navLabel,.groupTitle,.badge{display:none}.groupToggle{justify-content:center;padding:6px 0}.groupChevron{font-size:13px}.logo{justify-content:center}.navBtn{justify-content:center}.content{padding:18px}.cardGrid{grid-template-columns:1fr 1fr}}
 @media(max-width:680px){.kpis{grid-template-columns:1fr}.topbar{padding:0 14px}.search{width:58vw}.content{padding:12px}.pageHead{align-items:flex-start;flex-direction:column}.cardGrid{grid-template-columns:1fr}.stageRow{grid-template-columns:1fr 1fr}.app{grid-template-columns:66px 1fr}.sidebar{padding:12px 8px}}
 </style>
 </head>
@@ -312,9 +312,44 @@ panel('Launch simulation','What can run without backend',row('Navigation + modul
 
 const views={overview,leads,clients,client360,appointments,enrollment,commissions,compliance,manager,portal,policies,reports,aca,medicare,renewals,documents,carriers,contracting,evidence,onboarding,automations,tasks,team,settings,eligibility,plans,service,exceptions,mapping,consent,audit,requests,permissions,communications,advanced,integration,lab,inbox,email,phone,sms,fax,voicemail,history,catalog};
 function demo(msg){alert(msg+'\n\nSandbox action only. No production data was changed.');}
-function render(){const r=(location.hash||'#overview').slice(1);document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()}
-document.getElementById('nav').innerHTML=groups.map(([g,rs])=>'<div class="group"><div class="groupTitle">'+g+'</div>'+rs.map(r=>'<button class="navBtn" data-r="'+r+'"><span class="navIcon">'+(icons[r]||'•')+'</span><span class="navLabel">'+labels[r]+'</span>'+(r==='exceptions'?'<span class="badge">6</span>':'')+'</button>').join('')+'</div>').join('');
-document.querySelectorAll('.navBtn').forEach(b=>b.onclick=()=>location.hash=b.dataset.r);
+function render(){const r=(location.hash||'#overview').slice(1);document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));const activeBtn=document.querySelector('.navBtn[data-r="'+r+'"]');if(activeBtn){const g=activeBtn.closest('.group');if(g&&g.classList.contains('collapsed')){g.classList.remove('collapsed');sidebarState[g.dataset.group]=false;localStorage.setItem(sidebarStateKey,JSON.stringify(sidebarState));const toggle=g.querySelector('.groupToggle');if(toggle)toggle.setAttribute('aria-expanded','true')}}document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()}
+const sidebarStateKey='health-crm-sidebar-groups-v1';
+let sidebarState={};
+try{sidebarState=JSON.parse(localStorage.getItem(sidebarStateKey)||'{}')}catch(e){sidebarState={}}
+const activeRoute=(location.hash||'#overview').slice(1);
+const activeGroupName=(groups.find(([,rs])=>rs.includes(activeRoute))||[])[0];
+document.getElementById('nav').innerHTML=groups.map(([g,rs],i)=>{
+  const saved=sidebarState[g];
+  const collapsed=(g===activeGroupName)?false:(saved===undefined?(i>2):!!saved);
+  return '<div class="group '+(collapsed?'collapsed':'')+'" data-group="'+g+'">'+
+    '<button class="groupToggle" type="button" aria-expanded="'+(!collapsed)+'">'+
+      '<span class="groupTitle">'+g+'</span><span class="groupChevron">⌄</span>'+
+    '</button>'+
+    '<div class="groupBody"><div class="groupBodyInner">'+
+      rs.map(r=>'<button class="navBtn" data-r="'+r+'"><span class="navIcon">'+(icons[r]||'•')+'</span><span class="navLabel">'+labels[r]+'</span>'+(r==='exceptions'?'<span class="badge">6</span>':'')+'</button>').join('')+
+    '</div></div></div>';
+}).join('');
+document.querySelectorAll('.groupToggle').forEach(t=>t.onclick=()=>{
+  const g=t.closest('.group');
+  g.classList.toggle('collapsed');
+  const name=g.dataset.group;
+  const collapsed=g.classList.contains('collapsed');
+  sidebarState[name]=collapsed;
+  localStorage.setItem(sidebarStateKey,JSON.stringify(sidebarState));
+  t.setAttribute('aria-expanded',String(!collapsed));
+});
+document.querySelectorAll('.navBtn').forEach(b=>b.onclick=()=>{
+  location.hash=b.dataset.r;
+  const g=b.closest('.group');
+  if(g&&g.classList.contains('collapsed')){
+    g.classList.remove('collapsed');
+    const name=g.dataset.group;
+    sidebarState[name]=false;
+    localStorage.setItem(sidebarStateKey,JSON.stringify(sidebarState));
+    const toggle=g.querySelector('.groupToggle');
+    if(toggle)toggle.setAttribute('aria-expanded','true');
+  }
+});
 document.getElementById('search').onkeydown=e=>{if(e.key==='Enter'&&e.target.value.trim())alert('Search preview: '+e.target.value+'\n\nLive global search will connect with the backend.');};
 addEventListener('hashchange',render);render();
 </script>
