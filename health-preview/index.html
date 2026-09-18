@@ -507,7 +507,116 @@ function sandboxActivity(route){
  if(!log.length)return '';
  return panel('Recent sandbox activity','Stored locally until Supabase is connected',log.map(x=>row(x.action,new Date(x.created_at).toLocaleString(),Object.keys(x.fields||{}).length+' fields','blue')).join(''));
 }
-function render(){let r=(location.hash||'#overview').slice(1);if(currentRole&&!canRoute(r,currentRole)){r='overview';if(location.hash!=='#overview')history.replaceState(null,'','#overview')}document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));const activeBtn=document.querySelector('.navBtn[data-r="'+r+'"]');if(activeBtn){const g=activeBtn.closest('.group');if(g&&g.classList.contains('collapsed')){g.classList.remove('collapsed');sidebarState[g.dataset.group]=false;localStorage.setItem(sidebarStateKey,JSON.stringify(sidebarState));const toggle=g.querySelector('.groupToggle');if(toggle)toggle.setAttribute('aria-expanded','true')}}document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()+sandboxActivity(r)}
+
+const escLive=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const fmtLiveDate=value=>{if(!value)return '—';const d=new Date(value);return Number.isNaN(d.getTime())?escLive(value):d.toLocaleString()};
+const fmtLiveMoney=value=>value==null?'—':new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(value)||0);
+const livePill=value=>'<span class="pill">'+escLive(value??'—')+'</span>';
+const liveEmpty=message=>'<div class="notice"><b>LIVE WORKSPACE:</b> '+escLive(message)+'</div>';
+function liveTable(headers,rows){
+ return '<div class="tableWrap"><table class="table"><thead><tr>'+headers.map(x=>'<th>'+escLive(x)+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';
+}
+function liveTr(cells){return '<tr>'+cells.map((x,i)=>'<td class="'+(i===0?'nameCell':'')+'">'+x+'</td>').join('')+'</tr>'}
+function liveRows(resource,rows){
+ if(!rows?.length)return liveEmpty('No records are available in this workspace yet.');
+ const map={
+  leads:{h:['Lead','Market','Stage','Source','Score','Created'],r:x=>[escLive((x.first_name||'')+' '+(x.last_name||''))+'<span>'+escLive(x.email||x.phone||'')+'</span>',escLive(x.market),livePill(x.stage),escLive(x.source||'—'),escLive(x.score??'—'),fmtLiveDate(x.created_at)]},
+  appointments:{h:['Start','Type','Status','Client / Lead','Assigned','Outcome'],r:x=>[fmtLiveDate(x.starts_at),escLive(x.appointment_type),livePill(x.status),escLive(x.client_id||x.lead_id||'—'),escLive(x.assigned_user_id||'Unassigned'),escLive(x.outcome||'—')]},
+  clients:{h:['Client','Market','Contact','Portal','Renewal risk','Created'],r:x=>[escLive((x.first_name||'')+' '+(x.last_name||'')),escLive(x.market),escLive(x.email||x.phone||'—'),livePill(x.portal_status),livePill(x.renewal_risk),fmtLiveDate(x.created_at)]},
+  enrollments:{h:['Enrollment','Market','Type','Lifecycle','Eligibility','Effective'],r:x=>[escLive(x.client_id),escLive(x.market),escLive(x.enrollment_type||'—'),livePill(x.lifecycle_status),escLive(x.eligibility_status||'—'),escLive(x.effective_date||'—')]},
+  households:{h:['Client','Household','Income','Location','Eligibility','Created'],r:x=>[escLive(x.client_id),escLive(x.household_size),fmtLiveMoney(x.annual_income),escLive([x.county,x.state].filter(Boolean).join(', ')||'—'),livePill(x.eligibility_status||'pending'),fmtLiveDate(x.created_at)]},
+  evidenceBundles:{h:['Enrollment','Status','Generated','Storage','Created'],r:x=>[escLive(x.enrollment_id),livePill(x.status),fmtLiveDate(x.generated_at),escLive(x.storage_path?'Stored':'Not stored'),fmtLiveDate(x.created_at)]},
+  policies:{h:['Policy','Client','Status','Effective','Renewal','Premium'],r:x=>[escLive(x.policy_number||x.id),escLive(x.client_id),livePill(x.status),escLive(x.effective_date),escLive(x.renewal_date||'—'),fmtLiveMoney(x.premium_amount)]},
+  serviceRequests:{h:['Request','Client','Priority','Status','Assigned','Created'],r:x=>[escLive(x.request_type),escLive(x.client_id),livePill(x.priority),livePill(x.status),escLive(x.assigned_user_id||'Unassigned'),fmtLiveDate(x.created_at)]},
+  renewals:{h:['Client','Market','Risk','Outreach','Window','Outcome'],r:x=>[escLive(x.client_id),escLive(x.market),livePill(x.risk_level),livePill(x.outreach_status),escLive([x.review_window_start,x.review_window_end].filter(Boolean).join(' → ')||'—'),escLive(x.outcome||'—')]},
+  commissionExceptions:{h:['Reason','Amount','Status','Assigned','Created'],r:x=>[escLive(x.reason),fmtLiveMoney(x.amount),livePill(x.status),escLive(x.assigned_user_id||'Unassigned'),fmtLiveDate(x.created_at)]},
+  commissionLines:{h:['Policy','Type','Gross','Net','Match','Paid'],r:x=>[escLive(x.external_policy_number||x.policy_id||'—'),escLive(x.commission_type||'—'),fmtLiveMoney(x.gross_amount),fmtLiveMoney(x.net_amount),livePill(x.match_status),escLive(x.paid_date||'—')]},
+  consent:{h:['Client','Consent','Method','Status','Captured','Expires'],r:x=>[escLive(x.client_id),escLive(x.consent_type),escLive(x.capture_method),livePill(x.status),fmtLiveDate(x.captured_at),fmtLiveDate(x.expires_at)]},
+  documents:{h:['File','Type','Client','Portal','Size','Created'],r:x=>[escLive(x.file_name),escLive(x.document_type),escLive(x.client_id||'—'),livePill(x.portal_visible?'Shared':'Agency only'),escLive(x.byte_size??'—'),fmtLiveDate(x.created_at)]},
+  auditLog:{h:['Action','Entity','Actor','Office','Created'],r:x=>[escLive(x.action),escLive((x.entity_type||'')+' · '+(x.entity_id||'')),escLive(x.actor_user_id||x.actor_type||'system'),escLive(x.office_id||'—'),fmtLiveDate(x.created_at)]},
+  carriers:{h:['Carrier','Market','Status','Created'],r:x=>[escLive(x.name),escLive(x.market||'Both'),livePill(x.status),fmtLiveDate(x.created_at)]},
+  carrierContracts:{h:['Carrier','Agent','State','Market','Appointment','Certification'],r:x=>[escLive(x.carrier_id),escLive(x.user_id||'Agency'),escLive(x.state),escLive(x.market),livePill(x.appointment_status),livePill(x.certification_status||'pending')]},
+  carrierProducts:{h:['Product','Carrier','Market','Type','State','Year','Status'],r:x=>[escLive(x.product_name),escLive(x.carrier_id),escLive(x.market),escLive(x.product_type||'—'),escLive(x.state||'—'),escLive(x.plan_year||'—'),livePill(x.status)]},
+  tasks:{h:['Task','Priority','Status','Assigned','Due','Created'],r:x=>[escLive(x.title),livePill(x.priority),livePill(x.status),escLive(x.assigned_user_id||'Unassigned'),fmtLiveDate(x.due_at),fmtLiveDate(x.created_at)]},
+  automationRules:{h:['Automation','Trigger','Action','Enabled','Created'],r:x=>[escLive(x.name),escLive(x.trigger_type),escLive(x.action_type),livePill(x.is_enabled?'Enabled':'Disabled'),fmtLiveDate(x.created_at)]},
+  communications:{h:['Channel','Direction','Contact','Subject / Preview','Status','Created'],r:x=>[livePill(x.channel),escLive(x.direction),escLive(x.direction==='inbound'?(x.from_address||'—'):(x.to_address||'—')),escLive(x.subject||x.body_preview||'—'),livePill(x.provider_status||'recorded'),fmtLiveDate(x.created_at)]},
+  memberships:{h:['User','Role','Office','Active','Created'],r:x=>[escLive(x.user_id),livePill(x.role),escLive(x.office_id||'All offices'),livePill(x.is_active?'Active':'Inactive'),fmtLiveDate(x.created_at)]}
+ };
+ const spec=map[resource];
+ if(spec)return liveTable(spec.h,rows.map(x=>liveTr(spec.r(x))));
+ const blocked=new Set(['organization_id','office_id','metadata','snapshot','settings','config','before_json','after_json','raw_payload_ref']);
+ const keys=Object.keys(rows[0]||{}).filter(k=>!blocked.has(k)).slice(0,7);
+ return liveTable(keys.map(k=>k.replaceAll('_',' ')),rows.map(row=>liveTr(keys.map(k=>{
+   const v=row[k];
+   return typeof v==='object'&&v!==null?escLive(JSON.stringify(v)):escLive(v??'—');
+ }))));
+}
+function liveConnectedBody(route,data){
+ if(!data)return null;
+ if(data.type==='rows')return '<section class="panel"><div class="panelHead"><h3>Live workspace data</h3><span>'+data.rows.length+' records</span></div>'+liveRows(data.resource,data.rows)+'</section>';
+ if(data.type==='overview'){
+   const openLeads=data.leads.filter(x=>!['closed','lost','enrolled'].includes(String(x.stage).toLowerCase())).length;
+   const openEnroll=data.enrollments.filter(x=>!['active','cancelled','denied'].includes(String(x.lifecycle_status).toLowerCase())).length;
+   const risk=data.renewals.filter(x=>['high','medium'].includes(String(x.risk_level).toLowerCase())).length;
+   const exceptions=data.exceptions.filter(x=>String(x.status).toLowerCase()!=='resolved').length;
+   return '<div class="kpis">'+kpi('Open leads',openLeads,'Live pipeline')+kpi('Enrollment queue',openEnroll,'Live cases')+kpi('Renewal risk',risk,'Medium + high')+kpi('Commission exceptions',exceptions,'Open items')+'</div>'+
+     '<div class="grid2">'+panel('Recent leads','Live Supabase',liveRows('leads',data.leads.slice(0,8)))+panel('Open tasks','Live Supabase',liveRows('tasks',data.tasks.filter(x=>x.status!=='complete').slice(0,8)))+'</div>';
+ }
+ if(data.type==='manager'){
+   const overdue=data.tasks.filter(x=>x.due_at&&new Date(x.due_at)<new Date()&&x.status!=='complete').length;
+   const openReq=data.requests.filter(x=>!['resolved','closed'].includes(String(x.status).toLowerCase())).length;
+   const atRisk=data.renewals.filter(x=>String(x.risk_level).toLowerCase()==='high').length;
+   return '<div class="kpis">'+kpi('Open tasks',data.tasks.filter(x=>x.status!=='complete').length,overdue+' overdue')+kpi('Service requests',openReq,'Live queue')+kpi('At-risk renewals',atRisk,'High risk')+kpi('Enrollments',data.enrollments.length,'Accessible cases')+'</div>'+
+     '<div class="grid2">'+panel('Tasks','Live workspace',liveRows('tasks',data.tasks.slice(0,8)))+panel('Service requests','Live workspace',liveRows('serviceRequests',data.requests.slice(0,8)))+'</div>';
+ }
+ if(data.type==='reports'){
+   const issued=data.policies.filter(x=>String(x.status).toLowerCase()==='active').length;
+   const totalRevenue=data.statements.reduce((n,x)=>n+Number(x.total_amount||0),0);
+   return '<div class="kpis">'+kpi('Leads',data.leads.length,'Accessible records')+kpi('Appointments',data.appointments.length,'Accessible records')+kpi('Enrollments',data.enrollments.length,'Accessible records')+kpi('Active policies',issued,'Current book')+'</div>'+
+     '<div class="grid2">'+panel('Retention pipeline','Live workspace',row('Renewals',data.renewals.length+' records','Live')+row('Active policies',issued+' records','Live'))+panel('Revenue','Live workspace',row('Statements',data.statements.length+' records','Live')+row('Statement total',fmtLiveMoney(totalRevenue),'Live'))+'</div>';
+ }
+ if(data.type==='client360'){
+   if(!data.client)return liveEmpty('No accessible client records yet.');
+   const x=data.client;
+   return '<div class="profile"><div class="profileCard"><div class="profileAvatar">'+escLive((x.first_name||'?')[0]+(x.last_name||'?')[0])+'</div><h2>'+escLive((x.first_name||'')+' '+(x.last_name||''))+'</h2><div class="meta">'+escLive(x.market)+' · '+escLive(x.email||x.phone||'')+'</div></div>'+
+     '<section class="panel"><div class="panelHead"><h3>Client record</h3><span>Live workspace</span></div><div class="panelBody">'+row('Policies',data.policies.length+' records','Live')+row('Households',data.households.length+' records','Live')+row('Service requests',data.requests.length+' records','Live')+row('Documents',data.documents.length+' records','Live')+'</div></section></div>'+
+     '<div class="grid2">'+panel('Policies','Live workspace',liveRows('policies',data.policies))+panel('Requests','Live workspace',liveRows('serviceRequests',data.requests))+'</div>';
+ }
+ if(data.type==='portal')return '<div class="kpis">'+kpi('Portal accounts',data.accounts.length,'Accessible accounts')+kpi('Service requests',data.requests.length,'Accessible requests')+kpi('Portal messages',data.messages.length,'Client-visible messages')+'</div>'+
+   panel('Portal accounts','Live workspace',liveRows('portalAccounts',data.accounts));
+ if(data.type==='commissions')return '<div class="kpis">'+kpi('Statements',data.statements.length,'Imported files')+kpi('Lines',data.lines.length,'Commission rows')+kpi('Exceptions',data.exceptions.filter(x=>x.status!=='resolved').length,'Open items')+kpi('Matched',data.lines.filter(x=>x.match_status==='matched').length,'Matched rows')+'</div>'+
+   '<div class="grid2">'+panel('Statements','Live workspace',liveRows('commissionStatements',data.statements))+panel('Exceptions','Live workspace',liveRows('commissionExceptions',data.exceptions))+'</div>';
+ if(data.type==='compliance')return '<div class="kpis">'+kpi('Consent records',data.consent.length,'Accessible records')+kpi('Evidence items',data.evidence.length,'Enrollment evidence')+kpi('Documents',data.documents.length,'Accessible files')+kpi('Audit events',data.audit.length,'Recent events')+'</div>'+
+   '<div class="grid2">'+panel('Consent','Live workspace',liveRows('consent',data.consent.slice(0,10)))+panel('Recent audit','Live workspace',liveRows('auditLog',data.audit.slice(0,10)))+'</div>';
+ if(data.type==='team')return '<div class="kpis">'+kpi('Team members',data.memberships.length,'Visible memberships')+kpi('Licenses',data.licenses.length,'Tracked licenses')+'</div>'+panel('Memberships','Live workspace',liveRows('memberships',data.memberships));
+ if(data.type==='onboarding')return '<div class="kpis">'+kpi('Offices',data.offices.length,'Configured')+kpi('Members',data.memberships.length,'Active + inactive')+kpi('Settings rows',data.settings.length,'Agency configuration')+'</div>'+panel('Offices','Live workspace',liveRows('offices',data.offices));
+ if(data.type==='integration')return '<div class="kpis">'+kpi('Connections',data.connections.length,'Provider records')+kpi('Sync jobs',data.jobs.length,'Integration runs')+kpi('Communication endpoints',data.endpoints.length,'Configured endpoints')+'</div>'+
+   '<div class="grid2">'+panel('Provider connections','Live workspace',liveRows('providerConnections',data.connections))+panel('Recent sync jobs','Live workspace',liveRows('integrationSyncJobs',data.jobs))+'</div>';
+ if(data.type==='settings')return '<div class="kpis">'+kpi('Settings',data.settings.length,'Agency rows')+kpi('Endpoints',data.endpoints.length,'Communication endpoints')+kpi('Appointment types',data.types.length,'Booking types')+kpi('Booking links',data.links.length,'Public links')+'</div>'+
+   '<div class="grid2">'+panel('Communication endpoints','Live workspace',liveRows('communicationEndpoints',data.endpoints))+panel('Booking links','Live workspace',liveRows('bookingLinks',data.links))+'</div>';
+ return null;
+}
+let liveRenderToken=0;
+async function hydrateLiveRoute(route){
+ if(globalThis.healthCrmBackend?.mode!=='supabase'||typeof globalThis.healthCrmLiveRoute!=='function')return;
+ const token=++liveRenderToken;
+ try{
+   const data=await globalThis.healthCrmLiveRoute(route);
+   if(token!==liveRenderToken||(location.hash||'#overview').slice(1)!==route)return;
+   const body=liveConnectedBody(route,data);
+   if(!body)return;
+   const view=document.getElementById('view');
+   const pageHead=view.querySelector('.pageHead')?.outerHTML||'';
+   view.innerHTML=pageHead+'<div class="notice"><b>LIVE WORKSPACE:</b> This screen is reading tenant-scoped Supabase data.</div>'+body;
+ }catch(error){
+   if(token!==liveRenderToken)return;
+   const view=document.getElementById('view');
+   const pageHead=view.querySelector('.pageHead')?.outerHTML||'';
+   view.innerHTML=pageHead+'<div class="notice"><b>LIVE DATA ERROR:</b> '+escLive(error?.message||'Unable to load this workspace screen.')+'</div>';
+ }
+}
+
+function render(){let r=(location.hash||'#overview').slice(1);if(currentRole&&!canRoute(r,currentRole)){r='overview';if(location.hash!=='#overview')history.replaceState(null,'','#overview')}document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));const activeBtn=document.querySelector('.navBtn[data-r="'+r+'"]');if(activeBtn){const g=activeBtn.closest('.group');if(g&&g.classList.contains('collapsed')){g.classList.remove('collapsed');sidebarState[g.dataset.group]=false;localStorage.setItem(sidebarStateKey,JSON.stringify(sidebarState));const toggle=g.querySelector('.groupToggle');if(toggle)toggle.setAttribute('aria-expanded','true')}}document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()+sandboxActivity(r);hydrateLiveRoute(r)}
 const sidebarStateKey='health-crm-sidebar-groups-v1';
 let sidebarState={};
 try{sidebarState=JSON.parse(localStorage.getItem(sidebarStateKey)||'{}')}catch(e){sidebarState={}}
