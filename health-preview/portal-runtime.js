@@ -26,7 +26,7 @@ async function loadHome(){
   setHeading('Overview','Your active coverage and recent service activity.');
   const [{data:policies,error:pErr},{data:requests,error:rErr},{data:docs,error:dErr}]=await Promise.all([
     clientApi.from('policies').select('id,policy_number,status,effective_date,renewal_date,premium_amount,carrier_id,carrier_product_id').eq('client_id',client.id).order('effective_date',{ascending:false}),
-    clientApi.from('service_requests').select('id,request_type,status,priority,created_at,resolved_at').eq('client_id',client.id).order('created_at',{ascending:false}).limit(5),
+    clientApi.rpc('list_my_portal_service_requests'),
     clientApi.from('documents').select('id,document_type,file_name,created_at').eq('client_id',client.id).eq('portal_visible',true).order('created_at',{ascending:false}).limit(5)
   ]);
   if(pErr||rErr||dErr)throw pErr||rErr||dErr;
@@ -67,7 +67,7 @@ async function loadDocuments(){
 
 async function loadRequests(){
   setHeading('Service requests','Ask your agency for help with coverage, ID cards, updates and other policy needs.');
-  const {data:requests,error}=await clientApi.from('service_requests').select('*').eq('client_id',client.id).order('created_at',{ascending:false});
+  const {data:requests,error}=await clientApi.rpc('list_my_portal_service_requests');
   if(error)throw error;
   content.innerHTML='<section class="panel"><h2>Your requests</h2><div class="list">'+((requests||[]).length?(requests||[]).map(r=>'<div class="item"><b>'+esc(r.request_type)+'</b><span>'+date(r.created_at)+' · '+esc(r.priority)+'</span><div style="margin-top:7px"><span class="pill">'+esc(r.status)+'</span></div></div>').join(''):empty('No requests yet.'))+'</div></section>'+
   '<section class="panel"><h2>New request</h2><form id="requestForm" class="form"><div class="field"><label>Request type</label><input name="request_type" required maxlength="160"></div><div class="field"><label>Priority</label><select name="priority"><option>normal</option><option>high</option><option>urgent</option></select></div><div class="field full"><label>Details</label><textarea name="details" required maxlength="4000"></textarea></div><div class="full"><button class="btn" type="submit">Submit request</button></div></form><div id="requestStatus"></div></section>';
@@ -75,10 +75,10 @@ async function loadRequests(){
     e.preventDefault();const fd=new FormData(e.target),box=document.getElementById('requestStatus');
     const requestType=String(fd.get('request_type')||'').trim();
     const details=String(fd.get('details')||'').trim();
-    const {data:reqRow,error:reqErr}=await clientApi.from('service_requests').insert({
-      organization_id:portalAccount.organization_id,office_id:client.office_id||null,client_id:client.id,
-      request_type:requestType,source:'client_portal',priority:String(fd.get('priority')||'normal'),status:'open'
-    }).select('id').single();
+    const {data:reqRow,error:reqErr}=await clientApi.rpc('create_my_portal_service_request',{
+      p_request_type:requestType,
+      p_priority:String(fd.get('priority')||'normal')
+    });
     if(reqErr){box.innerHTML=status(reqErr.message,true);return}
     if(details){
       const {error:msgErr}=await clientApi.functions.invoke('send-communication',{body:{channel:'portal',to:client.id,client_id:client.id,subject:'Service request '+requestType,message:details}});
@@ -93,7 +93,7 @@ async function loadMessages(){
   const {data:messages,error}=await clientApi.from('portal_messages').select('*').eq('client_id',client.id).order('created_at',{ascending:true});
   if(error)throw error;
   const unread=(messages||[]).filter(m=>m.direction==='outbound'&&!m.read_at);
-  if(unread.length)await clientApi.from('portal_messages').update({read_at:new Date().toISOString()}).in('id',unread.map(x=>x.id));
+  if(unread.length)await clientApi.rpc('mark_my_portal_messages_read',{p_message_ids:unread.map(x=>x.id)});
   content.innerHTML='<section class="panel"><h2>Conversation</h2><div class="list">'+((messages||[]).length?(messages||[]).map(m=>'<div class="message '+(m.direction==='outbound'?'out':'')+'"><b>'+(m.direction==='outbound'?'Agency':'You')+' · '+date(m.created_at)+'</b><p>'+esc(m.body_text)+'</p></div>').join(''):empty('No portal messages yet.'))+'</div></section>'+
   '<section class="panel"><h2>Send a message</h2><form id="messageForm" class="form"><div class="field full"><label>Subject</label><input name="subject" maxlength="500"></div><div class="field full"><label>Message</label><textarea name="message" required maxlength="10000"></textarea></div><div class="full"><button class="btn" type="submit">Send message</button></div></form><div id="messageStatus"></div></section>';
   document.getElementById('messageForm').onsubmit=async e=>{
@@ -140,7 +140,8 @@ async function init(){
   const {data:account,error:aErr}=await clientApi.from('client_portal_accounts').select('*').eq('user_id',user.id).eq('status','active').maybeSingle();
   if(aErr||!account){content.innerHTML=empty('No active client portal account is linked to this login.');return}
   portalAccount=account;
-  const {data:c,error:cErr}=await clientApi.from('clients').select('id,organization_id,office_id,first_name,last_name,email,phone,market,portal_status').eq('id',account.client_id).single();
+  const {data:profiles,error:cErr}=await clientApi.rpc('get_my_portal_profile');
+  const c=Array.isArray(profiles)?profiles[0]:profiles;
   if(cErr||!c){content.innerHTML=empty('Your client record could not be loaded.');return}
   client=c;
   document.querySelector('.brand span').textContent=(c.first_name||'Client')+' '+(c.last_name||'');
