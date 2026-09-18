@@ -1,48 +1,33 @@
-import { admin, json, corsHeaders, enforcePublicRateLimit } from '../_shared/server.ts';
+import { withSupabase } from 'npm:@supabase/server@1.7.0';
+import { response, enforcePublicRateLimit } from '../_shared/server.ts';
 
-function clean(value:unknown,max=300){
-  return String(value||'').trim().slice(0,max);
-}
+export default {
+  fetch: withSupabase({ auth:'none', errors:{detailed:false} }, async(req,ctx)=>{
+    if(req.method!=='POST') return response({error:'method_not_allowed'},405);
+    try{
+      const allowed=await enforcePublicRateLimit(ctx.supabaseAdmin,req,'public_intake',5,60);
+      if(!allowed) return response({error:'rate_limited'},429);
 
-Deno.serve(async(req)=>{
-  if(req.method==='OPTIONS') return new Response('ok',{headers:corsHeaders(req)});
-  if(req.method!=='POST') return json(req,405,{error:'method_not_allowed'});
+      const enabled=Deno.env.get('PUBLIC_INTAKE_ENABLED')==='true';
+      if(!enabled) return response({error:'public_intake_not_enabled'},503);
 
-  try{
-    const allowed=await enforcePublicRateLimit(req,'public_intake',5,60);
-    if(!allowed) return json(req,429,{error:'rate_limited'});
-  }catch(error){
-    return json(req,503,{error:'rate_limit_unavailable'});
-  }
+      const body=await req.json();
+      const slug=String(body.slug||'').trim().toLowerCase().slice(0,64);
+      const firstName=String(body.first_name||'').trim().slice(0,100);
+      const lastName=String(body.last_name||'').trim().slice(0,100);
+      const email=String(body.email||'').trim().slice(0,254);
+      const phone=String(body.phone||'').trim().slice(0,40);
+      const marketRaw=String(body.market||'').trim().toLowerCase().slice(0,20);
+      const market=['aca','medicare'].includes(marketRaw)?marketRaw:null;
+      if(!slug||!firstName||!lastName) return response({error:'invalid_intake'},400);
 
-  try{
-    const enabled=Deno.env.get('PUBLIC_INTAKE_ENABLED')==='true';
-    if(!enabled) return json(req,503,{error:'public_intake_not_enabled'});
-
-    const body=await req.json();
-    const slug=clean(body.slug,64).toLowerCase();
-    const firstName=clean(body.first_name,100);
-    const lastName=clean(body.last_name,100);
-    const email=clean(body.email,254);
-    const phone=clean(body.phone,40);
-    const marketRaw=clean(body.market,20).toLowerCase();
-    const market=['aca','medicare'].includes(marketRaw)?marketRaw:null;
-
-    if(!slug||!firstName||!lastName) return json(req,400,{error:'invalid_intake'});
-
-    // Add production rate limiting / bot protection before enabling publicly.
-    const {data,error}=await admin.rpc('submit_public_intake',{
-      p_slug:slug,
-      p_first_name:firstName,
-      p_last_name:lastName,
-      p_email:email,
-      p_phone:phone,
-      p_market:market
-    });
-
-    if(error) return json(req,400,{error:'intake_failed',message:error.message});
-    return json(req,201,{ok:true,lead_id:data.lead_id});
-  }catch(error){
-    return json(req,400,{error:'invalid_request',message:error instanceof Error?error.message:'invalid_request'});
-  }
-});
+      const {data,error}=await ctx.supabaseAdmin.rpc('submit_public_intake',{
+        p_slug:slug,p_first_name:firstName,p_last_name:lastName,p_email:email,p_phone:phone,p_market:market
+      });
+      if(error) return response({error:'intake_failed',message:error.message},400);
+      return response({ok:true,lead_id:data.lead_id},201);
+    }catch(error){
+      return response({error:'invalid_request',message:error instanceof Error?error.message:'invalid_request'},400);
+    }
+  })
+};
