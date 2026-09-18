@@ -12,6 +12,7 @@ export default {
       if(!enabled) return response({error:'public_booking_not_enabled'},503);
 
       const body=await req.json();
+      if(String(body.company_website||'').trim()) return response({ok:true},201);
       const slug=String(body.slug||'').trim().toLowerCase().slice(0,64);
       const startsAt=String(body.starts_at||'').trim().slice(0,64);
       const firstName=String(body.first_name||'').trim().slice(0,100);
