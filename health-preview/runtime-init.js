@@ -3,6 +3,15 @@ import { ActionService } from './lib/action-service.js';
 
 async function initHealthCrmBackend(){
   const backend=await createBackend();
+  if(backend.mode==='supabase'&&!backend.workspace?.user){
+    location.replace('./login.html');
+    return;
+  }
+  if(backend.mode==='supabase'&&backend.workspace?.user&&!backend.selected){
+    location.replace('./onboarding.html');
+    return;
+  }
+
   globalThis.healthCrmBackend=backend;
   const actions=backend.mode==='supabase'?new ActionService(backend):null;
   globalThis.healthCrmAction=async function(action,fields){
