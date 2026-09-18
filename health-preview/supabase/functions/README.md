@@ -1,41 +1,57 @@
 # Edge Function Handoff
 
-These functions are prepared but are not deployed anywhere.
+Prepared for the dedicated Supabase project. Nothing here is deployed yet.
 
-## Authenticated browser-facing functions
+## Runtime
+Edge handlers use pinned `@supabase/server@1.7.0`, matching current Supabase guidance for header-based Edge Function auth.
+
+### Authenticated user functions
 - bootstrap-tenant
 - create-team-invite
 - accept-team-invite
 - create-portal-invite
 - accept-portal-invite
 
-They manually validate the user's bearer token through the trusted server client before calling server-only RPCs.
+These use `auth: 'user'` and keep the default platform `verify_jwt = true`.
 
-## Provider webhook
+### Public functions
+- public-intake
+- public-booking
+- public-availability
+
+These use `auth: 'none'`, are configured with `verify_jwt = false`, and enforce a server-side hashed-IP database rate limit before privileged work.
+
+### External webhook
 - provider-webhook
 
-This endpoint is intentionally safe-by-default and rejects events until provider-specific signature verification is implemented.
+This uses `auth: 'none'` / `verify_jwt = false`. It remains safe-by-default and returns 503 until the selected provider's signature verifier is implemented.
 
-When the actual provider is selected:
-1. Configure the provider webhook secret in Supabase project secrets.
-2. Implement the provider-specific verifier.
-3. Resolve organization/office using server-controlled mappings.
-4. Keep provider + provider_event_id idempotent.
-5. Normalize into the internal event model.
-6. Append audit history.
-7. Add replay/failure tests before enabling the endpoint.
+## Supabase-provided environment
+The hosted runtime provides the project URL, publishable keys, secret keys, and JWKS for `@supabase/server`. Do not create a browser-visible service-role/secret-key variable.
 
-## Secrets
-- Browser: project URL + publishable key only.
-- Edge Functions: APP_SUPABASE_SECRET_KEY and provider secrets.
-- Never return or expose the server secret to browser code.
+## Application/provider secrets
+Set only non-Supabase application/provider secrets, including:
+- PUBLIC_ENDPOINT_SALT
+- provider API keys
+- provider webhook secrets
+- allowed origins / provider-specific configuration
 
-## CORS
-Set APP_ALLOWED_ORIGINS to the production app origin. The shared helper does not wildcard browser origins.
+## Public endpoint enablement
+`PUBLIC_INTAKE_ENABLED` and `PUBLIC_BOOKING_ENABLED` remain false until:
+1. migrations/RLS apply cleanly
+2. rate-limit RPC passes
+3. CORS/origin configuration is correct
+4. website form/booking integration is tested
+5. database advisors are clean
+6. live monitoring/logging is checked
+
+## Function configuration
+`supabase/config.toml` explicitly disables platform JWT verification only for public endpoints and the external provider webhook.
 
 ## Deployment order
 Deploy functions only after:
-- schema migrations apply cleanly
-- RLS/isolation tests pass
-- database advisors are reviewed
-- required project secrets are configured
+- target SQL modules execute successfully
+- tenant/role/storage tests pass
+- database advisors are reviewed and fixed
+- project Auth settings are configured
+- application/provider secrets are configured
