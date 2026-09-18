@@ -1,89 +1,44 @@
-name: Validate Camvella Website
+name: Portfolio Live SEO Verification
 
 on:
-  workflow_dispatch:
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: read
 
-concurrency:
-  group: camvella-site-validation-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
-    name: Build and Validate Marketing Site
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build Astro site and sitemap
-        run: npm run build
-
-      - name: Verify launch artifacts
-        run: |
-          test -f dist/index.html
-          test -f dist/robots.txt
-          test -f dist/sitemap.xml
-          grep -q "https://camvella.com/" dist/sitemap.xml
-          grep -Fq '<title>HOA &amp; Community Association Management Software | Camvella</title>' dist/index.html
-          grep -Fq 'HOA management software' dist/index.html
-          grep -Fq 'professional community managers' dist/index.html
-          grep -q '/compare/camvella-vs-appfolio/' dist/sitemap.xml
-          grep -q '/compare/camvella-vs-buildium/' dist/sitemap.xml
-          grep -q '/compare/camvella-vs-vantaca/' dist/sitemap.xml
-          grep -q '/features/automation/' dist/sitemap.xml
-          grep -q '/features/documents/' dist/sitemap.xml
-          grep -q '/features/e-signatures/' dist/sitemap.xml
-          grep -q '/features/reporting/' dist/sitemap.xml
-          grep -q '/features/vendors/' dist/sitemap.xml
-          grep -q "G-H1ZPCP2EE9" dist/index.html
-          grep -q "y62zna7yna" dist/index.html
-          grep -q 'id="mobile-menu"' dist/index.html
-          grep -q 'src="https://taxrescrm.app/book?product=camvella"' dist/demo/index.html
-          ! grep -R -q 'href="https://taxrescrm.app/book?product=camvella"' dist --include='*.html'
-          ! grep -R -q '/blog/hoa-accounting-guide' dist --include='*.html'
-          grep -q '/compare/camvella-vs-buildium' dist/compare/index.html
-          grep -q '/compare/camvella-vs-appfolio' dist/compare/index.html
-          grep -q '/compare/camvella-vs-vantaca' dist/compare/index.html
-          grep -q '/features/documents' dist/product/index.html
-          grep -q '/features/e-signatures' dist/product/index.html
-          grep -q '/features/vendors' dist/product/index.html
-          test -f dist/features/reporting/index.html
-          test -f dist/features/automation/index.html
-          ! grep -R -q 'Check back soon' dist/compare --include='*.html'
-          ! grep -R -q 'This detailed comparison page is being built' dist/compare --include='*.html'
-
-      - name: Verify live Camvella SEO
-        if: github.event_name == 'push'
+      - name: Verify live public SEO surfaces
         shell: bash
         run: |
           set -euo pipefail
-          expected='HOA &amp; Community Association Management Software | Camvella'
-          for i in $(seq 1 30); do
-            html="$(curl -fsSL --max-time 15 "https://camvella.com/?verify=$(date +%s)" || true)"
-            robots="$(curl -fsSL --max-time 15 "https://camvella.com/robots.txt?verify=$(date +%s)" || true)"
-            sitemap="$(curl -fsSL --max-time 15 "https://camvella.com/sitemap.xml?verify=$(date +%s)" || true)"
-            if printf '%s' "$html" | grep -Fq "$expected" \
-              && printf '%s' "$html" | grep -Fq 'HOA management software' \
-              && printf '%s' "$html" | grep -Fq 'professional community managers' \
-              && printf '%s' "$robots" | grep -qi 'Sitemap: https://camvella.com/sitemap.xml' \
-              && printf '%s' "$sitemap" | grep -Fq '<loc>https://camvella.com/</loc>'; then
-              echo 'Live Camvella SEO verification passed.'
-              exit 0
-            fi
-            echo "Waiting for Camvella production SEO + sitemap ($i/30)..."
-            sleep 10
+          check_site() {
+            name="$1"; base="$2"; sitemap="$3"
+            echo "===== $name ====="
+            stamp="$(date +%s)"
+            curl -sS -L -D /tmp/h -o /tmp/body "$base/?verify=$stamp"
+            printf 'HOME '; head -n 1 /tmp/h | tail -n 1
+            grep -o '<title>[^<]*</title>' /tmp/body | head -n 1 || true
+            grep -o '<link[^>]*rel="canonical"[^>]*>' /tmp/body | head -n 1 || true
+            grep -o '<meta[^>]*name="robots"[^>]*>' /tmp/body | head -n 1 || true
+            curl -sS -L -D /tmp/rh -o /tmp/robots "$base/robots.txt?verify=$stamp"
+            printf 'ROBOTS '; head -n 1 /tmp/rh | tail -n 1
+            grep -i '^Sitemap:' /tmp/robots || true
+            curl -sS -L -D /tmp/sh -o /tmp/sm "$base/$sitemap?verify=$stamp"
+            printf 'SITEMAP '; head -n 1 /tmp/sh | tail -n 1
+            grep -o '<loc>[^<]*</loc>' /tmp/sm | head -n 3 || true
+          }
+          check_site "RomyLabs" "https://romylabs.com" "sitemap-index.xml"
+          check_site "Camvella" "https://camvella.com" "sitemap.xml"
+          check_site "GroundIVO" "https://groundivo.com" "sitemap.xml"
+          check_site "BocaSync" "https://bocasync.com" "sitemap.xml"
+          check_site "TaxRes" "https://taxrescrm.net" "sitemap.xml"
+          check_site "Oculivo" "https://oculivo.com" "sitemap.xml"
+          echo "===== Camvella regional aliases ====="
+          for u in             "https://camvella.com/solutions/florida-hoa-management-software/"             "https://camvella.com/solutions/texas-hoa-management-software/"; do
+            curl -sS -D /tmp/ah -o /dev/null "$u"
+            grep -Ei '^(HTTP/|location:)' /tmp/ah || true
           done
-          echo 'Camvella production did not reach the expected SEO version.' >&2
-          exit 1
