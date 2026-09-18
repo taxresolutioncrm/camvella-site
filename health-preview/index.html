@@ -356,7 +356,35 @@ function fieldHtml([label,type,options]){
  if(type==='select')return '<div class="field"><label for="'+id+'">'+label+'</label><select id="'+id+'" name="'+label+'" required>'+options.split('|').map(x=>'<option>'+x+'</option>').join('')+'</select></div>';
  return '<div class="field"><label for="'+id+'">'+label+'</label><input id="'+id+'" name="'+label+'" type="'+type+'" required></div>';
 }
+function recordSandboxAction(action,fields={}){
+ const entry={id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())),action,fields,created_at:new Date().toISOString()};
+ const log=JSON.parse(localStorage.getItem('health-crm-sandbox-actions')||'[]');
+ log.unshift(entry);localStorage.setItem('health-crm-sandbox-actions',JSON.stringify(log.slice(0,100)));
+ return entry;
+}
+function exportSandbox(label){
+ const log=JSON.parse(localStorage.getItem('health-crm-sandbox-actions')||'[]');
+ const rows=[['action','created_at','details'],...log.map(x=>[x.action,x.created_at,JSON.stringify(x.fields)])];
+ const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\n');
+ const blob=new Blob([csv],{type:'text/csv'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='health-crm-sandbox-'+label.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.csv';a.click();URL.revokeObjectURL(url);
+ showToast(label+' generated from sandbox data');
+}
+function runSandboxCommand(label){
+ if(/^Export/.test(label)){exportSandbox(label);return true}
+ if(label==='Run All Simulations'){
+   const names=['email.delivery','sms.inbound','voice.completed','fax.received','cms.plan_response','carrier.commission_statement'];
+   names.forEach((name,i)=>recordSandboxAction('Simulation: '+name,{result:'PASS',sequence:i+1}));
+   showToast('6 provider simulations passed in sandbox');render();return true;
+ }
+ if(['Run Audit','Run Eligibility','Run Comparison','Run Readiness Check','Build Bundle','Mark All Reviewed','Start Needs Analysis'].some(x=>label.includes(x))){
+   recordSandboxAction(label,{result:'PASS',mode:'sandbox'});
+   showToast(label+' completed in sandbox');render();return true;
+ }
+ return false;
+}
 function openAction(label){
+ if(runSandboxCommand(label)) return;
  const key=actionKey(label),modal=document.getElementById('actionModal');
  document.getElementById('modalTitle').textContent=label;
  document.getElementById('modalFields').innerHTML=(actionSchemas[key]||defaultSchema).map(fieldHtml).join('');
@@ -371,12 +399,18 @@ document.getElementById('actionModal').addEventListener('click',e=>{if(e.target.
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAction()});
 document.getElementById('modalForm').addEventListener('submit',e=>{
  e.preventDefault();const modal=document.getElementById('actionModal');
- const entry={id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())),action:modal.dataset.action,fields:Object.fromEntries(new FormData(e.target)),created_at:new Date().toISOString()};
- const log=JSON.parse(localStorage.getItem('health-crm-sandbox-actions')||'[]');log.unshift(entry);localStorage.setItem('health-crm-sandbox-actions',JSON.stringify(log.slice(0,100)));
- closeAction();showToast((modal.dataset.action||'Action')+' saved in sandbox');e.target.reset();
+ recordSandboxAction(modal.dataset.action,Object.fromEntries(new FormData(e.target)));
+ closeAction();showToast((modal.dataset.action||'Action')+' saved in sandbox');e.target.reset();render();
 });
 function demo(msg){showToast(msg+' · sandbox only');}
-function render(){const r=(location.hash||'#overview').slice(1);document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));const activeBtn=document.querySelector('.navBtn[data-r="'+r+'"]');if(activeBtn){const g=activeBtn.closest('.group');if(g&&g.classList.contains('collapsed')){g.classList.remove('collapsed');sidebarState[g.dataset.group]=false;localStorage.setItem(sidebarStateKey,JSON.stringify(sidebarState));const toggle=g.querySelector('.groupToggle');if(toggle)toggle.setAttribute('aria-expanded','true')}}document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()}
+function sandboxActivity(route){
+ const map={overview:['New Lead','Book Appointment'],leads:['Lead'],clients:['Client'],appointments:['Appointment'],enrollment:['Enrollment'],aca:['ACA Case'],medicare:['Medicare Case'],service:['Service Request'],tasks:['Task'],email:['Email'],sms:['SMS'],fax:['Fax'],phone:['Dialer','Call Client'],consent:['Consent'],documents:['Document'],contracting:['Appointment'],commissions:['Statement'],mapping:['Statement'],portal:['Invite Client'],client360:['Service Request','Portal Invite'],lab:['Simulation:'],integration:['Readiness']};
+ const keys=map[route]||[]; if(!keys.length)return '';
+ const log=JSON.parse(localStorage.getItem('health-crm-sandbox-actions')||'[]').filter(x=>keys.some(k=>x.action.includes(k))).slice(0,5);
+ if(!log.length)return '';
+ return panel('Recent sandbox activity','Stored locally until Supabase is connected',log.map(x=>row(x.action,new Date(x.created_at).toLocaleString(),Object.keys(x.fields||{}).length+' fields','blue')).join(''));
+}
+function render(){const r=(location.hash||'#overview').slice(1);document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));const activeBtn=document.querySelector('.navBtn[data-r="'+r+'"]');if(activeBtn){const g=activeBtn.closest('.group');if(g&&g.classList.contains('collapsed')){g.classList.remove('collapsed');sidebarState[g.dataset.group]=false;localStorage.setItem(sidebarStateKey,JSON.stringify(sidebarState));const toggle=g.querySelector('.groupToggle');if(toggle)toggle.setAttribute('aria-expanded','true')}}document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()+sandboxActivity(r)}
 const sidebarStateKey='health-crm-sidebar-groups-v1';
 let sidebarState={};
 try{sidebarState=JSON.parse(localStorage.getItem(sidebarStateKey)||'{}')}catch(e){sidebarState={}}
