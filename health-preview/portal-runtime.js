@@ -90,7 +90,7 @@ async function loadRequests(){
 
 async function loadMessages(){
   setHeading('Messages','Secure messages shared between you and your agency.');
-  const {data:messages,error}=await clientApi.rpc('list_my_portal_messages');
+  const {data:messages,error}=await clientApi.from('portal_messages').select('id,direction,subject,body_text,created_at,read_at').eq('client_id',client.id).order('created_at',{ascending:true});
   if(error)throw error;
   const unread=(messages||[]).filter(m=>m.direction==='outbound'&&!m.read_at);
   if(unread.length)await clientApi.rpc('mark_my_portal_messages_read',{p_message_ids:unread.map(x=>x.id)});
@@ -143,7 +143,7 @@ async function init(){
   const {data:profiles,error:cErr}=await clientApi.rpc('get_my_portal_profile');
   const c=Array.isArray(profiles)?profiles[0]:profiles;
   if(cErr||!c){content.innerHTML=empty('Your client record could not be loaded.');return}
-  client=c;
+  client={...c,id:c.client_id};
   document.querySelector('.brand span').textContent=(c.first_name||'Client')+' '+(c.last_name||'');
   await show('home');
 }
