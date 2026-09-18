@@ -89,7 +89,11 @@ for(const required of [
   '039_workflow_artifacts_and_imports.sql','041_policy_event_and_campaign_role_alignment.sql',
   '042_import_job_role_alignment.sql','044_atomic_import_apply.sql','045_atomic_commission_apply.sql',
   '047_portal_data_boundary.sql','048_portal_messages.sql','049_portal_message_sender_guard.sql',
-  '050_portal_least_privilege.sql','051_portal_message_read_receipts.sql','052_aal2_sensitive_writes.sql','053_storage_aal2_alignment.sql'
+  '050_portal_least_privilege.sql','051_portal_message_read_receipts.sql','052_aal2_sensitive_writes.sql',
+  '053_storage_aal2_alignment.sql','054_portal_consent_and_request_alignment.sql',
+  '055_storage_path_integrity.sql','056_commission_storage_path_alignment.sql',
+  '057_atomic_portal_messaging.sql','058_public_intake_notes.sql',
+  '059_public_booking_slot_enforcement.sql'
 ]){
   if(!mig[required]) failures.push('missing hardening module '+required);
 }
