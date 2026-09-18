@@ -32,11 +32,14 @@ const paths = files
   .sort()
 
 
-// Camvella SEO build gate: keep the authority hub crawlable from the homepage.
-if (!paths.includes('/guides/')) throw new Error('Camvella SEO build gate: /guides/ was not generated')
+// Camvella SEO build gate: keep the established resource hub and new authority guides connected.
+if (!paths.includes('/blog/')) throw new Error('Camvella SEO build gate: /blog/ resource hub was not generated')
+if (!paths.includes('/guides/')) throw new Error('Camvella SEO build gate: /guides/ authority hub was not generated')
 if (!paths.some((path) => path.startsWith('/guides/') && path !== '/guides/')) throw new Error('Camvella SEO build gate: no guide detail pages were generated')
 const homepage = await readFile(new URL('index.html', dist), 'utf8')
-if (!homepage.includes('href="/guides"')) throw new Error('Camvella SEO build gate: homepage is missing the Resources → /guides crawl path')
+if (!homepage.includes('href="/blog"')) throw new Error('Camvella SEO build gate: homepage is missing the Resources → /blog crawl path')
+const resourceHub = await readFile(new URL('blog/index.html', dist), 'utf8')
+if (!resourceHub.includes('href="/guides/')) throw new Error('Camvella SEO build gate: /blog/ does not link into the /guides/ authority cluster')
 
 const lastmod = new Date().toISOString().slice(0, 10)
 

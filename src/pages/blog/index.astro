@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
+import { seoGuides } from '../../data/seoGuides'
 
 const resources = [
   { href: "/features/hoa-accounting", title: "HOA Accounting", excerpt: "Assessment billing, accounts payable, general ledger, budgeting, financial statements, and board-ready reporting in one HOA-specific workflow.", category: "Financial Management" },
@@ -19,6 +20,15 @@ const resources = [
   { href: "/solutions/texas-hoa-management-software", title: "HOA Management Software for Texas", excerpt: "A Texas-focused guide for management companies evaluating accounting, compliance, resident, board, work-order, and vendor workflows.", category: "Regional Guide" },
   { href: "/solutions/hoa-software-small-management-companies", title: "HOA Software for Small Management Companies", excerpt: "A practical guide for small and growing management companies that need professional accounting and operations without enterprise sprawl.", category: "Buyer Guide" },
 ]
+
+const authorityGuides = seoGuides.map((guide) => ({
+  href: `/guides/${guide.slug}`,
+  title: guide.title,
+  excerpt: guide.description,
+  category: 'Operations Guide',
+}))
+
+const allResources = [...resources, ...authorityGuides]
 ---
 
 <BaseLayout
@@ -46,7 +56,7 @@ const resources = [
       <h2 class="section__headline" id="resource-headline">Start with the problem you are solving.</h2>
       <p class="section__subhead">Use the product guides to understand a workflow in depth, then use the comparison center when you are evaluating a switch.</p>
       <div class="resource-grid">
-        {resources.map((resource, i) => (
+        {allResources.map((resource, i) => (
           <article class:list={['resource-card', { 'resource-card--featured': i === 0 }]}>
             <div class="resource-card__meta"><span>{resource.category}</span><span>{String(i + 1).padStart(2,'0')}</span></div>
             <h3><a href={resource.href}>{resource.title}</a></h3>
