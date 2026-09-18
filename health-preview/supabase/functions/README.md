@@ -3,7 +3,7 @@
 Prepared for the dedicated Supabase project. Nothing here is deployed yet.
 
 ## Runtime
-Edge handlers use pinned `@supabase/server@1.7.0`, matching current Supabase guidance for header-based Edge Function auth.
+All Edge handlers use pinned `@supabase/server@1.7.0`.
 
 ### Authenticated user functions
 - bootstrap-tenant
@@ -11,47 +11,55 @@ Edge handlers use pinned `@supabase/server@1.7.0`, matching current Supabase gui
 - accept-team-invite
 - create-portal-invite
 - accept-portal-invite
+- send-communication
+- process-import
+- process-commission-statement
 
-These use `auth: 'user'` and keep the default platform `verify_jwt = true`.
+These use `auth: 'user'` and retain platform JWT verification.
 
 ### Public functions
 - public-intake
 - public-booking
 - public-availability
 
-These use `auth: 'none'`, are configured with `verify_jwt = false`, and enforce a server-side hashed-IP database rate limit before privileged work.
+These use `auth: 'none'`, are configured with `verify_jwt = false`, and rely on trusted server RPCs plus hashed-IP database rate limiting. Intake/booking also include honeypot handling.
 
 ### External webhook
 - provider-webhook
 
-This uses `auth: 'none'` / `verify_jwt = false`. It remains safe-by-default and returns 503 until the selected provider's signature verifier is implemented.
+This uses `auth: 'none'` / `verify_jwt = false`. It remains disabled-by-design until a provider-specific signature verifier is implemented.
 
 ## Supabase-provided environment
-The hosted runtime provides the project URL, publishable keys, secret keys, and JWKS for `@supabase/server`. Do not create a browser-visible service-role/secret-key variable.
+The hosted runtime provides project URL, publishable keys, secret keys and JWKS for the server SDK. Browser code must never receive a service-role/secret key.
 
 ## Application/provider secrets
-Set only non-Supabase application/provider secrets, including:
+Configure only target-specific application/provider values:
+- APP_ALLOWED_ORIGIN
 - PUBLIC_ENDPOINT_SALT
+- PUBLIC_INTAKE_ENABLED
+- PUBLIC_BOOKING_ENABLED
 - provider API keys
 - provider webhook secrets
-- allowed origins / provider-specific configuration
 
-## Public endpoint enablement
-`PUBLIC_INTAKE_ENABLED` and `PUBLIC_BOOKING_ENABLED` remain false until:
-1. migrations/RLS apply cleanly
-2. rate-limit RPC passes
-3. CORS/origin configuration is correct
-4. website form/booking integration is tested
-5. database advisors are clean
-6. live monitoring/logging is checked
+## Safety gates
+Public intake/booking remain disabled until:
+1. all SQL modules execute successfully
+2. RLS/Storage/AAL2 tests pass
+3. rate-limit RPC works
+4. CORS/origin is correct
+5. public form/booking flow passes
+6. database advisors are clean/reviewed
+7. monitoring/logging is verified
 
-## Function configuration
-`supabase/config.toml` explicitly disables platform JWT verification only for public endpoints and the external provider webhook.
+The provider webhook remains disabled until its selected provider signature verifier is implemented and tested.
 
 ## Deployment order
-Deploy functions only after:
-- target SQL modules execute successfully
-- tenant/role/storage tests pass
-- database advisors are reviewed and fixed
-- project Auth settings are configured
-- application/provider secrets are configured
+1. Apply/test the target SQL stack.
+2. Configure Auth/MFA/redirects.
+3. Configure secrets/origins.
+4. Deploy authenticated functions.
+5. Test bootstrap/invites/portal/communication/import/commission functions.
+6. Deploy public functions with intake/booking flags still false.
+7. Verify availability/rate limiting.
+8. Enable intake/booking only after HTTP acceptance tests pass.
+9. Enable provider webhook only after signature verification is implemented.
