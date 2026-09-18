@@ -176,39 +176,37 @@ export default {
         };
       });
 
-      const {data:inserted,error:insertError}=await ctx.supabaseAdmin
-        .from('commission_lines').insert(payload)
-        .select('id,match_status,exception_reason,net_amount');
-      if(insertError){
-        await ctx.supabaseAdmin.from('commission_statements').update({import_status:'failed'}).eq('id',statement.id);
-        return response({error:'commission_lines_insert_failed',message:insertError.message},400);
-      }
-
-      const exceptions=(inserted||[]).filter((x:any)=>x.match_status!=='matched').map((x:any)=>({
-        organization_id:statement.organization_id,
-        commission_line_id:x.id,
-        reason:x.exception_reason||'Unmatched commission line',
-        amount:x.net_amount,
-        status:'open'
+      const normalizedRows=payload.map(row=>({
+        external_member_id:row.external_member_id,
+        external_policy_number:row.external_policy_number,
+        client_id:row.client_id,
+        policy_id:row.policy_id,
+        producer_external_id:row.producer_external_id,
+        user_id:row.user_id,
+        commission_type:row.commission_type,
+        gross_amount:row.gross_amount,
+        split_amount:row.split_amount,
+        net_amount:row.net_amount,
+        effective_date:row.effective_date,
+        paid_date:row.paid_date,
+        match_status:row.match_status,
+        exception_reason:row.exception_reason
       }));
-      if(exceptions.length){
-        const {error}=await ctx.supabaseAdmin.from('commission_exceptions').insert(exceptions);
-        if(error){await markFailed(ctx.supabaseAdmin,statement.id,'commission_exception_insert_failed');return response({error:'commission_exception_insert_failed',message:error.message},400);}
-      }
 
-      const total=payload.reduce((sum,row)=>sum+Number(row.net_amount||0),0);
-      const {error:completeError}=await ctx.supabaseAdmin.from('commission_statements').update({
-        import_status:'complete',
-        row_count:payload.length,
-        total_amount:total
-      }).eq('id',statement.id).eq('organization_id',statement.organization_id);
-      if(completeError){await markFailed(ctx.supabaseAdmin,statement.id,'statement_finalize_failed');return response({error:'statement_finalize_failed'},500);}
+      const {data:applied,error:applyError}=await ctx.supabaseAdmin.rpc('apply_commission_statement',{
+        p_statement_id:statement.id,
+        p_rows:normalizedRows
+      });
+      if(applyError){
+        await markFailed(ctx.supabaseAdmin,statement.id,'commission_apply_failed');
+        return response({error:'commission_apply_failed',message:applyError.message},400);
+      }
 
       return response({
         ok:true,
-        rows_imported:payload.length,
-        exceptions:exceptions.length,
-        total_amount:total
+        rows_imported:applied?.rows_imported??payload.length,
+        exceptions:applied?.exceptions??0,
+        total_amount:applied?.total_amount??0
       });
     }catch(error){
       return response({error:'commission_import_failed',message:error instanceof Error?error.message:'commission_import_failed'},400);
