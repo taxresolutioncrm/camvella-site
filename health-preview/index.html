@@ -91,7 +91,7 @@ function actionAllowed(label,role=currentRole){
   if(role==='manager')return !/(import statement|resolve exception|configure integration)/.test(x);
   if(role==='revenue')return /(statement|commission|exception|export|report|mapping)/.test(x);
   if(role==='compliance')return /(evidence|consent|document|audit|review|export|report|license|certification|carrier appointment|add appointment)/.test(x);
-  if(role==='agent')return !/(settings|automation|team member|invite team|import statement|upload statement|resolve exception|configure integration|audit|add carrier|add product|add appointment)/.test(x);
+  if(role==='agent')return !/(settings|automation|team member|invite team|import|upload statement|resolve exception|create exception|create campaign|configure integration|audit|add carrier|add product|add appointment)/.test(x);
   return false;
 }
 const btn=(t,kind='primary',msg=t)=>actionAllowed(msg)?'<button class="btn '+kind+'" onclick="openAction(\''+msg.replaceAll("'","\\'")+'\')">'+t+'</button>':'';
@@ -381,7 +381,7 @@ const actionSchemas={
 'New Automation':[['Name','text'],['Trigger','text'],['Action','text'],['Config JSON','textarea','',false]],
 'New Request':[['Client','text'],['Request type','text'],['Priority','select','Normal|High|Urgent'],['Details','textarea']],
 'New Template':[['Name','text'],['Channel','select','Email|SMS|Fax'],['Subject','text','',false],['Body','textarea']],
-'Upload for Fax':[['Client','text','',false],['File','file'],['Notes','textarea','',false]],
+'Upload for Fax':[['Client','text'],['File','file'],['Notes','textarea','',false]],
 'New Lead':[['First name','text'],['Last name','text'],['Market','select','ACA|Medicare'],['Phone','tel'],['Email','email'],['Source','text']],
 'Book Appointment':[['Client / Lead','text'],['Market','select','ACA|Medicare'],['Date & time','datetime-local'],['Agent','text'],['Type','text']],
 'Compose Email':[['To','email'],['Subject','text'],['Message','textarea']],
