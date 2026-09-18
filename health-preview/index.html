@@ -60,7 +60,49 @@ const kpi=(l,v,f,d='')=>'<div class="kpi"><div class="kpiLabel">'+l+'</div><div 
 const head=(e,t,p,actions='')=>'<div class="pageHead"><div><div class="eyebrow">'+e+'</div><h1>'+t+'</h1><p>'+p+'</p></div><div class="actions">'+actions+'</div></div>';
 const row=(a,b,s,c='')=>'<div class="item"><div><b>'+a+'</b><div class="meta">'+b+'</div></div>'+status(s,c)+'</div>';
 const panel=(title,sub,body)=>'<section class="panel"><div class="panelHead"><h3>'+title+'</h3><span>'+sub+'</span></div><div class="panelBody">'+body+'</div></section>';
-const btn=(t,kind='primary',msg=t)=>'<button class="btn '+kind+'" onclick="openAction(\''+msg.replaceAll("'","\\'")+'\')">'+t+'</button>';
+let currentRole=null;
+const routeRoles={
+  overview:['agency_admin','manager','agent','compliance','revenue'],
+  manager:['agency_admin','manager'],reports:['agency_admin','manager','compliance','revenue'],
+  leads:['agency_admin','manager','agent'],appointments:['agency_admin','manager','agent','compliance'],
+  clients:['agency_admin','manager','agent','compliance','revenue'],client360:['agency_admin','manager','agent','compliance','revenue'],
+  aca:['agency_admin','manager','agent','compliance'],medicare:['agency_admin','manager','agent','compliance'],
+  enrollment:['agency_admin','manager','agent','compliance'],eligibility:['agency_admin','manager','agent','compliance'],
+  plans:['agency_admin','manager','agent','compliance'],evidence:['agency_admin','manager','agent','compliance'],
+  policies:['agency_admin','manager','agent','compliance','revenue'],service:['agency_admin','manager','agent','compliance'],
+  renewals:['agency_admin','manager','agent','compliance','revenue'],requests:['agency_admin','manager','agent','compliance'],
+  portal:['agency_admin','manager','agent'],commissions:['agency_admin','manager','agent','revenue'],
+  exceptions:['agency_admin','manager','agent','revenue'],mapping:['agency_admin','manager','revenue'],
+  compliance:['agency_admin','manager','compliance'],consent:['agency_admin','manager','agent','compliance','revenue'],
+  documents:['agency_admin','manager','agent','compliance'],audit:['agency_admin','manager','compliance'],
+  carriers:['agency_admin','manager','agent','compliance','revenue'],contracting:['agency_admin','manager','agent','compliance'],
+  catalog:['agency_admin','manager','agent','compliance','revenue'],tasks:['agency_admin','manager','agent'],
+  automations:['agency_admin','manager'],team:['agency_admin','manager','agent','compliance'],permissions:['agency_admin','manager'],
+  inbox:['agency_admin','manager','agent','compliance'],email:['agency_admin','manager','agent','compliance'],
+  phone:['agency_admin','manager','agent','compliance'],sms:['agency_admin','manager','agent','compliance'],
+  fax:['agency_admin','manager','agent','compliance'],voicemail:['agency_admin','manager','agent','compliance'],
+  onboarding:['agency_admin'],communications:['agency_admin','manager','agent','compliance'],advanced:['agency_admin','manager','compliance','revenue'],
+  integration:['agency_admin','manager'],lab:['agency_admin','manager'],settings:['agency_admin','manager']
+};
+function canRoute(route,role=currentRole){return !role||(routeRoles[route]||['agency_admin']).includes(role)}
+function actionAllowed(label,role=currentRole){
+  if(!role||role==='agency_admin')return true;
+  const x=String(label||'').toLowerCase();
+  if(role==='manager')return !/(import statement|resolve exception|configure integration)/.test(x);
+  if(role==='revenue')return /(statement|commission|exception|export|report|mapping)/.test(x);
+  if(role==='compliance')return /(evidence|consent|document|audit|review|export|report|license|certification)/.test(x);
+  if(role==='agent')return !/(settings|automation|team member|import statement|resolve exception|configure integration|audit)/.test(x);
+  return false;
+}
+const btn=(t,kind='primary',msg=t)=>actionAllowed(msg)?'<button class="btn '+kind+'" onclick="openAction(\''+msg.replaceAll("'","\\'")+'\')">'+t+'</button>':'';
+function applyRoleUi(role){
+  currentRole=role||null;
+  document.querySelectorAll('.navBtn').forEach(b=>{b.style.display=canRoute(b.dataset.r,currentRole)?'':'none'});
+  document.querySelectorAll('.group').forEach(g=>{
+    const visible=[...g.querySelectorAll('.navBtn')].some(b=>b.style.display!=='none');
+    g.style.display=visible?'':'none';
+  });
+}
 const table=(h,rows)=>'<div class="tableWrap"><table class="table"><thead><tr>'+h.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';
 const tr=(cells)=>'<tr>'+cells.map((x,i)=>'<td class="'+(i===0?'nameCell':'')+'">'+x+'</td>').join('')+'</tr>';
 function overview(){return head('Agency operations','Command Center','ACA + Medicare production, compliance, retention and revenue in one place.',btn('+ New Lead')+btn('Book Appointment','secondary'))+
@@ -410,7 +452,7 @@ function sandboxActivity(route){
  if(!log.length)return '';
  return panel('Recent sandbox activity','Stored locally until Supabase is connected',log.map(x=>row(x.action,new Date(x.created_at).toLocaleString(),Object.keys(x.fields||{}).length+' fields','blue')).join(''));
 }
-function render(){const r=(location.hash||'#overview').slice(1);document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));const activeBtn=document.querySelector('.navBtn[data-r="'+r+'"]');if(activeBtn){const g=activeBtn.closest('.group');if(g&&g.classList.contains('collapsed')){g.classList.remove('collapsed');sidebarState[g.dataset.group]=false;localStorage.setItem(sidebarStateKey,JSON.stringify(sidebarState));const toggle=g.querySelector('.groupToggle');if(toggle)toggle.setAttribute('aria-expanded','true')}}document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()+sandboxActivity(r)}
+function render(){let r=(location.hash||'#overview').slice(1);if(currentRole&&!canRoute(r,currentRole)){r='overview';if(location.hash!=='#overview')history.replaceState(null,'','#overview')}document.querySelectorAll('.navBtn').forEach(b=>b.classList.toggle('active',b.dataset.r===r));const activeBtn=document.querySelector('.navBtn[data-r="'+r+'"]');if(activeBtn){const g=activeBtn.closest('.group');if(g&&g.classList.contains('collapsed')){g.classList.remove('collapsed');sidebarState[g.dataset.group]=false;localStorage.setItem(sidebarStateKey,JSON.stringify(sidebarState));const toggle=g.querySelector('.groupToggle');if(toggle)toggle.setAttribute('aria-expanded','true')}}document.getElementById('view').innerHTML=(views[r]||(()=>generic(r)))()+sandboxActivity(r)}
 const sidebarStateKey='health-crm-sidebar-groups-v1';
 let sidebarState={};
 try{sidebarState=JSON.parse(localStorage.getItem(sidebarStateKey)||'{}')}catch(e){sidebarState={}}
@@ -472,6 +514,8 @@ document.getElementById('search').onkeydown=e=>{if(e.key==='Enter')runGlobalSear
 addEventListener('health-crm-backend-ready',e=>{
   const sub=document.querySelector('.account span');
   if(sub)sub.textContent=e.detail.mode==='supabase'?'Connected workspace · '+(e.detail.role||'member'):'Sandbox · backend disconnected';
+  applyRoleUi(e.detail.mode==='supabase'?e.detail.role:null);
+  render();
 });
 addEventListener('hashchange',render);render();
 </script>
