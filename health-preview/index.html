@@ -88,7 +88,7 @@ function canRoute(route,role=currentRole){return !role||(routeRoles[route]||['ag
 function actionAllowed(label,role=currentRole){
   if(!role||role==='agency_admin')return true;
   const x=String(label||'').toLowerCase();
-  if(role==='manager')return !/(import statement|resolve exception|configure integration)/.test(x);
+  if(role==='manager')return !/(import statement|upload statement|create exception|resolve exception|configure integration)/.test(x);
   if(role==='revenue')return /(statement|commission|exception|export|report|mapping)/.test(x);
   if(role==='compliance')return /(evidence|consent|document|audit|review|export|report|license|certification|carrier appointment|add appointment)/.test(x);
   if(role==='agent')return !/(settings|automation|team member|invite team|import|upload statement|resolve exception|create exception|create campaign|configure integration|audit|add carrier|add product|add appointment)/.test(x);
