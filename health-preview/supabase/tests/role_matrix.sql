@@ -165,7 +165,7 @@ begin
 end $$;
 
 -- R15 deactivating a member disables public-facing references before the membership goes inactive.
-do $$
+do $
 declare n integer;
 begin
   update public.memberships
@@ -192,7 +192,30 @@ begin
     n||' active public references',
     n=0
   );
-end $$;
+end $;
+
+-- R16 the final active administrator cannot demote or deactivate themselves.
+do $
+declare blocked boolean:=false;
+begin
+  begin
+    update public.memberships
+    set role='manager'
+    where organization_id='ORG_A'::uuid
+      and user_id='ADMIN_USER'::uuid
+      and role='agency_admin'
+      and is_active=true;
+  exception when others then
+    blocked:=true;
+  end;
+
+  perform pg_temp.result(
+    'R16 final active admin protection',
+    'Blocked',
+    case when blocked then 'Blocked' else 'Update succeeded' end,
+    blocked
+  );
+end $;
 
 reset role;
 select * from role_results order by test_name;
