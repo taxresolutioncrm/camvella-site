@@ -5,7 +5,9 @@ export function loadRuntimeConfig(){
     supabasePublishableKey:String(cfg.supabasePublishableKey||'').trim(),
     environment:String(cfg.environment||'sandbox'),
     productName:String(cfg.productName||'RomyLabs Insurance CRM'),
-    appOrigin:String(cfg.appOrigin||location.origin)
+    appOrigin:String(cfg.appOrigin||location.origin),
+    publicIntakeSlug:String(cfg.publicIntakeSlug||'').trim(),
+    publicBookingSlug:String(cfg.publicBookingSlug||'').trim()
   };
 }
 
