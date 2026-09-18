@@ -21,7 +21,7 @@ export class ActionService{
  async uploadImport(file,importType){if(!(file instanceof File)||!file.size)throw new Error('Choose a file to import');const safe=file.name.replace(/[^a-zA-Z0-9._-]+/g,'-').slice(-160);const path=this.orgId+'/'+(this.officeId||'shared')+'/'+importType+'/'+crypto.randomUUID()+'-'+safe;const {error}=await this.client.storage.from('imports').upload(path,file,{upsert:false,contentType:file.type||undefined});if(error)throw error;try{return await this.repo.create('importJobs',{office_id:this.officeId,import_type:importType,source_filename:file.name,storage_path:path,status:'uploaded',created_by:this.userId})}catch(err){await this.client.storage.from('imports').remove([path]);throw err}}
  async execute(action,fields){
   this.assertLive();const a=text(action);
-  if(a.includes('New Lead'))return this.repo.create('leads',{office_id:this.officeId,assigned_user_id:this.userId,first_name:text(fields['First name']),last_name:text(fields['Last name']),market:market(fields['Market']),phone:text(fields['Phone'])||null,email:text(fields['Email'])||null,source:text(fields['Source'])||'manual',stage:'new'});
+  if(a.includes('New Lead')||a.includes('Add Lead'))return this.repo.create('leads',{office_id:this.officeId,assigned_user_id:this.userId,first_name:text(fields['First name']),last_name:text(fields['Last name']),market:market(fields['Market']),phone:text(fields['Phone'])||null,email:text(fields['Email'])||null,source:text(fields['Source'])||'manual',stage:'new'});
   if(a.includes('Add Client'))return this.repo.create('clients',{office_id:this.officeId,assigned_user_id:this.userId,first_name:text(fields['First name']),last_name:text(fields['Last name']),market:market(fields['Market']),phone:text(fields['Phone'])||null,email:text(fields['Email'])||null});
   if(a.includes('Book Appointment')){const t=await this.resolveClientOrLead(fields['Client / Lead']);const starts=new Date(fields['Date & time']);if(Number.isNaN(starts.getTime()))throw new Error('Appointment date/time is invalid');return this.repo.create('appointments',{office_id:this.officeId,client_id:t.client?.id||null,lead_id:t.lead?.id||null,assigned_user_id:await this.resolveUser(fields['Agent']),appointment_type:text(fields['Type'])||market(fields['Market'])+' consultation',starts_at:starts.toISOString(),duration_minutes:30,status:'scheduled'})}
   if(a.includes('New Enrollment')){const c=await this.resolveClient(fields['Client']);return this.repo.call('create_enrollment_case',{p_client_id:c.id,p_assigned_user_id:await this.resolveUser(fields['Agent']),p_market:market(fields['Market']),p_enrollment_type:text(fields['Enrollment type'])||null,p_household_size:null})}
@@ -76,7 +76,8 @@ export class ActionService{
     }
     return this.invoke('send-communication',{channel,to:text(fields['To']),message:text(fields['Message'])});
   }
-  if(/Run Eligibility|Run Comparison|Build Bundle|Mark All Reviewed|Start Needs Analysis|Run All Simulations|Export/.test(a))return {deferred:true,reason:'record_or_provider_context_required'};
+  if(a==='Template Library'){const rows=await this.repo.list('communicationTemplates',{limit:200});return {count:rows.length,templates:rows}}
+  if(/Run Eligibility|Recheck Eligibility|Run Comparison|Mark All Reviewed|Start Needs Analysis|Run All Simulations|Export/.test(a))return {deferred:true,reason:'record_or_provider_context_required'};
   throw new Error('No live backend handler is defined for this action yet');
  }
 }
