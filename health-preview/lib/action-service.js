@@ -32,7 +32,17 @@ export class ActionService{
   if(a.includes('Import Statement')||a.includes('Upload Statement')){const c=await this.resolveCarrier(fields['Carrier']);const p=text(fields['Statement period']);const start=p?p+'-01':null;const end=p?new Date(Date.UTC(Number(p.slice(0,4)),Number(p.slice(5,7)),0)).toISOString().slice(0,10):null;return this.repo.create('commissionStatements',{carrier_id:c.id,statement_period_start:start,statement_period_end:end,source_filename:text(fields['File name'])||null,import_status:'pending'})}
   if(a.includes('Invite Team'))return this.invoke('create-team-invite',{organization_id:this.orgId,office_id:this.officeId,email:text(fields['Email']),role:teamRole(fields['Role'])});
   if(a.includes('Invite Client')||a.includes('Send Portal Invite')){const c=await this.resolveClient(fields['Client']);return this.invoke('create-portal-invite',{client_id:c.id,email:text(fields['Email'])})}
+  if(a==='Run Audit'){const rows=await this.repo.list('auditLog',{limit:100});return {count:rows.length}}
+  if(a==='Run Readiness Check'){
+    const [providers,contracts,licenses]=await Promise.all([
+      this.repo.list('providerConnections',{limit:100}),
+      this.repo.list('carrierContracts',{limit:300}),
+      this.repo.list('agentLicenses',{limit:300})
+    ]);
+    return {providers:providers.length,carrierContracts:contracts.length,agentLicenses:licenses.length};
+  }
   if(/Compose Email|New Message|New SMS|Send Fax|Open Dialer|Call Client/.test(a))return {deferred:true,reason:'communication_provider_required'};
+  if(/Run Eligibility|Run Comparison|Build Bundle|Mark All Reviewed|Start Needs Analysis|Run All Simulations|Export/.test(a))return {deferred:true,reason:'record_or_provider_context_required'};
   throw new Error('No live backend handler is defined for this action yet');
  }
 }
