@@ -2,18 +2,6 @@
 -- Workspace search + client activity feed.
 -- DO NOT APPLY until the dedicated Supabase project is selected.
 
-create extension if not exists pg_trgm;
-
-create index if not exists clients_name_trgm_idx
-on public.clients using gin ((first_name||' '||last_name) gin_trgm_ops);
-
-create index if not exists leads_name_trgm_idx
-on public.leads using gin ((first_name||' '||last_name) gin_trgm_ops);
-
-create index if not exists policies_number_trgm_idx
-on public.policies using gin (policy_number gin_trgm_ops)
-where policy_number is not null;
-
 create or replace function public.search_workspace(
   p_query text,
   p_limit integer default 25
@@ -43,14 +31,17 @@ as $$
       c.organization_id,
       c.office_id,
       greatest(
-        similarity(lower(c.first_name||' '||c.last_name),lower(q.term)),
-        case when lower(coalesce(c.email,'')) like '%'||lower(q.term)||'%' then 0.9 else 0 end,
-        case when coalesce(c.phone,'') like '%'||q.term||'%' then 0.9 else 0 end
+        case when lower(c.first_name||' '||c.last_name)=lower(q.term) then 1.0
+             when lower(c.first_name||' '||c.last_name) like lower(q.term)||'%' then 0.9
+             when lower(c.first_name||' '||c.last_name) like '%'||lower(q.term)||'%' then 0.7
+             else 0 end,
+        case when lower(coalesce(c.email,'')) like '%'||lower(q.term)||'%' then 0.8 else 0 end,
+        case when coalesce(c.phone,'') like '%'||q.term||'%' then 0.8 else 0 end
       ) as rank
     from public.clients c cross join q
     where q.term is not null
       and (
-        lower(c.first_name||' '||c.last_name) % lower(q.term)
+        lower(c.first_name||' '||c.last_name) like '%'||lower(q.term)||'%'
         or lower(coalesce(c.email,'')) like '%'||lower(q.term)||'%'
         or coalesce(c.phone,'') like '%'||q.term||'%'
       )
@@ -64,14 +55,17 @@ as $$
       l.organization_id,
       l.office_id,
       greatest(
-        similarity(lower(l.first_name||' '||l.last_name),lower(q.term)),
-        case when lower(coalesce(l.email,'')) like '%'||lower(q.term)||'%' then 0.9 else 0 end,
-        case when coalesce(l.phone,'') like '%'||q.term||'%' then 0.9 else 0 end
+        case when lower(l.first_name||' '||l.last_name)=lower(q.term) then 1.0
+             when lower(l.first_name||' '||l.last_name) like lower(q.term)||'%' then 0.9
+             when lower(l.first_name||' '||l.last_name) like '%'||lower(q.term)||'%' then 0.7
+             else 0 end,
+        case when lower(coalesce(l.email,'')) like '%'||lower(q.term)||'%' then 0.8 else 0 end,
+        case when coalesce(l.phone,'') like '%'||q.term||'%' then 0.8 else 0 end
       )
     from public.leads l cross join q
     where q.term is not null
       and (
-        lower(l.first_name||' '||l.last_name) % lower(q.term)
+        lower(l.first_name||' '||l.last_name) like '%'||lower(q.term)||'%'
         or lower(coalesce(l.email,'')) like '%'||lower(q.term)||'%'
         or coalesce(l.phone,'') like '%'||q.term||'%'
       )
