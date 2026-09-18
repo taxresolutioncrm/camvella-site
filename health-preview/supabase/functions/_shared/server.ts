@@ -61,3 +61,8 @@ export function requireAal2Claims(claims: Record<string,unknown>|null|undefined)
   if(String(claims?.aal||'')!=='aal2') throw new Error('aal2_required');
   return true;
 }
+
+
+export function claimsHaveAal2(claims: Record<string,unknown>|null|undefined){
+  return String(claims?.aal||'')==='aal2';
+}
