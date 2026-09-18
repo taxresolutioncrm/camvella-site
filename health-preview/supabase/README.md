@@ -23,27 +23,30 @@ Do not apply these files to an existing unrelated RomyLabs project.
 18. 018_tenant_integrity_triggers.sql
 19. 019_domain_relationship_guards.sql
 20. 020_communications_scheduling_completion.sql
+21. 021_invite_history_and_market_guards.sql
+22. 022_role_policy_alignment.sql
 
 ## After migrations
 1. Confirm Data API exposure/settings.
 2. Create authenticated fixture users in separate organizations/offices.
 3. Load seed data if desired.
 4. Replace isolation-test fixture UUIDs.
-5. Run T1-T11 tenant/office isolation tests.
+5. Run T1-T11 tenant/office/assigned-book isolation tests.
 6. Run database advisors.
 7. Fix every relevant security/performance finding.
 8. Verify private Storage for agency and portal users.
 9. Exercise tenant bootstrap, team invite, and portal invite flows.
 10. Deploy trusted Edge Functions.
 11. Connect frontend with project URL + publishable key only.
-12. Test CRUD/reporting under each role.
+12. Test CRUD/reporting under every role.
 13. Connect provider credentials one provider at a time.
 14. Run end-to-end live workflow verification.
 
 ## Security rules
 - Every exposed table has RLS.
 - Authorization is membership/role based, never user_metadata.
-- Agents are office-scoped; defined operational roles are organization-wide.
+- Agents are office-scoped and assigned-book scoped.
+- Compliance and revenue permissions are separated from sensitive client data.
 - Cross-org parent references and foreign user assignments are blocked by database triggers.
 - UPDATE policies use USING + WITH CHECK.
 - Audit rows are trigger/server generated and append-only to browser roles.
