@@ -46,7 +46,9 @@ const resources={
   communicationTemplates:{table:'communication_templates',key:'id',tenant:true},
   contactPreferences:{table:'contact_preferences',key:'id',tenant:true},
   publicIntakeForms:{table:'public_intake_forms',key:'id',tenant:true},
-  integrationSyncJobs:{table:'integration_sync_jobs',key:'id',tenant:true}
+  integrationSyncJobs:{table:'integration_sync_jobs',key:'id',tenant:true},
+  auditLog:{table:'audit_log',key:'id',tenant:true},
+  providerConnections:{table:'provider_connections',key:'id',tenant:true}
 };
 
 function spec(resource){
