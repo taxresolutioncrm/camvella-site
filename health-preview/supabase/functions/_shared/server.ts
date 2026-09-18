@@ -42,3 +42,16 @@ export function emailFromClaims(claims: Record<string,unknown>|null|undefined){
   const value = claims?.email;
   return value ? String(value) : null;
 }
+
+
+export function appCorsConfig(){
+  const origin=Deno.env.get('APP_ALLOWED_ORIGIN')||'';
+  return {
+    headers:{
+      'Access-Control-Allow-Origin':origin,
+      'Access-Control-Allow-Headers':'authorization, apikey, content-type, x-client-info',
+      'Access-Control-Allow-Methods':'POST, OPTIONS',
+      'Vary':'Origin'
+    }
+  };
+}
