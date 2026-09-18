@@ -37,6 +37,17 @@ function marketValue(v:string){
   return x==='aca'||x==='medicare'?x:null;
 }
 
+async function failJob(admin:any,jobId:string,organizationId:string,status:string,errorSummary:any[],rowsTotal=0,rowsValid=0,rowsFailed=0){
+  await admin.from('import_jobs').update({
+    status,
+    rows_total:rowsTotal,
+    rows_valid:rowsValid,
+    rows_failed:rowsFailed,
+    error_summary:errorSummary,
+    finished_at:new Date().toISOString()
+  }).eq('id',jobId).eq('organization_id',organizationId).eq('status','processing');
+}
+
 export default {
   fetch: withSupabase({ auth:'user', cors:appCorsConfig(), errors:{detailed:false} }, async(req,ctx)=>{
     if(req.method!=='POST')return response({error:'method_not_allowed'},405);
@@ -59,14 +70,35 @@ export default {
         if(!adminMembership||!['agency_admin','manager'].includes(adminMembership.role))return response({error:'import_job_not_owned'},403);
       }
 
+      const {data:claimed,error:claimError}=await ctx.supabaseAdmin.from('import_jobs')
+        .update({status:'processing',finished_at:null,error_summary:[]})
+        .eq('id',job.id)
+        .eq('organization_id',job.organization_id)
+        .in('status',['uploaded','failed','validation_failed'])
+        .select('id')
+        .maybeSingle();
+      if(claimError||!claimed)return response({error:'import_job_already_processing_or_complete'},409);
+
       const {data:file,error:downloadError}=await ctx.supabaseAdmin.storage.from('imports').download(job.storage_path);
-      if(downloadError||!file)return response({error:'import_file_download_failed'},400);
+      if(downloadError||!file){
+        await failJob(ctx.supabaseAdmin,job.id,job.organization_id,'failed',[{row:0,errors:['import_file_download_failed']}]);
+        return response({error:'import_file_download_failed'},400);
+      }
 
       const input=await file.text();
-      if(input.length>5_000_000)return response({error:'import_file_too_large'},413);
+      if(input.length>5_000_000){
+        await failJob(ctx.supabaseAdmin,job.id,job.organization_id,'failed',[{row:0,errors:['import_file_too_large']}]);
+        return response({error:'import_file_too_large'},413);
+      }
       const rows=recordsFromCsv(input);
-      if(!rows.length)return response({error:'import_file_empty'},400);
-      if(rows.length>2000)return response({error:'import_row_limit_exceeded',limit:2000},413);
+      if(!rows.length){
+        await failJob(ctx.supabaseAdmin,job.id,job.organization_id,'failed',[{row:0,errors:['import_file_empty']}]);
+        return response({error:'import_file_empty'},400);
+      }
+      if(rows.length>2000){
+        await failJob(ctx.supabaseAdmin,job.id,job.organization_id,'failed',[{row:0,errors:['import_row_limit_exceeded']}],rows.length,0,rows.length);
+        return response({error:'import_row_limit_exceeded',limit:2000},413);
+      }
 
       const errors:Array<{row:number;errors:string[]}>=[];const valid:any[]=[];
       for(const row of rows){
@@ -86,26 +118,20 @@ export default {
           if(row.plan_year&&!Number.isFinite(Number(row.plan_year)))rowErrors.push('plan_year');
           if(!rowErrors.length)valid.push(row);
         }else{
+          await failJob(ctx.supabaseAdmin,job.id,job.organization_id,'failed',[{row:0,errors:['unsupported_import_type']}],rows.length,0,rows.length);
           return response({error:'unsupported_import_type'},400);
         }
         if(rowErrors.length)errors.push({row:Number(row.__row),errors:rowErrors});
       }
 
       if(errors.length){
-        await ctx.supabaseAdmin.from('import_jobs').update({
-          status:'validation_failed',
-          rows_total:rows.length,
-          rows_valid:valid.length,
-          rows_failed:errors.length,
-          error_summary:errors.slice(0,100),
-          finished_at:new Date().toISOString()
-        }).eq('id',job.id).eq('organization_id',job.organization_id);
+        await failJob(ctx.supabaseAdmin,job.id,job.organization_id,'validation_failed',errors.slice(0,100),rows.length,valid.length,errors.length);
         return response({ok:false,status:'validation_failed',rows_total:rows.length,rows_valid:valid.length,errors:errors.slice(0,100)},422);
       }
 
       await ctx.supabaseAdmin.from('import_jobs').update({
-        status:'processing',rows_total:rows.length,rows_valid:valid.length
-      }).eq('id',job.id).eq('organization_id',job.organization_id);
+        rows_total:rows.length,rows_valid:valid.length
+      }).eq('id',job.id).eq('organization_id',job.organization_id).eq('status','processing');
 
       let payload:any[]=[];
       if(job.import_type==='leads'){
@@ -139,10 +165,16 @@ export default {
         const carrierNames=[...new Set(valid.map(row=>row.carrier.toLowerCase()))];
         const {data:carriers,error:carrierError}=await ctx.supabaseAdmin.from('carriers')
           .select('id,name').eq('organization_id',job.organization_id);
-        if(carrierError)return response({error:'carrier_lookup_failed'},500);
+        if(carrierError){
+          await failJob(ctx.supabaseAdmin,job.id,job.organization_id,'failed',[{row:0,errors:['carrier_lookup_failed']}],rows.length,valid.length,rows.length);
+          return response({error:'carrier_lookup_failed'},500);
+        }
         const carrierMap=new Map((carriers||[]).map((c:any)=>[String(c.name).toLowerCase(),c.id]));
         const missing=carrierNames.filter(n=>!carrierMap.has(n));
-        if(missing.length)return response({error:'unknown_carriers',carriers:missing},422);
+        if(missing.length){
+          await failJob(ctx.supabaseAdmin,job.id,job.organization_id,'validation_failed',[{row:0,errors:['unknown_carriers:'+missing.join(',')]}],rows.length,0,rows.length);
+          return response({error:'unknown_carriers',carriers:missing},422);
+        }
         payload=valid.map(row=>({
           organization_id:job.organization_id,
           carrier_id:carrierMap.get(row.carrier.toLowerCase()),
@@ -161,13 +193,7 @@ export default {
         p_rows:payload
       });
       if(applyError){
-        await ctx.supabaseAdmin.from('import_jobs').update({
-          status:'failed',
-          rows_imported:0,
-          rows_failed:payload.length,
-          error_summary:[{row:2,errors:[applyError.message]}],
-          finished_at:new Date().toISOString()
-        }).eq('id',job.id).eq('organization_id',job.organization_id);
+        await failJob(ctx.supabaseAdmin,job.id,job.organization_id,'failed',[{row:2,errors:[applyError.message]}],rows.length,valid.length,payload.length);
         return response({error:'import_apply_failed',message:applyError.message},400);
       }
 
