@@ -21,6 +21,8 @@ declare
   portal_message_id uuid;
   thread_id uuid;
   communication_id uuid;
+  active_assignee uuid;
+  thread_assignee uuid;
   now_at timestamptz:=now();
 begin
   if p_direction not in ('inbound','outbound') then
@@ -38,6 +40,13 @@ begin
   if c.id is null then
     raise exception 'client not found';
   end if;
+
+  select m.user_id into active_assignee
+  from public.memberships m
+  where m.organization_id=c.organization_id
+    and m.user_id=c.assigned_user_id
+    and m.is_active=true
+  limit 1;
 
   if p_direction='inbound' then
     if not exists(
@@ -70,6 +79,8 @@ begin
     end if;
   end if;
 
+  thread_assignee:=case when p_direction='outbound' then p_actor_user_id else active_assignee end;
+
   insert into public.portal_messages(
     organization_id,
     office_id,
@@ -91,28 +102,46 @@ begin
   )
   returning id into portal_message_id;
 
-  insert into public.communication_threads(
-    organization_id,
-    office_id,
-    client_id,
-    subject,
-    last_channel,
-    last_message_at,
-    assigned_user_id,
-    status,
-    created_at
-  ) values (
-    c.organization_id,
-    c.office_id,
-    c.id,
-    coalesce(nullif(trim(p_subject),''),'Portal message'),
-    'portal',
-    now_at,
-    c.assigned_user_id,
-    'open',
-    now_at
-  )
-  returning id into thread_id;
+  select t.id into thread_id
+  from public.communication_threads t
+  where t.organization_id=c.organization_id
+    and t.client_id=c.id
+    and t.status='open'
+    and t.last_channel='portal'
+  order by t.last_message_at desc nulls last,t.created_at desc
+  limit 1
+  for update;
+
+  if thread_id is null then
+    insert into public.communication_threads(
+      organization_id,
+      office_id,
+      client_id,
+      subject,
+      last_channel,
+      last_message_at,
+      assigned_user_id,
+      status,
+      created_at
+    ) values (
+      c.organization_id,
+      c.office_id,
+      c.id,
+      coalesce(nullif(trim(p_subject),''),'Portal message'),
+      'portal',
+      now_at,
+      thread_assignee,
+      'open',
+      now_at
+    )
+    returning id into thread_id;
+  else
+    update public.communication_threads
+    set last_message_at=now_at,
+        subject=coalesce(nullif(trim(p_subject),''),subject),
+        assigned_user_id=coalesce(assigned_user_id,thread_assignee)
+    where id=thread_id;
+  end if;
 
   insert into public.communications(
     organization_id,
