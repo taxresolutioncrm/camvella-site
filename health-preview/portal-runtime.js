@@ -137,7 +137,7 @@ async function init(){
   clientApi=createClient(config.supabaseUrl,config.supabasePublishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   const {data:{user}}=await clientApi.auth.getUser();clientUser=user;
   if(!user){sessionStorage.setItem('healthPortalAfterLogin','./portal.html');location.replace('./login.html');return}
-  const {data:account,error:aErr}=await clientApi.from('client_portal_accounts').select('*').eq('user_id',user.id).eq('status','active').maybeSingle();
+  const {data:account,error:aErr}=await clientApi.from('client_portal_accounts').select('*').eq('user_id',user.id).eq('status','active').limit(1).maybeSingle();
   if(aErr||!account){content.innerHTML=empty('No active client portal account is linked to this login.');return}
   portalAccount=account;
   const {data:profiles,error:cErr}=await clientApi.rpc('get_my_portal_profile');
