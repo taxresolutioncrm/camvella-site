@@ -63,53 +63,16 @@ export default {
           direction='inbound';
         }
 
-        const {data:portalMessage,error:portalMessageError}=await ctx.supabase.from('portal_messages').insert({
-          organization_id:targetClient.organization_id,
-          office_id:targetClient.office_id,
-          client_id:targetClient.id,
-          direction,
-          subject:subject||null,
-          body_text:message,
-          sender_user_id:userId
-        }).select('id,created_at').single();
+        const {data:recorded,error:recordError}=await ctx.supabaseAdmin.rpc('record_portal_message',{
+          p_actor_user_id:userId,
+          p_client_id:targetClient.id,
+          p_direction:direction,
+          p_subject:subject||null,
+          p_body:message
+        });
+        if(recordError) return response({error:'portal_message_create_failed',message:recordError.message},400);
 
-        if(portalMessageError) return response({error:'portal_message_create_failed',message:portalMessageError.message},400);
-
-        if(direction==='inbound'){
-          const now=new Date().toISOString();
-          const {data:thread,error:threadError}=await ctx.supabaseAdmin.from('communication_threads').insert({
-            organization_id:targetClient.organization_id,
-            office_id:targetClient.office_id,
-            client_id:targetClient.id,
-            assigned_user_id:targetClient.assigned_user_id||null,
-            subject:subject||'Portal message',
-            last_channel:'portal',
-            last_message_at:now,
-            status:'open'
-          }).select('id').single();
-
-          if(!threadError&&thread){
-            await ctx.supabaseAdmin.from('communications').insert({
-              organization_id:targetClient.organization_id,
-              office_id:targetClient.office_id,
-              thread_id:thread.id,
-              channel:'portal',
-              direction:'inbound',
-              client_id:targetClient.id,
-              user_id:null,
-              provider:'client_portal',
-              provider_status:'received',
-              from_address:targetClient.id,
-              to_address:'agency_portal',
-              subject:subject||null,
-              body_text:message,
-              body_preview:message.slice(0,240),
-              created_at:now
-            });
-          }
-        }
-
-        return response({ok:true,portal_message_id:portalMessage.id,direction,created_at:portalMessage.created_at});
+        return response({ok:true,...recorded});
       }
 
       if(!agencyMembership) return response({error:'workspace_membership_required'},403);
