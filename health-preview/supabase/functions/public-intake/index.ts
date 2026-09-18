@@ -18,13 +18,14 @@ export default {
       const lastName=String(body.last_name||'').trim().slice(0,100);
       const email=String(body.email||'').trim().slice(0,254);
       const phone=String(body.phone||'').trim().slice(0,40);
+      const notes=String(body.notes||'').trim().slice(0,4000);
       const marketRaw=String(body.market||'').trim().toLowerCase().slice(0,20);
       const market=['aca','medicare'].includes(marketRaw)?marketRaw:null;
       const notes=String(body.notes||'').trim().slice(0,4000);
       if(!slug||!firstName||!lastName) return response({error:'invalid_intake'},400);
 
       const {data,error}=await ctx.supabaseAdmin.rpc('submit_public_intake',{
-        p_slug:slug,p_first_name:firstName,p_last_name:lastName,p_email:email,p_phone:phone,p_market:market
+        p_slug:slug,p_first_name:firstName,p_last_name:lastName,p_email:email,p_phone:phone,p_market:market,p_notes:notes
       });
       if(error) return response({error:'intake_failed',message:error.message},400);
       return response({ok:true,lead_id:data.lead_id},201);
