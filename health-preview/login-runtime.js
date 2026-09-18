@@ -31,7 +31,10 @@ async function initLogin(){
   const client=createClient(config.supabaseUrl,config.supabasePublishableKey,{
     auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
   });
-  const auth=new AuthController(client,{redirectTo:new URL('./login.html',location.href).href});
+  const auth=new AuthController(client,{
+    magicLinkRedirectTo:new URL('./login.html',location.href).href,
+    recoveryRedirectTo:new URL('./reset-password.html',location.href).href
+  });
 
   const {data:{session}}=await client.auth.getSession();
   if(session){
