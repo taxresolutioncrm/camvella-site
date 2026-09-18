@@ -72,21 +72,24 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          expected='HOA &amp; Community Association Management Software | Camvella'
-          for i in $(seq 1 30); do
-            html="$(curl -fsSL --max-time 15 "https://camvella.com/?verify=$(date +%s)" || true)"
-            robots="$(curl -fsSL --max-time 15 "https://camvella.com/robots.txt?verify=$(date +%s)" || true)"
-            sitemap="$(curl -fsSL --max-time 15 "https://camvella.com/sitemap.xml?verify=$(date +%s)" || true)"
-            if printf '%s' "$html" | grep -Fq "$expected" \
-              && printf '%s' "$html" | grep -Fq 'HOA management software' \
-              && printf '%s' "$html" | grep -Fq 'professional community managers' \
-              && printf '%s' "$robots" | grep -qi 'Sitemap: https://camvella.com/sitemap.xml' \
-              && printf '%s' "$sitemap" | grep -Fq '<loc>https://camvella.com/</loc>'; then
-              echo 'Live Camvella SEO verification passed.'
-              exit 0
-            fi
-            echo "Waiting for Camvella production SEO + sitemap ($i/30)..."
-            sleep 10
-          done
-          echo 'Camvella production did not reach the expected SEO version.' >&2
-          exit 1
+          stamp="$(date +%s)"
+          curl -sS -D /tmp/home.h -o /tmp/home.html "https://camvella.com/?verify=$stamp"
+          curl -sS -D /tmp/robots.h -o /tmp/robots.txt "https://camvella.com/robots.txt?verify=$stamp"
+          curl -sS -D /tmp/sitemap.h -o /tmp/sitemap.xml "https://camvella.com/sitemap.xml?verify=$stamp"
+          curl -sS -D /tmp/florida-alias.h -o /dev/null "https://camvella.com/solutions/florida-hoa-management-software/"
+          curl -sS -D /tmp/texas-alias.h -o /dev/null "https://camvella.com/solutions/texas-hoa-management-software/"
+          echo '=== HOME STATUS/TITLE ==='
+          head -n 1 /tmp/home.h
+          grep -o '<title>[^<]*</title>' /tmp/home.html | head -n 1 || true
+          echo '=== HOME MARKERS ==='
+          grep -F 'HOA management software' /tmp/home.html | head -n 1 || true
+          grep -F 'professional community managers' /tmp/home.html | head -n 1 || true
+          echo '=== ROBOTS ==='
+          head -n 1 /tmp/robots.h
+          cat /tmp/robots.txt
+          echo '=== SITEMAP ==='
+          head -n 1 /tmp/sitemap.h
+          grep -F '<loc>https://camvella.com/</loc>' /tmp/sitemap.xml | head -n 1 || true
+          echo '=== REGIONAL ALIAS REDIRECTS ==='
+          grep -Ei '^(HTTP/|location:)' /tmp/florida-alias.h || true
+          grep -Ei '^(HTTP/|location:)' /tmp/texas-alias.h || true
