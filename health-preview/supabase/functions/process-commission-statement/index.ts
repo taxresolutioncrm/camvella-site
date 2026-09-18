@@ -47,6 +47,7 @@ async function markFailed(admin:any,statementId:string,reason:string){
 export default {
   fetch: withSupabase({ auth:'user', cors:appCorsConfig(), errors:{detailed:false} }, async(req,ctx)=>{
     if(req.method!=='POST')return response({error:'method_not_allowed'},405);
+    if(!claimsHaveAal2(ctx.userClaims as Record<string,unknown>)) return response({error:'aal2_required'},403);
     try{
       if(String((ctx.userClaims as Record<string,unknown>)?.aal||'')!=='aal2') return response({error:'aal2_required'},403);
       requireAal2Claims(ctx.userClaims as Record<string,unknown>);
