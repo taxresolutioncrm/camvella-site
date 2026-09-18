@@ -448,7 +448,32 @@ document.querySelectorAll('.navBtn').forEach(b=>b.onclick=()=>{
     if(toggle)toggle.setAttribute('aria-expanded','true');
   }
 });
-document.getElementById('search').onkeydown=e=>{if(e.key==='Enter'&&e.target.value.trim())alert('Search preview: '+e.target.value+'\n\nLive global search will connect with the backend.');};
+async function runGlobalSearch(query){
+  const q=String(query||'').trim();
+  if(q.length<2)return;
+  if(typeof globalThis.healthCrmSearch!=='function'){
+    showToast('Search backend is still initializing');
+    return;
+  }
+  try{
+    const results=await globalThis.healthCrmSearch(q);
+    if(!results.length){
+      showToast(globalThis.healthCrmBackend?.mode==='supabase'?'No matching records':'Sandbox search is local-only until Supabase is connected');
+      return;
+    }
+    document.getElementById('view').innerHTML=head('Search','Global Search','Results across clients, leads and policies for “'+q.replaceAll('<','&lt;')+'”.')+
+      '<section class="panel"><div class="panelHead"><h3>Matches</h3><span>'+results.length+' results</span></div><div class="panelBody">'+
+      results.map(x=>row(x.title,x.subtitle||x.entity_type,x.entity_type,'blue')).join('')+'</div></section>';
+  }catch(error){
+    showToast('Search failed: '+(error?.message||'unknown error'));
+  }
+}
+document.getElementById('search').onkeydown=e=>{if(e.key==='Enter')runGlobalSearch(e.target.value)};
+addEventListener('health-crm-backend-ready',e=>{
+  const sub=document.querySelector('.account span');
+  if(sub)sub.textContent=e.detail.mode==='supabase'?'Connected workspace · '+(e.detail.role||'member'):'Sandbox · backend disconnected';
+});
 addEventListener('hashchange',render);render();
 </script>
+<script type="module" src="./runtime-init.js"></script>
 </body></html>
