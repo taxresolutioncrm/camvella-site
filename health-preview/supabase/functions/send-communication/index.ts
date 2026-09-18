@@ -15,16 +15,18 @@ export default {
       const subject=clean(body.subject,500);
       const message=clean(body.message,10000);
       const requestedClientId=body.client_id?clean(body.client_id,64):null;
+      const requestedOrganizationId=body.organization_id?clean(body.organization_id,64):null;
       const leadId=body.lead_id?clean(body.lead_id,64):null;
       if(!allowedChannels.has(channel)||!to) return response({error:'invalid_communication_request'},400);
 
       const userId=userIdFromClaims(ctx.userClaims as Record<string,unknown>);
-      const {data:memberships,error:membershipError}=await ctx.supabase
+      let membershipQuery=ctx.supabase
         .from('memberships')
         .select('organization_id,office_id,role,is_active')
         .eq('user_id',userId)
-        .eq('is_active',true)
-        .limit(2);
+        .eq('is_active',true);
+      if(requestedOrganizationId) membershipQuery=membershipQuery.eq('organization_id',requestedOrganizationId);
+      const {data:memberships,error:membershipError}=await membershipQuery.limit(2);
 
       if(membershipError) return response({error:'membership_lookup_failed'},500);
       const agencyMembership=(memberships||[]).length===1?memberships![0]:null;
@@ -75,8 +77,9 @@ export default {
         return response({ok:true,...recorded});
       }
 
-      if(!agencyMembership) return response({error:'workspace_membership_required'},403);
-      if((memberships||[]).length!==1) return response({error:'workspace_context_required'},409);
+      if(!agencyMembership){
+        return response({error:requestedOrganizationId?'workspace_membership_required':'workspace_context_required'},requestedOrganizationId?403:409);
+      }
 
       let targetClient:any=null;
       let targetLead:any=null;
