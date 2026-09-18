@@ -365,6 +365,22 @@ panel('Launch simulation','What can run without backend',row('Navigation + modul
 
 const views={overview,leads,clients,client360,appointments,enrollment,commissions,compliance,manager,portal,policies,reports,aca,medicare,renewals,documents,carriers,contracting,evidence,onboarding,automations,tasks,team,settings,eligibility,plans,service,exceptions,mapping,consent,audit,requests,permissions,communications,advanced,integration,lab,inbox,email,phone,sms,fax,voicemail,history,catalog};
 const actionSchemas={
+'Add Event':[['Policy','text'],['Event type','text'],['Summary','textarea']],
+'Add Policy':[['Client','text'],['Carrier','text'],['Product','text','',false],['Policy number','text','',false],['Effective date','date'],['Renewal date','date','',false],['Premium','number','',false]],
+'Add Team Member':[['Name','text'],['Email','email'],['Role','select','Agency Admin|Manager|Agent|Compliance|Revenue']],
+'Assign Conversation':[['Thread ID','text'],['Assigned to','text']],
+'Create Campaign':[['Name','text'],['Market','select','ACA|Medicare'],['Channel','select','Email|SMS|Phone'],['Scheduled','datetime-local','',false]],
+'Create Evidence Bundle':[['Enrollment','text'],['Notes','textarea','',false]],
+'Build Bundle':[['Enrollment','text'],['Notes','textarea','',false]],
+'Create Exception':[['Commission line','text'],['Reason','text'],['Amount','number','',false],['Assigned to','text','',false]],
+'Create Task':[['Task','text'],['Assigned to','text'],['Priority','select','Normal|High|Urgent'],['Due','datetime-local']],
+'Import':[['File','file']],
+'Import Clients':[['File','file']],
+'Import Catalog':[['File','file']],
+'New Automation':[['Name','text'],['Trigger','text'],['Action','text'],['Config JSON','textarea','',false]],
+'New Request':[['Client','text'],['Request type','text'],['Priority','select','Normal|High|Urgent'],['Details','textarea']],
+'New Template':[['Name','text'],['Channel','select','Email|SMS|Fax'],['Subject','text','',false],['Body','textarea']],
+'Upload for Fax':[['Client','text','',false],['File','file'],['Notes','textarea','',false]],
 'New Lead':[['First name','text'],['Last name','text'],['Market','select','ACA|Medicare'],['Phone','tel'],['Email','email'],['Source','text']],
 'Book Appointment':[['Client / Lead','text'],['Market','select','ACA|Medicare'],['Date & time','datetime-local'],['Agent','text'],['Type','text']],
 'Compose Email':[['To','email'],['Subject','text'],['Message','textarea']],
@@ -381,8 +397,8 @@ const actionSchemas={
 'Upload Document':[['Client','text'],['Document type','text'],['File','file'],['Notes','textarea']],
 'Record Consent':[['Client','text'],['Consent type','text'],['Capture method','select','Electronic|Recorded call|Paper'],['Artifact reference','text']],
 'Add Appointment':[['Carrier','text'],['Agent','text'],['State','text'],['Market','select','ACA|Medicare']],
-'Import Statement':[['Carrier','text'],['Statement period','month'],['File name','text']],
-'Upload Statement':[['Carrier','text'],['Statement period','month'],['File name','text']],
+'Import Statement':[['Carrier','text'],['Statement period','month'],['File','file']],
+'Upload Statement':[['Carrier','text'],['Statement period','month'],['File','file']],
 'Add Client':[['First name','text'],['Last name','text'],['Market','select','ACA|Medicare'],['Phone','tel'],['Email','email']],
 'Add Carrier':[['Carrier name','text'],['Market','select','ACA|Medicare'],['Status','select','Active|Review']],
 'Add Product':[['Carrier','text'],['Product name','text'],['Market','select','ACA|Medicare'],['State','text'],['Plan year','number']],
@@ -392,12 +408,12 @@ const actionSchemas={
 };
 const defaultSchema=[['Name / record','text'],['Details','textarea']];
 function actionKey(label){return Object.keys(actionSchemas).find(k=>label.toLowerCase().includes(k.toLowerCase()))||label}
-function fieldHtml([label,type,options]){
- const id='f-'+label.toLowerCase().replace(/[^a-z0-9]+/g,'-');
- if(type==='textarea')return '<div class="field full"><label for="'+id+'">'+label+'</label><textarea id="'+id+'" name="'+label+'" required></textarea></div>';
- if(type==='select')return '<div class="field"><label for="'+id+'">'+label+'</label><select id="'+id+'" name="'+label+'" required>'+options.split('|').map(x=>'<option>'+x+'</option>').join('')+'</select></div>';
- if(type==='file')return '<div class="field full"><label for="'+id+'">'+label+'</label><input id="'+id+'" name="'+label+'" type="file" required></div>';
- return '<div class="field"><label for="'+id+'">'+label+'</label><input id="'+id+'" name="'+label+'" type="'+type+'" required></div>';
+function fieldHtml([label,type,options,required=true]){
+ const id='f-'+label.toLowerCase().replace(/[^a-z0-9]+/g,'-'),req=required?' required':'';
+ if(type==='textarea')return '<div class="field full"><label for="'+id+'">'+label+'</label><textarea id="'+id+'" name="'+label+'"'+req+'></textarea></div>';
+ if(type==='select'){const blank=required?'':'<option value="">None</option>';return '<div class="field"><label for="'+id+'">'+label+'</label><select id="'+id+'" name="'+label+'"'+req+'>'+blank+(options||'').split('|').filter(Boolean).map(x=>'<option>'+x+'</option>').join('')+'</select></div>'}
+ if(type==='file')return '<div class="field full"><label for="'+id+'">'+label+'</label><input id="'+id+'" name="'+label+'" type="file"'+req+'></div>';
+ return '<div class="field"><label for="'+id+'">'+label+'</label><input id="'+id+'" name="'+label+'" type="'+type+'"'+req+'></div>';
 }
 function sandboxSafeFields(fields={}){
  const out={};
