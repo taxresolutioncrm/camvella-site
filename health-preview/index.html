@@ -153,7 +153,7 @@ function reports(){return head('Analytics','Reports','Conversion, production, re
 '<div class="kpis">'+kpi('Lead → appointment','62%','Last 30 days')+kpi('Appointment → enroll','48%','Last 30 days')+kpi('Retention','91%','Rolling 12 months')+kpi('Avg. policy value','$1,184','Annualized commission')+'</div>'+
 '<div class="gridEqual">'+panel('Funnel','Last 30 days',row('Leads','126 total','100%')+row('Appointments','78 booked','62%')+row('Completed appointments','64 attended','51%')+row('Enrollments','31 issued','25%'))+
 panel('Revenue quality','Commission operations',row('Matched statements','$13,600','74%')+row('Open variance','$4,820','26%','warn')+row('Chargebacks','$1,140','6%','red'))+'</div>'}
-function generic(route){return head('Operations',labels[route]||'Workspace','This module is part of the pre-integration sandbox and is being refined toward the full production workflow.',btn('New Record'))+
+function generic(route){return head('Operations',labels[route]||'Workspace','This module is part of the pre-integration sandbox and is being refined toward the full production workflow.')+
 '<div class="kpis">'+kpi('Open','12','Current queue')+kpi('In progress','7','Assigned')+kpi('Completed','34','This month')+kpi('Exceptions','3','Needs attention')+'</div>'+
 '<div class="grid2">'+panel('Current workflow','Operational queue',row('Primary workflow','Configured in sandbox','Active')+row('Evidence + audit','Mapped to future backend','Ready')+row('Permissions','Role model prepared','Review','warn'))+
 panel('Integration readiness','Backend boundary',row('Supabase persistence','Not connected','Pending','warn')+row('Live provider feed','Not connected','Pending','warn')+row('Audit model','Prepared','Ready'))+'</div>'}
@@ -365,6 +365,7 @@ panel('Launch simulation','What can run without backend',row('Navigation + modul
 
 const views={overview,leads,clients,client360,appointments,enrollment,commissions,compliance,manager,portal,policies,reports,aca,medicare,renewals,documents,carriers,contracting,evidence,onboarding,automations,tasks,team,settings,eligibility,plans,service,exceptions,mapping,consent,audit,requests,permissions,communications,advanced,integration,lab,inbox,email,phone,sms,fax,voicemail,history,catalog};
 const actionSchemas={
+'+ Add Lead':[['First name','text'],['Last name','text'],['Market','select','ACA|Medicare'],['Phone','tel'],['Email','email'],['Source','text']],
 'Add Event':[['Policy','text'],['Event type','text'],['Summary','textarea']],
 'Add Policy':[['Client','text'],['Carrier','text'],['Product','text','',false],['Policy number','text','',false],['Effective date','date'],['Renewal date','date','',false],['Premium','number','',false]],
 'Add Team Member':[['Name','text'],['Email','email'],['Role','select','Agency Admin|Manager|Agent|Compliance|Revenue']],
@@ -444,13 +445,13 @@ function runSandboxCommand(label){
    names.forEach((name,i)=>recordSandboxAction('Simulation: '+name,{result:'PASS',sequence:i+1}));
    showToast('6 provider simulations passed in sandbox');render();return true;
  }
- if(['Run Audit','Run Eligibility','Run Comparison','Run Readiness Check','Build Bundle','Mark All Reviewed','Start Needs Analysis'].some(x=>label.includes(x))){
+ if(['Run Audit','Run Eligibility','Run Comparison','Run Readiness Check','Mark All Reviewed','Start Needs Analysis','Recheck Eligibility'].some(x=>label.includes(x))){
    recordSandboxAction(label,{result:'PASS',mode:'sandbox'});
    showToast(label+' completed in sandbox');render();return true;
  }
  return false;
 }
-const commandLabels=['Run Audit','Run Eligibility','Run Comparison','Run Readiness Check','Build Bundle','Mark All Reviewed','Start Needs Analysis','Run All Simulations'];
+const commandLabels=['Run Audit','Run Eligibility','Run Comparison','Run Readiness Check','Mark All Reviewed','Start Needs Analysis','Run All Simulations','Recheck Eligibility','Template Library'];
 async function openAction(label){
  if(runSandboxCommand(label)) return;
  if(globalThis.healthCrmBackend?.mode==='supabase'&&(commandLabels.some(x=>label.includes(x))||/^Export/.test(label))){
