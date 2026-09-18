@@ -1,35 +1,38 @@
 # Pre-Supabase Static QA
 
-Status: HARDENING COMPLETE; TARGET EXECUTION PENDING
+Status: HARDENED PRE-TARGET PACKAGE
 
-## Migration count
-19
+## Current package
+- 20 ordered migrations
+- browser repository + workspace/auth abstractions
+- Edge Function stubs for bootstrap/invites/webhooks
+- provider adapters and simulation fixtures
+- import templates and validators
+- tenant, office, workflow, and relationship guards
+- reporting views and operational indexes
+- login preview and CRM sandbox
 
 ## Static design checks
-- Full UI-backed domain coverage drafted.
-- RLS enabled for all exposed application tables.
-- Organization + office tenant boundaries modeled.
-- Cross-organization parent-reference guards defined.
-- Cross-organization user-assignment guards defined.
-- Enrollment evidence gate defined.
-- Final-admin protection defined.
-- Invitation token generation/acceptance is server-only.
-- Explicit Data API grants drafted; future objects default to no authenticated/anon access.
-- Reporting views use security_invoker=true.
-- Audit trigger coverage expanded across sensitive mutations.
+- All current public application tables are intended to have RLS.
+- Explicit authenticated Data API grants are defined.
+- Future tables/functions default to no anon/authenticated exposure.
+- Organization and office boundaries are modeled.
+- Parent and user cross-tenant references are rejected.
+- Enrollment submission requires an initialized, complete required-evidence checklist.
+- Final agency administrator cannot be removed/deactivated.
+- Team/portal invitation mutation is server-only.
+- Client portal has scoped record and document access.
 - Provider event ledger is server-write only.
-- Storage includes org-scoped agency policies and portal client-document policies.
-- Edge Function stubs exist for tenant bootstrap and invitation flows.
+- Audit coverage spans core and sensitive operational mutations.
+- Reporting views use security_invoker.
 - Frontend contains no project URL, secret key, or service-role key.
 
 ## Requires the dedicated Supabase project
 - SQL parse/apply on target Postgres
 - Auth users/JWT fixtures
-- Actual RLS allow/deny execution
+- Live RLS allow/deny execution
 - Storage API tests
-- Database advisors
-- Function privilege verification
-- Edge Function deployment/runtime verification
-- Provider secret wiring
-
-No existing RomyLabs Supabase project should be used for these tests.
+- database advisors
+- function privilege verification
+- Edge Function runtime verification
+- live provider secret wiring
