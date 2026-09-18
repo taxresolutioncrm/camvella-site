@@ -8,7 +8,9 @@ async function initHealthCrmBackend(){
     return;
   }
   if(backend.mode==='supabase'&&backend.workspace?.user&&!backend.selected){
-    location.replace('./onboarding.html');
+    const {data:portalAccounts}=await backend.client.from('client_portal_accounts')
+      .select('id').eq('user_id',backend.workspace.user.id).eq('status','active').limit(1);
+    location.replace(portalAccounts?.length?'./portal.html':'./onboarding.html');
     return;
   }
 
