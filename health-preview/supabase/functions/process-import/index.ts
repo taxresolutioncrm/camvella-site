@@ -52,6 +52,7 @@ export default {
   fetch: withSupabase({ auth:'user', cors:appCorsConfig(), errors:{detailed:false} }, async(req,ctx)=>{
     if(req.method!=='POST')return response({error:'method_not_allowed'},405);
     try{
+      if(String((ctx.userClaims as Record<string,unknown>)?.aal||'')!=='aal2') return response({error:'aal2_required'},403);
       requireAal2Claims(ctx.userClaims as Record<string,unknown>);
       const userId=userIdFromClaims(ctx.userClaims as Record<string,unknown>);
       const body=await req.json();
