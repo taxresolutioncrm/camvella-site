@@ -1,4 +1,8 @@
 const resources={
+  organizations:{table:'organizations',key:'id',tenant:false},
+  offices:{table:'offices',key:'id',tenant:true},
+  memberships:{table:'memberships',key:'id',tenant:true},
+  userProfiles:{table:'user_profiles',key:'user_id',tenant:false},
   leads:{table:'leads',key:'id',tenant:true},
   clients:{table:'clients',key:'id',tenant:true},
   households:{table:'households',key:'id',tenant:true},
