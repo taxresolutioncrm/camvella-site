@@ -37,6 +37,13 @@ function money(v:string,required=false){
   return Number.isFinite(n)?n:NaN;
 }
 
+async function markFailed(admin:any,statementId:string,reason:string){
+  await admin.from('commission_statements')
+    .update({import_status:'failed'})
+    .eq('id',statementId);
+  return reason;
+}
+
 export default {
   fetch: withSupabase({ auth:'user', cors:appCorsConfig(), errors:{detailed:false} }, async(req,ctx)=>{
     if(req.method!=='POST')return response({error:'method_not_allowed'},405);
@@ -82,15 +89,15 @@ export default {
       }
 
       const csv=await file.text();
-      if(csv.length>10_000_000)return response({error:'statement_file_too_large'},413);
+      if(csv.length>10_000_000){await markFailed(ctx.supabaseAdmin,statement.id,'statement_file_too_large');return response({error:'statement_file_too_large'},413);}
       const rows=records(csv);
-      if(!rows.length)return response({error:'statement_file_empty'},400);
-      if(rows.length>10000)return response({error:'statement_row_limit_exceeded',limit:10000},413);
+      if(!rows.length){await markFailed(ctx.supabaseAdmin,statement.id,'statement_file_empty');return response({error:'statement_file_empty'},400);}
+      if(rows.length>10000){await markFailed(ctx.supabaseAdmin,statement.id,'statement_row_limit_exceeded');return response({error:'statement_row_limit_exceeded',limit:10000},413);}
 
       const {data:carrier,error:carrierError}=await ctx.supabaseAdmin
         .from('carriers').select('id,name').eq('id',statement.carrier_id)
         .eq('organization_id',statement.organization_id).single();
-      if(carrierError||!carrier)return response({error:'carrier_not_found'},400);
+      if(carrierError||!carrier){await markFailed(ctx.supabaseAdmin,statement.id,'carrier_not_found');return response({error:'carrier_not_found'},400);}
 
       const errors:Array<{row:number;errors:string[]}>=[];const valid:any[]=[];
       for(const row of rows){
@@ -117,7 +124,7 @@ export default {
         .eq('organization_id',statement.organization_id)
         .eq('carrier_id',statement.carrier_id)
         .in('policy_number',policyNumbers);
-      if(policyError)return response({error:'policy_lookup_failed'},500);
+      if(policyError){await markFailed(ctx.supabaseAdmin,statement.id,'policy_lookup_failed');return response({error:'policy_lookup_failed'},500);}
       const policyMap=new Map((policies||[]).map((p:any)=>[String(p.policy_number),p]));
 
       const producerCodes=[...new Set(valid.map(r=>r.producer_external_id).filter(Boolean))];
@@ -128,7 +135,7 @@ export default {
           .eq('organization_id',statement.organization_id)
           .eq('carrier_id',statement.carrier_id)
           .in('external_producer_code',producerCodes);
-        if(error)return response({error:'producer_lookup_failed'},500);
+        if(error){await markFailed(ctx.supabaseAdmin,statement.id,'producer_lookup_failed');return response({error:'producer_lookup_failed'},500);}
         contracts=data||[];
       }
       const producerMap=new Map(contracts.map((x:any)=>[String(x.external_producer_code),x.user_id]));
@@ -138,7 +145,7 @@ export default {
       if(clientIds.length){
         const {data,error}=await ctx.supabaseAdmin.from('clients')
           .select('id,assigned_user_id').eq('organization_id',statement.organization_id).in('id',clientIds);
-        if(error)return response({error:'client_lookup_failed'},500);
+        if(error){await markFailed(ctx.supabaseAdmin,statement.id,'client_lookup_failed');return response({error:'client_lookup_failed'},500);}
         clients=data||[];
       }
       const clientMap=new Map(clients.map((x:any)=>[x.id,x]));
@@ -186,15 +193,16 @@ export default {
       }));
       if(exceptions.length){
         const {error}=await ctx.supabaseAdmin.from('commission_exceptions').insert(exceptions);
-        if(error)return response({error:'commission_exception_insert_failed',message:error.message},400);
+        if(error){await markFailed(ctx.supabaseAdmin,statement.id,'commission_exception_insert_failed');return response({error:'commission_exception_insert_failed',message:error.message},400);}
       }
 
       const total=payload.reduce((sum,row)=>sum+Number(row.net_amount||0),0);
-      await ctx.supabaseAdmin.from('commission_statements').update({
+      const {error:completeError}=await ctx.supabaseAdmin.from('commission_statements').update({
         import_status:'complete',
         row_count:payload.length,
         total_amount:total
       }).eq('id',statement.id).eq('organization_id',statement.organization_id);
+      if(completeError){await markFailed(ctx.supabaseAdmin,statement.id,'statement_finalize_failed');return response({error:'statement_finalize_failed'},500);}
 
       return response({
         ok:true,
