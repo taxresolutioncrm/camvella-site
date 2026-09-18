@@ -155,17 +155,17 @@ end $$;
 
 -- R14 AAL2 agency admin may update an existing member.
 select set_config('request.jwt.claims','{"sub":"ADMIN_USER","role":"authenticated","aal":"aal2"}',true);
-do $
+do $$
 declare n integer;
 begin
   update public.memberships set role=role
   where organization_id='ORG_A'::uuid and user_id='AGENT_A_USER'::uuid;
   get diagnostics n=row_count;
   perform pg_temp.result('R14 AAL2 admin membership update allowed','1 row updated',n||' rows updated',n=1);
-end $;
+end $$;
 
 -- R15 deactivating a member disables public-facing references before the membership goes inactive.
-do $
+do $$
 declare n integer;
 begin
   update public.memberships
@@ -192,7 +192,7 @@ begin
     n||' active public references',
     n=0
   );
-end $;
+end $$;
 
 reset role;
 select * from role_results order by test_name;
