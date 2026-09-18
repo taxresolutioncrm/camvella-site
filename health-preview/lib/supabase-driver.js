@@ -48,7 +48,11 @@ const resources={
   publicIntakeForms:{table:'public_intake_forms',key:'id',tenant:true},
   integrationSyncJobs:{table:'integration_sync_jobs',key:'id',tenant:true},
   auditLog:{table:'audit_log',key:'id',tenant:true},
-  providerConnections:{table:'provider_connections',key:'id',tenant:true}
+  providerConnections:{table:'provider_connections',key:'id',tenant:true},
+  evidenceBundles:{table:'evidence_bundles',key:'id',tenant:true},
+  outreachCampaigns:{table:'outreach_campaigns',key:'id',tenant:true},
+  outreachCampaignMembers:{table:'outreach_campaign_members',key:'id',tenant:true},
+  importJobs:{table:'import_jobs',key:'id',tenant:true}
 };
 
 function spec(resource){
