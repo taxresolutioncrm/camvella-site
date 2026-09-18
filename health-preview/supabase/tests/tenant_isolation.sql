@@ -28,7 +28,7 @@ end $$;
 do $$
 begin
   if 'USER_A' = 'USER_A' then
-    raise exception 'Replace USER_A / USER_B / ORG_A / ORG_B fixture UUIDs before running tenant isolation tests';
+    raise exception 'Replace USER_A / USER_B / ORG_A / ORG_B / OFFICE_B fixture UUIDs before running tenant isolation tests';
   end if;
 end $$;
 
@@ -111,13 +111,64 @@ begin
   perform pg_temp.record_result('T7 compliance alters commission statement','0 rows updated',n||' rows updated',n=0);
 end $$;
 
--- T8: office restriction
--- Reserved until office-scoped policy mode is enabled.
-select pg_temp.record_result('T8 office restriction','Policy-specific','Deferred until office-scope mode enabled',true);
+-- T8: assigned agent cannot read sibling-office records.
+-- Requires USER_A role=agent in ORG_A and an OFFICE_B fixture populated with at least one lead.
+do $
+declare n integer;
+begin
+  select count(*) into n
+  from public.leads
+  where organization_id='ORG_A'::uuid
+    and office_id='OFFICE_B'::uuid;
+  perform pg_temp.record_result(
+    'T8 sibling-office isolation',
+    '0 rows',
+    n||' rows',
+    n=0
+  );
+end $;
 
--- T9: privileged mutation audit
--- Validate after server mutation functions/triggers are connected.
-select pg_temp.record_result('T9 privileged audit write','Audit row exists','Deferred until server mutation path connected',true);
+-- T9: an allowed user mutation produces an audit row.
+-- Requires a USER_A-assigned ORG_A client fixture.
+do $
+declare
+  target_id uuid;
+  before_count integer;
+  after_count integer;
+begin
+  select id into target_id
+  from public.clients
+  where organization_id='ORG_A'::uuid
+    and assigned_user_id='USER_A'::uuid
+  limit 1;
+
+  if target_id is null then
+    perform pg_temp.record_result('T9 mutation audit','Fixture client required','Fixture missing',false);
+  else
+    select count(*) into before_count
+    from public.audit_log
+    where organization_id='ORG_A'::uuid
+      and entity_type='clients'
+      and entity_id=target_id;
+
+    update public.clients
+    set first_name=first_name
+    where id=target_id;
+
+    select count(*) into after_count
+    from public.audit_log
+    where organization_id='ORG_A'::uuid
+      and entity_type='clients'
+      and entity_id=target_id;
+
+    perform pg_temp.record_result(
+      'T9 mutation audit',
+      'Audit count increases',
+      before_count||' -> '||after_count,
+      after_count>before_count
+    );
+  end if;
+end $;
 
 -- T10: views use invoker rights and cannot expose ORG_B.
 do $$
@@ -127,9 +178,16 @@ begin
   perform pg_temp.record_result('T10 security_invoker view isolation','0 rows',n||' rows',n=0);
 end $$;
 
--- T11: storage path blocks cross-org read/write.
--- Execute through Storage API/client after bucket connection.
-select pg_temp.record_result('T11 storage cross-org isolation','Blocked','Deferred to Storage API test',true);
+-- T11 is intentionally not faked in SQL.
+-- Storage authorization must be exercised through the Storage API so upload/read/update/delete
+-- behavior is tested exactly as the application will call it.
+insert into isolation_results(test_name,expected,actual,result)
+values(
+  'T11 storage cross-org isolation',
+  'Storage API matrix passes',
+  'Run STORAGE_TEST_MATRIX.md after buckets are connected',
+  'MANUAL'
+);
 
 reset role;
 
