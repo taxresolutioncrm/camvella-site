@@ -104,25 +104,25 @@ end $$;
 
 -- R9 portal user gets only portal-safe profile fields through the RPC.
 select set_config('request.jwt.claims','{"sub":"PORTAL_USER","role":"authenticated","aal":"aal1"}',true);
-do $
+do $$
 declare n integer;
 begin
   select count(*) into n from public.get_my_portal_profile()
   where client_id='PORTAL_CLIENT'::uuid;
   perform pg_temp.result('R9 portal reads safe profile RPC','1 row',n||' rows',n=1);
-end $;
+end $$;
 
 -- R10 portal user cannot query internal client table directly.
-do $
+do $$
 declare n integer;
 begin
   select count(*) into n from public.clients where organization_id='ORG_A'::uuid;
   perform pg_temp.result('R10 portal blocked from client table','0 rows',n||' rows',n=0);
-end $;
+end $$;
 
 -- R11 portal user cannot read internal evidence, consent, or renewal queues.
 select set_config('request.jwt.claims','{"sub":"PORTAL_USER","role":"authenticated","aal":"aal1"}',true);
-do $
+do $$
 declare n integer;
 begin
   select
@@ -131,38 +131,38 @@ begin
     (select count(*) from public.renewals)
   into n;
   perform pg_temp.result('R11 portal blocked from internal workflow tables','0 rows',n||' rows',n=0);
-end $;
+end $$;
 
 -- R12 cross-organization remains blocked for agency admin.
 select set_config('request.jwt.claims','{"sub":"ADMIN_USER","role":"authenticated","aal":"aal2"}',true);
-do $
+do $$
 declare n integer;
 begin
   select count(*) into n from public.clients where organization_id='ORG_B'::uuid;
   perform pg_temp.result('R12 admin cross-org isolation','0 rows',n||' rows',n=0);
-end $;
+end $$;
 
 -- R13 AAL1 agency admin cannot change membership.
 select set_config('request.jwt.claims','{"sub":"ADMIN_USER","role":"authenticated","aal":"aal1"}',true);
-do $
+do $$
 declare n integer;
 begin
   update public.memberships set role=role
   where organization_id='ORG_A'::uuid and user_id='AGENT_A_USER'::uuid;
   get diagnostics n=row_count;
   perform pg_temp.result('R13 AAL1 admin membership write blocked','0 rows updated',n||' rows updated',n=0);
-end $;
+end $$;
 
 -- R14 AAL2 agency admin may update an existing member.
 select set_config('request.jwt.claims','{"sub":"ADMIN_USER","role":"authenticated","aal":"aal2"}',true);
-do $
+do $$
 declare n integer;
 begin
   update public.memberships set role=role
   where organization_id='ORG_A'::uuid and user_id='AGENT_A_USER'::uuid;
   get diagnostics n=row_count;
   perform pg_temp.result('R14 AAL2 admin membership update allowed','1 row updated',n||' rows updated',n=1);
-end $;
+end $$;
 
 reset role;
 select * from role_results order by test_name;
