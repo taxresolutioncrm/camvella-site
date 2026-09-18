@@ -8,6 +8,9 @@ export default {
       const allowed=await enforcePublicRateLimit(ctx.supabaseAdmin,req,'public_availability',20,60);
       if(!allowed) return response({error:'rate_limited'},429);
 
+      const enabled=Deno.env.get('PUBLIC_BOOKING_ENABLED')==='true';
+      if(!enabled) return response({error:'public_booking_not_enabled'},503);
+
       const body=await req.json();
       const slug=String(body.slug||'').trim().toLowerCase().slice(0,64);
       const date=String(body.date||'').trim().slice(0,10);
