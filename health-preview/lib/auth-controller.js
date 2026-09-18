@@ -1,20 +1,21 @@
 export class AuthController{
-  constructor(client,{redirectTo}={}){
+  constructor(client,{magicLinkRedirectTo,recoveryRedirectTo,redirectTo}={}){
     if(!client) throw new Error('Supabase client is required');
     this.client=client;
-    this.redirectTo=redirectTo||null;
+    this.magicLinkRedirectTo=magicLinkRedirectTo||redirectTo||null;
+    this.recoveryRedirectTo=recoveryRedirectTo||redirectTo||null;
   }
   async signInWithPassword(email,password){
     const {data,error}=await this.client.auth.signInWithPassword({email,password});
     if(error)throw error;return data;
   }
   async sendMagicLink(email){
-    const options=this.redirectTo?{emailRedirectTo:this.redirectTo}:{};
+    const options=this.magicLinkRedirectTo?{emailRedirectTo:this.magicLinkRedirectTo}:{};
     const {data,error}=await this.client.auth.signInWithOtp({email,options});
     if(error)throw error;return data;
   }
   async resetPassword(email){
-    const options=this.redirectTo?{redirectTo:this.redirectTo}:{};
+    const options=this.recoveryRedirectTo?{redirectTo:this.recoveryRedirectTo}:{};
     const {data,error}=await this.client.auth.resetPasswordForEmail(email,options);
     if(error)throw error;return data;
   }
@@ -36,6 +37,10 @@ export class AuthController{
   }
   async listMfaFactors(){
     const {data,error}=await this.client.auth.mfa.listFactors();
+    if(error)throw error;return data;
+  }
+  async getAuthenticatorAssuranceLevel(){
+    const {data,error}=await this.client.auth.mfa.getAuthenticatorAssuranceLevel();
     if(error)throw error;return data;
   }
   async signOut(){
