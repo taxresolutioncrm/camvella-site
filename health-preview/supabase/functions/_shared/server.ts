@@ -55,3 +55,9 @@ export function appCorsConfig(){
     }
   };
 }
+
+
+export function requireAal2Claims(claims: Record<string,unknown>|null|undefined){
+  if(String(claims?.aal||'')!=='aal2') throw new Error('aal2_required');
+  return true;
+}
