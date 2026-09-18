@@ -40,6 +40,10 @@ const homepage = await readFile(new URL('index.html', dist), 'utf8')
 if (!homepage.includes('href="/blog"')) throw new Error('Camvella SEO build gate: homepage is missing the Resources → /blog crawl path')
 const resourceHub = await readFile(new URL('blog/index.html', dist), 'utf8')
 if (!resourceHub.includes('href="/guides/')) throw new Error('Camvella SEO build gate: /blog/ does not link into the /guides/ authority cluster')
+const homeAndHub = homepage + resourceHub
+for (const alias of ['/solutions/florida-hoa-management-software', '/solutions/texas-hoa-management-software']) {
+  if (homeAndHub.includes('href="' + alias)) throw new Error('Camvella SEO build gate: indexable hubs must not link to noindex regional alias ' + alias)
+}
 
 const lastmod = new Date().toISOString().slice(0, 10)
 
