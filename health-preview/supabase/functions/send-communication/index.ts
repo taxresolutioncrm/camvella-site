@@ -36,7 +36,7 @@ export default {
       let targetLead:any=null;
 
       if(clientId){
-        const {data,error}=await ctx.supabase.from('clients').select('id,organization_id,office_id').eq('id',clientId).maybeSingle();
+        const {data,error}=await ctx.supabase.from('clients').select('id,organization_id,office_id,assigned_user_id').eq('id',clientId).maybeSingle();
         if(error||!data) return response({error:'client_not_accessible'},403);
         targetClient=data;
       }
@@ -53,35 +53,52 @@ export default {
 
       if(channel==='portal'){
         if(!clientId) return response({error:'portal_message_requires_client'},400);
-        const {data:thread,error:threadError}=await ctx.supabase.from('communication_threads').insert({
+
+        const {data:portalAccount,error:portalError}=await ctx.supabase
+          .from('client_portal_accounts')
+          .select('id,status')
+          .eq('client_id',clientId)
+          .eq('user_id',userId)
+          .eq('status','active')
+          .maybeSingle();
+        if(portalError||!portalAccount) return response({error:'portal_client_not_authorized'},403);
+        if(!message) return response({error:'portal_message_required'},400);
+
+        const now=new Date().toISOString();
+        const {data:thread,error:threadError}=await ctx.supabaseAdmin.from('communication_threads').insert({
           organization_id:organizationId,
           office_id:officeId,
           client_id:clientId,
-          assigned_user_id:userId,
+          assigned_user_id:targetClient?.assigned_user_id||null,
           subject:subject||'Portal message',
           last_channel:'portal',
-          last_message_at:new Date().toISOString(),
+          last_message_at:now,
           status:'open'
         }).select('id').single();
         if(threadError) return response({error:'portal_thread_create_failed',message:threadError.message},400);
 
-        const {data:communication,error:communicationError}=await ctx.supabase.from('communications').insert({
+        const {data:communication,error:communicationError}=await ctx.supabaseAdmin.from('communications').insert({
           organization_id:organizationId,
           office_id:officeId,
           thread_id:thread.id,
           channel:'portal',
-          direction:'outbound',
+          direction:'inbound',
           client_id:clientId,
-          user_id:userId,
-          provider_status:'delivered',
-          from_address:'agency_portal',
-          to_address:clientId,
+          user_id:null,
+          provider:'client_portal',
+          provider_status:'received',
+          from_address:clientId,
+          to_address:'agency_portal',
           subject:subject||null,
           body_text:message,
-          body_preview:message.slice(0,240)
+          body_preview:message.slice(0,240),
+          created_at:now
         }).select('id').single();
 
-        if(communicationError) return response({error:'portal_message_create_failed',message:communicationError.message},400);
+        if(communicationError){
+          await ctx.supabaseAdmin.from('communication_threads').delete().eq('id',thread.id);
+          return response({error:'portal_message_create_failed',message:communicationError.message},400);
+        }
         return response({ok:true,thread_id:thread.id,communication_id:communication.id});
       }
 
