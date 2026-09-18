@@ -7,39 +7,34 @@ function clean(value:unknown,max=300){
 Deno.serve(async(req)=>{
   if(req.method==='OPTIONS') return new Response('ok',{headers:corsHeaders(req)});
   if(req.method!=='POST') return json(req,405,{error:'method_not_allowed'});
+
   try{
+    const enabled=Deno.env.get('PUBLIC_INTAKE_ENABLED')==='true';
+    if(!enabled) return json(req,503,{error:'public_intake_not_enabled'});
+
     const body=await req.json();
-    const organizationId=clean(body.organization_id,64);
-    const officeId=body.office_id?clean(body.office_id,64):null;
+    const slug=clean(body.slug,64).toLowerCase();
     const firstName=clean(body.first_name,100);
     const lastName=clean(body.last_name,100);
     const email=clean(body.email,254);
     const phone=clean(body.phone,40);
-    const market=clean(body.market,20).toLowerCase();
-    const source=clean(body.source||'website',100);
+    const marketRaw=clean(body.market,20).toLowerCase();
+    const market=['aca','medicare'].includes(marketRaw)?marketRaw:null;
 
-    if(!organizationId||!firstName||!lastName||!['aca','medicare'].includes(market)){
-      return json(req,400,{error:'invalid_intake'});
-    }
+    if(!slug||!firstName||!lastName) return json(req,400,{error:'invalid_intake'});
 
-    // Enable rate-limit / bot-verification provider before production.
-    const publicIntakeEnabled=Deno.env.get('PUBLIC_INTAKE_ENABLED')==='true';
-    if(!publicIntakeEnabled) return json(req,503,{error:'public_intake_not_enabled'});
+    // Add production rate limiting / bot protection before enabling publicly.
+    const {data,error}=await admin.rpc('submit_public_intake',{
+      p_slug:slug,
+      p_first_name:firstName,
+      p_last_name:lastName,
+      p_email:email,
+      p_phone:phone,
+      p_market:market
+    });
 
-    const {data,error}=await admin.from('leads').insert({
-      organization_id:organizationId,
-      office_id:officeId,
-      first_name:firstName,
-      last_name:lastName,
-      email:email||null,
-      phone:phone||null,
-      market,
-      source,
-      stage:'new'
-    }).select('id').single();
-
-    if(error) return json(req,400,{error:'lead_create_failed',message:error.message});
-    return json(req,201,{ok:true,lead_id:data.id});
+    if(error) return json(req,400,{error:'intake_failed',message:error.message});
+    return json(req,201,{ok:true,lead_id:data.lead_id});
   }catch(error){
     return json(req,400,{error:'invalid_request',message:error instanceof Error?error.message:'invalid_request'});
   }
