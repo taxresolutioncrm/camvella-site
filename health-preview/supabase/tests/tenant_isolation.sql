@@ -2,8 +2,8 @@
 -- Execute only after the dedicated project exists and two authenticated fixture users
 -- have been created and attached to separate organizations.
 --
--- Replace the four UUID constants below before execution:
--- USER_A, USER_B, ORG_A, ORG_B.
+-- Replace the fixture constants below before execution:
+-- USER_A, USER_B, ORG_A, ORG_B, OFFICE_B.
 --
 -- This file intentionally uses request.jwt.claims to exercise auth.uid()-based RLS.
 
