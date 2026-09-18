@@ -47,6 +47,7 @@ async function markFailed(admin:any,statementId:string,reason:string){
 export default {
   fetch: withSupabase({ auth:'user', cors:appCorsConfig(), errors:{detailed:false} }, async(req,ctx)=>{
     if(req.method!=='POST')return response({error:'method_not_allowed'},405);
+    let activeStatementId:string|null=null;
     if(!claimsHaveAal2(ctx.userClaims as Record<string,unknown>)) return response({error:'aal2_required'},403);
     try{
       const userId=userIdFromClaims(ctx.userClaims as Record<string,unknown>);
@@ -81,6 +82,7 @@ export default {
         .select('id')
         .maybeSingle();
       if(claimError||!claimed)return response({error:'statement_already_processing_or_complete'},409);
+      activeStatementId=statement.id;
 
       const {data:file,error:downloadError}=await ctx.supabaseAdmin.storage
         .from('commission-statements').download(statement.storage_path);
@@ -210,6 +212,7 @@ export default {
         total_amount:applied?.total_amount??0
       });
     }catch(error){
+      if(activeStatementId) await markFailed(ctx.supabaseAdmin,activeStatementId,'commission_import_failed').catch(()=>{});
       return response({error:'commission_import_failed',message:error instanceof Error?error.message:'commission_import_failed'},400);
     }
   })
