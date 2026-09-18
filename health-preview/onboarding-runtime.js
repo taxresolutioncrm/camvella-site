@@ -1,7 +1,5 @@
 import { loadRuntimeConfig, backendConfigured, assertBrowserSafeConfig } from './lib/runtime-config.js';
 
-const config=loadRuntimeConfig();
-assertBrowserSafeConfig(config);
 const form=document.getElementById('form');
 const submit=document.getElementById('submit');
 const status=document.getElementById('status');
@@ -12,21 +10,29 @@ function setStatus(message,error=false){
   status.style.color=error?'#8b2c2c':'#165f5a';
 }
 
-if(!backendConfigured(config)){
-  setStatus('Sandbox preview: onboarding connects when the dedicated Supabase project is selected.');
-  submit.disabled=true;
-}else{
+async function initOnboarding(){
+  const config=loadRuntimeConfig();
+  assertBrowserSafeConfig(config);
+
+  if(!backendConfigured(config)){
+    setStatus('Sandbox preview: onboarding connects when the dedicated Supabase project is selected.');
+    submit.disabled=true;
+    return;
+  }
+
   const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2.116.0');
   const client=createClient(config.supabaseUrl,config.supabasePublishableKey,{
     auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
   });
   const {data:{user}}=await client.auth.getUser();
-  if(!user){location.replace('./login.html')}else{
-    const {data:memberships,error}=await client.from('memberships').select('id').eq('user_id',user.id).eq('is_active',true).limit(1);
-    if(error){setStatus(error.message,true)}
-    else if(memberships?.length){location.replace('./index.html')}
-    else setStatus('Signed in. Create your agency workspace.');
-  }
+  if(!user){location.replace('./login.html');return}
+
+  const {data:memberships,error}=await client.from('memberships')
+    .select('id').eq('user_id',user.id).eq('is_active',true).limit(1);
+  if(error){setStatus(error.message,true);return}
+  if(memberships?.length){location.replace('./index.html');return}
+
+  setStatus('Signed in. Create your agency workspace.');
 
   form.addEventListener('submit',async e=>{
     e.preventDefault();submit.disabled=true;
@@ -43,3 +49,5 @@ if(!backendConfigured(config)){
     }
   });
 }
+
+initOnboarding().catch(error=>setStatus(error?.message||'Onboarding initialization failed.',true));
