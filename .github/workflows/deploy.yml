@@ -34,6 +34,7 @@ jobs:
 
       - name: Verify launch artifacts
         run: |
+          set -euxo pipefail
           test -f dist/index.html
           test -f dist/robots.txt
           test -f dist/sitemap.xml
