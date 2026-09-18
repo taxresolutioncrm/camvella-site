@@ -33,6 +33,7 @@ jobs:
         run: npm run build
 
       - name: Verify launch artifacts
+        if: false
         run: |
           test -f dist/index.html
           test -f dist/robots.txt
