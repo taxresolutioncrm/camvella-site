@@ -19,8 +19,7 @@ grant select,insert,update,delete on public.provider_connections to authenticate
 grant select on public.provider_event_ledger to authenticated;
 grant select on public.v_open_enrollment_queue, public.v_commission_exception_queue, public.v_renewal_queue to authenticated;
 
-alter default privileges for role postgres in schema public revoke all on tables from anon;
-alter default privileges for role postgres in schema public grant select,insert,update,delete on tables to authenticated;
-alter default privileges for role postgres in schema public revoke all on sequences from anon;
-alter default privileges for role postgres in schema public grant usage,select on sequences to authenticated;
-alter default privileges for role postgres in schema public revoke execute on functions from public, anon;
+alter default privileges for role postgres in schema public revoke all on tables from anon, authenticated;
+alter default privileges for role postgres in schema public revoke all on sequences from anon, authenticated;
+alter default privileges for role postgres in schema public revoke execute on functions from public, anon, authenticated;
+-- Future public objects stay opt-in. Add explicit grants in a migration when a new API surface is introduced.
