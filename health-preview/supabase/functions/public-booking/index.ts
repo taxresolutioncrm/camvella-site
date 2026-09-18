@@ -1,10 +1,17 @@
-import { admin, json, corsHeaders } from '../_shared/server.ts';
+import { admin, json, corsHeaders, enforcePublicRateLimit } from '../_shared/server.ts';
 
 function clean(value:unknown,max=300){return String(value||'').trim().slice(0,max)}
 
 Deno.serve(async(req)=>{
   if(req.method==='OPTIONS') return new Response('ok',{headers:corsHeaders(req)});
   if(req.method!=='POST') return json(req,405,{error:'method_not_allowed'});
+
+  try{
+    const allowed=await enforcePublicRateLimit(req,'public_booking',5,60);
+    if(!allowed) return json(req,429,{error:'rate_limited'});
+  }catch(error){
+    return json(req,503,{error:'rate_limit_unavailable'});
+  }
 
   try{
     const enabled=Deno.env.get('PUBLIC_BOOKING_ENABLED')==='true';
