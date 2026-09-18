@@ -1,4 +1,4 @@
-import { readdir, writeFile } from 'node:fs/promises'
+import { readFile, readdir, writeFile } from 'node:fs/promises'
 import { join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -30,6 +30,13 @@ const paths = files
   })
   .filter((path) => !excluded.has(path))
   .sort()
+
+
+// Camvella SEO build gate: keep the authority hub crawlable from the homepage.
+if (!paths.includes('/guides/')) throw new Error('Camvella SEO build gate: /guides/ was not generated')
+if (!paths.some((path) => path.startsWith('/guides/') && path !== '/guides/')) throw new Error('Camvella SEO build gate: no guide detail pages were generated')
+const homepage = await readFile(new URL('index.html', dist), 'utf8')
+if (!homepage.includes('href="/guides"')) throw new Error('Camvella SEO build gate: homepage is missing the Resources → /guides crawl path')
 
 const lastmod = new Date().toISOString().slice(0, 10)
 
