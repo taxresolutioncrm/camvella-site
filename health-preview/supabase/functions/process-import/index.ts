@@ -138,7 +138,7 @@ export default {
         payload=valid.map(row=>({
           organization_id:job.organization_id,
           office_id:job.office_id,
-          assigned_user_id:userId,
+          assigned_user_id:null,
           first_name:row.first_name,
           last_name:row.last_name,
           email:row.email||null,
@@ -152,7 +152,7 @@ export default {
         payload=valid.map(row=>({
           organization_id:job.organization_id,
           office_id:job.office_id,
-          assigned_user_id:userId,
+          assigned_user_id:null,
           first_name:row.first_name,
           last_name:row.last_name,
           email:row.email||null,
