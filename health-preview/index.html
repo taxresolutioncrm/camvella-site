@@ -421,6 +421,7 @@ function exportSandbox(label){
  showToast(label+' generated from sandbox data');
 }
 function runSandboxCommand(label){
+ if(globalThis.healthCrmBackend?.mode==='supabase')return false;
  if(/^Export/.test(label)){exportSandbox(label);return true}
  if(label==='Run All Simulations'){
    const names=['email.delivery','sms.inbound','voice.completed','fax.received','cms.plan_response','carrier.commission_statement'];
@@ -433,8 +434,17 @@ function runSandboxCommand(label){
  }
  return false;
 }
-function openAction(label){
+const commandLabels=['Run Audit','Run Eligibility','Run Comparison','Run Readiness Check','Build Bundle','Mark All Reviewed','Start Needs Analysis','Run All Simulations'];
+async function openAction(label){
  if(runSandboxCommand(label)) return;
+ if(globalThis.healthCrmBackend?.mode==='supabase'&&(commandLabels.some(x=>label.includes(x))||/^Export/.test(label))){
+   try{
+     const result=await globalThis.healthCrmAction(label,{});
+     if(result?.deferred)throw new Error('This command needs a selected record or live provider context');
+     showToast(label+' completed');
+   }catch(error){showToast(error?.message||'Command failed')}
+   return;
+ }
  const key=actionKey(label),modal=document.getElementById('actionModal');
  document.getElementById('modalTitle').textContent=label;
  document.getElementById('modalFields').innerHTML=(actionSchemas[key]||defaultSchema).map(fieldHtml).join('');
