@@ -378,7 +378,7 @@ const actionSchemas={
 'New Enrollment':[['Client','text'],['Market','select','ACA|Medicare'],['Enrollment type','text'],['Agent','text']],
 'New ACA Case':[['Client','text'],['SEP / Enrollment reason','text'],['Household size','number'],['Agent','text']],
 'New Medicare Case':[['Client','text'],['Election period','select','AEP|OEP|SEP|ICEP'],['Product focus','select','MA|MA-PD|PDP'],['Agent','text']],
-'Upload Document':[['Client','text'],['Document type','text'],['File name','text'],['Notes','textarea']],
+'Upload Document':[['Client','text'],['Document type','text'],['File','file'],['Notes','textarea']],
 'Record Consent':[['Client','text'],['Consent type','text'],['Capture method','select','Electronic|Recorded call|Paper'],['Artifact reference','text']],
 'Add Appointment':[['Carrier','text'],['Agent','text'],['State','text'],['Market','select','ACA|Medicare']],
 'Import Statement':[['Carrier','text'],['Statement period','month'],['File name','text']],
@@ -396,10 +396,18 @@ function fieldHtml([label,type,options]){
  const id='f-'+label.toLowerCase().replace(/[^a-z0-9]+/g,'-');
  if(type==='textarea')return '<div class="field full"><label for="'+id+'">'+label+'</label><textarea id="'+id+'" name="'+label+'" required></textarea></div>';
  if(type==='select')return '<div class="field"><label for="'+id+'">'+label+'</label><select id="'+id+'" name="'+label+'" required>'+options.split('|').map(x=>'<option>'+x+'</option>').join('')+'</select></div>';
+ if(type==='file')return '<div class="field full"><label for="'+id+'">'+label+'</label><input id="'+id+'" name="'+label+'" type="file" required></div>';
  return '<div class="field"><label for="'+id+'">'+label+'</label><input id="'+id+'" name="'+label+'" type="'+type+'" required></div>';
 }
+function sandboxSafeFields(fields={}){
+ const out={};
+ for(const [k,v] of Object.entries(fields)){
+   out[k]=(typeof File!=='undefined'&&v instanceof File)?{name:v.name,size:v.size,type:v.type}:v;
+ }
+ return out;
+}
 function recordSandboxAction(action,fields={}){
- const entry={id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())),action,fields,created_at:new Date().toISOString()};
+ const entry={id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())),action,fields:sandboxSafeFields(fields),created_at:new Date().toISOString()};
  const log=JSON.parse(localStorage.getItem('health-crm-sandbox-actions')||'[]');
  log.unshift(entry);localStorage.setItem('health-crm-sandbox-actions',JSON.stringify(log.slice(0,100)));
  return entry;
@@ -439,10 +447,27 @@ document.getElementById('modalClose').onclick=closeAction;
 document.getElementById('modalCancel').onclick=closeAction;
 document.getElementById('actionModal').addEventListener('click',e=>{if(e.target.id==='actionModal')closeAction()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAction()});
-document.getElementById('modalForm').addEventListener('submit',e=>{
+document.getElementById('modalForm').addEventListener('submit',async e=>{
  e.preventDefault();const modal=document.getElementById('actionModal');
- recordSandboxAction(modal.dataset.action,Object.fromEntries(new FormData(e.target)));
- closeAction();showToast((modal.dataset.action||'Action')+' saved in sandbox');e.target.reset();render();
+ const action=modal.dataset.action||'Action';
+ const fields=Object.fromEntries(new FormData(e.target));
+ const submit=e.target.querySelector('button[type="submit"]');
+ if(submit)submit.disabled=true;
+ try{
+   if(globalThis.healthCrmBackend?.mode==='supabase'){
+     if(typeof globalThis.healthCrmAction!=='function')throw new Error('Backend action service is still initializing');
+     const result=await globalThis.healthCrmAction(action,fields);
+     if(result?.deferred)throw new Error('This action needs its live communication provider connected first');
+     closeAction();showToast(action+' saved');e.target.reset();render();
+   }else{
+     recordSandboxAction(action,fields);
+     closeAction();showToast(action+' saved in sandbox');e.target.reset();render();
+   }
+ }catch(error){
+   showToast(error?.message||'Action failed');
+ }finally{
+   if(submit)submit.disabled=false;
+ }
 });
 function demo(msg){showToast(msg+' · sandbox only');}
 function sandboxActivity(route){
