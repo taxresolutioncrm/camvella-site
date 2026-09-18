@@ -10,7 +10,7 @@ function normalizedEnvelope(req:Request,body:Record<string,unknown>){
 }
 
 export default {
-  fetch: withSupabase({ auth:'none', errors:{detailed:false} }, async(req,ctx)=>{
+  fetch: withSupabase({ auth:'none', cors:'disabled', errors:{detailed:false} }, async(req,ctx)=>{
     if(req.method!=='POST') return response({error:'method_not_allowed'},405);
     try{
       const body=await req.json() as Record<string,unknown>;
