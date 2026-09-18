@@ -1,4 +1,3 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { Repository, MemoryDriver } from './repository.js';
 import { SupabaseDriver } from './supabase-driver.js';
 import { loadRuntimeConfig, backendConfigured, assertBrowserSafeConfig } from './runtime-config.js';
@@ -18,6 +17,7 @@ export async function createBackend({seed={},preferredOrganizationId}={}){
     };
   }
 
+  const { createClient }=await import('https://esm.sh/@supabase/supabase-js@2.116.0');
   const client=createClient(config.supabaseUrl,config.supabasePublishableKey,{
     auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
   });
