@@ -113,7 +113,7 @@ end $$;
 
 -- T8: assigned agent cannot read sibling-office records.
 -- Requires USER_A role=agent in ORG_A and an OFFICE_B fixture populated with at least one lead.
-do $
+do $$
 declare n integer;
 begin
   select count(*) into n
@@ -126,11 +126,11 @@ begin
     n||' rows',
     n=0
   );
-end $;
+end $$;
 
 -- T9: an allowed user mutation produces an audit row.
 -- Requires a USER_A-assigned ORG_A client fixture.
-do $
+do $$
 declare
   target_id uuid;
   before_count integer;
@@ -168,7 +168,7 @@ begin
       after_count>before_count
     );
   end if;
-end $;
+end $$;
 
 -- T10: views use invoker rights and cannot expose ORG_B.
 do $$
