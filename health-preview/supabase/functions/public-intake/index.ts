@@ -19,6 +19,7 @@ export default {
       const phone=String(body.phone||'').trim().slice(0,40);
       const marketRaw=String(body.market||'').trim().toLowerCase().slice(0,20);
       const market=['aca','medicare'].includes(marketRaw)?marketRaw:null;
+      const notes=String(body.notes||'').trim().slice(0,4000);
       if(!slug||!firstName||!lastName) return response({error:'invalid_intake'},400);
 
       const {data,error}=await ctx.supabaseAdmin.rpc('submit_public_intake',{
