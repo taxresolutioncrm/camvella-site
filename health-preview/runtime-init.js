@@ -1,5 +1,6 @@
 import { createBackend } from './lib/backend-factory.js';
 import { ActionService } from './lib/action-service.js';
+import { LiveViewService } from './lib/live-view-service.js';
 
 async function initHealthCrmBackend(){
   const backend=await createBackend();
@@ -29,9 +30,15 @@ async function initHealthCrmBackend(){
 
   globalThis.healthCrmBackend=backend;
   const actions=backend.mode==='supabase'?new ActionService(backend):null;
+  const liveViews=backend.mode==='supabase'?new LiveViewService(backend):null;
   globalThis.healthCrmAction=async function(action,fields){
     if(!actions)return {sandbox:true};
     return await actions.execute(action,fields);
+  };
+
+  globalThis.healthCrmLiveRoute=async function(route){
+    if(!liveViews)return null;
+    return await liveViews.load(route);
   };
 
   globalThis.healthCrmSearch=async function(query){
