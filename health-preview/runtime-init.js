@@ -1,8 +1,14 @@
 import { createBackend } from './lib/backend-factory.js';
+import { ActionService } from './lib/action-service.js';
 
 async function initHealthCrmBackend(){
   const backend=await createBackend();
   globalThis.healthCrmBackend=backend;
+  const actions=backend.mode==='supabase'?new ActionService(backend):null;
+  globalThis.healthCrmAction=async function(action,fields){
+    if(!actions)return {sandbox:true};
+    return await actions.execute(action,fields);
+  };
 
   globalThis.healthCrmSearch=async function(query){
     if(!query||query.trim().length<2) return [];
