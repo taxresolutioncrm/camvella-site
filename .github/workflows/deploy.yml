@@ -39,7 +39,7 @@ jobs:
           test -f dist/robots.txt
           test -f dist/sitemap.xml
           grep -q "https://camvella.com/" dist/sitemap.xml
-          grep -Fq '<title>HOA &amp; Community Association Management Software | Camvella</title>' dist/index.html
+          grep -Fq '<title>HOA Management Software for Professional CAM Companies | Camvella</title>' dist/index.html
           grep -Fq 'HOA management software' dist/index.html
           grep -Fq 'professional community managers' dist/index.html
           grep -q '/compare/camvella-vs-appfolio/' dist/sitemap.xml
