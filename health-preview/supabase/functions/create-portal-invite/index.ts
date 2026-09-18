@@ -1,9 +1,10 @@
 import { withSupabase } from 'npm:@supabase/server@1.7.0';
-import { response, userIdFromClaims, appCorsConfig } from '../_shared/server.ts';
+import { response, userIdFromClaims, appCorsConfig, claimsHaveAal2 } from '../_shared/server.ts';
 
 export default {
   fetch: withSupabase({ auth:'user', cors:appCorsConfig(), errors:{detailed:false} }, async(req,ctx)=>{
     if(req.method!=='POST') return response({error:'method_not_allowed'},405);
+    if(!claimsHaveAal2(ctx.userClaims as Record<string,unknown>)) return response({error:'aal2_required'},403);
     try{
       const body=await req.json();
       const clientId=String(body.client_id||'');
