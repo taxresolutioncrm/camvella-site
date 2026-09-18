@@ -23,6 +23,10 @@ async function init(){
     const submit=form.querySelector('button[type="submit"]');
     submit.disabled=true;
     const body=Object.fromEntries(new FormData(form));
+    if(String(body.company_website||'').trim()){
+      setStatus('Thank you — your request was received.');
+      form.reset();submit.disabled=false;return;
+    }
 
     try{
       if(!backendConfigured(config)||!config.publicIntakeSlug){
