@@ -18,12 +18,15 @@ function busy(value){
   for(const b of [loginButton,magicButton,resetButton])b.disabled=value;
 }
 
-const config=loadRuntimeConfig();
-assertBrowserSafeConfig(config);
+async function initLogin(){
+  const config=loadRuntimeConfig();
+  assertBrowserSafeConfig(config);
 
-if(!backendConfigured(config)){
-  setStatus('<strong>Sandbox preview:</strong> authentication stays disconnected until the dedicated Supabase project is selected.');
-}else{
+  if(!backendConfigured(config)){
+    setStatus('<strong>Sandbox preview:</strong> authentication stays disconnected until the dedicated Supabase project is selected.');
+    return;
+  }
+
   const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2.116.0');
   const client=createClient(config.supabaseUrl,config.supabasePublishableKey,{
     auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
@@ -32,8 +35,10 @@ if(!backendConfigured(config)){
 
   const {data:{session}}=await client.auth.getSession();
   if(session){
-    const pending=sessionStorage.getItem('healthPendingInviteUrl');
+    const pending=sessionStorage.getItem('healthPendingInviteUrl')||sessionStorage.getItem('healthPortalAfterLogin');
+    if(pending)sessionStorage.removeItem('healthPortalAfterLogin');
     location.replace(pending||'./index.html');
+    return;
   }
 
   form.addEventListener('submit',async e=>{
@@ -41,7 +46,8 @@ if(!backendConfigured(config)){
     try{
       await auth.signInWithPassword(emailInput.value.trim(),passwordInput.value);
       setStatus('Signed in. Opening your workspace…');
-      const pending=sessionStorage.getItem('healthPendingInviteUrl');
+      const pending=sessionStorage.getItem('healthPendingInviteUrl')||sessionStorage.getItem('healthPortalAfterLogin');
+      if(pending)sessionStorage.removeItem('healthPortalAfterLogin');
       location.replace(pending||'./index.html');
     }catch(error){
       setStatus(error?.message||'Unable to sign in.',true);
@@ -70,3 +76,5 @@ if(!backendConfigured(config)){
     finally{busy(false)}
   });
 }
+
+initLogin().catch(error=>setStatus(error?.message||'Authentication initialization failed.',true));
