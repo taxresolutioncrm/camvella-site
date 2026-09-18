@@ -41,7 +41,23 @@ export class ActionService{
     ]);
     return {providers:providers.length,carrierContracts:contracts.length,agentLicenses:licenses.length};
   }
-  if(/Compose Email|New Message|New SMS|Send Fax|Open Dialer|Call Client/.test(a))return {deferred:true,reason:'communication_provider_required'};
+  if(a.includes('Compose Email'))return this.invoke('send-communication',{channel:'email',to:text(fields['To']),subject:text(fields['Subject']),message:text(fields['Message'])});
+  if(a.includes('New SMS'))return this.invoke('send-communication',{channel:'sms',to:text(fields['To']),message:text(fields['Message'])});
+  if(a.includes('Send Fax'))return this.invoke('send-communication',{channel:'fax',to:text(fields['To fax number']),message:[text(fields['Document reference']),text(fields['Notes'])].filter(Boolean).join(' · ')});
+  if(a.includes('Open Dialer')||a.includes('Call Client')){
+    const clientName=text(fields['Client']||fields['Client / Lead']);
+    let clientId=null;
+    if(clientName){try{clientId=(await this.resolveClient(clientName)).id}catch{}}
+    return this.invoke('send-communication',{channel:'phone',to:text(fields['Phone number']),client_id:clientId});
+  }
+  if(a.includes('New Message')){
+    const channel=text(fields['Channel']).toLowerCase();
+    if(channel==='portal'){
+      const client=await this.resolveClient(fields['To']);
+      return this.invoke('send-communication',{channel:'portal',to:client.id,client_id:client.id,message:text(fields['Message'])});
+    }
+    return this.invoke('send-communication',{channel,to:text(fields['To']),message:text(fields['Message'])});
+  }
   if(/Run Eligibility|Run Comparison|Build Bundle|Mark All Reviewed|Start Needs Analysis|Run All Simulations|Export/.test(a))return {deferred:true,reason:'record_or_provider_context_required'};
   throw new Error('No live backend handler is defined for this action yet');
  }
