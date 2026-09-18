@@ -77,8 +77,10 @@ export class ActionService{
     }
     return this.invoke('send-communication',{channel,to:text(fields['To']),message:text(fields['Message'])});
   }
+  if(a.includes('Mark All Reviewed')){const e=await this.resolveEnrollment(fields['Enrollment']);const evidence=await this.repo.list('enrollmentEvidence',{filters:{enrollment_id:e.id},limit:100});for(const item of evidence)await this.repo.update('enrollmentEvidence',item.id,{status:'complete'});return {updated:evidence.length,enrollment_id:e.id}}
+  if(a.includes('Start Needs Analysis')){const e=await this.resolveEnrollment(fields['Enrollment']);return this.repo.update('enrollments',e.id,{lifecycle_status:'needs_review'})}
   if(a==='Template Library'){const rows=await this.repo.list('communicationTemplates',{limit:200});return {count:rows.length,templates:rows}}
-  if(/Run Eligibility|Recheck Eligibility|Run Comparison|Mark All Reviewed|Start Needs Analysis|Run All Simulations|Export/.test(a))return {deferred:true,reason:'record_or_provider_context_required'};
+  if(/Run Eligibility|Recheck Eligibility|Run Comparison|Run All Simulations|Export/.test(a))return {deferred:true,reason:'record_or_provider_context_required'};
   throw new Error('No live backend handler is defined for this action yet');
  }
 }
