@@ -3,12 +3,12 @@
 Status: HARDENED PRE-TARGET PACKAGE
 
 ## Current package
-- 20 ordered migrations
+- 22 ordered migrations
 - browser repository + workspace/auth abstractions
 - Edge Function stubs for bootstrap/invites/webhooks
 - provider adapters and simulation fixtures
 - import templates and validators
-- tenant, office, workflow, and relationship guards
+- tenant, office, workflow, relationship, market, and role-policy guards
 - reporting views and operational indexes
 - login preview and CRM sandbox
 
@@ -16,7 +16,8 @@ Status: HARDENED PRE-TARGET PACKAGE
 - All current public application tables are intended to have RLS.
 - Explicit authenticated Data API grants are defined.
 - Future tables/functions default to no anon/authenticated exposure.
-- Organization and office boundaries are modeled.
+- Organization + office + assigned-book boundaries are modeled.
+- Revenue is separated from sensitive household/provider/Rx data.
 - Parent and user cross-tenant references are rejected.
 - Enrollment submission requires an initialized, complete required-evidence checklist.
 - Final agency administrator cannot be removed/deactivated.
