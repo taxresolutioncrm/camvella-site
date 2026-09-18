@@ -90,8 +90,8 @@ function actionAllowed(label,role=currentRole){
   const x=String(label||'').toLowerCase();
   if(role==='manager')return !/(import statement|resolve exception|configure integration)/.test(x);
   if(role==='revenue')return /(statement|commission|exception|export|report|mapping)/.test(x);
-  if(role==='compliance')return /(evidence|consent|document|audit|review|export|report|license|certification)/.test(x);
-  if(role==='agent')return !/(settings|automation|team member|import statement|resolve exception|configure integration|audit)/.test(x);
+  if(role==='compliance')return /(evidence|consent|document|audit|review|export|report|license|certification|carrier appointment|add appointment)/.test(x);
+  if(role==='agent')return !/(settings|automation|team member|invite team|import statement|upload statement|resolve exception|configure integration|audit|add carrier|add product|add appointment)/.test(x);
   return false;
 }
 const btn=(t,kind='primary',msg=t)=>actionAllowed(msg)?'<button class="btn '+kind+'" onclick="openAction(\''+msg.replaceAll("'","\\'")+'\')">'+t+'</button>':'';
