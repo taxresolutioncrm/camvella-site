@@ -89,27 +89,27 @@ begin
   ));
 end $$;
 
--- T6: revenue role cannot advance enrollment to submitted/active.
--- Run with a USER_A fixture whose ORG_A membership role is revenue.
-do $$
+-- T6: org A cannot read org B policies.
+do $
 declare n integer;
 begin
-  update public.enrollments set lifecycle_status='submitted'
-  where organization_id='ORG_A'::uuid;
-  get diagnostics n=row_count;
-  perform pg_temp.record_result('T6 revenue submits enrollment','0 rows updated',n||' rows updated',n=0);
-end $$;
+  select count(*) into n
+  from public.policies
+  where organization_id='ORG_B'::uuid;
+  perform pg_temp.record_result('T6 cross-org policy SELECT','0 rows',n||' rows',n=0);
+end $;
 
--- T7: compliance role cannot alter commission statement.
--- Run with USER_A fixture role=compliance.
-do $$
+-- T7: org A cannot read org B sensitive provider/Rx records.
+do $
 declare n integer;
 begin
-  update public.commission_statements set total_amount=total_amount
-  where organization_id='ORG_A'::uuid;
-  get diagnostics n=row_count;
-  perform pg_temp.record_result('T7 compliance alters commission statement','0 rows updated',n||' rows updated',n=0);
-end $$;
+  select
+    (select count(*) from public.client_providers where organization_id='ORG_B'::uuid)
+    +
+    (select count(*) from public.client_prescriptions where organization_id='ORG_B'::uuid)
+  into n;
+  perform pg_temp.record_result('T7 cross-org sensitive data SELECT','0 rows',n||' rows',n=0);
+end $;
 
 -- T8: assigned agent cannot read sibling-office records.
 -- Requires USER_A role=agent in ORG_A and an OFFICE_B fixture populated with at least one lead.
