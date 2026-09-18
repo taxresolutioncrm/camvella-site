@@ -14,51 +14,54 @@ export default {
       const to=clean(body.to,320);
       const subject=clean(body.subject,500);
       const message=clean(body.message,10000);
-      const clientId=body.client_id?clean(body.client_id,64):null;
+      const requestedClientId=body.client_id?clean(body.client_id,64):null;
       const leadId=body.lead_id?clean(body.lead_id,64):null;
       if(!allowedChannels.has(channel)||!to) return response({error:'invalid_communication_request'},400);
 
       const userId=userIdFromClaims(ctx.userClaims as Record<string,unknown>);
+      const {data:memberships,error:membershipError}=await ctx.supabase
+        .from('memberships')
+        .select('organization_id,office_id,role,is_active')
+        .eq('user_id',userId)
+        .eq('is_active',true)
+        .limit(2);
 
-      let targetClient:any=null;
-      let targetLead:any=null;
-      if(clientId){
-        const {data,error}=await ctx.supabase.from('clients')
-          .select('id,organization_id,office_id,assigned_user_id')
-          .eq('id',clientId).maybeSingle();
-        if(error||!data) return response({error:'client_not_accessible'},403);
-        targetClient=data;
-      }
-      if(leadId){
-        const {data,error}=await ctx.supabase.from('leads')
-          .select('id,organization_id,office_id')
-          .eq('id',leadId).maybeSingle();
-        if(error||!data) return response({error:'lead_not_accessible'},403);
-        targetLead=data;
-      }
+      if(membershipError) return response({error:'membership_lookup_failed'},500);
+      const agencyMembership=(memberships||[]).length===1?memberships![0]:null;
 
       if(channel==='portal'){
-        if(!targetClient) return response({error:'portal_message_requires_client'},400);
         if(!message) return response({error:'portal_message_required'},400);
 
-        const {data:portalAccount}=await ctx.supabase
-          .from('client_portal_accounts')
-          .select('id,status')
-          .eq('client_id',targetClient.id)
-          .eq('user_id',userId)
-          .eq('status','active')
-          .maybeSingle();
+        let targetClient:any=null;
+        let direction:'inbound'|'outbound';
 
-        const {data:membership}=await ctx.supabase
-          .from('memberships')
-          .select('organization_id,office_id,role,is_active')
-          .eq('organization_id',targetClient.organization_id)
-          .eq('user_id',userId)
-          .eq('is_active',true)
-          .maybeSingle();
+        if(agencyMembership){
+          if(!requestedClientId) return response({error:'portal_message_requires_client'},400);
+          const {data,error}=await ctx.supabase.from('clients')
+            .select('id,organization_id,office_id,assigned_user_id')
+            .eq('id',requestedClientId)
+            .maybeSingle();
+          if(error||!data) return response({error:'client_not_accessible'},403);
+          targetClient=data;
+          direction='outbound';
+        }else{
+          let accountQuery=ctx.supabase.from('client_portal_accounts')
+            .select('client_id,organization_id,status')
+            .eq('user_id',userId)
+            .eq('status','active');
+          if(requestedClientId) accountQuery=accountQuery.eq('client_id',requestedClientId);
+          const {data:portalAccount,error:portalError}=await accountQuery.maybeSingle();
+          if(portalError||!portalAccount) return response({error:'portal_client_not_authorized'},403);
 
-        const direction=portalAccount?'inbound':'outbound';
-        if(!portalAccount&&!membership) return response({error:'portal_message_not_authorized'},403);
+          const {data,error}=await ctx.supabaseAdmin.from('clients')
+            .select('id,organization_id,office_id,assigned_user_id')
+            .eq('id',portalAccount.client_id)
+            .eq('organization_id',portalAccount.organization_id)
+            .maybeSingle();
+          if(error||!data) return response({error:'portal_client_not_found'},404);
+          targetClient=data;
+          direction='inbound';
+        }
 
         const {data:portalMessage,error:portalMessageError}=await ctx.supabase.from('portal_messages').insert({
           organization_id:targetClient.organization_id,
@@ -109,24 +112,33 @@ export default {
         return response({ok:true,portal_message_id:portalMessage.id,direction,created_at:portalMessage.created_at});
       }
 
-      const {data:memberships,error:membershipError}=await ctx.supabase
-        .from('memberships')
-        .select('organization_id,office_id,role,is_active')
-        .eq('user_id',userId)
-        .eq('is_active',true)
-        .limit(2);
+      if(!agencyMembership) return response({error:'workspace_membership_required'},403);
+      if((memberships||[]).length!==1) return response({error:'workspace_context_required'},409);
 
-      if(membershipError||!memberships?.length) return response({error:'workspace_membership_required'},403);
-      if(memberships.length!==1) return response({error:'workspace_context_required'},409);
+      let targetClient:any=null;
+      let targetLead:any=null;
+      if(requestedClientId){
+        const {data,error}=await ctx.supabase.from('clients')
+          .select('id,organization_id,office_id,assigned_user_id')
+          .eq('id',requestedClientId).maybeSingle();
+        if(error||!data) return response({error:'client_not_accessible'},403);
+        targetClient=data;
+      }
+      if(leadId){
+        const {data,error}=await ctx.supabase.from('leads')
+          .select('id,organization_id,office_id')
+          .eq('id',leadId).maybeSingle();
+        if(error||!data) return response({error:'lead_not_accessible'},403);
+        targetLead=data;
+      }
 
-      const membership=memberships[0];
-      const organizationId=targetClient?.organization_id||targetLead?.organization_id||membership.organization_id;
-      const officeId=targetClient?.office_id||targetLead?.office_id||membership.office_id||null;
-      if(organizationId!==membership.organization_id) return response({error:'workspace_mismatch'},403);
+      const organizationId=targetClient?.organization_id||targetLead?.organization_id||agencyMembership.organization_id;
+      const officeId=targetClient?.office_id||targetLead?.office_id||agencyMembership.office_id||null;
+      if(organizationId!==agencyMembership.organization_id) return response({error:'workspace_mismatch'},403);
 
-      if(clientId||leadId){
+      if(requestedClientId||leadId){
         let prefQuery=ctx.supabase.from('contact_preferences').select('*').eq('organization_id',organizationId);
-        prefQuery=clientId?prefQuery.eq('client_id',clientId):prefQuery.eq('lead_id',leadId);
+        prefQuery=requestedClientId?prefQuery.eq('client_id',requestedClientId):prefQuery.eq('lead_id',leadId);
         const {data:pref}=await prefQuery.maybeSingle();
         if(pref){
           const denied=
