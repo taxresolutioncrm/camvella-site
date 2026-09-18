@@ -66,7 +66,7 @@ export default {
       if(input.length>5_000_000)return response({error:'import_file_too_large'},413);
       const rows=recordsFromCsv(input);
       if(!rows.length)return response({error:'import_file_empty'},400);
-      if(rows.length>5000)return response({error:'import_row_limit_exceeded',limit:5000},413);
+      if(rows.length>2000)return response({error:'import_row_limit_exceeded',limit:2000},413);
 
       const errors:Array<{row:number;errors:string[]}>=[];const valid:any[]=[];
       for(const row of rows){
@@ -156,26 +156,22 @@ export default {
         }));
       }
 
-      let imported=0;
-      for(let i=0;i<payload.length;i+=250){
-        const chunk=payload.slice(i,i+250);
-        const table=job.import_type==='carrier_products'?'carrier_products':job.import_type;
-        const {error}=await ctx.supabaseAdmin.from(table).insert(chunk);
-        if(error){
-          await ctx.supabaseAdmin.from('import_jobs').update({
-            status:'failed',rows_imported:imported,rows_failed:payload.length-imported,
-            error_summary:[{row:i+2,errors:[error.message]}],finished_at:new Date().toISOString()
-          }).eq('id',job.id).eq('organization_id',job.organization_id);
-          return response({error:'import_insert_failed',message:error.message,rows_imported:imported},400);
-        }
-        imported+=chunk.length;
+      const {data:applied,error:applyError}=await ctx.supabaseAdmin.rpc('apply_import_rows',{
+        p_job_id:job.id,
+        p_rows:payload
+      });
+      if(applyError){
+        await ctx.supabaseAdmin.from('import_jobs').update({
+          status:'failed',
+          rows_imported:0,
+          rows_failed:payload.length,
+          error_summary:[{row:2,errors:[applyError.message]}],
+          finished_at:new Date().toISOString()
+        }).eq('id',job.id).eq('organization_id',job.organization_id);
+        return response({error:'import_apply_failed',message:applyError.message},400);
       }
 
-      await ctx.supabaseAdmin.from('import_jobs').update({
-        status:'complete',rows_imported:imported,rows_failed:0,finished_at:new Date().toISOString()
-      }).eq('id',job.id).eq('organization_id',job.organization_id);
-
-      return response({ok:true,status:'complete',rows_imported:imported});
+      return response({ok:true,status:'complete',rows_imported:applied?.rows_imported??payload.length});
     }catch(error){
       return response({error:'import_failed',message:error instanceof Error?error.message:'import_failed'},400);
     }
