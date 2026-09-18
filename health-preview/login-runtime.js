@@ -1,0 +1,70 @@
+import { loadRuntimeConfig, backendConfigured, assertBrowserSafeConfig } from './lib/runtime-config.js';
+import { AuthController } from './lib/auth-controller.js';
+
+const form=document.getElementById('loginForm');
+const emailInput=document.getElementById('loginEmail');
+const passwordInput=document.getElementById('loginPassword');
+const loginButton=document.getElementById('loginButton');
+const magicButton=document.getElementById('magicButton');
+const resetButton=document.getElementById('resetButton');
+const status=document.getElementById('authStatus');
+
+function setStatus(message,error=false){
+  status.innerHTML=error?'<strong>Sign-in issue:</strong> '+message:message;
+  status.style.background=error?'#fff0f0':'#eef8f6';
+  status.style.color=error?'#8b2c2c':'#165f5a';
+}
+function busy(value){
+  for(const b of [loginButton,magicButton,resetButton])b.disabled=value;
+}
+
+const config=loadRuntimeConfig();
+assertBrowserSafeConfig(config);
+
+if(!backendConfigured(config)){
+  setStatus('<strong>Sandbox preview:</strong> authentication stays disconnected until the dedicated Supabase project is selected.');
+}else{
+  const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2.116.0');
+  const client=createClient(config.supabaseUrl,config.supabasePublishableKey,{
+    auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+  });
+  const auth=new AuthController(client,{redirectTo:new URL('./login.html',location.href).href});
+
+  const {data:{session}}=await client.auth.getSession();
+  if(session){
+    location.replace('./index.html');
+  }
+
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();busy(true);
+    try{
+      await auth.signInWithPassword(emailInput.value.trim(),passwordInput.value);
+      setStatus('Signed in. Opening your workspace…');
+      location.replace('./index.html');
+    }catch(error){
+      setStatus(error?.message||'Unable to sign in.',true);
+    }finally{busy(false)}
+  });
+
+  magicButton.addEventListener('click',async()=>{
+    const email=emailInput.value.trim();
+    if(!email){setStatus('Enter your email first.',true);return}
+    busy(true);
+    try{
+      await auth.sendMagicLink(email);
+      setStatus('Sign-in link sent. Check your email.');
+    }catch(error){setStatus(error?.message||'Unable to send sign-in link.',true)}
+    finally{busy(false)}
+  });
+
+  resetButton.addEventListener('click',async()=>{
+    const email=emailInput.value.trim();
+    if(!email){setStatus('Enter your email first.',true);return}
+    busy(true);
+    try{
+      await auth.resetPassword(email);
+      setStatus('Password reset link sent. Check your email.');
+    }catch(error){setStatus(error?.message||'Unable to send reset link.',true)}
+    finally{busy(false)}
+  });
+}
