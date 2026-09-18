@@ -27,7 +27,7 @@ export default {
         p_slug:slug,p_starts_at:when.toISOString(),p_first_name:firstName,p_last_name:lastName,p_email:email,p_phone:phone
       });
       if(error){
-        const conflict=/no longer available|conflicts with an existing appointment/i.test(error.message||'');
+        const conflict=/no longer available|conflicts with an existing appointment|outside configured availability/i.test(error.message||'');
         return response({error:conflict?'slot_unavailable':'booking_failed',message:error.message},conflict?409:400);
       }
       return response({ok:true,appointment_id:data.appointment_id,lead_id:data.lead_id},201);
