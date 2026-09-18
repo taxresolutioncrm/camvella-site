@@ -23,7 +23,26 @@ const resources={
   automationRules:{table:'automation_rules',key:'id',tenant:true},
   agentLicenses:{table:'agent_licenses',key:'id',tenant:true},
   planComparisons:{table:'plan_comparisons',key:'id',tenant:true},
-  organizationSettings:{table:'organization_settings',key:'organization_id',tenant:true}
+  organizationSettings:{table:'organization_settings',key:'organization_id',tenant:true},
+  clientProviders:{table:'client_providers',key:'id',tenant:true},
+  clientPrescriptions:{table:'client_prescriptions',key:'id',tenant:true},
+  clientPharmacies:{table:'client_pharmacies',key:'id',tenant:true},
+  planComparisons:{table:'plan_comparisons',key:'id',tenant:true},
+  planComparisonItems:{table:'plan_comparison_items',key:'id',tenant:true},
+  agentLicenses:{table:'agent_licenses',key:'id',tenant:true},
+  portalAccounts:{table:'client_portal_accounts',key:'id',tenant:true},
+  communicationAttachments:{table:'communication_attachments',key:'id',tenant:true},
+  notificationPreferences:{table:'notification_preferences',key:'id',tenant:true},
+  notifications:{table:'app_notifications',key:'id',tenant:true},
+  automationRuns:{table:'automation_runs',key:'id',tenant:true},
+  communicationEndpoints:{table:'communication_endpoints',key:'id',tenant:true},
+  appointmentTypes:{table:'appointment_types',key:'id',tenant:true},
+  availabilityRules:{table:'scheduling_availability_rules',key:'id',tenant:true},
+  bookingLinks:{table:'booking_links',key:'id',tenant:true},
+  communicationTemplates:{table:'communication_templates',key:'id',tenant:true},
+  contactPreferences:{table:'contact_preferences',key:'id',tenant:true},
+  publicIntakeForms:{table:'public_intake_forms',key:'id',tenant:true},
+  integrationSyncJobs:{table:'integration_sync_jobs',key:'id',tenant:true}
 };
 
 function spec(resource){
@@ -65,5 +84,10 @@ export class SupabaseDriver{
   async remove(resource,id){
     const s=spec(resource);let q=this.client.from(s.table).delete().eq(s.key,id);
     q=this.scope(q,s);const {error}=await q;if(error)throw error;return true;
+  }
+  async call(name,args={}){
+    const {data,error}=await this.client.rpc(name,args);
+    if(error)throw error;
+    return data;
   }
 }
