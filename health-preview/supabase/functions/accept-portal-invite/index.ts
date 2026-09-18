@@ -1,8 +1,8 @@
 import { withSupabase } from 'npm:@supabase/server@1.7.0';
-import { response, userIdFromClaims, emailFromClaims } from '../_shared/server.ts';
+import { response, userIdFromClaims, emailFromClaims, appCorsConfig } from '../_shared/server.ts';
 
 export default {
-  fetch: withSupabase({ auth:'user', errors:{detailed:false} }, async(req,ctx)=>{
+  fetch: withSupabase({ auth:'user', cors:appCorsConfig(), errors:{detailed:false} }, async(req,ctx)=>{
     if(req.method!=='POST') return response({error:'method_not_allowed'},405);
     try{
       const body=await req.json();
