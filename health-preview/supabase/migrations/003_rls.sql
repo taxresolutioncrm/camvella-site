@@ -7,7 +7,7 @@ create or replace function app_private.current_org_ids()
 returns setof uuid
 language sql
 stable
-security invoker
+security definer
 set search_path = public, auth
 as $$
   select m.organization_id
@@ -20,7 +20,7 @@ create or replace function app_private.has_org_role(target_org uuid, allowed pub
 returns boolean
 language sql
 stable
-security invoker
+security definer
 set search_path = public, auth
 as $$
   select exists (
@@ -34,6 +34,8 @@ $$;
 
 revoke all on schema app_private from public, anon, authenticated;
 grant usage on schema app_private to authenticated;
+revoke all on function app_private.current_org_ids() from public, anon;
+revoke all on function app_private.has_org_role(uuid, public.member_role[]) from public, anon;
 grant execute on function app_private.current_org_ids() to authenticated;
 grant execute on function app_private.has_org_role(uuid, public.member_role[]) to authenticated;
 
@@ -256,3 +258,62 @@ create policy audit_log_insert on public.audit_log for insert to authenticated
 with check (organization_id in (select app_private.current_org_ids()));
 
 revoke update, delete on public.audit_log from authenticated;
+
+
+-- Organization/office administration.
+create policy organizations_update on public.organizations
+for update to authenticated
+using (app_private.has_org_role(id,array['agency_admin']::public.member_role[]))
+with check (app_private.has_org_role(id,array['agency_admin']::public.member_role[]));
+
+create policy offices_write on public.offices
+for all to authenticated
+using (
+  organization_id in (select app_private.current_org_ids())
+  and app_private.has_org_role(organization_id,array['agency_admin','manager']::public.member_role[])
+)
+with check (
+  organization_id in (select app_private.current_org_ids())
+  and app_private.has_org_role(organization_id,array['agency_admin','manager']::public.member_role[])
+);
+
+-- Household editing follows client access.
+create policy households_write on public.households
+for all to authenticated
+using (organization_id in (select app_private.current_org_ids()))
+with check (organization_id in (select app_private.current_org_ids()));
+
+create policy household_members_write on public.household_members
+for all to authenticated
+using (organization_id in (select app_private.current_org_ids()))
+with check (organization_id in (select app_private.current_org_ids()));
+
+-- Carrier catalog writes are manager/admin controlled.
+create policy carriers_write on public.carriers
+for all to authenticated
+using (
+  organization_id in (select app_private.current_org_ids())
+  and app_private.has_org_role(organization_id,array['agency_admin','manager']::public.member_role[])
+)
+with check (
+  organization_id in (select app_private.current_org_ids())
+  and app_private.has_org_role(organization_id,array['agency_admin','manager']::public.member_role[])
+);
+
+create policy carrier_products_write on public.carrier_products
+for all to authenticated
+using (
+  organization_id in (select app_private.current_org_ids())
+  and app_private.has_org_role(organization_id,array['agency_admin','manager']::public.member_role[])
+)
+with check (
+  organization_id in (select app_private.current_org_ids())
+  and app_private.has_org_role(organization_id,array['agency_admin','manager']::public.member_role[])
+);
+
+create policy policy_events_insert on public.policy_events
+for insert to authenticated
+with check (organization_id in (select app_private.current_org_ids()));
+
+-- Audit rows are written by trusted trigger/server paths only.
+drop policy if exists audit_log_insert on public.audit_log;
