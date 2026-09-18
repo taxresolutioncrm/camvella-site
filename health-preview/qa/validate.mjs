@@ -5,7 +5,7 @@ const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const app=read('index.html');
 const site=read('site.html');
 const login=read('login.html');
-const names=["001_core_schema.sql","002_comms_revenue_audit.sql","003_rls.sql","004_storage.sql","005_platform_support.sql","006_app_support.sql","007_data_api_grants.sql","008_audit_triggers.sql","009_server_rpcs.sql","010_office_access_hardening.sql","011_workflow_guards.sql","012_domain_completion.sql","013_invitation_rpcs.sql","014_settings_templates_preferences.sql","015_data_integrity_indexes.sql","016_reporting_views.sql","017_security_cleanup_and_audit.sql","018_tenant_integrity_triggers.sql","019_domain_relationship_guards.sql","020_communications_scheduling_completion.sql"];
+const names=["001_core_schema.sql","002_comms_revenue_audit.sql","003_rls.sql","004_storage.sql","005_platform_support.sql","006_app_support.sql","007_data_api_grants.sql","008_audit_triggers.sql","009_server_rpcs.sql","010_office_access_hardening.sql","011_workflow_guards.sql","012_domain_completion.sql","013_invitation_rpcs.sql","014_settings_templates_preferences.sql","015_data_integrity_indexes.sql","016_reporting_views.sql","017_security_cleanup_and_audit.sql","018_tenant_integrity_triggers.sql","019_domain_relationship_guards.sql","020_communications_scheduling_completion.sql","021_invite_history_and_market_guards.sql","022_role_policy_alignment.sql"];
 const mig=Object.fromEntries(names.map(f=>[f,read('supabase/migrations/'+f)]));
 const allMig=Object.values(mig).join('\n');
 const failures=[];
@@ -23,7 +23,8 @@ const storage=read('supabase/migrations/004_storage.sql')+read('supabase/migrati
 for(const op of ['select','insert','update','delete']) if(!storage.includes('for '+op+' to authenticated')) failures.push('storage policy missing '+op);
 if(!mig['007_data_api_grants.sql'].includes('revoke all on all tables in schema public from anon')) failures.push('anon table revoke missing');
 if(!mig['007_data_api_grants.sql'].includes('revoke all on tables from anon, authenticated')) failures.push('future table opt-in missing');
-for(const required of ['010_office_access_hardening.sql','011_workflow_guards.sql','018_tenant_integrity_triggers.sql','019_domain_relationship_guards.sql','020_communications_scheduling_completion.sql']) if(!mig[required]) failures.push('missing hardening migration '+required);
+for(const required of ['010_office_access_hardening.sql','011_workflow_guards.sql','018_tenant_integrity_triggers.sql','019_domain_relationship_guards.sql','020_communications_scheduling_completion.sql','021_invite_history_and_market_guards.sql','022_role_policy_alignment.sql']) if(!mig[required]) failures.push('missing hardening migration '+required);
+if(!mig['022_role_policy_alignment.sql'].includes('can_manage_assignment')) failures.push('role alignment helper missing');
 if(!read('lib/auth-controller.js').includes('signInWithPassword')) failures.push('auth controller missing');
 if(!read('lib/supabase-driver.js').includes('class SupabaseDriver')) failures.push('Supabase driver missing');
 if(!site.includes('noindex,nofollow')||!login.includes('noindex,nofollow')) failures.push('preview surfaces must remain noindex');
