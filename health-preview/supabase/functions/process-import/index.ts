@@ -51,6 +51,7 @@ async function failJob(admin:any,jobId:string,organizationId:string,status:strin
 export default {
   fetch: withSupabase({ auth:'user', cors:appCorsConfig(), errors:{detailed:false} }, async(req,ctx)=>{
     if(req.method!=='POST')return response({error:'method_not_allowed'},405);
+    let activeJob:{id:string;organization_id:string}|null=null;
     if(!claimsHaveAal2(ctx.userClaims as Record<string,unknown>)) return response({error:'aal2_required'},403);
     try{
       const userId=userIdFromClaims(ctx.userClaims as Record<string,unknown>);
@@ -79,6 +80,7 @@ export default {
         .select('id')
         .maybeSingle();
       if(claimError||!claimed)return response({error:'import_job_already_processing_or_complete'},409);
+      activeJob={id:job.id,organization_id:job.organization_id};
 
       const {data:file,error:downloadError}=await ctx.supabaseAdmin.storage.from('imports').download(job.storage_path);
       if(downloadError||!file){
@@ -200,6 +202,7 @@ export default {
 
       return response({ok:true,status:'complete',rows_imported:applied?.rows_imported??payload.length});
     }catch(error){
+      if(activeJob) await failJob(ctx.supabaseAdmin,activeJob.id,activeJob.organization_id,'failed',[{row:0,errors:['import_failed']}]).catch(()=>{});
       return response({error:'import_failed',message:error instanceof Error?error.message:'import_failed'},400);
     }
   })
