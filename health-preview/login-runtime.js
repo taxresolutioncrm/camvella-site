@@ -32,7 +32,8 @@ if(!backendConfigured(config)){
 
   const {data:{session}}=await client.auth.getSession();
   if(session){
-    location.replace('./index.html');
+    const pending=sessionStorage.getItem('healthPendingInviteUrl');
+    location.replace(pending||'./index.html');
   }
 
   form.addEventListener('submit',async e=>{
@@ -40,7 +41,8 @@ if(!backendConfigured(config)){
     try{
       await auth.signInWithPassword(emailInput.value.trim(),passwordInput.value);
       setStatus('Signed in. Opening your workspace…');
-      location.replace('./index.html');
+      const pending=sessionStorage.getItem('healthPendingInviteUrl');
+      location.replace(pending||'./index.html');
     }catch(error){
       setStatus(error?.message||'Unable to sign in.',true);
     }finally{busy(false)}
