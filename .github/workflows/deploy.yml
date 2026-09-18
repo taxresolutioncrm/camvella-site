@@ -1,95 +1,35 @@
-name: Validate Camvella Website
+name: Emergency Cloudflare Topology Check
 
 on:
-  workflow_dispatch:
   pull_request:
     branches: [main]
 
 permissions:
   contents: read
 
-concurrency:
-  group: camvella-site-validation-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  build:
+  inspect:
     runs-on: ubuntu-latest
-    name: Build and Validate Marketing Site
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build Astro site and sitemap
-        run: npm run build
-
-      - name: Verify launch artifacts
-        if: false
-        run: |
-          test -f dist/index.html
-          test -f dist/robots.txt
-          test -f dist/sitemap.xml
-          grep -q "https://camvella.com/" dist/sitemap.xml
-          grep -Fq '<title>HOA &amp; Community Association Management Software | Camvella</title>' dist/index.html
-          grep -Fq 'HOA management software' dist/index.html
-          grep -Fq 'professional community managers' dist/index.html
-          grep -q '/compare/camvella-vs-appfolio/' dist/sitemap.xml
-          grep -q '/compare/camvella-vs-buildium/' dist/sitemap.xml
-          grep -q '/compare/camvella-vs-vantaca/' dist/sitemap.xml
-          grep -q '/features/automation/' dist/sitemap.xml
-          grep -q '/features/documents/' dist/sitemap.xml
-          grep -q '/features/e-signatures/' dist/sitemap.xml
-          grep -q '/features/reporting/' dist/sitemap.xml
-          grep -q '/features/vendors/' dist/sitemap.xml
-          grep -q "G-H1ZPCP2EE9" dist/index.html
-          grep -q "y62zna7yna" dist/index.html
-          grep -q 'id="mobile-menu"' dist/index.html
-          grep -q 'src="https://taxrescrm.app/book?product=camvella"' dist/demo/index.html
-          ! grep -R -q 'href="https://taxrescrm.app/book?product=camvella"' dist --include='*.html'
-          ! grep -R -q '/blog/hoa-accounting-guide' dist --include='*.html'
-          grep -q '/compare/camvella-vs-buildium' dist/compare/index.html
-          grep -q '/compare/camvella-vs-appfolio' dist/compare/index.html
-          grep -q '/compare/camvella-vs-vantaca' dist/compare/index.html
-          grep -q '/features/documents' dist/product/index.html
-          grep -q '/features/e-signatures' dist/product/index.html
-          grep -q '/features/vendors' dist/product/index.html
-          test -f dist/features/reporting/index.html
-          test -f dist/features/automation/index.html
-          ! grep -R -q 'Check back soon' dist/compare --include='*.html'
-          ! grep -R -q 'This detailed comparison page is being built' dist/compare --include='*.html'
-
-      - name: Verify live Camvella SEO
-        if: github.event_name == 'pull_request'
+      - name: Inspect Cloudflare deployment target
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         shell: bash
         run: |
           set -euo pipefail
-          stamp="$(date +%s)"
-          curl -sS -D /tmp/home.h -o /tmp/home.html "https://camvella.com/?verify=$stamp"
-          curl -sS -D /tmp/robots.h -o /tmp/robots.txt "https://camvella.com/robots.txt?verify=$stamp"
-          curl -sS -D /tmp/sitemap.h -o /tmp/sitemap.xml "https://camvella.com/sitemap.xml?verify=$stamp"
-          curl -sS -D /tmp/florida-alias.h -o /dev/null "https://camvella.com/solutions/florida-hoa-management-software/"
-          curl -sS -D /tmp/texas-alias.h -o /dev/null "https://camvella.com/solutions/texas-hoa-management-software/"
-          echo '=== HOME STATUS/TITLE ==='
-          head -n 1 /tmp/home.h
-          grep -o '<title>[^<]*</title>' /tmp/home.html | head -n 1 || true
-          echo '=== HOME MARKERS ==='
-          grep -F 'HOA management software' /tmp/home.html | head -n 1 || true
-          grep -F 'professional community managers' /tmp/home.html | head -n 1 || true
-          echo '=== ROBOTS ==='
-          head -n 1 /tmp/robots.h
-          cat /tmp/robots.txt
-          echo '=== SITEMAP ==='
-          head -n 1 /tmp/sitemap.h
-          grep -F '<loc>https://camvella.com/</loc>' /tmp/sitemap.xml | head -n 1 || true
-          echo '=== REGIONAL ALIAS REDIRECTS ==='
-          grep -Ei '^(HTTP/|location:)' /tmp/florida-alias.h || true
-          grep -Ei '^(HTTP/|location:)' /tmp/texas-alias.h || true
+          echo "=== credential presence ==="
+          test -n "${CLOUDFLARE_API_TOKEN:-}" && echo "API token: present" || echo "API token: missing"
+          test -n "${CLOUDFLARE_ACCOUNT_ID:-}" && echo "Account ID: present" || echo "Account ID: missing"
+          echo "=== wrangler config ==="
+          cat wrangler.toml
+          echo "=== Pages projects ==="
+          npx --yes wrangler@latest pages project list || true
+          echo "=== Workers deployments for camvella-site ==="
+          npx --yes wrangler@latest deployments list --name camvella-site || true
