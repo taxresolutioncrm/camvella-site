@@ -19,6 +19,13 @@ const migrationDir=path.join(root,'supabase','migrations');
 const names=fs.readdirSync(migrationDir).filter(x=>/^\d+_.*\.sql$/.test(x)).sort();
 const mig=Object.fromEntries(names.map(f=>[f,read('supabase/migrations/'+f)]));
 const allMig=Object.values(mig).join('\n');
+const prefixes=names.map(n=>n.slice(0,3));
+const duplicatePrefixes=[...new Set(prefixes.filter((p,i,a)=>a.indexOf(p)!==i))];
+if(duplicatePrefixes.length) failures.push('duplicate migration prefix '+duplicatePrefixes.join(','));
+for(let i=0;i<names.length;i++){
+  const expected=String(i+1).padStart(3,'0');
+  if(prefixes[i]!==expected) failures.push('migration sequence mismatch at '+names[i]+' expected '+expected);
+}
 
 for(const fn of ['email','phone','sms','fax','voicemail','inbox','integration','lab']){
   if(!app.includes('function '+fn+'()')) failures.push('missing CRM view '+fn);
@@ -82,7 +89,7 @@ for(const required of [
   '039_workflow_artifacts_and_imports.sql','041_policy_event_and_campaign_role_alignment.sql',
   '042_import_job_role_alignment.sql','044_atomic_import_apply.sql','045_atomic_commission_apply.sql',
   '047_portal_data_boundary.sql','048_portal_messages.sql','049_portal_message_sender_guard.sql',
-  '050_portal_least_privilege.sql','051_portal_message_read_receipts.sql','052_aal2_sensitive_writes.sql'
+  '050_portal_least_privilege.sql','051_portal_message_read_receipts.sql','052_aal2_sensitive_writes.sql','053_storage_aal2_alignment.sql'
 ]){
   if(!mig[required]) failures.push('missing hardening module '+required);
 }
@@ -131,8 +138,8 @@ for(const label of actionLabels){
   if(!covered) failures.push('uncovered CRM action '+label);
 }
 
-if(tables.length<58) failures.push('expected at least 58 public tables, found '+tables.length);
-if(names.length<52) failures.push('expected at least 52 SQL modules, found '+names.length);
+if(tables.length!==58) failures.push('expected exactly 58 public tables, found '+tables.length);
+if(names.length!==59) failures.push('expected exactly 59 SQL modules, found '+names.length);
 
 console.log(JSON.stringify({
   tables:tables.length,
