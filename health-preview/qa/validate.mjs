@@ -12,6 +12,8 @@ const login=read('login.html');
 const portal=read('portal.html');
 const onboarding=read('onboarding.html');
 const acceptInvite=read('accept-invite.html');
+const resetPassword=read('reset-password.html');
+const mfa=read('mfa.html');
 
 const migrationDir=path.join(root,'supabase','migrations');
 const names=fs.readdirSync(migrationDir).filter(x=>/^\d+_.*\.sql$/.test(x)).sort();
@@ -30,14 +32,16 @@ if(!exists('portal-runtime.js')) failures.push('client portal runtime missing');
 if(!exists('login-runtime.js')) failures.push('login runtime missing');
 if(!exists('onboarding-runtime.js')) failures.push('onboarding runtime missing');
 if(!exists('accept-invite-runtime.js')) failures.push('invite acceptance runtime missing');
+if(!exists('reset-password-runtime.js')) failures.push('password reset runtime missing');
+if(!exists('mfa-runtime.js')) failures.push('MFA runtime missing');
 
-for(const surface of [['site',site],['login',login],['portal',portal],['onboarding',onboarding],['accept-invite',acceptInvite]]){
+for(const surface of [['site',site],['login',login],['portal',portal],['onboarding',onboarding],['accept-invite',acceptInvite],['reset-password',resetPassword],['mfa',mfa]]){
   if(!surface[1].includes('noindex,nofollow')) failures.push(surface[0]+' preview surface must remain noindex');
 }
 
 const forbiddenFrontend=['service_role','sb_secret_','APP_SUPABASE_SECRET_KEY='];
 for(const secret of forbiddenFrontend){
-  for(const [name,source] of [['app',app],['login',login],['portal',portal],['onboarding',onboarding],['invite',acceptInvite]]){
+  for(const [name,source] of [['app',app],['login',login],['portal',portal],['onboarding',onboarding],['invite',acceptInvite],['reset-password',resetPassword],['mfa',mfa]]){
     if(source.includes(secret)) failures.push(name+' frontend secret marker '+secret);
   }
 }
@@ -77,12 +81,15 @@ for(const required of [
   '037_assignment_office_alignment.sql','038_atomic_enrollment_case.sql',
   '039_workflow_artifacts_and_imports.sql','041_policy_event_and_campaign_role_alignment.sql',
   '042_import_job_role_alignment.sql','044_atomic_import_apply.sql','045_atomic_commission_apply.sql',
-  '047_portal_data_boundary.sql','048_portal_messages.sql','049_portal_message_sender_guard.sql'
+  '047_portal_data_boundary.sql','048_portal_messages.sql','049_portal_message_sender_guard.sql',
+  '050_portal_least_privilege.sql','051_portal_message_read_receipts.sql','052_aal2_sensitive_writes.sql'
 ]){
   if(!mig[required]) failures.push('missing hardening module '+required);
 }
 
 if(!read('lib/auth-controller.js').includes('enrollTotp')) failures.push('MFA auth controller missing');
+if(!read('runtime-init.js').includes("sensitiveRoles")) failures.push('sensitive-role AAL2 runtime gate missing');
+if(!allMig.includes('app_private.has_aal2()')) failures.push('database AAL2 sensitive-write guard missing');
 if(!read('lib/supabase-driver.js').includes('class SupabaseDriver')) failures.push('Supabase driver missing');
 if(!read('lib/backend-factory.js').includes('@supabase/supabase-js@2.116.0')) failures.push('pinned browser Supabase SDK missing');
 if(!read('lib/action-service.js').includes('class ActionService')) failures.push('live CRM action service missing');
@@ -125,7 +132,7 @@ for(const label of actionLabels){
 }
 
 if(tables.length<58) failures.push('expected at least 58 public tables, found '+tables.length);
-if(names.length<49) failures.push('expected at least 49 SQL modules, found '+names.length);
+if(names.length<52) failures.push('expected at least 52 SQL modules, found '+names.length);
 
 console.log(JSON.stringify({
   tables:tables.length,
