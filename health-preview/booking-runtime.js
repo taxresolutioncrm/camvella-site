@@ -80,6 +80,9 @@ async function init(){
     book.disabled=true;setStatus('Booking your appointment…');
     try{
       const body={slug,...Object.fromEntries(new FormData(form))};
+      if(String(body.company_website||'').trim()){
+        setStatus('Appointment request received.');form.reset();form.classList.add('hidden');selectedSlot=null;return;
+      }
       const result=await invoke('public-booking',body);
       setStatus('Appointment booked. Your confirmation reference is '+(result.appointment_id||'saved')+'.');
       slotsBox.innerHTML='';slotMeta.textContent='';form.reset();form.classList.add('hidden');selectedSlot=null;
