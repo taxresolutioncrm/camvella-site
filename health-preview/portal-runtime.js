@@ -90,7 +90,7 @@ async function loadRequests(){
 
 async function loadMessages(){
   setHeading('Messages','Secure messages shared between you and your agency.');
-  const {data:messages,error}=await clientApi.from('portal_messages').select('*').eq('client_id',client.id).order('created_at',{ascending:true});
+  const {data:messages,error}=await clientApi.rpc('list_my_portal_messages');
   if(error)throw error;
   const unread=(messages||[]).filter(m=>m.direction==='outbound'&&!m.read_at);
   if(unread.length)await clientApi.rpc('mark_my_portal_messages_read',{p_message_ids:unread.map(x=>x.id)});
