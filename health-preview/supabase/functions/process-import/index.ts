@@ -1,5 +1,5 @@
 import { withSupabase } from 'npm:@supabase/server@1.7.0';
-import { response, userIdFromClaims, appCorsConfig, requireAal2Claims } from '../_shared/server.ts';
+import { response, userIdFromClaims, appCorsConfig, claimsHaveAal2 } from '../_shared/server.ts';
 
 function parseCsv(input:string){
   const rows:string[][]=[];let row:string[]=[],cell='',quoted=false;
@@ -53,8 +53,6 @@ export default {
     if(req.method!=='POST')return response({error:'method_not_allowed'},405);
     if(!claimsHaveAal2(ctx.userClaims as Record<string,unknown>)) return response({error:'aal2_required'},403);
     try{
-      if(String((ctx.userClaims as Record<string,unknown>)?.aal||'')!=='aal2') return response({error:'aal2_required'},403);
-      requireAal2Claims(ctx.userClaims as Record<string,unknown>);
       const userId=userIdFromClaims(ctx.userClaims as Record<string,unknown>);
       const body=await req.json();
       const jobId=String(body.job_id||'');
