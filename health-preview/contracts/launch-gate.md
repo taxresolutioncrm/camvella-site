@@ -11,31 +11,38 @@
 - [x] Compliance workspace
 - [x] Client portal workflow
 - [x] Public-site redesign
-- [x] Public lead-capture sandbox
-- [x] Login/Auth shell
+- [x] Public lead capture
+- [x] Public booking workflow
+- [x] Login / recovery / MFA / onboarding / invitation flows
 - [ ] Final product name/domain
 
 ## Pre-target backend
-- [x] 53-table domain model
-- [x] 34 ordered SQL modules
+- [x] 58-table domain model
+- [x] 59 uniquely ordered SQL modules
 - [x] provider adapter contracts
+- [x] 12 Edge Functions
 - [x] current Edge Function auth model
-- [x] browser Supabase driver/runtime factory
+- [x] browser Supabase driver/runtime/action/live-view factory
 - [x] RLS/office/assigned-book role design
-- [x] Storage role/portal design
+- [x] AAL2 sensitive-write guards
+- [x] Storage agency/portal/AAL2/path integrity design
 - [x] audit/integrity/workflow guards
-- [x] public intake/booking/rate-limit design
-- [x] test fixture/role/Storage matrices
+- [x] atomic enrollment/import/commission/portal-message workflows
+- [x] public intake/availability/booking/rate-limit design
+- [x] tenant/role/portal/Storage test matrices
 - [ ] Dedicated Supabase project selected
 
 ## Target execution
-- [ ] SQL modules executed successfully
-- [ ] deterministic fixtures created
-- [ ] RLS/role/Storage tests passed
+- [ ] SQL modules execute successfully
+- [ ] deterministic Auth/tenant/portal fixtures created
+- [ ] RLS/role/Storage/AAL2 tests pass
 - [ ] database advisors clean/reviewed
 - [ ] Auth/MFA runtime verified
-- [ ] Edge Functions deployed/tested
-- [ ] clean timestamped migration generated
+- [ ] all Edge Functions deployed/tested
+- [ ] public intake/booking verified
+- [ ] portal invite/upload/message/request flow verified
+- [ ] import/commission atomic workflows verified
+- [ ] one clean timestamped migration generated
 - [ ] frontend connected
 - [ ] providers connected/tested
 
