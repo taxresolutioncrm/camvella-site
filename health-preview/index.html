@@ -65,7 +65,7 @@ const routeRoles={
   overview:['agency_admin','manager','agent','compliance','revenue'],
   manager:['agency_admin','manager'],reports:['agency_admin','manager','compliance','revenue'],
   leads:['agency_admin','manager','agent'],appointments:['agency_admin','manager','agent','compliance'],
-  clients:['agency_admin','manager','agent','compliance','revenue'],client360:['agency_admin','manager','agent','compliance','revenue'],
+  clients:['agency_admin','manager','agent','compliance','revenue'],client360:['agency_admin','manager','agent','compliance'],
   aca:['agency_admin','manager','agent','compliance'],medicare:['agency_admin','manager','agent','compliance'],
   enrollment:['agency_admin','manager','agent','compliance'],eligibility:['agency_admin','manager','agent','compliance'],
   plans:['agency_admin','manager','agent','compliance'],evidence:['agency_admin','manager','agent','compliance'],
@@ -365,6 +365,8 @@ panel('Launch simulation','What can run without backend',row('Navigation + modul
 
 const views={overview,leads,clients,client360,appointments,enrollment,commissions,compliance,manager,portal,policies,reports,aca,medicare,renewals,documents,carriers,contracting,evidence,onboarding,automations,tasks,team,settings,eligibility,plans,service,exceptions,mapping,consent,audit,requests,permissions,communications,advanced,integration,lab,inbox,email,phone,sms,fax,voicemail,history,catalog};
 const actionSchemas={
+'Mark All Reviewed':[['Enrollment','text']],
+'Start Needs Analysis':[['Enrollment','text']],
 '+ Add Lead':[['First name','text'],['Last name','text'],['Market','select','ACA|Medicare'],['Phone','tel'],['Email','email'],['Source','text']],
 'Add Event':[['Policy','text'],['Event type','text'],['Summary','textarea']],
 'Add Policy':[['Client','text'],['Carrier','text'],['Product','text','',false],['Policy number','text','',false],['Effective date','date'],['Renewal date','date','',false],['Premium','number','',false]],
@@ -451,7 +453,7 @@ function runSandboxCommand(label){
  }
  return false;
 }
-const commandLabels=['Run Audit','Run Eligibility','Run Comparison','Run Readiness Check','Mark All Reviewed','Start Needs Analysis','Run All Simulations','Recheck Eligibility','Template Library'];
+const commandLabels=['Run Audit','Run Eligibility','Run Comparison','Run Readiness Check','Run All Simulations','Recheck Eligibility','Template Library'];
 async function openAction(label){
  if(runSandboxCommand(label)) return;
  if(globalThis.healthCrmBackend?.mode==='supabase'&&(commandLabels.some(x=>label.includes(x))||/^Export/.test(label))){
