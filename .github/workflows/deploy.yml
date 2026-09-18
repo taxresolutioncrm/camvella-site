@@ -36,9 +36,9 @@ jobs:
           test -f dist/robots.txt
           test -f dist/sitemap.xml
           grep -q "https://camvella.com/" dist/sitemap.xml
-          grep -Fq '<title>HOA &amp; Community Association Management Software | Camvella</title>' dist/index.html
+          grep -Fq '<title>HOA Management Software for Professional CAM Companies | Camvella</title>' dist/index.html
           grep -Fq 'HOA management software' dist/index.html
-          grep -Fq 'professional community managers' dist/index.html
+          grep -Fq 'professional CAM companies' dist/index.html
           grep -q '/compare/camvella-vs-appfolio/' dist/sitemap.xml
           grep -q '/compare/camvella-vs-buildium/' dist/sitemap.xml
           grep -q '/compare/camvella-vs-vantaca/' dist/sitemap.xml
@@ -69,14 +69,14 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          expected='HOA &amp; Community Association Management Software | Camvella'
+          expected='HOA Management Software for Professional CAM Companies | Camvella'
           for i in $(seq 1 30); do
             html="$(curl -fsSL --max-time 15 "https://camvella.com/?verify=$(date +%s)" || true)"
             robots="$(curl -fsSL --max-time 15 "https://camvella.com/robots.txt?verify=$(date +%s)" || true)"
             sitemap="$(curl -fsSL --max-time 15 "https://camvella.com/sitemap.xml?verify=$(date +%s)" || true)"
             if printf '%s' "$html" | grep -Fq "$expected" \
               && printf '%s' "$html" | grep -Fq 'HOA management software' \
-              && printf '%s' "$html" | grep -Fq 'professional community managers' \
+              && printf '%s' "$html" | grep -Fq 'professional CAM companies' \
               && printf '%s' "$robots" | grep -qi 'Sitemap: https://camvella.com/sitemap.xml' \
               && printf '%s' "$sitemap" | grep -Fq '<loc>https://camvella.com/</loc>'; then
               echo 'Live Camvella SEO verification passed.'
