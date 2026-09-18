@@ -1,4 +1,4 @@
-name: Portfolio Live SEO Verification
+name: Portfolio Live SEO Release Verification
 
 on:
   pull_request:
@@ -11,34 +11,20 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - name: Verify live public SEO surfaces
+      - name: Verify latest live release markers
         shell: bash
         run: |
           set -euo pipefail
-          check_site() {
-            name="$1"; base="$2"; sitemap="$3"
-            echo "===== $name ====="
-            stamp="$(date +%s)"
-            curl -sS -L -D /tmp/h -o /tmp/body "$base/?verify=$stamp"
-            printf 'HOME '; head -n 1 /tmp/h | tail -n 1
-            grep -o '<title>[^<]*</title>' /tmp/body | head -n 1 || true
-            grep -o '<link[^>]*rel="canonical"[^>]*>' /tmp/body | head -n 1 || true
-            grep -o '<meta[^>]*name="robots"[^>]*>' /tmp/body | head -n 1 || true
-            curl -sS -L -D /tmp/rh -o /tmp/robots "$base/robots.txt?verify=$stamp"
-            printf 'ROBOTS '; head -n 1 /tmp/rh | tail -n 1
-            grep -i '^Sitemap:' /tmp/robots || true
-            curl -sS -L -D /tmp/sh -o /tmp/sm "$base/$sitemap?verify=$stamp"
-            printf 'SITEMAP '; head -n 1 /tmp/sh | tail -n 1
-            grep -o '<loc>[^<]*</loc>' /tmp/sm | head -n 3 || true
-          }
-          check_site "RomyLabs" "https://romylabs.com" "sitemap-index.xml"
-          check_site "Camvella" "https://camvella.com" "sitemap.xml"
-          check_site "GroundIVO" "https://groundivo.com" "sitemap.xml"
-          check_site "BocaSync" "https://bocasync.com" "sitemap.xml"
-          check_site "TaxRes" "https://taxrescrm.net" "sitemap.xml"
-          check_site "Oculivo" "https://oculivo.com" "sitemap.xml"
-          echo "===== Camvella regional aliases ====="
+          echo "===== GroundIVO canonical route normalization ====="
+          curl -sS -D /tmp/gh -o /dev/null "https://groundivo.com/pricing"
+          grep -Ei '^(HTTP/|location:)' /tmp/gh || true
+          echo "===== BocaSync guide-hub discovery ====="
+          curl -sS -o /tmp/bhome "https://bocasync.com/?verify=$(date +%s)"
+          curl -sS -o /tmp/bmap "https://bocasync.com/sitemap.xml?verify=$(date +%s)"
+          grep -F 'href="/guides/"' /tmp/bhome | head -n 1
+          grep -F '<loc>https://bocasync.com/guides/</loc>' /tmp/bmap | head -n 1
+          echo "===== Camvella deployment marker ====="
           for u in             "https://camvella.com/solutions/florida-hoa-management-software/"             "https://camvella.com/solutions/texas-hoa-management-software/"; do
-            curl -sS -D /tmp/ah -o /dev/null "$u"
-            grep -Ei '^(HTTP/|location:)' /tmp/ah || true
+            curl -sS -D /tmp/ch -o /dev/null "$u"
+            grep -Ei '^(HTTP/|location:)' /tmp/ch || true
           done
