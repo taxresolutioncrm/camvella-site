@@ -1,6 +1,6 @@
-# READY FOR SUPABASE HANDOFF
+# READY FOR SUPABASE TARGET PHASE
 
-The branch now contains the complete pre-target package: frontend sandbox, provider adapters, domain schema, RLS, office scoping, Data API grants, Storage policies, audit triggers, integrity guards, server RPCs, Edge Function stubs, fixtures, import templates, isolation tests, SEO handoff, and deployment runbook.
+The branch contains the full pre-target package: CRM sandbox, auth shell, provider adapters, import tooling, 20 ordered migrations, RLS and office scoping, Data API grants, private Storage, portal access, audit/integrity guards, server RPCs, Edge Function stubs, reporting views, isolation tests, SEO handoff, and deployment runbook.
 
 ## Migration order
 1. 001_core_schema.sql
@@ -22,22 +22,22 @@ The branch now contains the complete pre-target package: frontend sandbox, provi
 17. 017_security_cleanup_and_audit.sql
 18. 018_tenant_integrity_triggers.sql
 19. 019_domain_relationship_guards.sql
+20. 020_communications_scheduling_completion.sql
 
-## Required target-phase sequence
+## Target-phase sequence
 1. Select the dedicated Supabase project.
 2. Apply migrations in order.
-3. Verify Data API settings/grants.
-4. Create two organizations, two offices, and test users/roles.
-5. Run tenant and office isolation tests.
-6. Run database advisors.
-7. Resolve all relevant findings.
-8. Verify private Storage and portal Storage policies.
-9. Deploy trusted Edge Functions.
-10. Test bootstrap/team invite/portal invite.
-11. Connect browser with publishable key only.
-12. Test CRUD and reporting views under each role.
-13. Connect provider credentials one provider at a time.
-14. Run end-to-end workflow verification.
+3. Confirm Data API settings and explicit grants.
+4. Create test users/orgs/offices/roles.
+5. Run tenant + office isolation tests.
+6. Run database advisors and fix findings.
+7. Test private Storage and portal Storage.
+8. Deploy trusted Edge Functions.
+9. Test bootstrap/team-invite/portal-invite.
+10. Connect browser with publishable key.
+11. Test CRUD, reports, auth/session, and role boundaries.
+12. Connect providers one at a time.
+13. Run end-to-end live workflow verification.
 
 ## User input required
 The dedicated Supabase project target/ref is the next external dependency.
