@@ -173,7 +173,7 @@ tr(['<b>Marcus Hill</b><span>Last contact Sep 1</span>','ACA','Florida Blue Silv
 tr(['<b>Robert King</b><span>Portal active</span>','Medicare','Humana Choice Plus','AEP 2026','Casey Morgan',status('Low')]),
 tr(['<b>Angela Reed</b><span>Auto outreach enabled</span>','ACA','Ambetter Silver','Nov 1–Dec 15','Jordan Lee',status('Medium','warn')])
 ])+'</div>'}
-function documents(){return head('Compliance','Documents & Evidence','Enrollment files, consent artifacts, plan comparisons and client uploads.',btn('Upload Document')+btn('Create Evidence Bundle','secondary'))+
+function documents(){return head('Compliance','Documents & Evidence','Enrollment files, consent artifacts, plan comparisons and client uploads.',btn('Upload Document')+btn('Share Document','secondary')+btn('Create Evidence Bundle','secondary'))+
 '<div class="kpis">'+kpi('Documents','284','Across active clients')+kpi('Missing items','7','Needs follow-up')+kpi('Evidence bundles','42','Enrollment-linked')+kpi('Portal uploads','19','Last 30 days')+'</div>'+
 '<div class="grid2">'+panel('Recent documents','Client + enrollment files',row('Proof of income.pdf','Angela Reed · ACA','Verified')+row('SOA-Robert-King.pdf','Robert King · Medicare','Verified')+row('SEP-event-proof.jpg','Tasha Green · ACA','Review','warn'))+
 panel('Missing evidence','Blocks or exceptions',row('Consent artifact','Marcus Hill','Required','red')+row('Prescription list','Elaine Carter','Needed','warn')+row('Carrier acknowledgment','James Wilson','Pending','warn'))+'</div>'}
@@ -398,6 +398,7 @@ const actionSchemas={
 'New ACA Case':[['Client','text'],['SEP / Enrollment reason','text'],['Household size','number'],['Agent','text']],
 'New Medicare Case':[['Client','text'],['Election period','select','AEP|OEP|SEP|ICEP'],['Product focus','select','MA|MA-PD|PDP'],['Agent','text']],
 'Upload Document':[['Client','text'],['Document type','text'],['File','file'],['Notes','textarea']],
+'Share Document':[['Document ID','text']],
 'Record Consent':[['Client','text'],['Consent type','text'],['Capture method','select','Electronic|Recorded call|Paper'],['Artifact reference','text']],
 'Add Appointment':[['Carrier','text'],['Agent','text'],['State','text'],['Market','select','ACA|Medicare']],
 'Import Statement':[['Carrier','text'],['Statement period','month'],['File','file']],
