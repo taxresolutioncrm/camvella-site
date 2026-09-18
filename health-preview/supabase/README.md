@@ -37,50 +37,78 @@ Do not apply this work to an existing unrelated RomyLabs project.
 32. 032_external_ids_and_sync_jobs.sql
 33. 033_active_assignment_guard.sql
 34. 034_portal_account_visibility.sql
+35. 035_membership_write_hardening.sql
+36. 036_portal_invite_reuse.sql
+37. 037_assignment_office_alignment.sql
+38. 038_atomic_enrollment_case.sql
+39. 039_workflow_artifacts_and_imports.sql
+40. 040_import_storage.sql
+41. 041_policy_event_and_campaign_role_alignment.sql
+42. 042_import_job_role_alignment.sql
+43. 043_commission_statement_storage.sql
+44. 044_atomic_import_apply.sql
+45. 045_atomic_commission_apply.sql
+46. 046_import_storage_role_alignment.sql
+47. 047_portal_data_boundary.sql
+48. 048_portal_messages.sql
+49. 049_portal_message_sender_guard.sql
+50. 050_portal_least_privilege.sql
+51. 051_portal_message_read_receipts.sql
+52. 052_aal2_sensitive_writes.sql
+53. 053_storage_aal2_alignment.sql
+54. 054_portal_consent_and_request_alignment.sql
+55. 055_storage_path_integrity.sql
+56. 056_commission_storage_path_alignment.sql
+57. 057_atomic_portal_messaging.sql
+58. 058_public_intake_notes.sql
+59. 059_public_booking_slot_enforcement.sql
 
 These are ordered pre-target SQL modules, not committed Supabase migration history yet.
 
 ## Correct target workflow
 1. Select/create the dedicated Supabase project.
-2. Use SQL execution against that target to apply/iterate the modules in order.
-3. Create real auth/tenant fixtures.
-4. Run RLS, role, office, assigned-book, Storage, Auth, Edge Function, and public endpoint tests.
-5. Run Supabase database advisors and resolve all relevant findings.
+2. Execute these modules in order against that target.
+3. Create real Auth users plus deterministic tenant/office/role fixtures.
+4. Run tenant, role, office, assigned-book, portal, Storage, Auth, Edge Function, import, commission, and public-booking tests.
+5. Run Supabase database advisors and resolve every relevant finding.
 6. When the target schema is green, generate/pull one clean timestamped migration for source history.
-7. Verify local migration list.
+7. Verify the final migration list on the target.
 8. Connect browser runtime with project URL + publishable key only.
-9. Deploy Edge Functions using the checked-in function config.
+9. Deploy the checked-in Edge Functions/config.
 10. Connect live providers one at a time.
 11. Run complete end-to-end verification before production.
 
 ## Current package
-- 53 public application/support tables
-- 34 ordered SQL modules
+- 58 public application/support tables
+- 59 uniquely ordered pre-target SQL modules
+- 44 CRM routes plus dedicated login, onboarding, MFA, recovery, invitation, booking, and client-portal surfaces
+- 12 Edge Functions
 - RLS/office/assigned-book role boundaries
-- private Storage + portal document access
-- append-only audit trigger design
-- server-only bootstrap/invitation/public booking RPCs
+- AAL2 guards for sensitive administration/revenue writes
+- private Storage with agency/portal path separation
+- append-only audit coverage and cross-tenant integrity guards
+- atomic enrollment, import, commission, portal-message, and public-booking workflows
 - current @supabase/server@1.7.0 Edge auth model
 - pinned supabase-js 2.116.0 browser loader
-- public endpoint rate limiting
-- tenant/role/Storage test plans
+- public intake/booking rate limiting + honeypot handling
 - provider adapters/import fixtures
-- browser repository/runtime/Auth abstractions
+- browser repository/runtime/Auth/live-view/action abstractions
 
 ## Security rules
 - Every exposed application table has RLS.
 - Authorization is membership/role based, never user_metadata.
 - Agents are office-scoped and assigned-book scoped.
 - Revenue is separated from household/provider/Rx/internal communications.
-- Client portal cannot read internal agency communications/evidence.
+- Client portal receives only explicitly client-safe records and Storage paths.
 - Cross-org parent and foreign-user references are blocked by database guards.
 - UPDATE policies use USING + WITH CHECK.
 - Audit rows are browser read-only.
 - Invitation/token mutations are server-only.
 - Provider events and integration sync writes are server-only.
+- Sensitive administrative/revenue writes require AAL2.
 - Future Data API objects remain explicit opt-in.
-- SECURITY DEFINER helpers have fixed search_path and explicit EXECUTE revokes/grants.
-- Browser never receives secret/service-role keys.
+- SECURITY DEFINER helpers use fixed search_path plus explicit EXECUTE revokes/grants.
+- Browser code never receives secret/service-role keys.
 
 ## Current blocker
 The dedicated Supabase project/ref has not been selected. No SQL module has been executed anywhere.
