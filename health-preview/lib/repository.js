@@ -5,6 +5,7 @@ export class Repository {
   create(resource,payload){return this.driver.create(resource,payload)}
   update(resource,id,payload){return this.driver.update(resource,id,payload)}
   remove(resource,id){return this.driver.remove(resource,id)}
+  call(name,args={}){if(!this.driver.call)throw new Error('RPC not supported by this driver');return this.driver.call(name,args)}
 }
 
 export class MemoryDriver {
@@ -14,4 +15,5 @@ export class MemoryDriver {
   create(resource,payload){const row={id:crypto.randomUUID(),...payload,created_at:new Date().toISOString()};(this.db[resource]??=[]).push(row);return Promise.resolve(row)}
   update(resource,id,payload){const rows=this.db[resource]||[];const i=rows.findIndex(x=>x.id===id);if(i<0)throw new Error('Not found');rows[i]={...rows[i],...payload,updated_at:new Date().toISOString()};return Promise.resolve(rows[i])}
   remove(resource,id){const rows=this.db[resource]||[];const i=rows.findIndex(x=>x.id===id);if(i<0)return Promise.resolve(false);rows.splice(i,1);return Promise.resolve(true)}
+  call(name,args={}){return Promise.resolve({mock:true,name,args})}
 }
