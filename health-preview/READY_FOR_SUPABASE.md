@@ -1,6 +1,6 @@
 # READY FOR SUPABASE TARGET PHASE
 
-The branch contains the full pre-target package: CRM sandbox, auth shell, provider adapters, import tooling, 20 ordered migrations, RLS and office scoping, Data API grants, private Storage, portal access, audit/integrity guards, server RPCs, Edge Function stubs, reporting views, isolation tests, SEO handoff, and deployment runbook.
+The branch contains the full pre-target package: CRM sandbox, auth shell, provider adapters, import tooling, 22 ordered migrations, RLS and office/assigned-book scoping, Data API grants, private Storage, portal access, audit/integrity guards, server RPCs, Edge Function stubs, reporting views, isolation tests, SEO handoff, and deployment runbook.
 
 ## Migration order
 1. 001_core_schema.sql
@@ -23,13 +23,15 @@ The branch contains the full pre-target package: CRM sandbox, auth shell, provid
 18. 018_tenant_integrity_triggers.sql
 19. 019_domain_relationship_guards.sql
 20. 020_communications_scheduling_completion.sql
+21. 021_invite_history_and_market_guards.sql
+22. 022_role_policy_alignment.sql
 
 ## Target-phase sequence
 1. Select the dedicated Supabase project.
 2. Apply migrations in order.
 3. Confirm Data API settings and explicit grants.
 4. Create test users/orgs/offices/roles.
-5. Run tenant + office isolation tests.
+5. Run tenant + office + assigned-book isolation tests.
 6. Run database advisors and fix findings.
 7. Test private Storage and portal Storage.
 8. Deploy trusted Edge Functions.
