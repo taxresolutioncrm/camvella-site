@@ -23,7 +23,8 @@ Deno.serve(async (req) => {
     if(error) return json(req,400,{error:'invite_create_failed',message:error.message});
 
     // The returned token is intended only for the trusted mail-sending path.
-    return json(req,200,{ok:true,invitation_id:data.invitation_id,token:data.token,email:data.email});
+    /* Raw invite token stays server-side. Mail delivery is wired when the email provider is connected. */
+    return json(req,200,{ok:true,invitation_id:data.invitation_id,email:data.email,delivery_status:'pending_email_provider'});
   } catch(error) {
     return json(req,401,{error:'unauthorized',message:error instanceof Error?error.message:'unauthorized'});
   }
