@@ -94,6 +94,10 @@ export class LiveViewService{
         ]);
         return {type:'team',memberships,licenses};
       }
+      case 'permissions':{
+        const memberships=await this.list('memberships',{order:'created_at',ascending:true,limit:300});
+        return {type:'permissions',memberships};
+      }
       case 'inbox':
       case 'communications': return {type:'rows',resource:'communications',rows:await this.list('communications',{limit:300})};
       case 'email': return {type:'rows',resource:'communications',rows:await this.list('communications',{filters:{channel:'email'},limit:300})};
@@ -115,6 +119,14 @@ export class LiveViewService{
           this.list('communicationEndpoints',{limit:100})
         ]);
         return {type:'integration',connections,jobs,endpoints};
+      }
+      case 'lab':{
+        const [connections,jobs,endpoints]=await Promise.all([
+          this.list('providerConnections',{limit:100}),
+          this.list('integrationSyncJobs',{limit:100}),
+          this.list('communicationEndpoints',{limit:100})
+        ]);
+        return {type:'lab',connections,jobs,endpoints};
       }
       case 'settings':{
         const [settings,endpoints,types,links]=await Promise.all([
