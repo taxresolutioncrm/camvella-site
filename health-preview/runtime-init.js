@@ -14,6 +14,19 @@ async function initHealthCrmBackend(){
     return;
   }
 
+  if(backend.mode==='supabase'&&backend.selected){
+    const sensitiveRoles=new Set(['agency_admin','manager','compliance','revenue']);
+    if(sensitiveRoles.has(backend.selected.role)){
+      const {data:aal,error:aalError}=await backend.client.auth.mfa.getAuthenticatorAssuranceLevel();
+      if(aalError)throw aalError;
+      if(aal?.currentLevel!=='aal2'){
+        sessionStorage.setItem('healthMfaNext','./index.html');
+        location.replace('./mfa.html');
+        return;
+      }
+    }
+  }
+
   globalThis.healthCrmBackend=backend;
   const actions=backend.mode==='supabase'?new ActionService(backend):null;
   globalThis.healthCrmAction=async function(action,fields){
