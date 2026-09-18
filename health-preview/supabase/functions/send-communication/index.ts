@@ -1,7 +1,7 @@
 import { withSupabase } from 'npm:@supabase/server@1.7.0';
 import { response, userIdFromClaims, appCorsConfig } from '../_shared/server.ts';
 
-const allowedChannels=new Set(['email','sms','fax','phone']);
+const allowedChannels=new Set(['email','sms','fax','phone','portal']);
 
 function clean(v:unknown,max=4000){return String(v??'').trim().slice(0,max)}
 
@@ -50,6 +50,40 @@ export default {
       const officeId=targetClient?.office_id||targetLead?.office_id||membership.office_id||null;
 
       if(organizationId!==membership.organization_id) return response({error:'workspace_mismatch'},403);
+
+      if(channel==='portal'){
+        if(!clientId) return response({error:'portal_message_requires_client'},400);
+        const {data:thread,error:threadError}=await ctx.supabase.from('communication_threads').insert({
+          organization_id:organizationId,
+          office_id:officeId,
+          client_id:clientId,
+          assigned_user_id:userId,
+          subject:subject||'Portal message',
+          last_channel:'portal',
+          last_message_at:new Date().toISOString(),
+          status:'open'
+        }).select('id').single();
+        if(threadError) return response({error:'portal_thread_create_failed',message:threadError.message},400);
+
+        const {data:communication,error:communicationError}=await ctx.supabase.from('communications').insert({
+          organization_id:organizationId,
+          office_id:officeId,
+          thread_id:thread.id,
+          channel:'portal',
+          direction:'outbound',
+          client_id:clientId,
+          user_id:userId,
+          provider_status:'delivered',
+          from_address:'agency_portal',
+          to_address:clientId,
+          subject:subject||null,
+          body_text:message,
+          body_preview:message.slice(0,240)
+        }).select('id').single();
+
+        if(communicationError) return response({error:'portal_message_create_failed',message:communicationError.message},400);
+        return response({ok:true,thread_id:thread.id,communication_id:communication.id});
+      }
 
       if(clientId||leadId){
         let prefQuery=ctx.supabase.from('contact_preferences').select('*').eq('organization_id',organizationId);
