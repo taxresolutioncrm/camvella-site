@@ -58,7 +58,7 @@ async function loadDocuments(){
     const {error:metaErr}=await clientApi.from('documents').insert({
       organization_id:portalAccount.organization_id,office_id:client.office_id||null,client_id:client.id,
       document_type:String(fd.get('document_type')||'portal_upload'),file_name:file.name,storage_path:path,
-      mime_type:file.type||null,byte_size:file.size,uploaded_by:clientUser.id,portal_visible:true
+      mime_type:file.type||null,byte_size:file.size,uploaded_by:null,portal_visible:true
     });
     if(metaErr){await clientApi.storage.from('client-documents').remove([path]);box.innerHTML=status(metaErr.message,true);return}
     box.innerHTML=status('Upload complete.');await loadDocuments();
@@ -117,7 +117,7 @@ async function loadPreferences(){
     e.preventDefault();const fd=new FormData(e.target),payload={
       organization_id:portalAccount.organization_id,client_id:client.id,lead_id:null,
       email_allowed:fd.has('email_allowed'),sms_allowed:fd.has('sms_allowed'),phone_allowed:fd.has('phone_allowed'),
-      fax_allowed:fd.has('fax_allowed'),do_not_call:fd.has('do_not_call'),updated_by:clientUser.id
+      fax_allowed:fd.has('fax_allowed'),do_not_call:fd.has('do_not_call'),updated_by:null
     };
     const query=pref?clientApi.from('contact_preferences').update(payload).eq('id',pref.id):clientApi.from('contact_preferences').insert(payload);
     const {error}=await query;document.getElementById('prefStatus').innerHTML=error?status(error.message,true):status('Preferences saved.');
