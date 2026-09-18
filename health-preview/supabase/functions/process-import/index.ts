@@ -1,5 +1,5 @@
 import { withSupabase } from 'npm:@supabase/server@1.7.0';
-import { response, userIdFromClaims, appCorsConfig } from '../_shared/server.ts';
+import { response, userIdFromClaims, appCorsConfig, requireAal2Claims } from '../_shared/server.ts';
 
 function parseCsv(input:string){
   const rows:string[][]=[];let row:string[]=[],cell='',quoted=false;
@@ -52,6 +52,7 @@ export default {
   fetch: withSupabase({ auth:'user', cors:appCorsConfig(), errors:{detailed:false} }, async(req,ctx)=>{
     if(req.method!=='POST')return response({error:'method_not_allowed'},405);
     try{
+      requireAal2Claims(ctx.userClaims as Record<string,unknown>);
       const userId=userIdFromClaims(ctx.userClaims as Record<string,unknown>);
       const body=await req.json();
       const jobId=String(body.job_id||'');
