@@ -74,7 +74,7 @@ export class ActionService{
     const channel=text(fields['Channel']).toLowerCase();
     if(channel==='portal'){
       const client=await this.resolveClient(fields['To']);
-      return this.invoke('send-communication',{channel:'portal',to:client.id,client_id:client.id,message:text(fields['Message'])});
+      return this.invoke('send-communication',{organization_id:this.orgId,channel:'portal',to:client.id,client_id:client.id,message:text(fields['Message'])});
     }
     return this.invoke('send-communication',{organization_id:this.orgId,channel,to:text(fields['To']),message:text(fields['Message'])});
   }
