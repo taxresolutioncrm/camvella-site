@@ -44,9 +44,14 @@ const homeAndHub = homepage + resourceHub
 for (const alias of ['/solutions/florida-hoa-management-software', '/solutions/texas-hoa-management-software']) {
   if (homeAndHub.includes('href="' + alias)) throw new Error('Camvella SEO build gate: indexable hubs must not link to noindex regional alias ' + alias)
 }
-const middleware = await readFile(new URL('../functions/_middleware.ts', import.meta.url), 'utf8')
-for (const target of ["'/solutions/florida-hoa-management-software/'", "'/locations/florida/'", "'/solutions/texas-hoa-management-software/'", "'/locations/texas/'"]) {
-  if (!middleware.includes(target)) throw new Error('Camvella SEO build gate: missing canonical regional redirect contract ' + target)
+const redirects = await readFile(new URL('../public/_redirects', import.meta.url), 'utf8')
+for (const rule of [
+  '/solutions/florida-hoa-management-software /locations/florida/ 301',
+  '/solutions/florida-hoa-management-software/ /locations/florida/ 301',
+  '/solutions/texas-hoa-management-software /locations/texas/ 301',
+  '/solutions/texas-hoa-management-software/ /locations/texas/ 301',
+]) {
+  if (!redirects.includes(rule)) throw new Error('Camvella SEO build gate: missing Cloudflare regional redirect rule ' + rule)
 }
 
 const lastmod = new Date().toISOString().slice(0, 10)
