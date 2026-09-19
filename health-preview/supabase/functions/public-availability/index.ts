@@ -17,10 +17,10 @@ export default {
       if(!slug||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(date)) return response({error:'invalid_availability_request'},400);
 
       const {data,error}=await ctx.supabaseAdmin.rpc('get_public_availability',{p_slug:slug,p_date:date});
-      if(error) return response({error:'availability_failed',message:error.message},400);
+      if(error) return response({error:'availability_failed'},400);
       return response({ok:true,slots:data||[]});
     }catch(error){
-      return response({error:'invalid_request',message:error instanceof Error?error.message:'invalid_request'},400);
+      return response({error:'invalid_request'},400);
     }
   })
 };
