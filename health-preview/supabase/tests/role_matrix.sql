@@ -165,7 +165,7 @@ begin
 end $$;
 
 -- R15 deactivating a member disables public-facing references before the membership goes inactive.
-do $
+do $$
 declare n integer;
 begin
   update public.memberships
@@ -192,10 +192,10 @@ begin
     n||' active public references',
     n=0
   );
-end $;
+end $$;
 
 -- R16 the final active administrator cannot demote or deactivate themselves.
-do $
+do $$
 declare blocked boolean:=false;
 begin
   begin
@@ -215,7 +215,7 @@ begin
     case when blocked then 'Blocked' else 'Update succeeded' end,
     blocked
   );
-end $;
+end $$;
 
 reset role;
 select * from role_results order by test_name;
