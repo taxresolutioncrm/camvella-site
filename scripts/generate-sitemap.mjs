@@ -1,3 +1,4 @@
+// Sandbox trigger: Camvella final Google favicon acceptance
 // Cloudflare sandbox root-favicon browser acceptance trigger 2
 // Cloudflare sandbox favicon root fallback verification
 // Favicon parity gate: match working BocaSync 96x96 PNG browser contract
