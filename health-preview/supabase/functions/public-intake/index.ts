@@ -27,7 +27,7 @@ export default {
         p_slug:slug,p_first_name:firstName,p_last_name:lastName,p_email:email,p_phone:phone,p_market:market,p_notes:notes
       });
       if(error) return response({error:'intake_failed',message:error.message},400);
-      return response({ok:true,lead_id:data.lead_id},201);
+      return response({ok:true},201);
     }catch(error){
       return response({error:'invalid_request',message:error instanceof Error?error.message:'invalid_request'},400);
     }
