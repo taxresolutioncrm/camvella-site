@@ -35,6 +35,9 @@ jobs:
           test -f dist/index.html
           test -f dist/robots.txt
           test -f dist/sitemap.xml
+          test -f dist/_redirects
+          grep -Fq '/solutions/florida-hoa-management-software/ /locations/florida/ 301' dist/_redirects
+          grep -Fq '/solutions/texas-hoa-management-software/ /locations/texas/ 301' dist/_redirects
           grep -q "https://camvella.com/" dist/sitemap.xml
           grep -Fq '<title>HOA Management Software for Professional CAM Companies | Camvella</title>' dist/index.html
           grep -Fq 'HOA management software' dist/index.html
