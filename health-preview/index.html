@@ -588,10 +588,23 @@ function liveConnectedBody(route,data){
    '<div class="grid2">'+panel('Statements','Live workspace',liveRows('commissionStatements',data.statements))+panel('Exceptions','Live workspace',liveRows('commissionExceptions',data.exceptions))+'</div>';
  if(data.type==='compliance')return '<div class="kpis">'+kpi('Consent records',data.consent.length,'Accessible records')+kpi('Evidence items',data.evidence.length,'Enrollment evidence')+kpi('Documents',data.documents.length,'Accessible files')+kpi('Audit events',data.audit.length,'Recent events')+'</div>'+
    '<div class="grid2">'+panel('Consent','Live workspace',liveRows('consent',data.consent.slice(0,10)))+panel('Recent audit','Live workspace',liveRows('auditLog',data.audit.slice(0,10)))+'</div>';
- if(data.type==='team')return '<div class="kpis">'+kpi('Team members',data.memberships.length,'Visible memberships')+kpi('Licenses',data.licenses.length,'Tracked licenses')+'</div>'+panel('Memberships','Live workspace',liveRows('memberships',data.memberships));
+ if(data.type==='team'){
+   const profileMap=new Map((data.profiles||[]).map(x=>[x.user_id,x]));
+   const members=data.memberships.map(m=>({...m,display_name:profileMap.get(m.user_id)?.display_name||null,phone:profileMap.get(m.user_id)?.phone||null}));
+   return '<div class="kpis">'+kpi('Team members',members.length,'Visible memberships')+kpi('Licenses',data.licenses.length,'Tracked licenses')+'</div>'+
+     '<div class="grid2">'+panel('Memberships','Live workspace',liveRows('memberships',members))+panel('Licenses','Live workspace',liveRows('agentLicenses',data.licenses))+'</div>';
+ }
+ if(data.type==='permissions'){
+   const profileMap=new Map((data.profiles||[]).map(x=>[x.user_id,x]));
+   const members=data.memberships.map(m=>({...m,display_name:profileMap.get(m.user_id)?.display_name||null}));
+   const active=members.filter(x=>x.is_active).length;
+   const admins=members.filter(x=>x.is_active&&x.role==='agency_admin').length;
+   return '<div class="kpis">'+kpi('Active members',active,'Current access')+kpi('Administrators',admins,'Active agency admins')+'</div>'+
+     panel('Role assignments','Live workspace',liveRows('memberships',members));
+ }
  if(data.type==='onboarding')return '<div class="kpis">'+kpi('Offices',data.offices.length,'Configured')+kpi('Members',data.memberships.length,'Active + inactive')+kpi('Settings rows',data.settings.length,'Agency configuration')+'</div>'+panel('Offices','Live workspace',liveRows('offices',data.offices));
- if(data.type==='integration')return '<div class="kpis">'+kpi('Connections',data.connections.length,'Provider records')+kpi('Sync jobs',data.jobs.length,'Integration runs')+kpi('Communication endpoints',data.endpoints.length,'Configured endpoints')+'</div>'+
-   '<div class="grid2">'+panel('Provider connections','Live workspace',liveRows('providerConnections',data.connections))+panel('Recent sync jobs','Live workspace',liveRows('integrationSyncJobs',data.jobs))+'</div>';
+ if(data.type==='integration'||data.type==='lab')return '<div class="kpis">'+kpi('Connections',data.connections.length,'Provider records')+kpi('Sync jobs',data.jobs.length,'Integration runs')+kpi('Communication endpoints',data.endpoints.length,'Configured endpoints')+'</div>'+
+   '<div class="grid2">'+panel(data.type==='lab'?'Lab connections':'Provider connections','Live workspace',liveRows('providerConnections',data.connections))+panel('Recent sync jobs','Live workspace',liveRows('integrationSyncJobs',data.jobs))+'</div>';
  if(data.type==='settings')return '<div class="kpis">'+kpi('Settings',data.settings.length,'Agency rows')+kpi('Endpoints',data.endpoints.length,'Communication endpoints')+kpi('Appointment types',data.types.length,'Booking types')+kpi('Booking links',data.links.length,'Public links')+'</div>'+
    '<div class="grid2">'+panel('Communication endpoints','Live workspace',liveRows('communicationEndpoints',data.endpoints))+panel('Booking links','Live workspace',liveRows('bookingLinks',data.links))+'</div>';
  return null;
