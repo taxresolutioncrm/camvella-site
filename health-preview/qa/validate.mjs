@@ -93,7 +93,11 @@ for(const required of [
   '053_storage_aal2_alignment.sql','054_portal_consent_and_request_alignment.sql',
   '055_storage_path_integrity.sql','056_commission_storage_path_alignment.sql',
   '057_atomic_portal_messaging.sql','058_public_intake_notes.sql',
-  '059_public_booking_slot_enforcement.sql'
+  '059_public_booking_slot_enforcement.sql','060_portal_storage_write_boundary.sql',
+  '061_portal_invite_assignment_guard.sql','062_storage_reference_uniqueness.sql',
+  '063_member_deactivation_public_safety.sql','064_team_invite_active_uniqueness.sql',
+  '065_last_admin_guard.sql','066_portal_account_single_active_user.sql',
+  '067_concurrency_hardening.sql'
 ]){
   if(!mig[required]) failures.push('missing hardening module '+required);
 }
@@ -108,7 +112,7 @@ if(!read('lib/action-service.js').includes('class ActionService')) failures.push
 const edgeFiles=[
   'bootstrap-tenant','accept-team-invite','create-team-invite','create-portal-invite','accept-portal-invite',
   'public-intake','public-booking','public-availability','provider-webhook',
-  'send-communication','process-import','process-commission-statement'
+  'send-communication','process-import','process-commission-statement','share-client-document'
 ];
 for(const fn of edgeFiles){
   const p='supabase/functions/'+fn+'/index.ts';
@@ -143,7 +147,7 @@ for(const label of actionLabels){
 }
 
 if(tables.length!==58) failures.push('expected exactly 58 public tables, found '+tables.length);
-if(names.length!==59) failures.push('expected exactly 59 SQL modules, found '+names.length);
+if(names.length!==67) failures.push('expected exactly 67 SQL modules, found '+names.length);
 
 console.log(JSON.stringify({
   tables:tables.length,
