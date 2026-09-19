@@ -25,7 +25,7 @@ async function signedDocumentUrl(doc){
 async function loadHome(){
   setHeading('Overview','Your active coverage and recent service activity.');
   const [{data:policies,error:pErr},{data:requests,error:rErr},{data:docs,error:dErr}]=await Promise.all([
-    clientApi.from('policies').select('id,policy_number,status,effective_date,renewal_date,premium_amount,carrier_id,carrier_product_id').eq('client_id',client.id).order('effective_date',{ascending:false}),
+    clientApi.rpc('list_my_portal_policies'),
     clientApi.rpc('list_my_portal_service_requests'),
     clientApi.from('documents').select('id,document_type,file_name,created_at').eq('client_id',client.id).eq('portal_visible',true).order('created_at',{ascending:false}).limit(5)
   ]);
@@ -35,7 +35,7 @@ async function loadHome(){
     '<div class="card"><h3>Active policies</h3><div class="metric">'+active.length+'</div><div class="muted">Coverage records currently marked active</div></div>'+
     '<div class="card"><h3>Open requests</h3><div class="metric">'+(requests||[]).filter(x=>x.status!=='resolved'&&x.status!=='closed').length+'</div><div class="muted">Service items in progress</div></div>'+
     '<div class="card"><h3>Shared documents</h3><div class="metric">'+(docs||[]).length+'</div><div class="muted">Recent files available in your portal</div></div></div>'+
-    '<section class="panel"><h2>Coverage</h2><div class="muted">Your current policy records.</div><div class="list">'+((policies||[]).length?(policies||[]).map(p=>'<div class="item"><b>'+esc(p.policy_number||'Policy')+'</b><span>Effective '+date(p.effective_date)+' · Renewal '+date(p.renewal_date)+' · '+money(p.premium_amount)+'</span><div style="margin-top:7px"><span class="pill">'+esc(p.status)+'</span></div></div>').join(''):empty('No policy records are currently shared.'))+'</div></section>'+
+    '<section class="panel"><h2>Coverage</h2><div class="muted">Your current policy records.</div><div class="list">'+((policies||[]).length?(policies||[]).map(p=>'<div class="item"><b>'+esc(p.policy_number||p.product_name||'Policy')+'</b><span>'+esc([p.carrier_name,p.product_name,p.market?.toUpperCase()].filter(Boolean).join(' · '))+'</span><span>Effective '+date(p.effective_date)+' · Renewal '+date(p.renewal_date)+' · '+money(p.premium_amount)+'</span><div style="margin-top:7px"><span class="pill">'+esc(p.status)+'</span></div></div>').join(''):empty('No policy records are currently shared.'))+'</div></section>'+
     '<section class="panel"><h2>Recent requests</h2><div class="list">'+((requests||[]).length?(requests||[]).map(r=>'<div class="item"><b>'+esc(r.request_type)+'</b><span>'+date(r.created_at)+' · '+esc(r.priority)+'</span><div style="margin-top:7px"><span class="pill">'+esc(r.status)+'</span></div></div>').join(''):empty('No service requests yet.'))+'</div></section>';
 }
 
