@@ -30,5 +30,9 @@ S17 communications attachment access follows communication/client role rules.
 S18 database metadata path guards reject document/enrollment/import/commission records whose storage_path points at a different tenant/entity.
 S19 bucket file-size cap rejects objects larger than 25 MB.
 S20 signed URLs for portal documents are issued only when the caller has SELECT access to that object.
+S21 client-document paths with the wrong office segment are denied even when organization/client IDs match.
+S22 enrollment-evidence paths with the wrong office segment are denied.
+S23 import paths with the wrong office segment are denied.
+S24 shared portal paths require a matching portal-visible document metadata row.
 
 All five buckets remain private.
