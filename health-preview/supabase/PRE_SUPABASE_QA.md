@@ -4,10 +4,10 @@ Status: PRE-TARGET HARDENING GATE
 
 ## Package inventory
 - 58 public application/support tables
-- 59 uniquely ordered SQL modules
+- 67 uniquely ordered SQL modules
 - 44 CRM routes / 45 routed CRM views
 - dedicated website, booking, login, onboarding, invite acceptance, password recovery, MFA, and client-portal surfaces
-- 12 Edge Functions
+- 13 Edge Functions
 - current @supabase/server@1.7.0 auth pattern
 - pinned browser supabase-js 2.116.0
 - Auth/MFA configuration gate
@@ -26,6 +26,7 @@ Status: PRE-TARGET HARDENING GATE
 - Enrollment creation/evidence initialization is atomic.
 - Bulk imports and commission statement application are atomic.
 - Appointment overlap is blocked.
+- Concurrent team/portal invite, final-admin, and portal-thread races are serialized.
 - Public booking is restricted to configured availability slots.
 - Public booking/intake use server-resolved slugs rather than browser tenant IDs.
 - Public endpoints use hashed-IP database rate limits plus honeypot handling.
