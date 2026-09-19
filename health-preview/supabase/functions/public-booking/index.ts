@@ -31,7 +31,7 @@ export default {
         const conflict=/no longer available|conflicts with an existing appointment|outside configured availability/i.test(error.message||'');
         return response({error:conflict?'slot_unavailable':'booking_failed',message:error.message},conflict?409:400);
       }
-      return response({ok:true,appointment_id:data.appointment_id,lead_id:data.lead_id},201);
+      return response({ok:true},201);
     }catch(error){
       return response({error:'invalid_request',message:error instanceof Error?error.message:'invalid_request'},400);
     }
