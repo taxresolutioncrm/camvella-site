@@ -29,11 +29,11 @@ export default {
       });
       if(error){
         const conflict=/no longer available|conflicts with an existing appointment|outside configured availability/i.test(error.message||'');
-        return response({error:conflict?'slot_unavailable':'booking_failed',message:error.message},conflict?409:400);
+        return response({error:conflict?'slot_unavailable':'booking_failed'},conflict?409:400);
       }
       return response({ok:true},201);
     }catch(error){
-      return response({error:'invalid_request',message:error instanceof Error?error.message:'invalid_request'},400);
+      return response({error:'invalid_request'},400);
     }
   })
 };
