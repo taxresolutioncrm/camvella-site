@@ -72,6 +72,7 @@ Do not apply this work to an existing unrelated RomyLabs project.
 67. 067_concurrency_hardening.sql
 68. 068_member_deletion_integrity.sql
 69. 069_portal_storage_metadata_alignment.sql
+70. 070_storage_office_alignment.sql
 
 These are ordered pre-target SQL modules, not committed Supabase migration history yet.
 
@@ -90,7 +91,7 @@ These are ordered pre-target SQL modules, not committed Supabase migration histo
 
 ## Current package
 - 58 public application/support tables
-- 69 uniquely ordered pre-target SQL modules
+- 70 uniquely ordered pre-target SQL modules
 - 44 CRM routes plus dedicated login, onboarding, MFA, recovery, invitation, booking, and client-portal surfaces
 - 13 Edge Functions
 - RLS/office/assigned-book role boundaries
@@ -101,6 +102,7 @@ These are ordered pre-target SQL modules, not committed Supabase migration histo
 - concurrent invitation/admin/portal-thread serialization
 - member deletion safely retires public endpoints
 - shared portal Storage reads require explicit portal-visible metadata
+- organization/office/entity Storage path alignment
 - current @supabase/server@1.7.0 Edge auth model
 - pinned supabase-js 2.116.0 browser loader
 - public intake/booking rate limiting + honeypot handling
