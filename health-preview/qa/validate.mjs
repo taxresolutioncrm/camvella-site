@@ -99,7 +99,7 @@ for(const required of [
   '065_last_admin_guard.sql','066_portal_account_single_active_user.sql',
   '067_concurrency_hardening.sql','068_member_deletion_integrity.sql',
   '069_portal_storage_metadata_alignment.sql','070_storage_office_alignment.sql',
-  '071_portal_policy_least_privilege.sql'
+  '071_portal_policy_least_privilege.sql','072_identity_mode_and_bootstrap_serialization.sql'
 ]){
   if(!mig[required]) failures.push('missing hardening module '+required);
 }
@@ -133,6 +133,7 @@ if(!site.includes('SoftwareApplication')) failures.push('website SoftwareApplica
 if(!site.includes('leadForm')) failures.push('website lead capture missing');
 if(!portal.includes('Documents')||!portal.includes('Requests')||!portal.includes('Messages')) failures.push('portal navigation incomplete');
 if(!read('portal-runtime.js').includes("rpc('list_my_portal_policies')")) failures.push('portal least-privilege policy RPC missing');
+if(!allMig.includes("active client portal identities cannot accept agency team invitations")||!allMig.includes("agency team identities cannot activate a client portal")) failures.push('identity-mode guard migration missing');
 
 const actionLabels=[...new Set([...app.matchAll(/btn\('([^']+)'/g)].map(m=>m[1]))];
 const actionSchemas=[...app.matchAll(/^'([^']+)':\[\[/gm)].map(m=>m[1]);
@@ -150,7 +151,7 @@ for(const label of actionLabels){
 }
 
 if(tables.length!==58) failures.push('expected exactly 58 public tables, found '+tables.length);
-if(names.length!==71) failures.push('expected exactly 71 SQL modules, found '+names.length);
+if(names.length!==72) failures.push('expected exactly 72 SQL modules, found '+names.length);
 
 console.log(JSON.stringify({
   tables:tables.length,
