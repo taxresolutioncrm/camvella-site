@@ -62,6 +62,14 @@ Do not apply this work to an existing unrelated RomyLabs project.
 57. 057_atomic_portal_messaging.sql
 58. 058_public_intake_notes.sql
 59. 059_public_booking_slot_enforcement.sql
+60. 060_portal_storage_write_boundary.sql
+61. 061_portal_invite_assignment_guard.sql
+62. 062_storage_reference_uniqueness.sql
+63. 063_member_deactivation_public_safety.sql
+64. 064_team_invite_active_uniqueness.sql
+65. 065_last_admin_guard.sql
+66. 066_portal_account_single_active_user.sql
+67. 067_concurrency_hardening.sql
 
 These are ordered pre-target SQL modules, not committed Supabase migration history yet.
 
@@ -80,14 +88,15 @@ These are ordered pre-target SQL modules, not committed Supabase migration histo
 
 ## Current package
 - 58 public application/support tables
-- 59 uniquely ordered pre-target SQL modules
+- 67 uniquely ordered pre-target SQL modules
 - 44 CRM routes plus dedicated login, onboarding, MFA, recovery, invitation, booking, and client-portal surfaces
-- 12 Edge Functions
+- 13 Edge Functions
 - RLS/office/assigned-book role boundaries
 - AAL2 guards for sensitive administration/revenue writes
 - private Storage with agency/portal path separation
 - append-only audit coverage and cross-tenant integrity guards
 - atomic enrollment, import, commission, portal-message, and public-booking workflows
+- concurrent invitation/admin/portal-thread serialization
 - current @supabase/server@1.7.0 Edge auth model
 - pinned supabase-js 2.116.0 browser loader
 - public intake/booking rate limiting + honeypot handling
