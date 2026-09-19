@@ -387,7 +387,7 @@ const actionSchemas={
 'New Lead':[['First name','text'],['Last name','text'],['Market','select','ACA|Medicare'],['Phone','tel'],['Email','email'],['Source','text']],
 'Book Appointment':[['Client / Lead','text'],['Market','select','ACA|Medicare'],['Date & time','datetime-local'],['Agent','text'],['Type','text']],
 'Compose Email':[['Client / Lead','text','',false],['To','email'],['Subject','text'],['Message','textarea']],
-'New Message':[['Channel','select','Email|SMS|Portal'],['To','text'],['Message','textarea']],
+'New Message':[['Channel','select','Email|SMS|Portal'],['Client / Lead','text','',false],['To','text'],['Message','textarea']],
 'New SMS':[['Client / Lead','text','',false],['To','tel'],['Message','textarea']],
 'Send Fax':[['Client / Lead','text','',false],['To fax number','tel'],['Document reference','text'],['Notes','textarea']],
 'Open Dialer':[['Phone number','tel'],['Client / Lead','text'],['Recording','select','Enabled|Disabled']],
