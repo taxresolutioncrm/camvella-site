@@ -2,6 +2,8 @@ name: Validate Camvella Website
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: read
@@ -68,7 +70,7 @@ jobs:
           ! grep -R -q 'This detailed comparison page is being built' dist/compare --include='*.html'
 
       - name: Verify live Camvella SEO
-        if: github.event_name == 'push'
+        if: github.event_name == 'pull_request'
         shell: bash
         run: |
           set -euo pipefail
@@ -77,11 +79,15 @@ jobs:
             html="$(curl -fsSL --max-time 15 "https://camvella.com/?verify=$(date +%s)" || true)"
             robots="$(curl -fsSL --max-time 15 "https://camvella.com/robots.txt?verify=$(date +%s)" || true)"
             sitemap="$(curl -fsSL --max-time 15 "https://camvella.com/sitemap.xml?verify=$(date +%s)" || true)"
+            florida_status="$(curl -sS -o /dev/null -w '%{http_code} %{redirect_url}' "https://camvella.com/solutions/florida-hoa-management-software/" || true)"
+            texas_status="$(curl -sS -o /dev/null -w '%{http_code} %{redirect_url}' "https://camvella.com/solutions/texas-hoa-management-software/" || true)"
             if printf '%s' "$html" | grep -Fq "$expected" \
               && printf '%s' "$html" | grep -Fq 'HOA management software' \
               && printf '%s' "$html" | grep -Fq 'professional CAM companies' \
               && printf '%s' "$robots" | grep -qi 'Sitemap: https://camvella.com/sitemap.xml' \
-              && printf '%s' "$sitemap" | grep -Fq '<loc>https://camvella.com/</loc>'; then
+              && printf '%s' "$sitemap" | grep -Fq '<loc>https://camvella.com/</loc>' \
+              && printf '%s' "$florida_status" | grep -Fq '301 https://camvella.com/locations/florida/' \
+              && printf '%s' "$texas_status" | grep -Fq '301 https://camvella.com/locations/texas/'; then
               echo 'Live Camvella SEO verification passed.'
               exit 0
             fi
