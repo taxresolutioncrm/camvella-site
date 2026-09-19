@@ -18,6 +18,12 @@ export class ActionService{
  async resolveUser(value,{allowCurrent=true}={}){const q=text(value);if(!q&&allowCurrent)return this.userId;if(uuidRe.test(q))return q;const profiles=await this.repo.list('userProfiles',{limit:300,order:'created_at'});const p=profiles.find(x=>String(x.display_name||'').toLowerCase()===q.toLowerCase());if(!p)throw new Error('Team member not found. Use exact display name or user UUID.');const ms=await this.repo.list('memberships',{filters:{user_id:p.user_id},limit:10});if(!ms.some(x=>x.is_active))throw new Error('Team member is not active in this agency');return p.user_id}
  async resolveAssignableUser(value){const target=await this.resolveUser(value);if(this.role==='agent'&&target!==this.userId)throw new Error('Agents can assign work only to themselves');return target}
  async invoke(name,body){const {data,error}=await this.client.functions.invoke(name,{body});if(error)throw error;if(data?.error)throw new Error(data.message||data.error);return data}
+ async resolveCommunicationTarget(value){
+   const q=text(value);
+   if(!q)return {};
+   const target=await this.resolveClientOrLead(q);
+   return target.client?{client_id:target.client.id}:{lead_id:target.lead.id};
+ }
  async uploadClientDocument(fields){const client=await this.resolveClient(fields['Client']);const file=fields['File'];if(!(file instanceof File)||!file.size)throw new Error('Choose a file to upload');if(file.size>26214400)throw new Error('Files must be 25 MB or smaller');const safe=file.name.replace(/[^a-zA-Z0-9._-]+/g,'-').slice(-160);const office=client.office_id||this.officeId||'shared';const path=this.orgId+'/'+office+'/'+client.id+'/agency/'+crypto.randomUUID()+'-'+safe;const {error}=await this.client.storage.from('client-documents').upload(path,file,{upsert:false,contentType:file.type||undefined});if(error)throw error;try{return await this.repo.create('documents',{office_id:client.office_id||this.officeId||null,client_id:client.id,document_type:text(fields['Document type']),file_name:file.name,storage_path:path,mime_type:file.type||null,byte_size:file.size,uploaded_by:this.userId})}catch(err){await this.client.storage.from('client-documents').remove([path]);throw err}}
  async uploadImport(file,importType){if(!(file instanceof File)||!file.size)throw new Error('Choose a file to import');if(file.size>5000000)throw new Error('Import files must be 5 MB or smaller');const safe=file.name.replace(/[^a-zA-Z0-9._-]+/g,'-').slice(-160);const path=this.orgId+'/'+(this.officeId||'shared')+'/'+importType+'/'+crypto.randomUUID()+'-'+safe;const {error}=await this.client.storage.from('imports').upload(path,file,{upsert:false,contentType:file.type||undefined});if(error)throw error;let job;try{job=await this.repo.create('importJobs',{office_id:this.officeId,import_type:importType,source_filename:file.name,storage_path:path,status:'uploaded',created_by:this.userId})}catch(err){await this.client.storage.from('imports').remove([path]);throw err}const result=await this.invoke('process-import',{job_id:job.id});return {job,...result}}
  async execute(action,fields){
@@ -62,14 +68,12 @@ export class ActionService{
     ]);
     return {providers:providers.length,carrierContracts:contracts.length,agentLicenses:licenses.length};
   }
-  if(a.includes('Compose Email'))return this.invoke('send-communication',{organization_id:this.orgId,channel:'email',to:text(fields['To']),subject:text(fields['Subject']),message:text(fields['Message'])});
-  if(a.includes('New SMS'))return this.invoke('send-communication',{organization_id:this.orgId,channel:'sms',to:text(fields['To']),message:text(fields['Message'])});
-  if(a.includes('Send Fax'))return this.invoke('send-communication',{organization_id:this.orgId,channel:'fax',to:text(fields['To fax number']),message:[text(fields['Document reference']),text(fields['Notes'])].filter(Boolean).join(' · ')});
+  if(a.includes('Compose Email'))return this.invoke('send-communication',{organization_id:this.orgId,channel:'email',to:text(fields['To']),subject:text(fields['Subject']),message:text(fields['Message']),...(await this.resolveCommunicationTarget(fields['Client / Lead']))});
+  if(a.includes('New SMS'))return this.invoke('send-communication',{organization_id:this.orgId,channel:'sms',to:text(fields['To']),message:text(fields['Message']),...(await this.resolveCommunicationTarget(fields['Client / Lead']))});
+  if(a.includes('Send Fax'))return this.invoke('send-communication',{organization_id:this.orgId,channel:'fax',to:text(fields['To fax number']),message:[text(fields['Document reference']),text(fields['Notes'])].filter(Boolean).join(' · '),...(await this.resolveCommunicationTarget(fields['Client / Lead']))});
   if(a.includes('Open Dialer')||a.includes('Call Client')){
-    const clientName=text(fields['Client']||fields['Client / Lead']);
-    let clientId=null;
-    if(clientName){try{clientId=(await this.resolveClient(clientName)).id}catch{}}
-    return this.invoke('send-communication',{organization_id:this.orgId,channel:'phone',to:text(fields['Phone number']),client_id:clientId});
+    const target=await this.resolveCommunicationTarget(fields['Client']||fields['Client / Lead']);
+    return this.invoke('send-communication',{organization_id:this.orgId,channel:'phone',to:text(fields['Phone number']),...target});
   }
   if(a.includes('New Message')){
     const channel=text(fields['Channel']).toLowerCase();
@@ -77,7 +81,7 @@ export class ActionService{
       const client=await this.resolveClient(fields['To']);
       return this.invoke('send-communication',{organization_id:this.orgId,channel:'portal',to:client.id,client_id:client.id,message:text(fields['Message'])});
     }
-    return this.invoke('send-communication',{organization_id:this.orgId,channel,to:text(fields['To']),message:text(fields['Message'])});
+    return this.invoke('send-communication',{organization_id:this.orgId,channel,to:text(fields['To']),message:text(fields['Message']),...(await this.resolveCommunicationTarget(fields['Client / Lead']))});
   }
   if(a.includes('Mark All Reviewed')){const e=await this.resolveEnrollment(fields['Enrollment']);const evidence=await this.repo.list('enrollmentEvidence',{filters:{enrollment_id:e.id},limit:100});for(const item of evidence)await this.repo.update('enrollmentEvidence',item.id,{status:'complete'});return {updated:evidence.length,enrollment_id:e.id}}
   if(a.includes('Start Needs Analysis')){const e=await this.resolveEnrollment(fields['Enrollment']);return this.repo.update('enrollments',e.id,{lifecycle_status:'needs_review'})}
