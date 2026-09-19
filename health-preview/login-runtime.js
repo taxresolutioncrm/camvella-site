@@ -17,6 +17,22 @@ function setStatus(message,error=false){
 function busy(value){
   for(const b of [loginButton,magicButton,resetButton])b.disabled=value;
 }
+function safeReturnTarget(value){
+  const raw=String(value||'').trim();
+  if(!raw)return '';
+  try{
+    const target=new URL(raw,location.href);
+    if(target.origin!==location.origin)return '';
+    const allowed=['/health-preview/index.html','/health-preview/portal.html','/health-preview/accept-invite.html','/index.html','/portal.html','/accept-invite.html'];
+    if(!allowed.some(path=>target.pathname.endsWith(path)))return '';
+    return target.pathname+target.search+target.hash;
+  }catch{return ''}
+}
+function pendingReturnTarget(){
+  const fromUrl=safeReturnTarget(new URLSearchParams(location.search).get('return_to'));
+  if(fromUrl)sessionStorage.setItem('healthPendingReturn',fromUrl);
+  return fromUrl||safeReturnTarget(sessionStorage.getItem('healthPendingReturn'));
+}
 
 async function initLogin(){
   const config=loadRuntimeConfig();
@@ -31,15 +47,17 @@ async function initLogin(){
   const client=createClient(config.supabaseUrl,config.supabasePublishableKey,{
     auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
   });
+  const pending=pendingReturnTarget();
+  const magicUrl=new URL('./login.html',location.href);
+  if(pending)magicUrl.searchParams.set('return_to',pending);
   const auth=new AuthController(client,{
-    magicLinkRedirectTo:new URL('./login.html',location.href).href,
+    magicLinkRedirectTo:magicUrl.href,
     recoveryRedirectTo:new URL('./reset-password.html',location.href).href
   });
 
   const {data:{session}}=await client.auth.getSession();
   if(session){
-    const pending=sessionStorage.getItem('healthPendingInviteUrl')||sessionStorage.getItem('healthPortalAfterLogin');
-    if(pending)sessionStorage.removeItem('healthPortalAfterLogin');
+    if(pending)sessionStorage.removeItem('healthPendingReturn');
     location.replace(pending||'./index.html');
     return;
   }
@@ -49,9 +67,9 @@ async function initLogin(){
     try{
       await auth.signInWithPassword(emailInput.value.trim(),passwordInput.value);
       setStatus('Signed in. Opening your workspace…');
-      const pending=sessionStorage.getItem('healthPendingInviteUrl')||sessionStorage.getItem('healthPortalAfterLogin');
-      if(pending)sessionStorage.removeItem('healthPortalAfterLogin');
-      location.replace(pending||'./index.html');
+      const target=pendingReturnTarget();
+      if(target)sessionStorage.removeItem('healthPendingReturn');
+      location.replace(target||'./index.html');
     }catch(error){
       setStatus(error?.message||'Unable to sign in.',true);
     }finally{busy(false)}
