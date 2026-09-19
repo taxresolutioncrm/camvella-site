@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">GroundIVO</title>
+  <desc id="desc">GroundIVO leaf and landscape mark</desc>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16A34A"/><stop offset="1" stop-color="#0F766E"/></linearGradient></defs>
+  <rect width="512" height="512" rx="112" fill="#F0FDF4"/>
+  <path d="M374 142c-79-14-151 15-194 76-34 49-45 108-37 165 53 8 110-4 156-36 61-43 92-115 75-205Z" fill="url(#g)"/>
+  <path d="M116 370c64-100 143-151 247-197" fill="none" stroke="#14532D" stroke-width="28" stroke-linecap="round"/>
+  <path d="M75 424c111 43 225 39 343-14" fill="none" stroke="#84CC16" stroke-width="32" stroke-linecap="round"/>
+</svg>
