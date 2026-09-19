@@ -62,11 +62,15 @@ async function initHealthCrmBackend(){
     const orgs=new Map((backend.workspace?.organizations||[]).map(o=>[o.id,o]));
     if(nameNode) nameNode.textContent=orgs.get(backend.selected.organization_id)?.name||'Agency Workspace';
     if(select&&memberships.length>1){
-      select.innerHTML=memberships.map(m=>{
+      select.replaceChildren();
+      for(const m of memberships){
         const org=orgs.get(m.organization_id);
-        const label=(org?.name||'Agency')+' · '+m.role.replaceAll('_',' ');
-        return '<option value="'+m.organization_id+'" '+(m.organization_id===backend.selected.organization_id?'selected':'')+'>'+label+'</option>';
-      }).join('');
+        const option=document.createElement('option');
+        option.value=m.organization_id;
+        option.textContent=(org?.name||'Agency')+' · '+m.role.replaceAll('_',' ');
+        option.selected=m.organization_id===backend.selected.organization_id;
+        select.append(option);
+      }
       select.style.display='block';
       select.onchange=()=>{
         localStorage.setItem('health-crm-org-id',select.value);
