@@ -1,0 +1,32 @@
+name: GroundIVO Favicon Isolated Verification
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Syntax-check exact GroundIVO files
+        run: |
+          node --check .tmp-groundivo/marketing-site/build.mjs
+          node --check .tmp-groundivo/scripts/validate-marketing-site.mjs
+      - name: Run exact GroundIVO marketing build on isolated fixture
+        run: |
+          cd .tmp-groundivo/marketing-site
+          node build.mjs
+      - name: Verify built favicon contract
+        run: |
+          test -f .tmp-groundivo/marketing-site/dist/favicon.svg
+          grep -Fq 'href="/favicon.svg?v=20260918"' .tmp-groundivo/marketing-site/dist/index.html
+          grep -Fq 'rel="shortcut icon" href="/favicon.svg?v=20260918"' .tmp-groundivo/marketing-site/dist/index.html
+          grep -Fq '<title id="title">GroundIVO</title>' .tmp-groundivo/marketing-site/dist/favicon.svg
+          grep -Fq '/favicon\.svg\?v=20260918' .tmp-groundivo/scripts/validate-marketing-site.mjs
