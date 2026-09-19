@@ -8,10 +8,9 @@ function setStatus(message,error=false){
   status.style.color=error?'#8b2c2c':'#1c6f67';
 }
 
-function saveSandbox(record){
-  const rows=JSON.parse(localStorage.getItem('health-crm-site-leads')||'[]');
-  rows.unshift({...record,created_at:new Date().toISOString(),source:'website_preview'});
-  localStorage.setItem('health-crm-site-leads',JSON.stringify(rows.slice(0,50)));
+function saveSandbox(){
+  // Preview mode intentionally does not persist public contact information.
+  return true;
 }
 
 async function init(){
@@ -31,7 +30,7 @@ async function init(){
     try{
       if(!backendConfigured(config)||!config.publicIntakeSlug){
         saveSandbox(body);
-        setStatus('Saved in the sandbox preview.');
+        setStatus('Preview only — no contact information was stored or submitted.');
         form.reset();
         return;
       }
