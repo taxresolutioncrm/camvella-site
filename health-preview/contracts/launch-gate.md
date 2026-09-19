@@ -18,7 +18,7 @@
 
 ## Pre-target backend
 - [x] 58-table domain model
-- [x] 67 uniquely ordered SQL modules
+- [x] 69 uniquely ordered SQL modules
 - [x] provider adapter contracts
 - [x] 13 Edge Functions
 - [x] current Edge Function auth model
@@ -28,6 +28,8 @@
 - [x] Storage agency/portal/AAL2/path integrity design
 - [x] audit/integrity/workflow guards
 - [x] concurrency serialization guards for invitations, final-admin protection and portal threads
+- [x] member-deletion/public-endpoint retirement guards
+- [x] portal Storage metadata/read alignment
 - [x] atomic enrollment/import/commission/portal-message workflows
 - [x] public intake/availability/booking/rate-limit design
 - [x] tenant/role/portal/Storage test matrices
