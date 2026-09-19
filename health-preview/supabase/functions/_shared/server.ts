@@ -44,8 +44,7 @@ export function emailFromClaims(claims: Record<string,unknown>|null|undefined){
 }
 
 
-export function appCorsConfig(){
-  const origin=Deno.env.get('APP_ALLOWED_ORIGIN')||'';
+function corsHeadersFor(origin:string){
   return {
     headers:{
       'Access-Control-Allow-Origin':origin,
@@ -54,6 +53,18 @@ export function appCorsConfig(){
       'Vary':'Origin'
     }
   };
+}
+
+export function appCorsConfig(){
+  return corsHeadersFor(Deno.env.get('APP_ALLOWED_ORIGIN')||'');
+}
+
+export function publicCorsConfig(){
+  return corsHeadersFor(
+    Deno.env.get('PUBLIC_ALLOWED_ORIGIN')
+    || Deno.env.get('APP_ALLOWED_ORIGIN')
+    || ''
+  );
 }
 
 
