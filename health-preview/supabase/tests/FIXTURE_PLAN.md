@@ -16,6 +16,7 @@ Create these only in the dedicated test/sandbox Supabase project.
 
 ## Portal user
 - PORTAL_USER linked only to PORTAL_CLIENT through client_portal_accounts.
+- IDENTITY_MODE_USER with no memberships/portal account initially, used to prove staff-vs-portal mode exclusivity.
 
 ## Minimum records
 - CLIENT_AGENT_A assigned to AGENT_A_USER / OFFICE_A
@@ -45,3 +46,10 @@ The test transaction must roll back after verifying those public-facing referenc
 are disabled/unassigned before the membership becomes inactive.
 
 Use deterministic UUIDs so SQL test files can be parameterized once.
+
+
+## Identity-mode target tests
+- Bootstrap two simultaneous requests for IDENTITY_MODE_USER; exactly one workspace may be created.
+- Activate a client portal for IDENTITY_MODE_USER, then prove team-invite acceptance is rejected.
+- Deactivate the portal account, accept a team invitation, then prove portal-invite acceptance is rejected while the team membership is active.
+- Confirm PORTAL_USER can read policy data only through list_my_portal_policies(), not direct policies SELECT.
