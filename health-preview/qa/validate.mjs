@@ -70,7 +70,7 @@ for(const fn of securityDefiners){
   if(!/set search_path\s*=/i.test(fn)) failures.push('SECURITY DEFINER function missing fixed search_path');
 }
 
-const storageFiles=['004_storage.sql','017_security_cleanup_and_audit.sql','024_storage_role_alignment.sql','028_portal_privacy_and_task_roles.sql','040_import_storage.sql','046_import_storage_role_alignment.sql','047_portal_data_boundary.sql'];
+const storageFiles=['004_storage.sql','017_security_cleanup_and_audit.sql','024_storage_role_alignment.sql','028_portal_privacy_and_task_roles.sql','040_import_storage.sql','046_import_storage_role_alignment.sql','047_portal_data_boundary.sql','053_storage_aal2_alignment.sql','055_storage_path_integrity.sql','060_portal_storage_write_boundary.sql','062_storage_reference_uniqueness.sql','069_portal_storage_metadata_alignment.sql'];
 const storage=storageFiles.filter(x=>mig[x]).map(x=>mig[x]).join('\n');
 for(const op of ['select','insert','update','delete']){
   if(!storage.includes('for '+op+' to authenticated')) failures.push('storage policy missing '+op);
@@ -97,7 +97,8 @@ for(const required of [
   '061_portal_invite_assignment_guard.sql','062_storage_reference_uniqueness.sql',
   '063_member_deactivation_public_safety.sql','064_team_invite_active_uniqueness.sql',
   '065_last_admin_guard.sql','066_portal_account_single_active_user.sql',
-  '067_concurrency_hardening.sql'
+  '067_concurrency_hardening.sql','068_member_deletion_integrity.sql',
+  '069_portal_storage_metadata_alignment.sql'
 ]){
   if(!mig[required]) failures.push('missing hardening module '+required);
 }
@@ -147,7 +148,7 @@ for(const label of actionLabels){
 }
 
 if(tables.length!==58) failures.push('expected exactly 58 public tables, found '+tables.length);
-if(names.length!==67) failures.push('expected exactly 67 SQL modules, found '+names.length);
+if(names.length!==69) failures.push('expected exactly 69 SQL modules, found '+names.length);
 
 console.log(JSON.stringify({
   tables:tables.length,
