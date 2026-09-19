@@ -18,15 +18,16 @@
 
 ## Pre-target backend
 - [x] 58-table domain model
-- [x] 59 uniquely ordered SQL modules
+- [x] 67 uniquely ordered SQL modules
 - [x] provider adapter contracts
-- [x] 12 Edge Functions
+- [x] 13 Edge Functions
 - [x] current Edge Function auth model
 - [x] browser Supabase driver/runtime/action/live-view factory
 - [x] RLS/office/assigned-book role design
 - [x] AAL2 sensitive-write guards
 - [x] Storage agency/portal/AAL2/path integrity design
 - [x] audit/integrity/workflow guards
+- [x] concurrency serialization guards for invitations, final-admin protection and portal threads
 - [x] atomic enrollment/import/commission/portal-message workflows
 - [x] public intake/availability/booking/rate-limit design
 - [x] tenant/role/portal/Storage test matrices
