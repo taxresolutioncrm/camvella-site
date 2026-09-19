@@ -51,6 +51,8 @@ async function loadDocuments(){
     e.preventDefault();const box=document.getElementById('uploadStatus');const fd=new FormData(e.target);const file=fd.get('file');
     if(!(file instanceof File)||!file.size){box.innerHTML=status('Choose a file.',true);return}
     if(file.size>26214400){box.innerHTML=status('Files must be 25 MB or smaller.',true);return}
+    const allowedTypes=new Set(['application/pdf','image/jpeg','image/png','image/heic','image/heif','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','text/plain']);
+    if(!allowedTypes.has(file.type)){box.innerHTML=status('That file type is not allowed.',true);return}
     const safe=file.name.replace(/[^a-zA-Z0-9._-]+/g,'-').slice(-160);
     const path=portalAccount.organization_id+'/'+(client.office_id||'shared')+'/'+client.id+'/portal/'+crypto.randomUUID()+'-'+safe;
     box.innerHTML=status('Uploading…');
