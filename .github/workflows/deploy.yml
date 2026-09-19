@@ -2,6 +2,8 @@ name: Validate Camvella Website
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: read
@@ -71,7 +73,7 @@ jobs:
           ! grep -R -q 'This detailed comparison page is being built' dist/compare --include='*.html'
 
       - name: Verify live Camvella SEO
-        if: github.event_name == 'push'
+        if: github.event_name == 'pull_request'
         shell: bash
         run: |
           set -euo pipefail
@@ -84,7 +86,9 @@ jobs:
               && printf '%s' "$html" | grep -Fq 'HOA management software' \
               && printf '%s' "$html" | grep -Fq 'professional CAM companies' \
               && printf '%s' "$robots" | grep -qi 'Sitemap: https://camvella.com/sitemap.xml' \
-              && printf '%s' "$sitemap" | grep -Fq '<loc>https://camvella.com/</loc>'; then
+              && printf '%s' "$sitemap" | grep -Fq '<loc>https://camvella.com/</loc>' \
+              && printf '%s' "$html" | grep -Fq 'href="/favicon.svg?v=20260918"' \
+              && curl -fsSL --max-time 15 'https://camvella.com/favicon.svg?v=20260918' | grep -Fq '<svg'; then
               echo 'Live Camvella SEO verification passed.'
               exit 0
             fi
