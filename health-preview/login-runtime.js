@@ -10,7 +10,7 @@ const resetButton=document.getElementById('resetButton');
 const status=document.getElementById('authStatus');
 
 function setStatus(message,error=false){
-  status.innerHTML=error?'<strong>Sign-in issue:</strong> '+message:message;
+  status.textContent=(error?'Sign-in issue: ':'')+String(message||'');
   status.style.background=error?'#fff0f0':'#eef8f6';
   status.style.color=error?'#8b2c2c':'#165f5a';
 }
@@ -39,7 +39,7 @@ async function initLogin(){
   assertBrowserSafeConfig(config);
 
   if(!backendConfigured(config)){
-    setStatus('<strong>Sandbox preview:</strong> authentication stays disconnected until the dedicated Supabase project is selected.');
+    setStatus('Sandbox preview: authentication stays disconnected until the dedicated Supabase project is selected.');
     return;
   }
 
