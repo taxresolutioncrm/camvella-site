@@ -59,10 +59,10 @@ export default {
         crypto.randomUUID()+'-'+safeName(doc.file_name)
       ].join('/');
 
-      const {error:moveError}=await ctx.supabaseAdmin.storage
+      const {error:copyError}=await ctx.supabaseAdmin.storage
         .from('client-documents')
-        .move(doc.storage_path,destination);
-      if(moveError) return response({error:'document_share_move_failed',message:moveError.message},400);
+        .copy(doc.storage_path,destination);
+      if(copyError) return response({error:'document_share_copy_failed',message:copyError.message},400);
 
       const {data:updated,error:updateError}=await ctx.supabaseAdmin.from('documents')
         .update({storage_path:destination,portal_visible:true})
@@ -72,11 +72,19 @@ export default {
         .single();
 
       if(updateError){
-        await ctx.supabaseAdmin.storage.from('client-documents').move(destination,doc.storage_path);
+        await ctx.supabaseAdmin.storage.from('client-documents').remove([destination]);
         return response({error:'document_share_metadata_failed',message:updateError.message},400);
       }
 
-      return response({ok:true,...updated});
+      const {error:cleanupError}=await ctx.supabaseAdmin.storage
+        .from('client-documents')
+        .remove([doc.storage_path]);
+
+      return response({
+        ok:true,
+        ...updated,
+        source_cleanup:cleanupError?'pending':'complete'
+      });
     }catch(error){
       return response({error:'document_share_failed',message:error instanceof Error?error.message:'document_share_failed'},400);
     }
