@@ -78,13 +78,11 @@ async function loadRequests(){
     const details=String(fd.get('details')||'').trim();
     const {data:reqRow,error:reqErr}=await clientApi.rpc('create_my_portal_service_request',{
       p_request_type:requestType,
-      p_priority:String(fd.get('priority')||'normal')
+      p_priority:String(fd.get('priority')||'normal'),
+      p_details:details
     });
     if(reqErr){box.innerHTML=status(reqErr.message,true);return}
-    if(details){
-      const {error:msgErr}=await clientApi.functions.invoke('send-communication',{body:{channel:'portal',to:client.id,client_id:client.id,subject:'Service request '+requestType,message:details}});
-      if(msgErr)box.innerHTML=status('Request saved; message details could not be delivered.',true); else box.innerHTML=status('Request submitted.');
-    }else box.innerHTML=status('Request submitted.');
+    box.innerHTML=status('Request submitted.');
     e.target.reset();await loadRequests();
   };
 }
