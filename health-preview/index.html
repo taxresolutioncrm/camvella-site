@@ -428,12 +428,12 @@ function sandboxSafeFields(fields={}){
 }
 function recordSandboxAction(action,fields={}){
  const entry={id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())),action,fields:sandboxSafeFields(fields),created_at:new Date().toISOString()};
- const log=JSON.parse(localStorage.getItem('health-crm-sandbox-actions')||'[]');
- log.unshift(entry);localStorage.setItem('health-crm-sandbox-actions',JSON.stringify(log.slice(0,100)));
+ const log=JSON.parse(sessionStorage.getItem('health-crm-sandbox-actions')||'[]');
+ log.unshift(entry);sessionStorage.setItem('health-crm-sandbox-actions',JSON.stringify(log.slice(0,100)));
  return entry;
 }
 function exportSandbox(label){
- const log=JSON.parse(localStorage.getItem('health-crm-sandbox-actions')||'[]');
+ const log=JSON.parse(sessionStorage.getItem('health-crm-sandbox-actions')||'[]');
  const rows=[['action','created_at','details'],...log.map(x=>[x.action,x.created_at,JSON.stringify(x.fields)])];
  const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\n');
  const blob=new Blob([csv],{type:'text/csv'}),url=URL.createObjectURL(blob),a=document.createElement('a');
@@ -503,7 +503,7 @@ function demo(msg){showToast(msg+' · sandbox only');}
 function sandboxActivity(route){
  const map={overview:['New Lead','Book Appointment'],leads:['Lead'],clients:['Client'],appointments:['Appointment'],enrollment:['Enrollment'],aca:['ACA Case'],medicare:['Medicare Case'],service:['Service Request'],tasks:['Task'],email:['Email'],sms:['SMS'],fax:['Fax'],phone:['Dialer','Call Client'],consent:['Consent'],documents:['Document'],contracting:['Appointment'],commissions:['Statement'],mapping:['Statement'],portal:['Invite Client'],client360:['Service Request','Portal Invite'],lab:['Simulation:'],integration:['Readiness']};
  const keys=map[route]||[]; if(!keys.length)return '';
- const log=JSON.parse(localStorage.getItem('health-crm-sandbox-actions')||'[]').filter(x=>keys.some(k=>x.action.includes(k))).slice(0,5);
+ const log=JSON.parse(sessionStorage.getItem('health-crm-sandbox-actions')||'[]').filter(x=>keys.some(k=>x.action.includes(k))).slice(0,5);
  if(!log.length)return '';
  return panel('Recent sandbox activity','Stored locally until Supabase is connected',log.map(x=>row(x.action,new Date(x.created_at).toLocaleString(),Object.keys(x.fields||{}).length+' fields','blue')).join(''));
 }
