@@ -137,7 +137,12 @@ async function init(){
   const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2.116.0');
   clientApi=createClient(config.supabaseUrl,config.supabasePublishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   const {data:{user}}=await clientApi.auth.getUser();clientUser=user;
-  if(!user){sessionStorage.setItem('healthPendingInviteUrl','./portal.html');location.replace('./login.html');return}
+  if(!user){
+    const loginUrl=new URL('./login.html',location.href);
+    loginUrl.searchParams.set('return_to',new URL('./portal.html',location.href).pathname);
+    location.replace(loginUrl.href);
+    return;
+  }
   const {data:account,error:aErr}=await clientApi.from('client_portal_accounts').select('*').eq('user_id',user.id).eq('status','active').limit(1).maybeSingle();
   if(aErr||!account){content.innerHTML=empty('No active client portal account is linked to this login.');return}
   portalAccount=account;
