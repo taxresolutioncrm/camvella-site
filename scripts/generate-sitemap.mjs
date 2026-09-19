@@ -41,6 +41,8 @@ if (!paths.includes('/guides/')) throw new Error('Camvella SEO build gate: /guid
 if (!paths.some((path) => path.startsWith('/guides/') && path !== '/guides/')) throw new Error('Camvella SEO build gate: no guide detail pages were generated')
 const homepage = await readFile(new URL('index.html', dist), 'utf8')
 if (!homepage.includes('rel="icon" type="image/png" sizes="96x96" href="/favicon.png"')) throw new Error('Camvella favicon build gate: homepage is missing the stable Google-supported PNG favicon')
+if (!homepage.includes('rel="shortcut icon" href="/favicon.png"')) throw new Error('Camvella favicon build gate: shortcut icon must use the same stable PNG')
+if (homepage.includes('/favicon.ico')) throw new Error('Camvella favicon build gate: stale ICO fallback must not conflict with Google favicon')
 const manifest = await readFile(new URL('manifest.json', dist), 'utf8')
 if (!manifest.includes('"src": "/favicon.png"')) throw new Error('Camvella favicon build gate: manifest is missing the stable Google-supported PNG favicon')
 if (!homepage.includes('href="/blog"')) throw new Error('Camvella SEO build gate: homepage is missing the Resources → /blog crawl path')
