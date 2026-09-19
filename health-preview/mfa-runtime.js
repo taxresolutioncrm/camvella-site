@@ -25,6 +25,10 @@ async function prepareChallenge(){
     factorId=verified.id;
     instructions.textContent='Enter the six-digit code from your authenticator app.';
   }else{
+    const stale=(factors?.totp||[]).filter(x=>x.status!=='verified');
+    for(const factor of stale){
+      try{await auth.unenrollMfa(factor.id)}catch{}
+    }
     const enrolled=await auth.enrollTotp('Insurance CRM');
     factorId=enrolled?.id;
     const totp=enrolled?.totp||{};
