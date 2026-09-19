@@ -90,17 +90,17 @@ begin
 end $$;
 
 -- T6: org A cannot read org B policies.
-do $
+do $$
 declare n integer;
 begin
   select count(*) into n
   from public.policies
   where organization_id='ORG_B'::uuid;
   perform pg_temp.record_result('T6 cross-org policy SELECT','0 rows',n||' rows',n=0);
-end $;
+end $$;
 
 -- T7: org A cannot read org B sensitive provider/Rx records.
-do $
+do $$
 declare n integer;
 begin
   select
@@ -109,7 +109,7 @@ begin
     (select count(*) from public.client_prescriptions where organization_id='ORG_B'::uuid)
   into n;
   perform pg_temp.record_result('T7 cross-org sensitive data SELECT','0 rows',n||' rows',n=0);
-end $;
+end $$;
 
 -- T8: assigned agent cannot read sibling-office records.
 -- Requires USER_A role=agent in ORG_A and an OFFICE_B fixture populated with at least one lead.
