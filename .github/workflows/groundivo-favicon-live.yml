@@ -1,0 +1,31 @@
+name: GroundIVO Live Favicon Verification
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Poll live GroundIVO favicon
+        shell: bash
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 30); do
+            html="$(curl -fsSL --max-time 15 "https://groundivo.com/?verify=$(date +%s)" || true)"
+            icon="$(curl -fsSL --max-time 15 "https://groundivo.com/favicon.svg?v=20260918" || true)"
+            if printf '%s' "$html" | grep -Fq 'href="/favicon.svg?v=20260918"' \
+              && printf '%s' "$html" | grep -Fq 'rel="shortcut icon" href="/favicon.svg?v=20260918"' \
+              && printf '%s' "$icon" | grep -Fq '<title id="title">GroundIVO</title>'; then
+              echo 'Live GroundIVO favicon verification passed.'
+              exit 0
+            fi
+            echo "Waiting for GroundIVO favicon deployment ($i/30)..."
+            sleep 10
+          done
+          echo 'GroundIVO production did not reach the expected favicon version.' >&2
+          exit 1
