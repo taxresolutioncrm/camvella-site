@@ -4,7 +4,7 @@ Status: PRE-TARGET HARDENING GATE
 
 ## Package inventory
 - 58 public application/support tables
-- 69 uniquely ordered SQL modules
+- 70 uniquely ordered SQL modules
 - 44 CRM routes / 45 routed CRM views
 - dedicated website, booking, login, onboarding, invite acceptance, password recovery, MFA, and client-portal surfaces
 - 13 Edge Functions
@@ -21,6 +21,7 @@ Status: PRE-TARGET HARDENING GATE
 - Portal users are separated from internal client, communications, consent, evidence and agency-only document access.
 - Portal document paths distinguish agency / portal / shared visibility.
 - Cross-org parent/user references and Storage path mismatches are guarded.
+- Private Storage paths are aligned to organization, office and entity context.
 - Active assignments cannot target disabled team members or cross-office agents.
 - Final agency admin cannot be removed/deactivated.
 - Member deletion safely retires public booking/availability/communication endpoints.
