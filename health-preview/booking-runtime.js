@@ -84,7 +84,7 @@ async function init(){
         setStatus('Appointment request received.');form.reset();form.classList.add('hidden');selectedSlot=null;return;
       }
       const result=await invoke('public-booking',body);
-      setStatus('Appointment booked. Your confirmation reference is '+(result.appointment_id||'saved')+'.');
+      setStatus('Appointment booked. Your request is saved with the agency.');
       slotsBox.innerHTML='';slotMeta.textContent='';form.reset();form.classList.add('hidden');selectedSlot=null;
     }catch(error){
       setStatus(error?.message||'Unable to book that time. Refresh availability and try again.',true);
