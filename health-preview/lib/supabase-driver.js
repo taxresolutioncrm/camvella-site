@@ -47,7 +47,7 @@ const resources={
   publicIntakeForms:{table:'public_intake_forms',key:'id',tenant:true},
   integrationSyncJobs:{table:'integration_sync_jobs',key:'id',tenant:true},
   auditLog:{table:'audit_log',key:'id',tenant:true},
-  providerConnections:{table:'provider_connections',key:'id',tenant:true},
+  providerConnections:{table:'provider_connections',key:'id',tenant:true,columns:'id,organization_id,office_id,provider_type,provider_name,external_account_id,status,config_public,created_at,updated_at'},
   evidenceBundles:{table:'evidence_bundles',key:'id',tenant:true},
   outreachCampaigns:{table:'outreach_campaigns',key:'id',tenant:true},
   outreachCampaignMembers:{table:'outreach_campaign_members',key:'id',tenant:true},
@@ -71,24 +71,24 @@ export class SupabaseDriver{
     return query;
   }
   async list(resource,{filters={},order='created_at',ascending=false,limit=200}={}){
-    const s=spec(resource);let q=this.scope(this.client.from(s.table).select('*'),s);
+    const s=spec(resource);let q=this.scope(this.client.from(s.table).select(s.columns||'*'),s);
     for(const [key,value] of Object.entries(filters)) if(value!==undefined) q=q.eq(key,value);
     if(order) q=q.order(order,{ascending}); if(limit) q=q.limit(limit);
     const {data,error}=await q;if(error)throw error;return data||[];
   }
   async get(resource,id){
-    const s=spec(resource);let q=this.scope(this.client.from(s.table).select('*').eq(s.key,id),s);
+    const s=spec(resource);let q=this.scope(this.client.from(s.table).select(s.columns||'*').eq(s.key,id),s);
     const {data,error}=await q.maybeSingle();if(error)throw error;return data||null;
   }
   async create(resource,payload){
     const s=spec(resource);const row={...payload};
     if(s.tenant&&this.organizationId&&!row.organization_id)row.organization_id=this.organizationId;
-    const {data,error}=await this.client.from(s.table).insert(row).select().single();
+    const {data,error}=await this.client.from(s.table).insert(row).select(s.columns||'*').single();
     if(error)throw error;return data;
   }
   async update(resource,id,payload){
     const s=spec(resource);let q=this.client.from(s.table).update(payload).eq(s.key,id);
-    q=this.scope(q,s);const {data,error}=await q.select().single();if(error)throw error;return data;
+    q=this.scope(q,s);const {data,error}=await q.select(s.columns||'*').single();if(error)throw error;return data;
   }
   async remove(resource,id){
     const s=spec(resource);let q=this.client.from(s.table).delete().eq(s.key,id);
