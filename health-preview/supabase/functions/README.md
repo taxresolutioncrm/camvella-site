@@ -14,8 +14,9 @@ All Edge handlers use pinned `@supabase/server@1.7.0`.
 - send-communication
 - process-import
 - process-commission-statement
+- share-client-document
 
-These use `auth: 'user'` and retain platform JWT verification.
+These use `auth: 'user'` and retain platform JWT verification. `share-client-document` moves an authorized agency file into the explicit portal-shared path before marking it portal-visible.
 
 ### Public functions
 - public-intake
