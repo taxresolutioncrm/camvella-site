@@ -5,8 +5,13 @@ assertBrowserSafeConfig(config);
 const status=document.getElementById('status');
 const retry=document.getElementById('retry');
 const params=new URLSearchParams(location.search);
-const type=params.get('type');
-const token=params.get('token');
+const type=params.get('type')||sessionStorage.getItem('healthInviteType');
+const token=params.get('token')||sessionStorage.getItem('healthInviteToken');
+if(params.get('token')){
+  sessionStorage.setItem('healthInviteToken',params.get('token'));
+  if(params.get('type'))sessionStorage.setItem('healthInviteType',params.get('type'));
+  history.replaceState(null,'',location.pathname+(params.get('type')?'?type='+encodeURIComponent(params.get('type')):''));
+}
 
 function setStatus(message,error=false){
   status.textContent=message;
@@ -22,9 +27,8 @@ async function run(){
   const client=createClient(config.supabaseUrl,config.supabasePublishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   const {data:{user}}=await client.auth.getUser();
   if(!user){
-    const target=location.pathname+location.search+location.hash;
     const loginUrl=new URL('./login.html',location.href);
-    loginUrl.searchParams.set('return_to',target);
+    loginUrl.searchParams.set('return_to',location.pathname+(type?'?type='+encodeURIComponent(type):''));
     location.replace(loginUrl.href);
     return;
   }
@@ -35,6 +39,8 @@ async function run(){
   if(error){setStatus(error.message||'Invitation could not be accepted.',true);return}
   if(data?.error){setStatus(data.message||data.error,true);return}
 
+  sessionStorage.removeItem('healthInviteToken');
+  sessionStorage.removeItem('healthInviteType');
   history.replaceState(null,'',location.pathname+'?accepted=1');
   setStatus('Invitation accepted. Opening your workspace…');
   location.replace(type==='portal'?'./portal.html':'./index.html');
