@@ -39,6 +39,10 @@ export class AuthController{
     const {data,error}=await this.client.auth.mfa.listFactors();
     if(error)throw error;return data;
   }
+  async unenrollMfa(factorId){
+    const {data,error}=await this.client.auth.mfa.unenroll({factorId});
+    if(error)throw error;return data;
+  }
   async getAuthenticatorAssuranceLevel(){
     const {data,error}=await this.client.auth.mfa.getAuthenticatorAssuranceLevel();
     if(error)throw error;return data;
