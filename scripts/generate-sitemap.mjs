@@ -1,3 +1,4 @@
+// Favicon parity gate: match working BocaSync 96x96 PNG browser contract
 import { readFile, readdir, writeFile } from 'node:fs/promises'
 import { join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
