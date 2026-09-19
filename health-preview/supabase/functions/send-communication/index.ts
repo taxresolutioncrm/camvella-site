@@ -134,7 +134,7 @@ export default {
 
       const {data:connection,error:connectionError}=await ctx.supabaseAdmin
         .from('provider_connections')
-        .select('id,organization_id,office_id,provider,provider_type,status,secret_ref,settings')
+        .select('id,organization_id,office_id,provider_name,provider_type,status,secret_ref,config_public')
         .eq('id',endpoint.provider_connection_id)
         .eq('organization_id',organizationId)
         .maybeSingle();
@@ -145,7 +145,7 @@ export default {
 
       return response({
         error:'provider_dispatch_not_configured',
-        provider:connection.provider,
+        provider:connection.provider_name,
         channel,
         endpoint:endpoint.address,
         request:{to,subject:subject||null,message_present:Boolean(message)}
