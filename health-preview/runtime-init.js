@@ -3,7 +3,8 @@ import { ActionService } from './lib/action-service.js';
 import { LiveViewService } from './lib/live-view-service.js';
 
 async function initHealthCrmBackend(){
-  const backend=await createBackend();
+  const preferredOrganizationId=localStorage.getItem('health-crm-org-id')||undefined;
+  const backend=await createBackend({preferredOrganizationId});
   if(backend.mode==='supabase'&&!backend.workspace?.user){
     location.replace('./login.html');
     return;
@@ -52,6 +53,27 @@ async function initHealthCrmBackend(){
     organizationId:backend.selected?.organization_id||null,
     role:backend.selected?.role||null
   };
+
+  if(backend.mode==='supabase'&&backend.selected){
+    localStorage.setItem('health-crm-org-id',backend.selected.organization_id);
+    const select=document.getElementById('workspaceSelect');
+    const nameNode=document.getElementById('accountOrgName');
+    const memberships=backend.workspace?.memberships||[];
+    const orgs=new Map((backend.workspace?.organizations||[]).map(o=>[o.id,o]));
+    if(nameNode) nameNode.textContent=orgs.get(backend.selected.organization_id)?.name||'Agency Workspace';
+    if(select&&memberships.length>1){
+      select.innerHTML=memberships.map(m=>{
+        const org=orgs.get(m.organization_id);
+        const label=(org?.name||'Agency')+' · '+m.role.replaceAll('_',' ');
+        return '<option value="'+m.organization_id+'" '+(m.organization_id===backend.selected.organization_id?'selected':'')+'>'+label+'</option>';
+      }).join('');
+      select.style.display='block';
+      select.onchange=()=>{
+        localStorage.setItem('health-crm-org-id',select.value);
+        location.reload();
+      };
+    }
+  }
 
   globalThis.dispatchEvent(new CustomEvent('health-crm-backend-ready',{detail:globalThis.healthCrmStatus}));
 }
