@@ -1,3 +1,4 @@
+// Existing watched Camvella sandbox branch trigger
 // Sandbox trigger: Camvella final Google favicon acceptance
 // Cloudflare sandbox root-favicon browser acceptance trigger 2
 // Cloudflare sandbox favicon root fallback verification
