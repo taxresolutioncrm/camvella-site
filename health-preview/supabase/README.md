@@ -74,6 +74,7 @@ Do not apply this work to an existing unrelated RomyLabs project.
 69. 069_portal_storage_metadata_alignment.sql
 70. 070_storage_office_alignment.sql
 71. 071_portal_policy_least_privilege.sql
+72. 072_identity_mode_and_bootstrap_serialization.sql
 
 These are ordered pre-target SQL modules, not committed Supabase migration history yet.
 
@@ -92,7 +93,7 @@ These are ordered pre-target SQL modules, not committed Supabase migration histo
 
 ## Current package
 - 58 public application/support tables
-- 71 uniquely ordered pre-target SQL modules
+- 72 uniquely ordered pre-target SQL modules
 - 44 CRM routes plus dedicated login, onboarding, MFA, recovery, invitation, booking, and client-portal surfaces
 - 13 Edge Functions
 - RLS/office/assigned-book role boundaries
