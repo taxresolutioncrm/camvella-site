@@ -98,7 +98,8 @@ for(const required of [
   '063_member_deactivation_public_safety.sql','064_team_invite_active_uniqueness.sql',
   '065_last_admin_guard.sql','066_portal_account_single_active_user.sql',
   '067_concurrency_hardening.sql','068_member_deletion_integrity.sql',
-  '069_portal_storage_metadata_alignment.sql','070_storage_office_alignment.sql'
+  '069_portal_storage_metadata_alignment.sql','070_storage_office_alignment.sql',
+  '071_portal_policy_least_privilege.sql'
 ]){
   if(!mig[required]) failures.push('missing hardening module '+required);
 }
@@ -131,6 +132,7 @@ if((config.match(/verify_jwt = false/g)||[]).length!==4) failures.push('unexpect
 if(!site.includes('SoftwareApplication')) failures.push('website SoftwareApplication schema missing');
 if(!site.includes('leadForm')) failures.push('website lead capture missing');
 if(!portal.includes('Documents')||!portal.includes('Requests')||!portal.includes('Messages')) failures.push('portal navigation incomplete');
+if(!read('portal-runtime.js').includes("rpc('list_my_portal_policies')")) failures.push('portal least-privilege policy RPC missing');
 
 const actionLabels=[...new Set([...app.matchAll(/btn\('([^']+)'/g)].map(m=>m[1]))];
 const actionSchemas=[...app.matchAll(/^'([^']+)':\[\[/gm)].map(m=>m[1]);
@@ -148,7 +150,7 @@ for(const label of actionLabels){
 }
 
 if(tables.length!==58) failures.push('expected exactly 58 public tables, found '+tables.length);
-if(names.length!==70) failures.push('expected exactly 70 SQL modules, found '+names.length);
+if(names.length!==71) failures.push('expected exactly 71 SQL modules, found '+names.length);
 
 console.log(JSON.stringify({
   tables:tables.length,
