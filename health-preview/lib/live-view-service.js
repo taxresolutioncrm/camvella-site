@@ -88,15 +88,19 @@ export class LiveViewService{
       case 'tasks': return {type:'rows',resource:'tasks',rows:await this.list('tasks',{limit:300})};
       case 'automations': return {type:'rows',resource:'automationRules',rows:await this.list('automationRules',{limit:300})};
       case 'team':{
-        const [memberships,licenses]=await Promise.all([
+        const [memberships,licenses,profiles]=await Promise.all([
           this.list('memberships',{order:'created_at',ascending:true,limit:300}),
-          this.list('agentLicenses',{limit:500})
+          this.list('agentLicenses',{limit:500}),
+          this.list('userProfiles',{order:'created_at',ascending:true,limit:300})
         ]);
-        return {type:'team',memberships,licenses};
+        return {type:'team',memberships,licenses,profiles};
       }
       case 'permissions':{
-        const memberships=await this.list('memberships',{order:'created_at',ascending:true,limit:300});
-        return {type:'permissions',memberships};
+        const [memberships,profiles]=await Promise.all([
+          this.list('memberships',{order:'created_at',ascending:true,limit:300}),
+          this.list('userProfiles',{order:'created_at',ascending:true,limit:300})
+        ]);
+        return {type:'permissions',memberships,profiles};
       }
       case 'inbox':
       case 'communications': return {type:'rows',resource:'communications',rows:await this.list('communications',{limit:300})};
