@@ -680,9 +680,9 @@ async function runGlobalSearch(query){
       showToast(globalThis.healthCrmBackend?.mode==='supabase'?'No matching records':'Sandbox search is local-only until Supabase is connected');
       return;
     }
-    document.getElementById('view').innerHTML=head('Search','Global Search','Results across clients, leads and policies for “'+q.replaceAll('<','&lt;')+'”.')+
+    document.getElementById('view').innerHTML=head('Search','Global Search','Results across clients, leads and policies for “'+escLive(q)+'”.')+
       '<section class="panel"><div class="panelHead"><h3>Matches</h3><span>'+results.length+' results</span></div><div class="panelBody">'+
-      results.map(x=>row(x.title,x.subtitle||x.entity_type,x.entity_type,'blue')).join('')+'</div></section>';
+      results.map(x=>row(escLive(x.title),escLive(x.subtitle||x.entity_type),escLive(x.entity_type),'blue')).join('')+'</div></section>';
   }catch(error){
     showToast('Search failed: '+(error?.message||'unknown error'));
   }
