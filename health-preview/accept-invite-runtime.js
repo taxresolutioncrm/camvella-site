@@ -22,8 +22,10 @@ async function run(){
   const client=createClient(config.supabaseUrl,config.supabasePublishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   const {data:{user}}=await client.auth.getUser();
   if(!user){
-    sessionStorage.setItem('healthPendingInviteUrl',location.href);
-    location.replace('./login.html');
+    const target=location.pathname+location.search+location.hash;
+    const loginUrl=new URL('./login.html',location.href);
+    loginUrl.searchParams.set('return_to',target);
+    location.replace(loginUrl.href);
     return;
   }
 
@@ -33,7 +35,6 @@ async function run(){
   if(error){setStatus(error.message||'Invitation could not be accepted.',true);return}
   if(data?.error){setStatus(data.message||data.error,true);return}
 
-  sessionStorage.removeItem('healthPendingInviteUrl');
   history.replaceState(null,'',location.pathname+'?accepted=1');
   setStatus('Invitation accepted. Opening your workspace…');
   location.replace(type==='portal'?'./portal.html':'./index.html');
