@@ -133,6 +133,28 @@ begin
   perform pg_temp.result('R11 portal blocked from internal workflow tables','0 rows',n||' rows',n=0);
 end $$;
 
+-- R17 portal gets policy data only through the safe projection RPC.
+select set_config('request.jwt.claims','{"sub":"PORTAL_USER","role":"authenticated","aal":"aal1"}',true);
+do $
+declare
+  direct_count integer;
+  safe_count integer;
+begin
+  select count(*) into direct_count
+  from public.policies
+  where client_id='PORTAL_CLIENT'::uuid;
+
+  select count(*) into safe_count
+  from public.list_my_portal_policies();
+
+  perform pg_temp.result(
+    'R17 portal policy safe projection',
+    '0 direct rows / >=1 safe row',
+    direct_count||' direct / '||safe_count||' safe',
+    direct_count=0 and safe_count>=1
+  );
+end $;
+
 -- R12 cross-organization remains blocked for agency admin.
 select set_config('request.jwt.claims','{"sub":"ADMIN_USER","role":"authenticated","aal":"aal2"}',true);
 do $$
