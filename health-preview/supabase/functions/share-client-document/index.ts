@@ -1,5 +1,5 @@
 import { withSupabase } from 'npm:@supabase/server@1.7.0';
-import { response, userIdFromClaims, appCorsConfig } from '../_shared/server.ts';
+import { response, userIdFromClaims, appCorsConfig, claimsHaveAal2 } from '../_shared/server.ts';
 
 function safeName(name:string){
   return String(name||'document').replace(/[^a-zA-Z0-9._-]+/g,'-').slice(-160);
@@ -26,6 +26,11 @@ export default {
         .eq('is_active',true)
         .maybeSingle();
       if(membershipError||!membership) return response({error:'document_share_not_authorized'},403);
+
+      if(['agency_admin','manager','compliance'].includes(membership.role)
+         && !claimsHaveAal2(ctx.userClaims as Record<string,unknown>)){
+        return response({error:'aal2_required'},403);
+      }
 
       if(membership.role==='agent'){
         const {data:client,error:clientError}=await ctx.supabase.from('clients')
