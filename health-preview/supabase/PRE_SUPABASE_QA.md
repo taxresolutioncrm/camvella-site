@@ -4,7 +4,7 @@ Status: PRE-TARGET HARDENING GATE
 
 ## Package inventory
 - 58 public application/support tables
-- 70 uniquely ordered SQL modules
+- 71 uniquely ordered SQL modules
 - 44 CRM routes / 45 routed CRM views
 - dedicated website, booking, login, onboarding, invite acceptance, password recovery, MFA, and client-portal surfaces
 - 13 Edge Functions
@@ -19,6 +19,7 @@ Status: PRE-TARGET HARDENING GATE
 - Reporting/activity views use security_invoker.
 - Organization, office, assigned-book and role boundaries are modeled.
 - Portal users are separated from internal client, communications, consent, evidence and agency-only document access.
+- Portal policy rows are exposed through a client-safe projection RPC.
 - Portal document paths distinguish agency / portal / shared visibility.
 - Cross-org parent/user references and Storage path mismatches are guarded.
 - Private Storage paths are aligned to organization, office and entity context.
