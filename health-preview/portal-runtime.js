@@ -57,13 +57,13 @@ async function loadDocuments(){
     const path=portalAccount.organization_id+'/'+(client.office_id||'shared')+'/'+client.id+'/portal/'+crypto.randomUUID()+'-'+safe;
     box.innerHTML=status('Uploading…');
     const {error:upErr}=await clientApi.storage.from('client-documents').upload(path,file,{upsert:false,contentType:file.type||undefined});
-    if(upErr){box.innerHTML=status(upErr.message,true);return}
+    if(upErr){box.innerHTML=status('Upload could not be completed. Please try again.',true);return}
     const {error:metaErr}=await clientApi.from('documents').insert({
       organization_id:portalAccount.organization_id,office_id:client.office_id||null,client_id:client.id,
       document_type:String(fd.get('document_type')||'portal_upload'),file_name:file.name,storage_path:path,
       mime_type:file.type||null,byte_size:file.size,uploaded_by:null,portal_visible:true
     });
-    if(metaErr){await clientApi.storage.from('client-documents').remove([path]);box.innerHTML=status(metaErr.message,true);return}
+    if(metaErr){await clientApi.storage.from('client-documents').remove([path]);box.innerHTML=status('The file uploaded but could not be filed. Please try again.',true);return}
     box.innerHTML=status('Upload complete.');await loadDocuments();
   };
 }
@@ -72,7 +72,7 @@ async function loadRequests(){
   setHeading('Service requests','Ask your agency for help with coverage, ID cards, updates and other policy needs.');
   const {data:requests,error}=await clientApi.rpc('list_my_portal_service_requests');
   if(error)throw error;
-  content.innerHTML='<section class="panel"><h2>Your requests</h2><div class="list">'+((requests||[]).length?(requests||[]).map(r=>'<div class="item"><b>'+esc(r.request_type)+'</b><span>'+date(r.created_at)+' · '+esc(r.priority)+'</span><div style="margin-top:7px"><span class="pill">'+esc(r.status)+'</span></div></div>').join(''):empty('No requests yet.'))+'</div></section>'+
+  content.innerHTML='<section class="panel"><h2>Your requests</h2><div class="list">'+((requests||[]).length?(requests||[]).map(r=>'<div class="item"><b>'+esc(r.request_type)+'</b><span>'+date(r.created_at)+' · '+esc(r.priority)+'</span>'+(r.details?'<span>'+esc(r.details)+'</span>':'')+'<div style="margin-top:7px"><span class="pill">'+esc(r.status)+'</span></div></div>').join(''):empty('No requests yet.'))+'</div></section>'+
   '<section class="panel"><h2>New request</h2><form id="requestForm" class="form"><div class="field"><label>Request type</label><input name="request_type" required maxlength="160"></div><div class="field"><label>Priority</label><select name="priority"><option>normal</option><option>high</option><option>urgent</option></select></div><div class="field full"><label>Details</label><textarea name="details" required maxlength="4000"></textarea></div><div class="full"><button class="btn" type="submit">Submit request</button></div></form><div id="requestStatus"></div></section>';
   document.getElementById('requestForm').onsubmit=async e=>{
     e.preventDefault();const fd=new FormData(e.target),box=document.getElementById('requestStatus');
@@ -83,7 +83,7 @@ async function loadRequests(){
       p_priority:String(fd.get('priority')||'normal'),
       p_details:details
     });
-    if(reqErr){box.innerHTML=status(reqErr.message,true);return}
+    if(reqErr){box.innerHTML=status('Your request could not be submitted. Please try again.',true);return}
     box.innerHTML=status('Request submitted.');
     e.target.reset();await loadRequests();
   };
@@ -121,14 +121,14 @@ async function loadPreferences(){
       fax_allowed:fd.has('fax_allowed'),do_not_call:fd.has('do_not_call'),updated_by:null
     };
     const query=pref?clientApi.from('contact_preferences').update(payload).eq('id',pref.id):clientApi.from('contact_preferences').insert(payload);
-    const {error}=await query;document.getElementById('prefStatus').innerHTML=error?status(error.message,true):status('Preferences saved.');
+    const {error}=await query;document.getElementById('prefStatus').innerHTML=error?status('Preferences could not be saved. Please try again.',true):status('Preferences saved.');
   };
 }
 
 const loaders={home:loadHome,documents:loadDocuments,requests:loadRequests,messages:loadMessages,preferences:loadPreferences};
 async function show(view){
   nav.forEach(b=>b.classList.toggle('active',b.dataset.view===view));content.innerHTML=empty('Loading…');
-  try{await (loaders[view]||loadHome)()}catch(error){content.innerHTML=empty(error?.message||'Unable to load this section.')}
+  try{await (loaders[view]||loadHome)()}catch(error){content.innerHTML=empty('Unable to load this section right now. Please try again.')}
 }
 nav.forEach(b=>b.onclick=()=>show(b.dataset.view));
 
