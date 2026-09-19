@@ -1,10 +1,10 @@
 # PRE-TARGET PACKAGE READY FOR SUPABASE EXECUTION
 
-The isolated branch contains the complete pre-target implementation package: CRM/website sandbox, booking flow, login/onboarding/recovery/MFA, client portal, auth/runtime/data/live-view/action drivers, provider adapters, import tooling, 69 uniquely ordered SQL modules covering 58 tables, RLS and role boundaries, AAL2 guards, private Storage, audit/integrity guards, atomic server workflows, public intake/booking, Edge Function auth, reporting/search, isolation tests, SEO handoff and deployment runbook.
+The isolated branch contains the complete pre-target implementation package: CRM/website sandbox, booking flow, login/onboarding/recovery/MFA, client portal, auth/runtime/data/live-view/action drivers, provider adapters, import tooling, 70 uniquely ordered SQL modules covering 58 tables, RLS and role boundaries, AAL2 guards, private Storage, audit/integrity guards, atomic server workflows, public intake/booking, Edge Function auth, reporting/search, isolation tests, SEO handoff and deployment runbook.
 
 ## Next target-phase sequence
 1. Select the dedicated Supabase project.
-2. Execute all 69 SQL modules in order on that target.
+2. Execute all 70 SQL modules in order on that target.
 3. Create deterministic Auth users/orgs/offices/roles/portal fixtures.
 4. Run tenant + office + assigned-book + role + portal tests.
 5. Run Storage path/role/AAL2 matrix.
