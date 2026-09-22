@@ -108,7 +108,7 @@ async function loadMessages(){
 
 async function loadPreferences(){
   setHeading('Contact preferences','Choose which channels your agency may use to contact you.');
-  const {data:pref,error}=await clientApi.from('contact_preferences').select('*').eq('client_id',client.id).maybeSingle();
+  const {data:pref,error}=await clientApi.from('contact_preferences').select('id,email_allowed,sms_allowed,phone_allowed,fax_allowed,do_not_call').eq('client_id',client.id).maybeSingle();
   if(error)throw error;
   const p=pref||{email_allowed:true,sms_allowed:true,phone_allowed:true,fax_allowed:true,do_not_call:false};
   content.innerHTML='<section class="panel"><h2>Communication preferences</h2><form id="prefForm" class="form">'+
