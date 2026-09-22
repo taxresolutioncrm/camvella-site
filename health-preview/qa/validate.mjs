@@ -70,7 +70,7 @@ for(const fn of securityDefiners){
   if(!/set search_path\s*=/i.test(fn)) failures.push('SECURITY DEFINER function missing fixed search_path');
 }
 
-const storageFiles=['004_storage.sql','017_security_cleanup_and_audit.sql','024_storage_role_alignment.sql','028_portal_privacy_and_task_roles.sql','040_import_storage.sql','046_import_storage_role_alignment.sql','047_portal_data_boundary.sql','053_storage_aal2_alignment.sql','055_storage_path_integrity.sql','060_portal_storage_write_boundary.sql','062_storage_reference_uniqueness.sql','069_portal_storage_metadata_alignment.sql','070_storage_office_alignment.sql'];
+const storageFiles=['004_storage.sql','017_security_cleanup_and_audit.sql','024_storage_role_alignment.sql','028_portal_privacy_and_task_roles.sql','040_import_storage.sql','046_import_storage_role_alignment.sql','047_portal_data_boundary.sql','053_storage_aal2_alignment.sql','055_storage_path_integrity.sql','060_portal_storage_write_boundary.sql','062_storage_reference_uniqueness.sql','069_portal_storage_metadata_alignment.sql','070_storage_office_alignment.sql','081_storage_type_and_size_limits.sql','082_storage_path_authorization_alignment.sql','087_storage_object_immutability.sql','088_storage_visibility_namespace.sql'];
 const storage=storageFiles.filter(x=>mig[x]).map(x=>mig[x]).join('\n');
 for(const op of ['select','insert','update','delete']){
   if(!storage.includes('for '+op+' to authenticated')) failures.push('storage policy missing '+op);
@@ -99,7 +99,16 @@ for(const required of [
   '065_last_admin_guard.sql','066_portal_account_single_active_user.sql',
   '067_concurrency_hardening.sql','068_member_deletion_integrity.sql',
   '069_portal_storage_metadata_alignment.sql','070_storage_office_alignment.sql',
-  '071_portal_policy_least_privilege.sql','072_identity_mode_and_bootstrap_serialization.sql'
+  '071_portal_policy_least_privilege.sql','072_identity_mode_and_bootstrap_serialization.sql',
+  '073_identity_mode_lock_alignment.sql','074_portal_orphan_upload_cleanup.sql',
+  '075_service_request_details.sql','076_aal2_configuration_writes.sql',
+  '077_membership_and_invite_integrity.sql','078_licensing_and_contracting_aal2.sql',
+  '079_portal_request_projection.sql','080_active_assignment_completion.sql',
+  '081_storage_type_and_size_limits.sql','082_storage_path_authorization_alignment.sql',
+  '083_privileged_role_aal2_boundary.sql','084_user_profile_aal2_alignment.sql',
+  '085_agent_configuration_read_scope.sql','086_append_only_operational_history.sql',
+  '087_storage_object_immutability.sql','088_storage_visibility_namespace.sql',
+  '089_browser_hard_delete_boundary.sql','090_secret_reference_column_boundary.sql'
 ]){
   if(!mig[required]) failures.push('missing hardening module '+required);
 }
@@ -131,8 +140,12 @@ if((config.match(/verify_jwt = false/g)||[]).length!==4) failures.push('unexpect
 
 if(!site.includes('SoftwareApplication')) failures.push('website SoftwareApplication schema missing');
 if(!site.includes('leadForm')) failures.push('website lead capture missing');
-if(!portal.includes('Documents')||!portal.includes('Requests')||!portal.includes('Messages')) failures.push('portal navigation incomplete');
+if(!portal.includes('Documents')||!portal.includes('Requests')||!portal.includes('Messages')||!portal.includes('Preferences')) failures.push('portal navigation incomplete');
 if(!read('portal-runtime.js').includes("rpc('list_my_portal_policies')")) failures.push('portal least-privilege policy RPC missing');
+if(!read('portal-runtime.js').includes("rpc('create_my_portal_service_request')")) failures.push('portal service-request RPC missing');
+if(!read('portal-runtime.js').includes("mark_my_portal_messages_read")) failures.push('portal message receipt RPC missing');
+if(!read('login-runtime.js').includes('safeReturnTarget')) failures.push('safe auth return target missing');
+if(!read('runtime-init.js').includes("portalAccounts?.length?'./portal.html':'./onboarding.html'")) failures.push('agency/portal identity routing missing');
 if(!allMig.includes("active client portal identities cannot accept agency team invitations")||!allMig.includes("agency team identities cannot activate a client portal")) failures.push('identity-mode guard migration missing');
 
 const actionLabels=[...new Set([...app.matchAll(/btn\('([^']+)'/g)].map(m=>m[1]))];
@@ -151,7 +164,7 @@ for(const label of actionLabels){
 }
 
 if(tables.length!==58) failures.push('expected exactly 58 public tables, found '+tables.length);
-if(names.length!==72) failures.push('expected exactly 72 SQL modules, found '+names.length);
+if(names.length!==90) failures.push('expected exactly 90 SQL modules, found '+names.length);
 
 console.log(JSON.stringify({
   tables:tables.length,
