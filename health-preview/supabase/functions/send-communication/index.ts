@@ -83,17 +83,37 @@ export default {
 
       let targetClient:any=null;
       let targetLead:any=null;
-      if(requestedClientId){
+      let resolvedClientId=requestedClientId;
+      let resolvedLeadId=leadId;
+
+      if(!resolvedClientId&&!resolvedLeadId){
+        const clientLookup=channel==='email'
+          ? ctx.supabase.from('clients').select('id,organization_id,office_id,assigned_user_id').ilike('email',to).limit(2)
+          : ctx.supabase.from('clients').select('id,organization_id,office_id,assigned_user_id').eq('phone',to).limit(2);
+        const leadLookup=channel==='email'
+          ? ctx.supabase.from('leads').select('id,organization_id,office_id').ilike('email',to).limit(2)
+          : ctx.supabase.from('leads').select('id,organization_id,office_id').eq('phone',to).limit(2);
+        const [{data:clientMatches,error:clientLookupError},{data:leadMatches,error:leadLookupError}]=await Promise.all([clientLookup,leadLookup]);
+        if(clientLookupError||leadLookupError) return response({error:'communication_target_lookup_failed'},500);
+        const matches=[...(clientMatches||[]).map(x=>({kind:'client',row:x})),...(leadMatches||[]).map(x=>({kind:'lead',row:x}))];
+        if(matches.length>1) return response({error:'communication_target_ambiguous'},409);
+        if(matches.length===1){
+          if(matches[0].kind==='client')resolvedClientId=matches[0].row.id;
+          else resolvedLeadId=matches[0].row.id;
+        }
+      }
+
+      if(resolvedClientId){
         const {data,error}=await ctx.supabase.from('clients')
           .select('id,organization_id,office_id,assigned_user_id')
-          .eq('id',requestedClientId).maybeSingle();
+          .eq('id',resolvedClientId).maybeSingle();
         if(error||!data) return response({error:'client_not_accessible'},403);
         targetClient=data;
       }
-      if(leadId){
+      if(resolvedLeadId){
         const {data,error}=await ctx.supabase.from('leads')
           .select('id,organization_id,office_id')
-          .eq('id',leadId).maybeSingle();
+          .eq('id',resolvedLeadId).maybeSingle();
         if(error||!data) return response({error:'lead_not_accessible'},403);
         targetLead=data;
       }
@@ -102,9 +122,9 @@ export default {
       const officeId=targetClient?.office_id||targetLead?.office_id||agencyMembership.office_id||null;
       if(organizationId!==agencyMembership.organization_id) return response({error:'workspace_mismatch'},403);
 
-      if(requestedClientId||leadId){
+      if(resolvedClientId||resolvedLeadId){
         let prefQuery=ctx.supabase.from('contact_preferences').select('*').eq('organization_id',organizationId);
-        prefQuery=requestedClientId?prefQuery.eq('client_id',requestedClientId):prefQuery.eq('lead_id',leadId);
+        prefQuery=resolvedClientId?prefQuery.eq('client_id',resolvedClientId):prefQuery.eq('lead_id',resolvedLeadId);
         const {data:pref}=await prefQuery.maybeSingle();
         if(pref){
           const denied=
@@ -118,18 +138,26 @@ export default {
 
       let endpointQuery=ctx.supabase
         .from('communication_endpoints')
-        .select('id,provider_connection_id,address,status,outbound_enabled')
+        .select('id,provider_connection_id,address,status,outbound_enabled,user_id,office_id,is_default')
         .eq('organization_id',organizationId)
         .eq('channel',channel)
         .eq('status','active')
         .eq('outbound_enabled',true)
-        .order('is_default',{ascending:false})
-        .limit(1);
+        .or('user_id.eq.'+userId+',user_id.is.null')
+        .limit(25);
       if(officeId) endpointQuery=endpointQuery.or('office_id.is.null,office_id.eq.'+officeId);
 
       const {data:endpoints,error:endpointError}=await endpointQuery;
       if(endpointError) return response({error:'endpoint_lookup_failed'},500);
-      const endpoint=endpoints?.[0];
+      const ranked=(endpoints||[]).sort((a:any,b:any)=>{
+        const score=(x:any)=>
+          (x.user_id===userId?100:0)+
+          (officeId&&x.office_id===officeId?20:0)+
+          (x.office_id===null?10:0)+
+          (x.is_default?5:0);
+        return score(b)-score(a);
+      });
+      const endpoint=ranked[0];
       if(!endpoint?.provider_connection_id) return response({error:'communication_provider_not_connected',channel},409);
 
       const {data:connection,error:connectionError}=await ctx.supabaseAdmin
