@@ -143,13 +143,19 @@ export default {
         .eq('channel',channel)
         .eq('status','active')
         .eq('outbound_enabled',true)
-        .or('user_id.eq.'+userId+',user_id.is.null')
-        .limit(25);
-      if(officeId) endpointQuery=endpointQuery.or('office_id.is.null,office_id.eq.'+officeId);
+        .limit(50);
 
       const {data:endpoints,error:endpointError}=await endpointQuery;
       if(endpointError) return response({error:'endpoint_lookup_failed'},500);
-      const ranked=(endpoints||[]).sort((a:any,b:any)=>{
+      const eligible=(endpoints||[]).filter((x:any)=>
+        (x.user_id===userId||x.user_id===null)
+        && (
+          officeId
+            ? (x.office_id===officeId||x.office_id===null)
+            : x.office_id===null
+        )
+      );
+      const ranked=eligible.sort((a:any,b:any)=>{
         const score=(x:any)=>
           (x.user_id===userId?100:0)+
           (officeId&&x.office_id===officeId?20:0)+
