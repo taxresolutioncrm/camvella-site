@@ -18,7 +18,7 @@
 
 ## Pre-target backend
 - [x] 58-table domain model
-- [x] 71 uniquely ordered SQL modules
+- [x] 90 uniquely ordered SQL modules
 - [x] provider adapter contracts
 - [x] 13 Edge Functions
 - [x] current Edge Function auth model
