@@ -17,9 +17,10 @@ function empty(text){return '<div class="empty">'+esc(text)+'</div>'}
 function status(message,error=false){return '<div class="status" style="'+(error?'color:#8b2c2c':'')+'">'+esc(message)+'</div>'}
 
 async function signedDocumentUrl(doc){
-  const {data,error}=await clientApi.storage.from('client-documents').createSignedUrl(doc.storage_path,300);
+  const {data,error}=await clientApi.functions.invoke('portal-document-url',{body:{document_id:doc.id}});
   if(error)throw error;
-  return data.signedUrl;
+  if(data?.error||!data?.url)throw new Error(data?.error||'Document link failed');
+  return data.url;
 }
 
 async function loadHome(){
@@ -41,7 +42,7 @@ async function loadHome(){
 
 async function loadDocuments(){
   setHeading('Documents','Shared files and secure uploads.');
-  const {data:docs,error}=await clientApi.from('documents').select('*').eq('client_id',client.id).eq('portal_visible',true).order('created_at',{ascending:false});
+  const {data:docs,error}=await clientApi.from('documents').select('id,document_type,file_name,mime_type,byte_size,created_at').eq('client_id',client.id).eq('portal_visible',true).order('created_at',{ascending:false});
   if(error)throw error;
   content.innerHTML='<section class="panel"><h2>Documents</h2><div class="muted">Only files explicitly shared with you or uploaded through this portal appear here.</div><div id="docList" class="list">'+((docs||[]).length?(docs||[]).map(d=>'<div class="item"><b>'+esc(d.file_name)+'</b><span>'+esc(d.document_type)+' · '+date(d.created_at)+'</span><button class="btn secondary openDoc" data-id="'+d.id+'" style="margin-top:9px">Open</button></div>').join(''):empty('No shared documents yet.'))+'</div></section>'+
     '<section class="panel"><h2>Upload a document</h2><form id="uploadForm" class="form"><div class="field"><label>Document type</label><input name="document_type" required maxlength="120"></div><div class="field"><label>File</label><input name="file" type="file" required></div><div class="full"><button class="btn" type="submit">Upload securely</button></div></form><div id="uploadStatus"></div></section>';
