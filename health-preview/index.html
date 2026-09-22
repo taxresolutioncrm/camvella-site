@@ -10,7 +10,7 @@
 .app{display:grid;grid-template-columns:268px 1fr;min-height:100vh}.sidebar{background:linear-gradient(180deg,var(--nav),#0b2130);color:#fff;height:100vh;position:sticky;top:0;overflow:auto;padding:18px 14px 20px}
 .logo{display:flex;align-items:center;gap:11px;padding:4px 8px 17px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px}.logoMark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#58d2c7,#1e8f86);display:grid;place-items:center;font-weight:900;color:#092837}.logo b{font-size:15px;display:block}.logo span{font-size:11px;color:#9cb7c7}
 .group{margin-top:8px}.groupToggle{width:100%;border:0;background:transparent;color:#7896a8;padding:8px 10px 6px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-radius:8px}.groupToggle:hover{background:rgba(255,255,255,.035);color:#a8c0cd}.groupTitle{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:800}.groupChevron{font-size:11px;transition:transform .18s ease;color:#66879a}.group.collapsed .groupChevron{transform:rotate(-90deg)}.groupBody{display:grid;grid-template-rows:1fr;transition:grid-template-rows .18s ease,opacity .18s ease;opacity:1}.groupBodyInner{min-height:0;overflow:hidden}.group.collapsed .groupBody{grid-template-rows:0fr;opacity:.35}.navBtn{width:100%;display:flex;align-items:center;gap:10px;border:0;background:transparent;color:#bcd0db;padding:9px 10px;border-radius:9px;margin:2px 0;text-align:left;cursor:pointer;font-size:13px}.navBtn:hover,.navBtn.active{background:var(--nav2);color:#fff}.navIcon{width:18px;text-align:center;opacity:.9}.badge{margin-left:auto;background:#1d536d;padding:2px 7px;border-radius:999px;font-size:10px;color:#d8edf5}
-.main{min-width:0}.topbar{height:72px;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 26px;position:sticky;top:0;z-index:10;backdrop-filter:blur(8px)}.search{width:min(520px,52vw);position:relative}.search input{width:100%;border:1px solid var(--line);background:#f9fbfc;border-radius:10px;padding:10px 13px 10px 36px;outline:none}.search:before{content:"⌕";position:absolute;left:12px;top:8px;color:#80919d;font-size:18px}.account{display:flex;gap:11px;align-items:center}.avatar{width:34px;height:34px;border-radius:50%;background:#e7f3f4;color:#176c66;display:grid;place-items:center;font-weight:800}.account b{font-size:13px}.account span{display:block;color:var(--muted);font-size:11px}
+.main{min-width:0}.topbar{height:72px;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 26px;position:sticky;top:0;z-index:10;backdrop-filter:blur(8px)}.search{width:min(520px,52vw);position:relative}.search input{width:100%;border:1px solid var(--line);background:#f9fbfc;border-radius:10px;padding:10px 13px 10px 36px;outline:none}.search:before{content:"⌕";position:absolute;left:12px;top:8px;color:#80919d;font-size:18px}.account{display:flex;gap:11px;align-items:center}.avatar{width:34px;height:34px;border-radius:50%;background:#e7f3f4;color:#176c66;display:grid;place-items:center;font-weight:800}.account b{font-size:13px}.account span{display:block;color:var(--muted);font-size:11px}.signOutBtn{display:none;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:8px;padding:8px 10px;font-size:11px;font-weight:800;cursor:pointer}.signOutBtn:hover{background:#f5f8fa}
 .content{padding:26px;max-width:1500px;margin:auto}.pageHead{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;margin-bottom:20px}.eyebrow{font-size:11px;color:var(--teal);font-weight:800;letter-spacing:.08em;text-transform:uppercase}.pageHead h1{font-size:28px;margin:4px 0 4px;letter-spacing:-.03em}.pageHead p{margin:0;color:var(--muted);font-size:13px}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:9px;padding:9px 12px;cursor:pointer;font-weight:700;font-size:12px}.btn.primary{background:var(--teal);color:#fff}.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
 .notice{background:#edf8f6;border:1px solid #c9ebe6;border-radius:12px;padding:11px 13px;margin-bottom:16px;font-size:12px;color:#2b605c}
 .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.kpi{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:15px 16px;box-shadow:var(--shadow)}.kpiLabel{font-size:11px;color:var(--muted);font-weight:700}.kpiVal{font-size:25px;font-weight:850;letter-spacing:-.03em;margin:5px 0 1px}.kpiFoot{font-size:11px;color:var(--muted)}.delta{font-size:10px;margin-left:6px;color:var(--teal);font-weight:800}
@@ -29,14 +29,14 @@
 <body>
 <div class="app">
 <aside class="sidebar"><div class="logo"><div class="logoMark">HI</div><div><b>RomyLabs Insurance</b><span>ACA + Medicare CRM</span></div></div><div id="nav"></div></aside>
-<main class="main"><header class="topbar"><div class="search"><input id="search" placeholder="Search clients, policies, carriers, tasks…"></div><div class="account"><select id="workspaceSelect" class="workspaceSelect" aria-label="Agency workspace"></select><div class="avatar">RA</div><div><b id="accountOrgName">Romy Agency</b><span>Sandbox · backend disconnected</span></div></div></header><div id="view" class="content"></div></main>
+<main class="main"><header class="topbar"><div class="search"><input id="search" placeholder="Search clients, policies, carriers, tasks…"></div><div class="account"><select id="workspaceSelect" class="workspaceSelect" aria-label="Agency workspace"></select><div class="avatar">RA</div><div><b id="accountOrgName">Romy Agency</b><span>Sandbox · backend disconnected</span></div><button id="signOutBtn" class="signOutBtn" type="button">Sign out</button></div></header><div id="view" class="content"></div></main>
 </div>
 <div id="actionModal" class="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="modal">
     <div class="modalHead"><h3 id="modalTitle">New record</h3><button class="modalClose" id="modalClose" aria-label="Close">×</button></div>
     <form id="modalForm">
       <div class="modalBody"><div id="modalFields" class="formGrid"></div></div>
-      <div class="modalFoot"><button type="button" class="btn secondary" id="modalCancel">Cancel</button><button type="submit" class="btn primary">Save in sandbox</button></div>
+      <div class="modalFoot"><button type="button" class="btn secondary" id="modalCancel">Cancel</button><button type="submit" class="btn primary" id="modalSubmit">Save in sandbox</button></div>
     </form>
   </div>
 </div>
@@ -689,9 +689,14 @@ async function runGlobalSearch(query){
 }
 document.getElementById('search').onkeydown=e=>{if(e.key==='Enter')runGlobalSearch(e.target.value)};
 addEventListener('health-crm-backend-ready',e=>{
+  const live=e.detail.mode==='supabase';
   const sub=document.querySelector('.account span');
-  if(sub)sub.textContent=e.detail.mode==='supabase'?'Connected workspace · '+(e.detail.role||'member'):'Sandbox · backend disconnected';
-  applyRoleUi(e.detail.mode==='supabase'?e.detail.role:null);
+  const signOut=document.getElementById('signOutBtn');
+  const modalSubmit=document.getElementById('modalSubmit');
+  if(sub)sub.textContent=live?'Connected workspace · '+(e.detail.role||'member'):'Sandbox · backend disconnected';
+  if(signOut)signOut.style.display=live?'inline-flex':'none';
+  if(modalSubmit)modalSubmit.textContent=live?'Save':'Save in sandbox';
+  applyRoleUi(live?e.detail.role:null);
   render();
 });
 addEventListener('hashchange',render);render();
