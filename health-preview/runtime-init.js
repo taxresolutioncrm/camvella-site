@@ -54,6 +54,20 @@ async function initHealthCrmBackend(){
     role:backend.selected?.role||null
   };
 
+  const signOutButton=document.getElementById('signOutBtn');
+  if(signOutButton&&backend.mode==='supabase'){
+    signOutButton.onclick=async()=>{
+      signOutButton.disabled=true;
+      try{
+        await backend.client.auth.signOut();
+      }finally{
+        localStorage.removeItem('health-crm-org-id');
+        sessionStorage.removeItem('healthMfaNext');
+        location.replace('./login.html');
+      }
+    };
+  }
+
   if(backend.mode==='supabase'&&backend.selected){
     localStorage.setItem('health-crm-org-id',backend.selected.organization_id);
     const select=document.getElementById('workspaceSelect');
