@@ -75,6 +75,24 @@ Do not apply this work to an existing unrelated RomyLabs project.
 70. 070_storage_office_alignment.sql
 71. 071_portal_policy_least_privilege.sql
 72. 072_identity_mode_and_bootstrap_serialization.sql
+73. 073_identity_mode_lock_alignment.sql
+74. 074_portal_orphan_upload_cleanup.sql
+75. 075_service_request_details.sql
+76. 076_aal2_configuration_writes.sql
+77. 077_membership_and_invite_integrity.sql
+78. 078_licensing_and_contracting_aal2.sql
+79. 079_portal_request_projection.sql
+80. 080_active_assignment_completion.sql
+81. 081_storage_type_and_size_limits.sql
+82. 082_storage_path_authorization_alignment.sql
+83. 083_privileged_role_aal2_boundary.sql
+84. 084_user_profile_aal2_alignment.sql
+85. 085_agent_configuration_read_scope.sql
+86. 086_append_only_operational_history.sql
+87. 087_storage_object_immutability.sql
+88. 088_storage_visibility_namespace.sql
+89. 089_browser_hard_delete_boundary.sql
+90. 090_secret_reference_column_boundary.sql
 
 These are ordered pre-target SQL modules, not committed Supabase migration history yet.
 
@@ -93,7 +111,7 @@ These are ordered pre-target SQL modules, not committed Supabase migration histo
 
 ## Current package
 - 58 public application/support tables
-- 72 uniquely ordered pre-target SQL modules
+- 90 uniquely ordered pre-target SQL modules
 - 44 CRM routes plus dedicated login, onboarding, MFA, recovery, invitation, booking, and client-portal surfaces
 - 13 Edge Functions
 - RLS/office/assigned-book role boundaries
