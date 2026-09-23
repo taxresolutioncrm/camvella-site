@@ -108,7 +108,7 @@ for(const required of [
   '083_privileged_role_aal2_boundary.sql','084_user_profile_aal2_alignment.sql',
   '085_agent_configuration_read_scope.sql','086_append_only_operational_history.sql',
   '087_storage_object_immutability.sql','088_storage_visibility_namespace.sql',
-  '089_browser_hard_delete_boundary.sql','090_secret_reference_column_boundary.sql'
+  '089_browser_hard_delete_boundary.sql','090_secret_reference_column_boundary.sql','091_public_availability_tenant_alignment.sql'
 ]){
   if(!mig[required]) failures.push('missing hardening module '+required);
 }
@@ -123,7 +123,7 @@ if(!read('lib/action-service.js').includes('class ActionService')) failures.push
 const edgeFiles=[
   'bootstrap-tenant','accept-team-invite','create-team-invite','create-portal-invite','accept-portal-invite',
   'public-intake','public-booking','public-availability','provider-webhook',
-  'send-communication','process-import','process-commission-statement','share-client-document'
+  'send-communication','process-import','process-commission-statement','share-client-document','portal-document-url'
 ];
 for(const fn of edgeFiles){
   const p='supabase/functions/'+fn+'/index.ts';
