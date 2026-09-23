@@ -4,13 +4,13 @@ The isolated branch contains the complete pre-target implementation package: CRM
 
 ## Next target-phase sequence
 1. Select the dedicated Supabase project.
-2. Execute all 90 SQL modules in order on that target.
+2. Execute all 91 SQL modules in order on that target.
 3. Create deterministic Auth users/orgs/offices/roles/portal fixtures.
 4. Run tenant + office + assigned-book + role + portal tests.
 5. Run Storage path/role/AAL2 matrix.
 6. Run database advisors; fix every relevant finding.
 7. Configure Auth/MFA/redirects and verify session/revocation behavior.
-8. Deploy all 13 Edge Functions and test bootstrap/invite/public/import/commission/communication endpoints.
+8. Deploy all 14 Edge Functions and test bootstrap/invite/public/import/commission/communication endpoints.
 9. Generate one clean timestamped migration after the target schema is green.
 10. Connect browser runtime using only project URL + publishable key.
 11. Connect providers one at a time.
