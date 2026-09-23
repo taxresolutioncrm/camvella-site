@@ -4,10 +4,10 @@ Status: PRE-TARGET HARDENING GATE
 
 ## Package inventory
 - 58 public application/support tables
-- 90 uniquely ordered SQL modules
+- 91 uniquely ordered SQL modules
 - 44 CRM routes / 45 routed CRM views
 - dedicated website, booking, login, onboarding, invite acceptance, password recovery, MFA, and client-portal surfaces
-- 13 Edge Functions
+- 14 Edge Functions
 - current @supabase/server@1.7.0 auth pattern
 - pinned browser supabase-js 2.116.0
 - Auth/MFA configuration gate
