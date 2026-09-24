@@ -1,5 +1,25 @@
 export const seoGuides = [
   {
+    slug:'best-hoa-management-software',
+    title:'Best HOA Management Software: What Professional Management Companies Should Compare',
+    description:'A practical guide to comparing HOA management software for accounting, violations, ARC, work orders, portals, communications, reporting, security and implementation.',
+    eyebrow:'Software evaluation guide',
+    h1:'The best HOA management software is the one that fits the whole management workflow.',
+    intro:'Professional community association management companies should compare software by the operating work it can actually carry: accounting, compliance, ARC, work orders, boards, residents, vendors, communication, reporting and portfolio controls.',
+    sections:[
+      ['Compare the entire management workflow','Do not evaluate only the resident portal or CRM screen. Test association accounting, owner ledgers, violations, ARC, work orders, vendor records, board activity, documents, communications and reporting as one connected process.'],
+      ['Use a real portfolio scenario in the demo','Bring one association with realistic units, owners, open work, a violation, an ARC request and financial activity. A useful evaluation shows how information moves between teams without duplicate entry.'],
+      ['Look closely at accounting and association separation','Management companies need reliable association-level books, bank reconciliation, receivables, payables, budgets, reporting and permissions. Confirm one association cannot accidentally bleed into another.'],
+      ['Evaluate portals and communication in context','Resident and board portals matter most when requests, documents, balances, notices and approvals stay connected to the underlying management record.'],
+      ['Include implementation, migration and support in the decision','The best feature list does not help if the data migration, staff training or cutover fails. Compare onboarding, historical-data import, support ownership and the real total cost of switching.']
+    ],
+    faq:[
+      ['What is the best HOA management software for a professional management company?','The best fit depends on portfolio size and workflow, but professional managers should compare accounting, violations, ARC, work orders, portals, communications, permissions, reporting, implementation and security together.'],
+      ['What should an HOA management software demo include?','Use a real community and follow a complete workflow from owner or resident activity through manager action, accounting or board impact, communication and reporting.'],
+      ['How is Camvella different from a generic property management CRM?','Camvella is designed around community association operations, including association separation, governance, compliance, resident workflows and HOA accounting rather than only a generic sales or tenant pipeline.']
+    ]
+  },
+  {
     slug:'hoa-work-order-management-workflow',
     title:'HOA Work Order Management Workflow',
     description:'A practical HOA work order workflow for intake, triage, vendors, approvals, resident communication, completion and reporting.',
