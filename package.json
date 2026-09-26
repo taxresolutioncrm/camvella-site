@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && node scripts/generate-sitemap.mjs",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "seo:indexnow": "node scripts/indexnow-submit.mjs"
   },
   "dependencies": {
     "astro": "^4.16.18",
