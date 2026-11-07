@@ -1,0 +1,35 @@
+name: SEO commercial buyer-intent safety gate
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/pages/features/violations.astro'
+      - '.github/workflows/seo-commercial-intent.yml'
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Full repository build and existing validation
+        run: |
+          npm ci --no-audit --no-fund && npm run build
+      - name: Validate scoped page content and canonical contract
+        env:
+          TARGET_PAGE: 'src/pages/features/violations.astro'
+          TARGET_PHRASE: 'How to evaluate HOA violation tracking software'
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          p=Path(os.environ['TARGET_PAGE'])
+          s=p.read_text()
+          assert os.environ['TARGET_PHRASE'] in s, 'Buyer-intent update missing'
+          assert s.count('<h1')==1, 'H1 count must remain one'
+          assert len(s)>1000, 'Page unexpectedly truncated'
+          print('PASS isolated commercial SEO source contract:',p)
+          PY
