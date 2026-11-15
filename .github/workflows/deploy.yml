@@ -50,3 +50,7 @@ jobs:
           test -f dist/guides/index.html
           test -f dist/sitemap.xml
           test -f dist/robots.txt
+          test -f dist/78057e4eedc3de519284327e5fd31bf6.txt
+      - name: Submit changed live website URLs via IndexNow
+        if: github.event_name == 'push'
+        run: node scripts/submit-indexnow.mjs
