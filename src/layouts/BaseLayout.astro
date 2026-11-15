@@ -1243,7 +1243,9 @@ body > *:first-child[style*="background"][style*="position: fixed"][style*="top:
 }
 @media (hover:hover) {
   :is(a[class~="compare-card"],a[class~="buyer-intent-card"],a[class~="feature-card"],a[class~="resource-card"],a[class~="seo-feature-card"],.guide-grid > a,.states > a,.fg-related > a):hover{
-    border-color:var(--clr-teal);
+    border-color:var(--clr-teal)!important;
+    outline:2px solid var(--clr-teal);
+    outline-offset:-2px;
     box-shadow:0 10px 26px rgba(11,143,156,.14);
     transform:translateY(-2px);
   }
