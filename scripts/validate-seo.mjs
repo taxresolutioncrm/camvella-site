@@ -33,6 +33,13 @@ for (const file of htmlFiles) {
 const sitemap = await read('sitemap.xml')
 const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(x=>x[1])
 const urlSet = new Set(urls)
+const lastmodEntries = [...sitemap.matchAll(/<url>\s*<loc>([^<]+)<\/loc>([\s\S]*?)<\/url>/g)]
+const homeEntry = lastmodEntries.find(x => x[1] === 'https://camvella.com/')
+if (!homeEntry || !/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/.test(homeEntry[2])) errors.push('homepage sitemap lastmod missing or invalid')
+for(const [,url,body] of lastmodEntries){
+  const value = body.match(/<lastmod>([^<]+)<\/lastmod>/)?.[1]
+  if(value && !/^\d{4}-\d{2}-\d{2}$/.test(value)) errors.push(`invalid sitemap lastmod: ${url}`)
+}
 if (urlSet.size !== urls.length) errors.push('duplicate URLs in sitemap')
 if (urls.length < 75) errors.push(`only ${urls.length} URLs in sitemap: expected site sections and state pages`)
 for(const u of urls){
