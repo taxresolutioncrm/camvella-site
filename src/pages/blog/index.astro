@@ -57,12 +57,12 @@ const allResources = [...resources, ...authorityGuides]
       <p class="section__subhead">Use the product guides to understand a workflow in depth, then use the comparison center when you are evaluating a switch.</p>
       <div class="resource-grid">
         {allResources.map((resource, i) => (
-          <article class:list={['resource-card', { 'resource-card--featured': i === 0 }]}>
+          <a href={resource.href} class:list={['resource-card', { 'resource-card--featured': i === 0 }]}>
             <div class="resource-card__meta"><span>{resource.category}</span><span>{String(i + 1).padStart(2,'0')}</span></div>
-            <h3><a href={resource.href}>{resource.title}</a></h3>
+            <h3>{resource.title}</h3>
             <p>{resource.excerpt}</p>
-            <a href={resource.href} class="resource-card__link">Explore guide →</a>
-          </article>
+            <span class="resource-card__link">Explore guide →</span>
+          </a>
         ))}
       </div>
     </div>
