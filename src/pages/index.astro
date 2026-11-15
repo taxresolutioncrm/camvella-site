@@ -269,7 +269,7 @@ const faqs = [
       <p class="section__label">Who it's for</p>
       <h2 class="section__headline" id="audience-headline">One system, three perspectives</h2>
 
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-top: var(--space-12);">
+      <div class="audience-grid">
         <div style="padding: var(--space-6); border: 1px solid var(--clr-border); border-radius: var(--radius-lg);">
           <div style="width: 40px; height: 40px; background: var(--clr-navy); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4);" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 16V6l8-4 8 4v10" stroke="white" stroke-width="1.5" stroke-linecap="round"/><rect x="7" y="10" width="6" height="6" stroke="white" stroke-width="1.5"/></svg>
@@ -379,6 +379,15 @@ const faqs = [
   }
 .buyer-intent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.buyer-intent-grid article{padding:24px;border:1px solid var(--clr-border);border-radius:16px;background:#fff}.buyer-intent-grid h3{color:var(--clr-navy);margin-bottom:10px}.buyer-intent-grid p{color:var(--clr-text-soft);line-height:1.65}.buyer-intent-grid a{text-decoration:underline;text-decoration-color:rgba(11,143,156,.25);text-underline-offset:4px}@media(max-width:800px){.buyer-intent-grid{grid-template-columns:1fr}}
 
+  /* Responsive, consistent audience cards; avoid layout-by-inline-style. */
+  .audience-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-6);margin-top:var(--space-12)}
+  .audience-grid>div{min-width:0;transition:box-shadow .2s ease,transform .2s ease}
+  @media (hover:hover) and (prefers-reduced-motion:no-preference){
+    .audience-grid>div:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(11,39,72,.08)}
+  }
+  @media(max-width:900px){.audience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:620px){.audience-grid{grid-template-columns:minmax(0,1fr);gap:14px;margin-top:var(--space-8)}}
+  
   /* Final premium homepage — light executive portfolio presentation */
   .camvella-exec-hero{
     padding:116px 0 58px;
@@ -425,8 +434,19 @@ const faqs = [
   @media(max-width:720px){
     .camvella-exec-hero{padding-top:96px}
     .camvella-exec-message h1{font-size:clamp(2.2rem,10vw,3rem)}
-    .camvella-product-window{overflow-x:auto}
-    .camvella-product-window__body,.camvella-product-window__bar{min-width:760px}
+    .camvella-product-window{overflow:hidden;margin-top:32px;border-radius:14px}
+    .camvella-product-window__bar{grid-template-columns:1fr auto;gap:8px;padding-inline:10px}
+    .camvella-product-window__bar small{display:none}
+    .camvella-product-window__body{display:flex;flex-direction:column;min-height:0}
+    .camvella-product-window__body aside{display:flex;gap:12px;align-items:center;padding:12px 14px;border-right:0;border-bottom:1px solid var(--clr-border)}
+    .camvella-product-window__body aside>span{font-size:.6rem}
+    .camvella-product-window__body aside>strong{margin:0;font-size:1.65rem}
+    .camvella-product-window__body aside>small{margin:0}
+    .camvella-product-window__body aside ul{display:none}
+    .camvella-product-image img{width:100%;height:auto}
+    .camvella-exec-actions{width:100%;flex-wrap:wrap}
+    .camvella-exec-actions .btn{flex:1 1 190px}
+    .camvella-exec-proof span{line-height:1.5}
     .camvella-exec-proof{grid-template-columns:1fr 1fr}
   }
 </style>
