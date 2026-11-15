@@ -1230,6 +1230,43 @@ body > *:first-child[style*="background"][style*="position: fixed"][style*="top:
   display: none !important;
 }
 
+
+/* Unified interaction treatment: only genuine links and buttons receive card
+   affordances. Neutral informational content remains neutral. */
+:where(a[class~="compare-card"],a[class~="buyer-intent-card"],a[class~="feature-card"],.guide-grid > a,.states > a,.fg-related > a){
+  display:block;
+  position:relative;
+  border:1px solid var(--clr-border);
+  border-radius:var(--radius-xl);
+  cursor:pointer;
+  transition:border-color .18s ease,box-shadow .18s ease,background-color .18s ease,transform .18s ease;
+}
+@media (hover:hover) {
+  :is(a[class~="compare-card"],a[class~="buyer-intent-card"],a[class~="feature-card"],.guide-grid > a,.states > a,.fg-related > a):hover{
+    border-color:var(--clr-teal);
+    box-shadow:0 10px 26px rgba(11,143,156,.14);
+    transform:translateY(-2px);
+  }
+}
+:is(a[class~="compare-card"],a[class~="buyer-intent-card"],a[class~="feature-card"],.guide-grid > a,.states > a,.fg-related > a):focus-visible{
+  outline:3px solid var(--clr-teal);
+  outline-offset:3px;
+  border-color:var(--clr-teal);
+  box-shadow:0 0 0 5px rgba(11,143,156,.12);
+}
+:is(a[class~="compare-card"],a[class~="buyer-intent-card"],a[class~="feature-card"],.guide-grid > a,.states > a,.fg-related > a):active{
+  border-color:var(--clr-teal);
+  background-color:rgba(11,143,156,.045);
+}
+:where(a,button,input,select,textarea):focus-visible{
+  outline:2px solid var(--clr-teal);
+  outline-offset:3px;
+}
+@media (prefers-reduced-motion:reduce){
+  :is(a[class~="compare-card"],a[class~="buyer-intent-card"],a[class~="feature-card"],.guide-grid > a,.states > a,.fg-related > a){transition:none}
+  :is(a[class~="compare-card"],a[class~="buyer-intent-card"],a[class~="feature-card"],.guide-grid > a,.states > a,.fg-related > a):hover{transform:none}
+}
+
   </style>
   {CAMVELLA_GA4_ID && (
     <script async src={`https://www.googletagmanager.com/gtag/js?id=${CAMVELLA_GA4_ID}`}></script>
