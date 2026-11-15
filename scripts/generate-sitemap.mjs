@@ -72,7 +72,7 @@ for (const rule of [
 function sourceLastmod(path) {
   const source = path === '/'
     ? 'src/pages/index.astro'
-    : `src/pages/${path.replace(/^\\/|\\/$/g, '')}.astro`
+    : `src/pages/${path.split('/').filter(Boolean).join('/')}.astro`
   if (!existsSync(new URL(`../${source}`, import.meta.url))) return null
   try {
     const date = execFileSync('git', ['log', '-1', '--format=%cs', '--', source], {
