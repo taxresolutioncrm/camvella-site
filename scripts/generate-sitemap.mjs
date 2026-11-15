@@ -5,6 +5,8 @@
 // Favicon parity gate: match working BocaSync 96x96 PNG browser contract
 import { readFile, readdir, writeFile } from 'node:fs/promises'
 import { join, relative, sep } from 'node:path'
+import { existsSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 
 const dist = new URL('../dist/', import.meta.url)
@@ -64,7 +66,23 @@ for (const rule of [
   if (!redirects.includes(rule)) throw new Error('Camvella SEO build gate: missing Cloudflare regional redirect rule ' + rule)
 }
 
-const lastmod = new Date().toISOString().slice(0, 10)
+// Only publish a <lastmod> when a tracked source file actually changed.
+// Build/deploy dates are not content-update dates and must not be sprayed
+// across the entire sitemap; that makes the signal misleading.
+function sourceLastmod(path) {
+  const source = path === '/'
+    ? 'src/pages/index.astro'
+    : `src/pages/${path.split('/').filter(Boolean).join('/')}.astro`
+  if (!existsSync(new URL(`../${source}`, import.meta.url))) return null
+  try {
+    const date = execFileSync('git', ['log', '-1', '--format=%cs', '--', source], {
+      cwd: new URL('../', import.meta.url),
+      encoding: 'utf8',
+      timeout: 5000,
+    }).trim()
+    return /^\\d{4}-\\d{2}-\\d{2}$/.test(date) ? date : null
+  } catch { return null }
+}
 
 const entries = paths.map((path) => {
   const priority =
@@ -75,10 +93,11 @@ const entries = paths.map((path) => {
     : path === '/security/' ? '0.6'
     : path === '/privacy/' || path === '/terms/' ? '0.3'
     : '0.7'
+  const modified = sourceLastmod(path)
   return [
     '  <url>',
     `    <loc>${site}${path === '/' ? '/' : path}</loc>`,
-    `    <lastmod>${lastmod}</lastmod>`,
+    ...(modified ? [`    <lastmod>${modified}</lastmod>`] : []),
     '    <changefreq>weekly</changefreq>',
     `    <priority>${priority}</priority>`,
     '  </url>',
