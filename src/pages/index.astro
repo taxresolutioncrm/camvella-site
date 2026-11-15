@@ -170,12 +170,12 @@ const faqs = [
       <h2 class="section__headline" id="buyer-intent-headline">Start with the community-management problem you need to solve.</h2>
       <p class="section__subhead">Camvella is built for professional association management companies evaluating HOA software, community association management software, accounting, compliance, resident service and multi-community operations.</p>
       <div class="buyer-intent-grid">
-        <article><h3><a href="/solutions/hoa-management-software">HOA management software</a></h3><p>Purpose-built HOA operations across accounting, violations, ARC, boards, residents, work orders and communications.</p></article>
-        <article><h3><a href="/solutions/community-association-management-software">Community association management software</a></h3><p>One shared community record across finance, governance, compliance, residents, vendors and service workflows.</p></article>
-        <article><h3><a href="/solutions/management-companies">Software for HOA management companies</a></h3><p>Multi-community operations for professional CAM companies managing portfolios, teams and association-specific records.</p></article>
-        <article><h3><a href="/solutions/hoa-software-small-management-companies">HOA software for small management companies</a></h3><p>Accounting and operational depth without a heavyweight enterprise implementation.</p></article>
-        <article><h3><a href="/features/hoa-accounting">HOA accounting software</a></h3><p>Assessment billing, AR, AP, GL, budgets, financial statements and board-ready reporting.</p></article>
-        <article><h3><a href="/compare">Compare HOA management software</a></h3><p>Evaluate Camvella against common association-management and property-management alternatives.</p></article>
+        <a class="buyer-intent-card" href="/solutions/hoa-management-software"><h3>HOA management software</h3><p>Purpose-built HOA operations across accounting, violations, ARC, boards, residents, work orders and communications.</p></a>
+        <a class="buyer-intent-card" href="/solutions/community-association-management-software"><h3>Community association management software</h3><p>One shared community record across finance, governance, compliance, residents, vendors and service workflows.</p></a>
+        <a class="buyer-intent-card" href="/solutions/management-companies"><h3>Software for HOA management companies</h3><p>Multi-community operations for professional CAM companies managing portfolios, teams and association-specific records.</p></a>
+        <a class="buyer-intent-card" href="/solutions/hoa-software-small-management-companies"><h3>HOA software for small management companies</h3><p>Accounting and operational depth without a heavyweight enterprise implementation.</p></a>
+        <a class="buyer-intent-card" href="/features/hoa-accounting"><h3>HOA accounting software</h3><p>Assessment billing, AR, AP, GL, budgets, financial statements and board-ready reporting.</p></a>
+        <a class="buyer-intent-card" href="/compare"><h3>Compare HOA management software</h3><p>Evaluate Camvella against common association-management and property-management alternatives.</p></a>
       </div>
     </div>
   </section>
@@ -377,7 +377,7 @@ const faqs = [
       grid-template-columns: 1fr !important;
     }
   }
-.buyer-intent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.buyer-intent-grid article{padding:24px;border:1px solid var(--clr-border);border-radius:16px;background:#fff}.buyer-intent-grid h3{color:var(--clr-navy);margin-bottom:10px}.buyer-intent-grid p{color:var(--clr-text-soft);line-height:1.65}.buyer-intent-grid a{text-decoration:underline;text-decoration-color:rgba(11,143,156,.25);text-underline-offset:4px}@media(max-width:800px){.buyer-intent-grid{grid-template-columns:1fr}}
+.buyer-intent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.buyer-intent-grid .buyer-intent-card{display:block;padding:24px;border:1px solid var(--clr-border);border-radius:16px;background:#fff}.buyer-intent-grid h3{color:var(--clr-navy);margin-bottom:10px}.buyer-intent-grid p{color:var(--clr-text-soft);line-height:1.65}.buyer-intent-grid .buyer-intent-card h3{text-decoration:underline;text-decoration-color:rgba(11,143,156,.25);text-underline-offset:4px}@media(max-width:800px){.buyer-intent-grid{grid-template-columns:1fr}}
 
   /* Responsive, consistent audience cards; avoid layout-by-inline-style. */
   .audience-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-6);margin-top:var(--space-12)}
