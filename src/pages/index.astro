@@ -330,7 +330,7 @@ const faqs = [
   </section>
 
   <!-- ─── FAQ ──────────────────────────────────────────────────────────── -->
-  <section class="section" aria-labelledby="faq-headline">
+  <section class="section camvella-home-faq" aria-labelledby="faq-headline">
     <div class="container container--narrow">
       <h2 class="section__headline text-center" id="faq-headline">Common questions</h2>
 
@@ -556,4 +556,78 @@ const faqs = [
       grid-template-columns: 1fr;
     }
   }
+
+/* Homepage refinements: presentational cards are emphasized on hover,
+   while only actual links/buttons show pointer cursors and focus rings. */
+.audience-grid > div{
+  background:#fff;
+  border-color:#e0e8ec !important;
+  border-radius:16px !important;
+  box-shadow:0 4px 16px rgba(11,39,72,.035);
+  transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
+}
+.cap-strip{gap:14px;background:transparent;border:0;overflow:visible}
+.cap-strip .cap-item{
+  min-width:0;
+  border:1px solid #e0e8ec;
+  border-radius:16px;
+  box-shadow:0 4px 16px rgba(11,39,72,.035);
+  transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
+}
+@media(hover:hover){
+  .audience-grid > div:hover,.cap-strip .cap-item:hover{
+    border-color:var(--clr-teal) !important;
+    box-shadow:0 12px 28px rgba(11,143,156,.13);
+    transform:translateY(-2px);
+  }
+}
+.camvella-home-faq{background:linear-gradient(180deg,#f8fbfc 0%,#fff 100%)}
+.camvella-home-faq .section__headline{letter-spacing:-.035em}
+.camvella-home-faq .faq-list{
+  border:0;
+  border-radius:0;
+  overflow:visible;
+  gap:12px;
+  margin-top:30px;
+}
+.camvella-home-faq .faq-item{
+  overflow:hidden;
+  background:#fff;
+  border:1px solid #dce6eb;
+  border-radius:14px;
+  box-shadow:0 5px 18px rgba(11,39,72,.045);
+  transition:border-color .18s ease,box-shadow .18s ease;
+}
+.camvella-home-faq .faq-item:last-child{border-bottom:1px solid #dce6eb}
+.camvella-home-faq .faq-item:has(.faq-q[aria-expanded="true"]){
+  border-color:var(--clr-teal);
+  box-shadow:0 10px 28px rgba(11,143,156,.12);
+}
+.camvella-home-faq .faq-q{
+  min-height:66px;
+  padding:17px 22px;
+  font-weight:700;
+  line-height:1.5;
+}
+.camvella-home-faq .faq-q:hover{background:#eef8f8}
+.camvella-home-faq .faq-q[aria-expanded="true"]{color:var(--clr-teal);background:#f1faf9}
+.camvella-home-faq .faq-q:focus-visible{outline:3px solid var(--clr-teal);outline-offset:-3px}
+.camvella-home-faq .faq-q svg{width:22px;height:22px;color:var(--clr-teal)}
+.camvella-home-faq .faq-a{
+  padding:4px 22px 22px;
+  background:#faffff;
+  font-size:.95rem;
+  line-height:1.75;
+}
+@media(max-width:768px){.cap-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){
+  .cap-strip{grid-template-columns:minmax(0,1fr);gap:12px;margin-top:var(--space-8)}
+  .camvella-home-faq .faq-q{padding:15px 17px;min-height:60px}
+  .camvella-home-faq .faq-a{padding:4px 17px 18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .audience-grid > div,.cap-strip .cap-item,.camvella-home-faq .faq-item{transition:none}
+  .audience-grid > div:hover,.cap-strip .cap-item:hover{transform:none}
+}
+
 </style>
