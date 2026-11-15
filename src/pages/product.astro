@@ -93,7 +93,7 @@ const modules = [
       <h2 class="visually-hidden" id="product-modules">Product modules</h2>
       <div class="feature-grid">
         {modules.map(mod => (
-          <div class="feature-card">
+          <a class="feature-card" href={mod.href}>
             <h3 class="feature-card__title" style="display: flex; align-items: center; gap: var(--space-2);">
               {mod.label}
               {mod.built && (
@@ -102,9 +102,9 @@ const modules = [
             </h3>
             <p class="feature-card__body" style="margin-bottom: var(--space-3);">{mod.desc}</p>
             {mod.href && (
-              <a href={mod.href} style="font-size: var(--text-sm); font-weight: 600; color: var(--clr-navy);">Feature details →</a>
+              <span style="font-size: var(--text-sm); font-weight: 600; color: var(--clr-navy);">Feature details →</span>
             )}
-          </div>
+          </a>
         ))}
       </div>
     </div>
