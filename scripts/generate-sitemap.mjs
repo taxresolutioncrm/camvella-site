@@ -73,14 +73,19 @@ function sourceLastmod(path) {
   const source = path === '/'
     ? 'src/pages/index.astro'
     : `src/pages/${path.split('/').filter(Boolean).join('/')}.astro`
-  if (!existsSync(new URL(`../${source}`, import.meta.url))) return null
+  const sources = path.startsWith('/locations/') && path !== '/locations/'
+    ? ['src/pages/locations/[state].astro', 'src/data/states.ts']
+    : path.startsWith('/guides/') && path !== '/guides/' && !existsSync(new URL(`../${source}`, import.meta.url))
+    ? ['src/pages/guides/[slug].astro', 'src/data/seoGuides.ts']
+    : [source]
+  if (!sources.every(file => existsSync(new URL(`../${file}`, import.meta.url)))) return null
   try {
-    const date = execFileSync('git', ['log', '-1', '--format=%cs', '--', source], {
+    const date = execFileSync('git', ['log', '-1', '--format=%cs', '--', ...sources], {
       cwd: new URL('../', import.meta.url),
       encoding: 'utf8',
       timeout: 5000,
     }).trim()
-    return /^\\d{4}-\\d{2}-\\d{2}$/.test(date) ? date : null
+    return /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : null
   } catch { return null }
 }
 
