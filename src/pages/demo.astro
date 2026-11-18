@@ -1,4 +1,5 @@
 ---
+import CommunityPhoto from '../components/CommunityPhoto.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 
 const schema = {
@@ -15,6 +16,8 @@ const schema = {
   description="Choose a real available date and time for a personalized Camvella walkthrough built around your communities, team, and workflows."
   schema={schema}
 >
+  <CommunityPhoto image="courtyard" eyebrow="A closer look" title="See Camvella with your own communities in mind." description="Bring your portfolio, workflows and questions to a walkthrough. We’ll focus on what your management team, boards and residents need." href="#camvella-scheduler" cta="Choose a demo time" />
+  <main class="demo-page">
   <main class="demo-page">
     <section class="demo-hero container">
       <div class="demo-copy">

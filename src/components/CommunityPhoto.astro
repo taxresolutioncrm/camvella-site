@@ -1,0 +1,52 @@
+---
+interface Props {
+  image: 'neighborhood' | 'streets' | 'condo' | 'courtyard' | 'miami' | 'residential'
+  eyebrow: string
+  title: string
+  description: string
+  href?: string
+  cta?: string
+  reverse?: boolean
+}
+const { image, eyebrow, title, description, href = '/demo', cta = 'Book a Demo', reverse = false } = Astro.props
+// Curated real-world editorial photographs, not depictions of Camvella customers.
+// Source images published under the Unsplash free commercial-use license.
+const photos = {
+  neighborhood: {src:'https://images.unsplash.com/photo-1758936382065-40f83f88b53c?auto=format&fit=crop&w=1200&q=82',alt:'Aerial photograph of a leafy residential neighborhood with homes and green spaces'},
+  streets: {src:'https://images.unsplash.com/photo-1776066361433-365dcfe08fa9?auto=format&fit=crop&w=1200&q=82',alt:'Aerial view of a planned residential community with winding streets'},
+  condo: {src:'https://images.unsplash.com/photo-1646963836254-29e262d9acc8?auto=format&fit=crop&w=1200&q=82',alt:'Residential condominium building overlooking a swimming pool'},
+  courtyard: {src:'https://images.unsplash.com/photo-1758957894960-ab697ab50b22?auto=format&fit=crop&w=1200&q=82',alt:'Contemporary residential community with a green courtyard'},
+  miami: {src:'https://images.unsplash.com/photo-1588294320552-b8de45e0bcaa?auto=format&fit=crop&w=1200&q=82',alt:'Aerial photograph of waterfront condominium buildings in Miami'},
+  residential: {src:'https://images.unsplash.com/photo-1791820737798-490c320c96ea?auto=format&fit=crop&w=1200&q=82',alt:'Aerial view across houses and streets in a residential neighborhood'},
+}
+const photo = photos[image]
+---
+<section class:list={['community-photo-section',{'is-reversed':reverse}]} aria-label="Camvella community management">
+  <div class="container community-photo-section__inner">
+    <div class="community-photo-section__image">
+      <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" width="1200" height="800" referrerpolicy="no-referrer" />
+      <span class="community-photo-section__caption">Real communities. Connected operations.</span>
+    </div>
+    <div class="community-photo-section__content">
+      <p class="community-photo-section__eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      <p>{description}</p>
+      <a class="btn btn--dark" href={href}>{cta}<span aria-hidden="true"> →</span></a>
+    </div>
+  </div>
+</section>
+<style>
+.community-photo-section{padding:clamp(64px,8vw,110px) 0;background:linear-gradient(145deg,#f4f8f7,#fff);overflow:hidden}
+.community-photo-section__inner{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);gap:clamp(28px,6vw,84px);align-items:center}
+.community-photo-section.is-reversed .community-photo-section__image{order:2}
+.community-photo-section__image{position:relative;min-width:0;overflow:hidden;border-radius:22px;box-shadow:0 26px 62px rgba(11,39,72,.17);aspect-ratio:1.33;background:#dce7e8}
+.community-photo-section__image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.community-photo-section__image:hover img{transform:scale(1.035)}}
+.community-photo-section__caption{position:absolute;bottom:18px;left:18px;padding:9px 14px;border-radius:8px;color:white;background:rgba(11,39,72,.82);backdrop-filter:blur(8px);font-size:.75rem;font-weight:750;letter-spacing:.025em}
+.community-photo-section__eyebrow{text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:var(--clr-teal);font-size:.75rem;margin-bottom:14px}
+.community-photo-section__content h2{max-width:17ch;font-size:clamp(2rem,3.2vw,3.5rem);letter-spacing:-.045em;line-height:1.1;color:var(--clr-navy);text-wrap:balance}
+.community-photo-section__content>p:not(.community-photo-section__eyebrow){margin:22px 0 28px;line-height:1.75;color:var(--clr-text-mid);font-size:1.04rem;max-width:55ch}
+.community-photo-section__content .btn{gap:8px}
+@media(max-width:800px){.community-photo-section__inner{grid-template-columns:1fr;gap:28px}.community-photo-section.is-reversed .community-photo-section__image{order:0}.community-photo-section__image{aspect-ratio:1.6}.community-photo-section__content h2{max-width:22ch}}
+@media(max-width:480px){.community-photo-section__image{aspect-ratio:1.16;border-radius:15px}.community-photo-section__caption{bottom:12px;left:12px;font-size:.68rem}.community-photo-section__content h2{font-size:2rem}}
+</style>
