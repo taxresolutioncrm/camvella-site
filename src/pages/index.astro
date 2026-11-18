@@ -132,29 +132,18 @@ const faqs = [
         </div>
       </div>
 
-      <div class="camvella-product-window">
-        <div class="camvella-product-window__bar">
-          <div><span></span><span></span><span></span></div>
-          <strong>Portfolio command center</strong>
-          <small>app.camvella.com</small>
-        </div>
-        <div class="camvella-product-window__body">
-          <aside>
-            <span>PORTFOLIO</span>
-            <strong>12</strong>
-            <small>communities</small>
-            <ul>
-              <li><b>4</b><span>board meetings</span></li>
-              <li><b>18</b><span>ARC decisions</span></li>
-              <li><b>27</b><span>work orders</span></li>
-              <li><b>$684K</b><span>receivables tracked</span></li>
-            </ul>
-          </aside>
-          <div class="camvella-product-image">
-            <img src="/screenshots/dashboard.svg?v=20260909" alt="Camvella portfolio dashboard for HOA and community association management" width="1280" height="800">
-          </div>
-        </div>
-      </div>
+      <figure class="camvella-hero-community">
+        <img
+          src="https://images.unsplash.com/photo-1758936382065-40f83f88b53c?auto=format&fit=crop&w=1800&q=84"
+          alt="Real aerial photograph of a green residential community with homes, trees and neighborhood streets"
+          width="1800"
+          height="1050"
+          fetchpriority="high"
+          decoding="async"
+          referrerpolicy="no-referrer"
+        />
+        <figcaption>Better management for the communities people call home.</figcaption>
+      </figure>
 
       <div class="camvella-exec-proof">
         <span>HOA-specific accounting</span>
@@ -165,7 +154,28 @@ const faqs = [
     </div>
   </section>
 
-  <CommunityPhoto image="neighborhood" eyebrow="The communities behind every decision" title="Beautiful communities deserve better management." description="Behind every association are people, homes, shared spaces and everyday decisions. Camvella brings boards, management teams and residents together with one connected operating platform." href="/product" cta="Explore the platform" />
+  <CommunityPhoto image="courtyard" eyebrow="The communities behind every decision" title="Beautiful communities deserve better management." description="Behind every association are people, homes, shared spaces and everyday decisions. Camvella brings boards, management teams and residents together with one connected operating platform." href="/product" cta="Explore the platform" />
+  <section class="section camvella-real-product" aria-labelledby="camvella-product-preview-heading">
+    <div class="container">
+      <div class="camvella-real-product__intro">
+        <div>
+          <p class="section__label">Inside Camvella</p>
+          <h2 class="section__headline" id="camvella-product-preview-heading">The software behind the communities.</h2>
+          <p class="section__subhead">Get a closer look at Camvella's portfolio workspace, then explore the accounting, compliance and resident workflows that keep teams connected.</p>
+        </div>
+        <a class="btn btn--dark" href="/product">Explore the CRM →</a>
+      </div>
+      <div class="camvella-real-product__preview">
+        <div class="camvella-product-window__bar">
+          <div aria-hidden="true"><span></span><span></span><span></span></div>
+          <strong>Camvella portfolio dashboard</strong>
+          <small>app.camvella.com</small>
+        </div>
+        <img src="/screenshots/dashboard.svg?v=20260909" alt="Camvella software portfolio dashboard showing community management tools and operational status" loading="lazy" width="1280" height="800" />
+      </div>
+    </div>
+  </section>
+
   <section class="section section--alt" aria-labelledby="buyer-intent-headline">
     <div class="container">
       <p class="section__label">HOA software by need</p>
@@ -632,4 +642,17 @@ const faqs = [
   .audience-grid > div:hover,.cap-strip .cap-item:hover{transform:none}
 }
 
+
+/* Real-community hero: photography takes the place of the old UI mockup. */
+.camvella-hero-community{position:relative;margin:46px 0 0;aspect-ratio:16/8.5;overflow:hidden;border-radius:20px;border:1px solid rgba(11,39,72,.12);background:#dce9e9;box-shadow:0 28px 70px rgba(11,39,72,.18)}
+.camvella-hero-community>img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 53%}
+.camvella-hero-community:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(11,39,72,.62));pointer-events:none}
+.camvella-hero-community figcaption{position:absolute;z-index:1;left:clamp(18px,3vw,44px);bottom:clamp(20px,3vw,38px);color:white;font-weight:750;letter-spacing:-.025em;font-size:clamp(1.1rem,2.5vw,2rem);max-width:30ch;line-height:1.2;text-shadow:0 2px 12px rgba(0,0,0,.24)}
+.camvella-real-product{background:#fff}
+.camvella-real-product__intro{display:flex;justify-content:space-between;align-items:end;gap:22px;margin-bottom:28px}
+.camvella-real-product__intro .section__subhead{max-width:65ch}
+.camvella-real-product__intro .btn{flex-shrink:0}
+.camvella-real-product__preview{border:1px solid var(--clr-border);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 18px 42px rgba(11,39,72,.09)}
+.camvella-real-product__preview>img{display:block;width:100%;height:auto}
+@media(max-width:720px){.camvella-hero-community{aspect-ratio:5/4;border-radius:14px;margin-top:26px}.camvella-hero-community figcaption{font-size:clamp(1.15rem,4.8vw,1.6rem)}.camvella-real-product__intro{display:block}.camvella-real-product__intro .btn{margin-top:18px}.camvella-real-product__preview .camvella-product-window__bar{min-width:0}}
 </style>
