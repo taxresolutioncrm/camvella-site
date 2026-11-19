@@ -115,20 +115,18 @@ const faqs = [
   <section class="camvella-exec-hero" aria-labelledby="camvella-home-title">
     <div class="container">
       <div class="camvella-exec-masthead">
-        <div>
+        <div class="camvella-exec-message">
           <div class="hero__eyebrow">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="4"/></svg>
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="4"/></svg>
             Professional CAM software
           </div>
-          <p class="camvella-exec-kicker">For management companies running multiple associations.</p>
-        </div>
-        <div class="camvella-exec-message">
           <h1 id="camvella-home-title">One portfolio. Every association under control.</h1>
           <p>Camvella connects HOA accounting, compliance, ARC, boards, residents, vendors, work orders and communications across every community your team manages.</p>
-        </div>
-        <div class="camvella-exec-actions">
-          <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
-          <a href="/product" class="camvella-inline-link">Tour the platform →</a>
+          <div class="camvella-exec-actions">
+            <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
+            <a href="/product" class="btn btn--dark btn--lg">Explore the Platform</a>
+          </div>
+          <p class="camvella-exec-kicker">Built for professional management companies running multiple associations.</p>
         </div>
       </div>
 
@@ -655,4 +653,14 @@ const faqs = [
 .camvella-real-product__preview{border:1px solid var(--clr-border);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 18px 42px rgba(11,39,72,.09)}
 .camvella-real-product__preview>img{display:block;width:100%;height:auto}
 @media(max-width:720px){.camvella-hero-community{aspect-ratio:5/4;border-radius:14px;margin-top:26px}.camvella-hero-community figcaption{font-size:clamp(1.15rem,4.8vw,1.6rem)}.camvella-real-product__intro{display:block}.camvella-real-product__intro .btn{margin-top:18px}.camvella-real-product__preview .camvella-product-window__bar{min-width:0}}
+/* Final homepage hero layout: readable headline, one aligned CTA group. */
+.camvella-exec-hero .camvella-exec-masthead{display:block;max-width:100%}
+.camvella-exec-hero .camvella-exec-message{max-width:900px}
+.camvella-exec-hero .camvella-exec-message .hero__eyebrow{display:inline-flex;margin:0 0 22px;padding:9px 16px;max-width:max-content}
+.camvella-exec-hero .camvella-exec-message h1{max-width:20ch;font-size:clamp(2.5rem,4.2vw,4.35rem);font-weight:720;letter-spacing:-.032em;line-height:1.1;text-wrap:pretty}
+.camvella-exec-hero .camvella-exec-message>p:not(.camvella-exec-kicker){max-width:690px;font-size:clamp(1.03rem,1.3vw,1.15rem);line-height:1.75;margin:20px 0 0}
+.camvella-exec-hero .camvella-exec-actions{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px;padding:0;margin:26px 0 0}
+.camvella-exec-hero .camvella-exec-actions .btn{min-height:48px}
+.camvella-exec-hero .camvella-exec-kicker{max-width:600px;margin:16px 0 0;font-size:.9rem;line-height:1.65}
+@media(max-width:720px){.camvella-exec-hero .camvella-exec-message h1{max-width:17ch;font-size:clamp(2.25rem,8.3vw,3.5rem);line-height:1.12}.camvella-exec-hero .camvella-exec-actions .btn{flex:1 1 170px}}
 </style>

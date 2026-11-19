@@ -1231,6 +1231,11 @@ body > *:first-child[style*="background"][style*="position: fixed"][style*="top:
 }
 
 
+/* Brand must be legible at standard navigation sizes. */
+.nav__logo{flex:0 0 auto;min-width:150px}
+.nav__logo-img{height:40px;width:auto;max-width:200px;object-fit:contain}
+@media(max-width:1000px) and (min-width:769px){.nav__links{gap:14px}.nav__logo-img{height:36px}}
+@media(max-width:768px){.nav__logo{min-width:0}.nav__logo-img{height:36px;max-width:175px}}
 /* Camvella editorial typography: preserve Inter, improve readability. */
 h1,h2,h3,h4{font-family:var(--font-display);font-synthesis:none;letter-spacing:-.018em}
 .section__headline{font-weight:750;letter-spacing:-.025em;line-height:1.14;text-wrap:balance}
