@@ -17,11 +17,17 @@ const schema={
   schema={schema}
 >
 <section class="security-hero">
-  <div class="container">
+  <div class="container security-hero__grid">
+    <div class="security-hero__copy">
     <p class="section__label">Security & Trust</p>
     <h1>Protect each association.<br/>Protect each management company.</h1>
     <p>Camvella is designed around database-enforced tenant boundaries, private document storage, role-based access and audit-oriented workflows. We describe controls we can actually verify and do not advertise certifications we have not independently earned.</p>
     <div class="security-actions"><a href="/demo" class="btn btn--primary btn--lg">Book a security walkthrough</a><a href="/privacy" class="btn btn--ghost btn--lg">Privacy policy</a></div>
+    </div>
+    <figure class="security-hero__visual">
+      <img src="https://images.unsplash.com/photo-1758193431351-68538bf55ec3?auto=format&fit=crop&w=1100&q=82" width="1100" height="900" alt="Real photograph of a modern residential building with greenery, balconies, and a welcoming entrance" decoding="async" fetchpriority="high" referrerpolicy="no-referrer" />
+      <figcaption>Trusted operations. Clear boundaries.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -74,4 +80,13 @@ const schema={
 .security-grid article{padding:24px;border:1px solid var(--clr-border);border-radius:16px;background:#fff}.security-grid h3{color:var(--clr-navy);margin-bottom:9px;font-size:1rem}.security-grid p{color:var(--clr-text-soft);font-size:.92rem;line-height:1.65}
 .security-checklist{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}.security-checklist div{padding:22px;border:1px solid var(--clr-border);border-radius:14px;background:#fff}.security-checklist strong{display:block;color:var(--clr-navy);margin-bottom:8px}.security-checklist span{color:var(--clr-text-soft);font-size:.92rem;line-height:1.6}
 @media(max-width:900px){.security-grid{grid-template-columns:1fr 1fr}}@media(max-width:650px){.security-grid,.security-checklist{grid-template-columns:1fr}}
+
+.security-hero__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:center}
+.security-hero__copy{min-width:0}
+.security-hero__visual{position:relative;min-width:0;aspect-ratio:1.15;overflow:hidden;border-radius:20px;background:#25475a;border:1px solid rgba(255,255,255,.18);box-shadow:0 26px 64px rgba(0,0,0,.24)}
+.security-hero__visual img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.security-hero__visual:after{content:"";position:absolute;inset:54% 0 0;background:linear-gradient(transparent,rgba(7,30,48,.75));pointer-events:none}
+.security-hero__visual figcaption{position:absolute;bottom:22px;left:24px;right:22px;z-index:1;font-size:clamp(1rem,1.5vw,1.3rem);font-weight:750;line-height:1.3;color:#fff}
+@media(max-width:860px){.security-hero__grid{grid-template-columns:1fr}.security-hero__visual{aspect-ratio:16/9}.security-hero h1{max-width:18ch}}
+@media(max-width:520px){.security-hero__visual{aspect-ratio:5/4;border-radius:14px}.security-hero__visual figcaption{bottom:16px;left:16px}}
 </style>
