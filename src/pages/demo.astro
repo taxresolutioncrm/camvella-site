@@ -16,9 +16,7 @@ const schema = {
   description="Choose a real available date and time for a personalized Camvella walkthrough built around your communities, team, and workflows."
   schema={schema}
 >
-  <CommunityPhoto image="courtyard" eyebrow="A closer look" title="See Camvella with your own communities in mind." description="Bring your portfolio, workflows and questions to a walkthrough. We’ll focus on what your management team, boards and residents need." href="#camvella-scheduler" cta="Choose a demo time" />
-  <main class="demo-page">
-  <main class="demo-page">
+  <div class="demo-page" id="booking">
     <section class="demo-hero container">
       <div class="demo-copy">
         <span class="demo-eyebrow">PERSONALIZED CAMVELLA DEMO</span>
@@ -67,7 +65,7 @@ const schema = {
         </p>
       </div>
     </section>
-  </main>
+  </div>
 
   <script is:inline>
     const frame = document.getElementById('camvella-scheduler');
@@ -77,6 +75,7 @@ const schema = {
       window.setTimeout(() => loading.classList.add('is-hidden'), 7000);
     }
   </script>
+  <CommunityPhoto image="courtyard" eyebrow="A closer look" title="See Camvella with your own communities in mind." description="Bring your portfolio, workflows and questions to a walkthrough. We’ll focus on what your management team, boards and residents need." href="#booking" cta="Choose a demo time" />
 </BaseLayout>
 
 <style>
