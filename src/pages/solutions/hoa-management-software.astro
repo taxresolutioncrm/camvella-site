@@ -22,7 +22,23 @@ const schema = [softwareSchema, {
 }]
 ---
 <BaseLayout title="HOA Management Software for Professional CAM Companies | Camvella" description="HOA management software for professional CAM companies. Run accounting, violations, ARC, work orders, boards, residents, vendors, communications, and reporting in one platform." schema={schema}>
-<section class="seo-hero"><div class="container"><p class="section__label">HOA management software</p><h1>One operating system for professional HOA management.</h1><p>Camvella brings association accounting, compliance, board operations, resident service, work orders, vendors, documents, and communications into one connected platform for professional community managers.</p><div class="seo-actions"><a class="btn btn--primary btn--lg" href="/demo">Book a Demo</a><a class="btn btn--dark btn--lg" href="/product">See the Product</a></div></div></section>
+<section class="seo-hero" aria-labelledby="hoa-solution-heading">
+  <div class="container seo-hero__layout">
+    <div class="seo-hero__copy">
+      <p class="section__label">HOA management software</p>
+      <h1 id="hoa-solution-heading">One operating system for professional HOA management.</h1>
+      <p>Camvella brings association accounting, compliance, board operations, resident service, work orders, vendors, documents, and communications into one connected platform for professional community managers.</p>
+      <div class="seo-actions">
+        <a class="btn btn--primary btn--lg" href="/demo">Book a Demo</a>
+        <a class="btn btn--dark btn--lg" href="/product">See the Product</a>
+      </div>
+    </div>
+    <figure class="seo-hero__photograph">
+      <img src="https://images.unsplash.com/photo-1758936382065-40f83f88b53c?auto=format&fit=crop&w=1400&q=85" width="1400" height="1100" alt="Aerial photograph of a green residential HOA neighborhood with homes, streets and tree-lined shared spaces" fetchpriority="high" decoding="async" referrerpolicy="no-referrer" />
+      <figcaption>Software for the communities people call home</figcaption>
+    </figure>
+  </div>
+</section>
 <section class="section"><div class="container"><h2 class="section__headline">Built around the workflows CAM teams run every day.</h2><div class="seo-grid">
 <a class="seo-feature-card" href="/features/hoa-accounting"><h3>HOA accounting</h3><p>Assessment schedules, AR, AP, general ledger, budgets, financial statements, and board-ready reporting.</p><span>Explore HOA accounting →</span></a>
 <a class="seo-feature-card" href="/features/violations"><h3>Violations & compliance</h3><p>Inspections, notices, fines, hearings, reinspections, attachments, and resolution history.</p><span>Explore violation management →</span></a>
@@ -37,4 +53,16 @@ const schema = [softwareSchema, {
 </BaseLayout>
 <style>
 .seo-hero{padding:128px 0 72px;background:linear-gradient(135deg,var(--clr-navy),#0f4c5c);color:#fff}.seo-hero h1{font-size:clamp(2.25rem,3.8vw,3.8rem);line-height:1.02;max-width:16ch;margin:.4rem 0 1.2rem}.seo-hero p{max-width:62ch;font-size:1.1rem;line-height:1.7;color:rgba(255,255,255,.78)}.seo-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.seo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}.seo-grid .seo-feature-card{display:block;padding:24px;border:1px solid var(--clr-border);border-radius:16px;background:#fff}.seo-grid h3{color:var(--clr-navy);margin-bottom:10px}.seo-grid p{color:var(--clr-text-soft);line-height:1.65;margin-bottom:14px}.seo-feature-card span{color:var(--clr-teal);font-weight:700;font-size:var(--text-sm)}.seo-faq details{border-bottom:1px solid var(--clr-border);padding:18px 0}.seo-faq summary{font-weight:800;color:var(--clr-navy);cursor:pointer}.seo-faq p{padding-top:10px;color:var(--clr-text-soft);line-height:1.65}@media(max-width:800px){.seo-grid{grid-template-columns:1fr}.seo-hero{padding:108px 0 58px}}
+
+/* HOA solution landing page: photo-led hero, consistent with Camvella's new visual identity. */
+.seo-hero__layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:center}
+.seo-hero__copy{min-width:0}
+.seo-hero__copy h1{max-width:14ch;font-size:clamp(2.35rem,4vw,4rem);line-height:1.04;letter-spacing:-.045em;text-wrap:balance}
+.seo-hero__copy .section__label{font-size:.76rem;letter-spacing:.11em;color:#b8eac6}
+.seo-hero__photograph{position:relative;min-width:0;aspect-ratio:1.22;overflow:hidden;border-radius:20px;border:1px solid rgba(255,255,255,.22);box-shadow:0 28px 70px rgba(0,0,0,.24);background:#2b5660}
+.seo-hero__photograph img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.seo-hero__photograph:after{content:"";position:absolute;inset:50% 0 0;background:linear-gradient(transparent,rgba(5,25,43,.72));pointer-events:none}
+.seo-hero__photograph figcaption{position:absolute;z-index:1;bottom:22px;left:24px;right:24px;font-weight:750;line-height:1.25;font-size:clamp(1rem,1.5vw,1.35rem);color:#fff}
+@media(max-width:850px){.seo-hero__layout{grid-template-columns:1fr}.seo-hero__photograph{aspect-ratio:16/9}.seo-hero__copy h1{max-width:19ch}.seo-hero{padding:102px 0 48px}}
+@media(max-width:520px){.seo-hero__photograph{aspect-ratio:5/4;border-radius:14px}.seo-hero__copy h1{font-size:clamp(2.15rem,9vw,3rem)}.seo-hero__photograph figcaption{left:16px;bottom:16px}.seo-actions .btn{flex:1 1 145px}}
 </style>
