@@ -54,6 +54,17 @@ for(const url of ['/','/blog/','/guides/','/pricing/','/demo/','/locations/','/s
 const robots = await read('robots.txt')
 if(!robots.includes('Sitemap: https://camvella.com/sitemap.xml'))errors.push('robots.txt sitemap URL missing')
 if(/Disallow:\s*\//m.test(robots) && /Disallow:\s*\/\s*$/m.test(robots))errors.push('robots.txt disallows whole site')
+// Buyer journey guardrails: prevent regressions that bury the demo or disconnect comparisons.
+for(const [route,links] of [
+  ['pricing/index.html',['/compare/','/demo','/guides/hoa-software-pricing-guide/']],
+  ['solutions/management-companies/index.html',['/demo','/guides/hoa-software-buyers-guide/','/guides/hoa-software-implementation-checklist/']],
+]){
+  const html = await read(route)
+  for(const url of links) if(!html.includes('href="'+url+'"'))errors.push(`${route}: missing buyer path ${url}`)
+}
+const demoPage = await read('demo/index.html')
+if((demoPage.match(/<main\\b/g)||[]).length > 1)errors.push('demo page has nested main landmarks')
+if(!demoPage.includes('id="camvella-scheduler"'))errors.push('demo scheduler missing')
 const homepage = await read('index.html')
 if(!homepage.includes('G-H1ZPCP2EE9') || !homepage.includes('y62zna7yna'))errors.push('GA4/Clarity bootstrap missing')
 const criticalLinks=['/blog','/guides','/demo','/pricing','/locations']

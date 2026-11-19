@@ -1231,6 +1231,20 @@ body > *:first-child[style*="background"][style*="position: fixed"][style*="top:
 }
 
 
+/* Camvella editorial typography: preserve Inter, improve readability. */
+h1,h2,h3,h4{font-family:var(--font-display);font-synthesis:none;letter-spacing:-.018em}
+.section__headline{font-weight:750;letter-spacing:-.025em;line-height:1.14;text-wrap:balance}
+.section__subhead{line-height:1.75}
+.buyer-decision{background:#f7fafb}
+.buyer-decision__links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
+.buyer-decision__links a{display:flex;flex-direction:column;gap:11px;padding:23px;border:1px solid var(--clr-border);background:white;border-radius:16px;transition:border-color .2s ease,box-shadow .2s ease}
+.buyer-decision__links a strong{font-size:1.07rem;font-weight:700;color:var(--clr-navy)}
+.buyer-decision__links a span{color:var(--clr-text-soft);font-size:.92rem;line-height:1.5}
+@media(hover:hover){.buyer-decision__links a:hover{border-color:var(--clr-teal);box-shadow:0 10px 24px rgba(11,143,156,.11)}}
+.buyer-decision__links a:focus-visible{outline:3px solid var(--clr-teal);outline-offset:3px}
+@media(max-width:760px){.buyer-decision__links{grid-template-columns:1fr}.section__headline{font-size:clamp(1.7rem,6vw,2.35rem)}}
+@media(prefers-reduced-motion:reduce){.buyer-decision__links a{transition:none}}
+
 /* Unified interaction treatment: only genuine links and buttons receive card
    affordances. Neutral informational content remains neutral. */
 :where(a[class~="compare-card"],a[class~="buyer-intent-card"],a[class~="feature-card"],a[class~="resource-card"],a[class~="seo-feature-card"],.guide-grid > a,.states > a,.fg-related > a){
