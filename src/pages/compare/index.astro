@@ -51,10 +51,18 @@ const dimensions = [
       <p class="section__label">Comparison library</p>
       <h2 class="section__headline" id="comparison-guides">Start with the platform you use — or the one you are evaluating.</h2>
       <p class="section__subhead">Each guide gives your team a structured way to test the same core workflows across vendors instead of relying on a generic feature checklist.</p>
-      <div class="compare-card-grid">
-        {comparisons.map((c, i) => (
-          <a href={c.href} class:list={['compare-card', { 'compare-card--featured': i === 0 }]}>
-            <div class="compare-card__top"><span>{c.tag}</span><span>0{String(i + 1)}</span></div>
+      <div class="compare-featured-row">
+        <a href={comparisons[0].href} class="compare-card compare-card--featured">
+          <div class="compare-card__top"><span>{comparisons[0].tag}</span><span>01</span></div>
+          <h3>{comparisons[0].label}</h3>
+          <p>{comparisons[0].desc}</p>
+          <strong>Read guide →</strong>
+        </a>
+      </div>
+      <div class="compare-card-grid compare-card-grid--standard">
+        {comparisons.slice(1).map((c, i) => (
+          <a href={c.href} class="compare-card">
+            <div class="compare-card__top"><span>{c.tag}</span><span>{String(i + 2).padStart(2,'0')}</span></div>
             <h3>{c.label}</h3>
             <p>{c.desc}</p>
             <strong>Read guide →</strong>
@@ -178,4 +186,12 @@ const dimensions = [
 .section--alt{padding-top:64px!important;padding-bottom:64px!important}
 .compare-cta{padding-top:2px;padding-bottom:2px}
 @media(max-width:640px){.compare-index-hero{padding:96px 0 46px!important}.compare-index-hero + .section{padding-top:38px!important}.compare-card--featured{grid-column:auto!important}}
+
+/* Comparison library: featured guide occupies a dedicated full-width row. */
+.compare-featured-row{margin-top:30px}
+.compare-featured-row>.compare-card{width:100%;min-height:188px!important}
+.compare-card-grid--standard{margin-top:16px!important;grid-template-columns:repeat(3,minmax(0,1fr))}
+.compare-card-grid--standard>.compare-card{min-width:0}
+@media(max-width:900px){.compare-card-grid--standard{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.compare-featured-row{margin-top:24px}.compare-card-grid--standard{grid-template-columns:minmax(0,1fr)}}
 </style>
