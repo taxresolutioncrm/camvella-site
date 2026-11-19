@@ -54,10 +54,18 @@ const allResources = [...resources, ...authorityGuides]
       <p class="section__label">Browse the library</p>
       <h2 class="section__headline" id="resource-headline">Start with the problem you are solving.</h2>
       <p class="section__subhead">Use the product guides to understand a workflow in depth, then use the comparison center when you are evaluating a switch.</p>
-      <div class="resource-grid">
-        {allResources.map((resource, i) => (
-          <a href={resource.href} class:list={['resource-card', { 'resource-card--featured': i === 0 }]}>
-            <div class="resource-card__meta"><span>{resource.category}</span><span>{String(i + 1).padStart(2,'0')}</span></div>
+      <div class="resource-featured-row">
+        <a href={allResources[0].href} class="resource-card resource-card--featured">
+          <div class="resource-card__meta"><span>{allResources[0].category}</span><span>01</span></div>
+          <h3>{allResources[0].title}</h3>
+          <p>{allResources[0].excerpt}</p>
+          <span class="resource-card__link">Explore guide →</span>
+        </a>
+      </div>
+      <div class="resource-grid resource-grid--standard">
+        {allResources.slice(1).map((resource, i) => (
+          <a href={resource.href} class="resource-card">
+            <div class="resource-card__meta"><span>{resource.category}</span><span>{String(i + 2).padStart(2,'0')}</span></div>
             <h3>{resource.title}</h3>
             <p>{resource.excerpt}</p>
             <span class="resource-card__link">Explore guide →</span>
@@ -139,4 +147,12 @@ const allResources = [...resources, ...authorityGuides]
 .resource-cta{padding-top:2px;padding-bottom:2px}
 .section--alt{padding-top:64px!important;padding-bottom:64px!important}
 @media(max-width:640px){.resource-hero{padding:96px 0 46px!important}.resource-hero + .section{padding-top:38px!important}.resource-card--featured{grid-column:auto!important}}
+
+/* Resource library: separate feature row preserves all three equal columns below. */
+.resource-featured-row{margin-top:28px}
+.resource-featured-row>.resource-card{width:100%;min-height:185px!important}
+.resource-grid--standard{margin-top:16px!important;grid-template-columns:repeat(3,minmax(0,1fr))}
+.resource-grid--standard>.resource-card{min-width:0}
+@media(max-width:900px){.resource-grid--standard{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.resource-featured-row{margin-top:24px}.resource-grid--standard{grid-template-columns:minmax(0,1fr)}}
 </style>
