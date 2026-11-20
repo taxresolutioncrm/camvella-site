@@ -1032,13 +1032,14 @@ a:not(.btn):hover { color: var(--clr-teal); }
 
 /* ─── Nav on dark hero — use light logo variant ─────────────────────────── */
 /* The nav is transparent on dark hero, opaque on scroll */
+/* Opaque brand navy prevents different backgrounds from tinting the nav. */
 .nav {
-  background: rgba(11 39 72 / 0.85) !important;
+  background: var(--clr-navy) !important;
   border-bottom: 1px solid rgba(255 255 255 / 0.08) !important;
-  backdrop-filter: blur(12px);
+  backdrop-filter: none;
 }
 .nav.is-scrolled {
-  background: rgba(11 39 72 / 0.97) !important;
+  background: var(--clr-navy) !important;
   border-bottom-color: rgba(255 255 255 / 0.1) !important;
 }
 .nav__link { color: rgba(255 255 255 / 0.75) !important; }
