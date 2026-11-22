@@ -25,7 +25,7 @@ const { eyebrow, title, description, intro, features, workflow, related = [] } =
     </div>
   </div>
 </section>
-<CommunityPhoto image={/account|financial|budget/i.test(eyebrow+' '+title) ? 'miami' : /board|resident/i.test(eyebrow+' '+title) ? 'condo' : /vendor|work|maintenance/i.test(eyebrow+' '+title) ? 'courtyard' : /violat|arc|architectural/i.test(eyebrow+' '+title) ? 'streets' : 'residential'} eyebrow="Connected to real community operations" title="See the work behind every well-run community." description="Explore how this Camvella workflow supports the teams responsible for association operations, residents, documents and decisions." href="/demo" cta="Book a workflow demo" />
+<CommunityPhoto image={/account|financial|budget/i.test(eyebrow+' '+title) ? 'miami' : /board|resident/i.test(eyebrow+' '+title) ? 'condo' : /vendor|work|maintenance/i.test(eyebrow+' '+title) ? 'operations' : /violat|arc|architectural/i.test(eyebrow+' '+title) ? 'streets' : 'residential'} eyebrow="Connected to real community operations" title="See the work behind every well-run community." description="Explore how this Camvella workflow supports the teams responsible for association operations, residents, documents and decisions." href="/demo" cta="Book a workflow demo" />
 <section class="section">
   <div class="container">
     <p class="section__label">Capabilities</p>
