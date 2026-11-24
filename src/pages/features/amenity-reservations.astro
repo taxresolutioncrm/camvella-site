@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Camvella HOA Amenity Reservations",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "Association-scoped community amenity bookings with resident requests, booking capacity limits, cancellation history and optional HOA manager approval.",
+  "url": "https://camvella.com/features/amenity-reservations/"
+}
+
+const features = [
+  { title: "Resident Self-Service Booking", body: "Residents can select an amenity, enter a date and time window, submit a request and review their own reservation history in the mobile-friendly resident portal." },
+  { title: "Capacity and Conflict Checks", body: "Server-side rules check amenity booking limits, duration, competing time slots and overlapping reservations for the same unit." },
+  { title: "Optional Manager Approval", body: "For amenities that require approval, requests remain pending until an authorized management user approves or declines them." },
+  { title: "Cancellation and History", body: "Residents can cancel eligible future reservations and see booking status. Management can review pending reservation requests." },
+  { title: "Association-Scoped Access", body: "Tenant and resident permissions restrict the reservation records each signed-in user can access." },
+  { title: "Free Reservations First", body: "Paid amenity checkout is intentionally disabled until a verified payment and financial reconciliation workflow is available." }
+]
+
+const steps = [
+  { heading: "Configure community amenities", body: "Management adds amenities for a selected association, sets maximum simultaneous bookings and chooses whether approval is required." },
+  { heading: "Residents request a time", body: "Residents select an available amenity and enter a permitted booking window in their own portal." },
+  { heading: "Review and manage the reservation", body: "The system records the request, prevents capacity conflicts, and supports approval or cancellation where applicable." }
+]
+---
+
+<BaseLayout
+  title="HOA Amenity Reservation Software | Camvella"
+  description="HOA amenity reservations for clubhouses and shared community spaces. Resident booking requests, capacity rules, cancellation history and optional manager approval."
+  schema={schema}
+>
+  <section class="section section--dark" aria-labelledby="amenities-heading" style="padding-top: calc(64px + var(--space-16));">
+    <div class="container container--narrow">
+      <p class="section__label">Community amenities</p>
+      <h1 id="amenities-heading" style="font-size: clamp(2rem, 4vw, 3.25rem); letter-spacing: -0.03em; line-height: 1.15; margin-bottom: var(--space-5);">HOA amenity reservations, connected to your resident portal.</h1>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 65ch; line-height: 1.7; margin-bottom: var(--space-8);">Make it easier to request shared community spaces while keeping booking limits, approvals, and reservation records tied to the right association.</p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="feature_page_cta_click">Book a Demo</a>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="amenities-features">
+    <div class="container">
+      <p class="section__label">Built for community operations</p>
+      <h2 class="section__headline" id="amenities-features">Resident convenience, management control.</h2>
+      <div class="feature-grid" style="margin-top: var(--space-8);">
+        {features.map(feature => (
+          <article class="feature-card">
+            <h3 class="feature-card__title">{feature.title}</h3>
+            <p class="feature-card__body">{feature.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="amenities-flow">
+    <div class="container">
+      <p class="section__label">Reservation workflow</p>
+      <h2 class="section__headline" id="amenities-flow">From amenity setup to a confirmed request.</h2>
+      <div class="feature-grid" style="margin-top: var(--space-8);">
+        {steps.map((step, i) => (
+          <div class="feature-card">
+            <p class="section__label">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="feature-card__title">{step.heading}</h3>
+            <p class="feature-card__body">{step.body}</p>
+          </div>
+        ))}
+      </div>
+      <p style="margin-top: var(--space-8); color: var(--clr-text-mid);">Booking duration is configured per amenity. Reservations requiring approval are not treated as confirmed until reviewed. Online payment for paid amenity reservations is not currently enabled.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="amenities-related">
+    <div class="container container--narrow">
+      <h2 class="section__headline" id="amenities-related">One connected HOA management platform.</h2>
+      <p class="section__subhead">Amenity reservations work alongside resident service requests, compliance workflows, board operations and association accounting.</p>
+      <div style="display: flex; gap: var(--space-4); flex-wrap: wrap; margin-top: var(--space-8);">
+        <a href="/features/resident-portal" class="btn btn--dark">Resident Portal</a>
+        <a href="/features/board-portal" class="btn btn--ghost">Board Operations</a>
+        <a href="/features/hoa-accounting" class="btn btn--ghost">HOA Accounting</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container" style="text-align: center;">
+      <h2 class="section__headline" style="color: white;">See community amenity workflows in Camvella.</h2>
+      <p class="section__subhead" style="color: rgba(255 255 255 / 0.75); margin: var(--space-4) auto var(--space-8);">Explore resident booking, association-level controls and management approvals in a guided walkthrough.</p>
+      <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
+    </div>
+  </section>
+</BaseLayout>
