@@ -51,6 +51,11 @@ for(const u of indexable.keys()){
 for(const url of ['/','/blog/','/guides/','/pricing/','/demo/','/locations/','/solutions/hoa-management-software/']){
   if(!urlSet.has('https://camvella.com'+url))errors.push(`required hub missing in sitemap: ${url}`)
 }
+const amenitiesPage = await read('features/amenity-reservations/index.html')
+if (!amenitiesPage.includes('HOA Amenity Reservations')) errors.push('amenity reservation SEO landing page missing title/content')
+if (!urlSet.has('https://camvella.com/features/amenity-reservations/')) errors.push('amenity reservation landing page missing from sitemap')
+const productPage = await read('product/index.html')
+if (!productPage.includes('href="/features/amenity-reservations"')) errors.push('product page missing amenity feature link')
 const robots = await read('robots.txt')
 if(!robots.includes('Sitemap: https://camvella.com/sitemap.xml'))errors.push('robots.txt sitemap URL missing')
 if(/Disallow:\s*\//m.test(robots) && /Disallow:\s*\/\s*$/m.test(robots))errors.push('robots.txt disallows whole site')
