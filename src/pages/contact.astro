@@ -99,9 +99,16 @@ import BaseLayout from '../layouts/BaseLayout.astro'
           });
 
           const data = await res.json().catch(() => ({}));
-          if (!res.ok || !data.success) throw new Error(data.error || 'Unable to send your message.');
+          if (!res.ok || !data.success || data.notification_status !== 'accepted') {
+            const reason = data.error || 'We could not verify that the team notification was accepted. Please contact support@camvella.com directly.';
+            const reference = data.lead_saved && data.reference ? ' Reference: ' + String(data.reference) : '';
+            throw new Error(reason + reference);
+          }
 
-          form.innerHTML = '<p style="text-align:center;padding:2rem 0;font-weight:600">Thanks! Your message was sent. We will be in touch shortly.</p>';
+          const confirmation = document.createElement('p');
+          confirmation.style.cssText = 'text-align:center;padding:2rem 0;font-weight:600;line-height:1.65';
+          confirmation.textContent = 'Thanks! Your message was recorded and our email provider accepted the notification. We will be in touch shortly.';
+          form.replaceChildren(confirmation);
         } catch (err) {
           btn.disabled = false;
           btn.textContent = 'Send Message';
