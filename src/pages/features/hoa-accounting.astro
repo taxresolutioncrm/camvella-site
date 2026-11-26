@@ -47,7 +47,7 @@ const schema = {
 
 <BaseLayout
   title="HOA Accounting Software | Camvella"
-  description="Full HOA accounting software purpose-built for community association management. AR, AP, GL, balance sheet, income statement, budgeting — included in every…"
+  description="HOA accounting software for management companies: assessments, accounts receivable and payable, fund-based general ledger, budgets, owner statements and financial reporting."
   schema={schema}
 >
   <!-- Hero -->
@@ -122,6 +122,19 @@ const schema = {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Accounting security and reconciliation: distinguish verified controls from rollout checks. -->
+  <section class="section" aria-labelledby="accounting-controls-heading">
+    <div class="container container--narrow">
+      <p class="section__label">Financial controls and oversight</p>
+      <h2 class="section__headline" id="accounting-controls-heading">Accounting permissions and reconciliation need more than spreadsheets.</h2>
+      <p class="section__subhead">Camvella uses association-scoped financial permissions and restricted journal-posting operations. Its financial data model also includes bank transaction imports, matching and reconciliation records. Those end-to-end banking workflows are undergoing verification before being presented as fully released customer features.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-8);">
+        <a href="/security" class="btn btn--dark">Review Security Controls</a>
+        <a href="/guides/hoa-reserve-fund-accounting-guide/" class="btn btn--ghost">Read the HOA Reserve Fund Guide</a>
       </div>
     </div>
   </section>
