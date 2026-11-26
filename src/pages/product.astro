@@ -36,7 +36,7 @@ const modules = [
   {
     href: "/features/board-portal",
     label: "Board Operations",
-    desc: "Meeting management, agendas, resolutions with vote tracking, minutes drafting, document storage. Board financial read-only views.",
+    desc: "Meeting management, printable board packets, agendas, resolutions with vote tracking, minutes drafting, document storage and read-only financial views.",
     built: true,
   },
   {
@@ -54,8 +54,14 @@ const modules = [
   {
     href: "/features/resident-portal",
     label: "Resident Portal",
-    desc: "Mobile-first portal: violation status, ARC submissions, service requests, account statement, resident profile.",
+    desc: "Mobile-first portal: violation status, ARC submissions, amenity reservations, service requests, account statement and resident profile.",
     built: true,
+  },
+  {
+    href: "/features/amenity-reservations",
+    label: "Amenity Reservations",
+    desc: "Resident bookings for association amenities with capacity checks, cancellation history and optional manager approval. Paid bookings are not enabled yet.",
+    built: false,
   },
   {
     href: "/features/vendors",
@@ -80,7 +86,7 @@ const modules = [
 
 <BaseLayout
   title="Camvella Product — HOA Management Software Overview"
-  description="Full overview of the Camvella HOA management platform. Violations, ARC, work orders, financials, board portal, resident portal, communications, and automation."
+  description="Explore Camvella HOA accounting, board meeting packets, resident amenity reservations, ARC, work orders, mobile photos, communications and community management."
 >
   <div style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-16); background: var(--clr-navy); color: white;">
     <div class="container">
@@ -123,7 +129,7 @@ const modules = [
   <section class="section section--dark">
     <div class="container" style="text-align: center;">
       <h2 style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: white; margin-bottom: var(--space-4);">See it all in one demo.</h2>
-      <p style="color: rgba(255 255 255 / 0.7); margin-bottom: var(--space-8); max-width: 48ch; margin-left: auto; margin-right: auto;">A 30-minute walkthrough covers violations, financials, board operations, and the resident portal — against a real community.</p>
+      <p style="color: rgba(255 255 255 / 0.7); margin-bottom: var(--space-8); max-width: 48ch; margin-left: auto; margin-right: auto;">A 30-minute walkthrough covers violations, financials, board packets, amenity reservations and the resident portal — against a real community.</p>
       <a href="/demo" class="btn btn--primary btn--lg" data-event="demo_cta_click">Book a Demo</a>
     </div>
   </section>

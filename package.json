@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/generate-sitemap.mjs",
-    "preview": "astro preview"
+    "build": "node scripts/audit-editorial-images.mjs && astro build && node scripts/generate-sitemap.mjs && node scripts/validate-seo.mjs",
+    "preview": "astro preview",
+    "audit:images": "node scripts/audit-editorial-images.mjs"
   },
   "dependencies": {
     "astro": "^4.16.18",

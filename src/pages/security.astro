@@ -12,7 +12,7 @@ const schema={
 ---
 <BaseLayout
   title="Security — Camvella HOA Management Software"
-  description="How Camvella approaches tenant isolation, row-level security, private document storage, role-based access, auditability and secure infrastructure."
+  description="Camvella HOA software security: tenant isolation, server-authoritative roles, restricted financial grants, private document storage, accounting audit trails and access controls."
   canonical="https://camvella.com/security/"
   schema={schema}
 >
@@ -39,7 +39,7 @@ const schema={
     <div class="security-grid">
       <article><h3>Database-enforced tenant isolation</h3><p>Camvella uses PostgreSQL Row Level Security so authenticated access is scoped to the correct management company and association context at the database layer.</p></article>
       <article><h3>Private document storage</h3><p>Association, vendor, board, resident and operational files use private storage patterns with controlled access instead of permanent public file URLs.</p></article>
-      <article><h3>Role-based access</h3><p>Permissions are designed around owners, administrators, managers, accountants, board members, residents and other operational roles rather than one universal staff account.</p></article>
+      <article><h3>Role-based financial access</h3><p>Financial-access grants are restricted from direct browser modification, and journal posting and reversal primitives are limited to privileged internal workflows. Access is scoped to the current office and association; end-to-end accounting workflow verification is ongoing.</p><p style="margin-top: 8px;"><a href="/features/hoa-accounting" style="color: var(--clr-teal); text-decoration: underline;">Explore HOA accounting controls</a></p></article>
       <article><h3>Auditability</h3><p>Camvella includes audit-oriented records for sensitive workflows and administrative changes so authorized users can review important activity over time.</p></article>
       <article><h3>Server-side privileged access</h3><p>Service-role credentials and provider secrets are kept out of normal browser-managed settings. Privileged operations are separated from ordinary end-user access.</p></article>
       <article><h3>Encrypted transport</h3><p>Camvella is served over HTTPS and application traffic is protected in transit using modern TLS through its hosting and platform providers.</p></article>

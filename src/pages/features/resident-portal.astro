@@ -3,13 +3,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 ---
 <BaseLayout
   title="HOA Resident Portal | Camvella"
-  description="Mobile-first HOA resident portal. Violations, ARC requests, service requests, and account statements — self-service that reduces inbound calls to your office."
+  description="HOA resident portal for amenity reservations, ARC requests, violations, service requests and account statements, with association-scoped access."
 >
   <div style="padding-top: calc(64px + var(--space-16)); padding-bottom: var(--space-8); background: var(--clr-navy); color: white;">
     <div class="container">
       <p style="font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clr-amber-light); margin-bottom: var(--space-3);">Resident Portal</p>
       <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; max-width: 22ch; margin-bottom: var(--space-5); line-height: 1.1;">Residents who can answer their own questions stop calling yours.</h1>
-      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 52ch; margin-bottom: var(--space-8); line-height: 1.65;">A mobile-first resident portal covering violations, ARC requests, service requests, and account statements. Built for the phone, not a desktop browser they might not have.</p>
+      <p style="font-size: var(--text-lg); color: rgba(255 255 255 / 0.75); max-width: 52ch; margin-bottom: var(--space-8); line-height: 1.65;">A mobile-first resident portal covering violations, ARC requests, community amenity reservations, service requests, and account statements. Built for the phone, not a desktop browser they might not have.</p>
       <a href="/demo" class="btn btn--primary btn--lg" data-event="feature_page_cta_click">Book a Demo</a>
     </div>
   </div>
@@ -20,6 +20,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
           { title: "Mobile-First Design", body: "The resident portal is designed for the phone first. 44px touch targets, native inputs, safe-area padding for modern iPhone notches. Not a shrunken desktop UI." },
           { title: "Violation Status", body: "Residents see their open violations, their status, and what they need to do to resolve them. Fewer 'why am I getting fined?' calls." },
           { title: "ARC Submission", body: "Residents submit architectural review requests with photos, description, and supporting files directly from the portal." },
+          { title: "Amenity Reservations", body: "Residents request shared spaces and review or cancel future reservations. Booking limits and optional manager approvals protect each association. Paid booking checkout is not enabled yet." },
           { title: "Service Requests", body: "Residents report maintenance issues and track the status of their service requests from submission through completion." },
           { title: "Account Statement", body: "Residents can view their account balance and statement history — assessments, payments, late fees, credits — without calling for a statement." },
           { title: "Resident Profile", body: "Residents update their contact preferences, phone numbers, and communication preferences directly." },
@@ -30,6 +31,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
           </div>
         ))}
       </div>
+      <p style="margin-top: var(--space-8);"><a href="/features/amenity-reservations" class="btn btn--dark">Explore Amenity Reservations</a></p>
       <div style="margin-top: var(--space-8); padding: var(--space-6); background: var(--clr-surface); border-radius: var(--radius-lg); border-left: 4px solid var(--clr-teal);">
         <p style="font-size: var(--text-sm); font-weight: 700; color: var(--clr-navy); margin-bottom: var(--space-2);">What we won't advertise</p>
         <p style="font-size: var(--text-sm); color: var(--clr-text-mid); line-height: 1.65;">Camvella is a responsive web application. There is no separate native iOS or Android app available for download. The resident portal works on iOS Safari and Android Chrome — but it's a web app, not an App Store download.</p>

@@ -21,7 +21,10 @@ const schema = {
     "Resident portal",
     "Work orders and vendor management",
     "Email and SMS communications",
-    "Workflow automation"
+    "Workflow automation",
+    "Resident amenity reservations and management approvals",
+    "Printable board meeting packets",
+    "Mobile work-order and violation photo capture"
   ],
   "offers": {
     "@type": "AggregateOffer",
@@ -44,12 +47,12 @@ const capabilities = [
   {
     num: "03",
     title: "Board & Resident Portals",
-    body: "Board meetings, resolutions, minutes, and financial reports. Residents get a mobile-first portal for violations, ARC, service requests, and statements."
+    body: "Board meetings, resolutions, printable board packets, and financial reports. Residents get a mobile-first portal for violations, ARC, amenity reservations, service requests, and statements."
   },
   {
     num: "04",
     title: "Work Orders & Vendors",
-    body: "Maintenance from submission to completion. Vendor database with insurance compliance tracking and expiry alerts."
+    body: "Maintenance from submission to completion, including mobile camera photo capture. Vendor database with insurance compliance tracking and expiry alerts."
   },
   {
     num: "05",
@@ -71,7 +74,7 @@ const finFeatures = [
   "Full AP bill lifecycle: draft → approved → paid",
   "GL detail, balance sheet, income statement",
   "Budget management with board approval workflow",
-  "Board-accessible read-only financial views",
+  "Board-accessible read-only financial views and printable meeting packets",
 ]
 
 const faqs = [
@@ -85,11 +88,15 @@ const faqs = [
   },
   {
     q: "Does it have a resident-facing portal?",
-    a: "Yes. Residents get a mobile-first portal where they can view violation status, submit ARC requests, track service requests, access their account statement, and update their profile."
+    a: "Yes. Residents can view violations, submit ARC and service requests, access account statements, and request free amenity reservations. Associations can require management approval. Paid amenity bookings are not enabled yet."
   },
   {
     q: "How does the financial accounting work?",
     a: "Camvella has a full HOA accounting layer built specifically for fund accounting: AR with assessment schedules, AP with bill management, GL with journal entries, balance sheet, income statement, and budget vs. actual reporting."
+  },
+  {
+    q: "Can residents reserve community amenities?",
+    a: "Camvella supports association-scoped amenity reservations, booking histories, cancellation, capacity limits, and optional management approval. Online payment for paid reservations is not yet enabled."
   },
   {
     q: "Is there a mobile app?",
@@ -108,7 +115,7 @@ const faqs = [
 
 <BaseLayout
   title="HOA Management Software for Professional CAM Companies | Camvella"
-  description="Camvella is HOA management and community association management software for professional CAM companies. Run accounting, violations, ARC, boards, residents, work orders, vendors, communications and reporting in one platform."
+  description="Camvella HOA management software connects accounting, board packets, resident amenity reservations, violations, ARC, mobile field photos, vendors and reporting for CAM companies."
   schema={schema}
 >
   <!-- ─── Hero ──────────────────────────────────────────────────────────── -->
@@ -184,6 +191,7 @@ const faqs = [
         <a class="buyer-intent-card" href="/solutions/community-association-management-software"><h3>Community association management software</h3><p>One shared community record across finance, governance, compliance, residents, vendors and service workflows.</p></a>
         <a class="buyer-intent-card" href="/solutions/management-companies"><h3>Software for HOA management companies</h3><p>Multi-community operations for professional CAM companies managing portfolios, teams and association-specific records.</p></a>
         <a class="buyer-intent-card" href="/solutions/hoa-software-small-management-companies"><h3>HOA software for small management companies</h3><p>Accounting and operational depth without a heavyweight enterprise implementation.</p></a>
+        <a class="buyer-intent-card" href="/features/amenity-reservations"><h3>HOA amenity reservations</h3><p>Resident clubhouse and community-space booking, conflict controls, cancellation history, and optional management approval.</p></a>
         <a class="buyer-intent-card" href="/features/hoa-accounting"><h3>HOA accounting software</h3><p>Assessment billing, AR, AP, GL, budgets, financial statements and board-ready reporting.</p></a>
         <a class="buyer-intent-card" href="/compare"><h3>Compare HOA management software</h3><p>Evaluate Camvella against common association-management and property-management alternatives.</p></a>
       </div>
