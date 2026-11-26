@@ -12,6 +12,9 @@ async function walk(dir) {
 }
 const htmlFiles = (await walk(root)).filter(x => x.endsWith('index.html'))
 const indexable = new Map()
+const titleOwners = new Map()
+const descriptionOwners = new Map()
+const pendingLinks = []
 const head = (html) => html.split('</head>')[0] ?? ''
 for (const file of htmlFiles) {
   const rel = relative(root,file).split(sep).join('/')
@@ -28,7 +31,31 @@ for (const file of htmlFiles) {
   if (!/<meta\s+property="og:url"/i.test(h)) errors.push(`${path}: missing social URL`)
   if (h.includes('\\n  <meta')) errors.push(`${path}: escaped newline appears in head markup`)
   if (!/<script\s+type="application\/ld\+json"/i.test(h)) errors.push(`${path}: missing structured data`)
+  const pageTitle = h.match(/<title>([^<]+)<\\/title>/i)?.[1]?.trim()
+  const pageDescription = h.match(/<meta\\s+name="description"\\s+content="([^"]+)"/i)?.[1]?.trim()
+  if (pageTitle) {
+    if (titleOwners.has(pageTitle)) errors.push(`${path}: duplicate title with ${titleOwners.get(pageTitle)}`)
+    else titleOwners.set(pageTitle,path)
+  }
+  if (pageDescription) {
+    if (descriptionOwners.has(pageDescription)) errors.push(`${path}: duplicate meta description with ${descriptionOwners.get(pageDescription)}`)
+    else descriptionOwners.set(pageDescription,path)
+  }
+  for (const link of html.matchAll(/<a\\b[^>]*\\bhref="([^"]+)"/gi)) pendingLinks.push({from:path,href:link[1]})
   indexable.set(expected,path)
+}
+// Every internal navigation link must resolve to an actual generated page or
+// published public asset. Link checking is independent of whether a target is noindex.
+const generatedFiles = new Set((await walk(root)).map(file => relative(root,file).split(sep).join('/')))
+for (const {from,href} of pendingLinks) {
+  if (!href.startsWith('/') || href.startsWith('//')) continue
+  const pathname = href.split(/[?#]/,1)[0]
+  if (!pathname) continue
+  const dest = decodeURIComponent(pathname).replace(/^\\/+/, '')
+  const candidate = dest.endsWith('/') ? dest + 'index.html' : dest + '/index.html'
+  if (!generatedFiles.has(candidate) && !generatedFiles.has(dest)) {
+    errors.push(`${from}: broken internal link ${href}`)
+  }
 }
 const sitemap = await read('sitemap.xml')
 const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(x=>x[1])
