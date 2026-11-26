@@ -68,7 +68,7 @@ for(const [route,links] of [
   for(const url of links) if(!html.includes('href="'+url+'"'))errors.push(`${route}: missing buyer path ${url}`)
 }
 const demoPage = await read('demo/index.html')
-if((demoPage.match(/<main\\b/g)||[]).length > 1)errors.push('demo page has nested main landmarks')
+if((demoPage.match(/<main\b/g)||[]).length > 1)errors.push('demo page has nested main landmarks')
 if(!demoPage.includes('id="camvella-scheduler"'))errors.push('demo scheduler missing')
 const homepage = await read('index.html')
 if(!homepage.includes('G-H1ZPCP2EE9') || !homepage.includes('y62zna7yna'))errors.push('GA4/Clarity bootstrap missing')
